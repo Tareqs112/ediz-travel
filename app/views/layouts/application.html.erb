@@ -28,14 +28,14 @@
           
           <!-- Logo -->
           <div class="flex-shrink-0 flex items-center">
-            <a href="/" class="block">
+            <%= link_to root_path, class: "block" do %>
               <%= image_tag "ediz-travel-logo.png", alt: "61 EDİZ TRAVEL", class: "h-10 md:h-12 w-auto object-contain" %>
-            </a>
+            <% end %>
           </div>
 
           <!-- Desktop Navigation -->
           <nav class="hidden lg:flex items-center gap-5 xl:gap-8">
-            <a href="#" class="link-nav whitespace-nowrap">Tours</a>
+            <%= link_to "Tours", tours_path, class: "link-nav whitespace-nowrap" %>
             <a href="#" class="link-nav whitespace-nowrap">Destinations</a>
             <a href="#" class="link-nav whitespace-nowrap">Airport Transfer</a>
             <a href="#" class="link-nav whitespace-nowrap">Private Tours</a>
@@ -55,9 +55,7 @@
               [WhatsApp]
             </a>
             <!-- CTA -->
-            <a href="#" class="btn-primary whitespace-nowrap">
-              Book Your Trip
-            </a>
+            <%= link_to "Book Your Trip", plan_your_trip_path, class: "btn-primary whitespace-nowrap" %>
           </div>
 
           <!-- Mobile menu button -->
@@ -80,7 +78,7 @@
       <!-- Mobile Menu Panel -->
       <div data-mobile-menu-target="menu" class="hidden lg:hidden border-t border-brand-gray-200 bg-white shadow-xl absolute w-full inset-x-0 overflow-y-auto max-h-[calc(100vh-5rem)]">
         <div class="px-4 py-4 space-y-2 sm:px-6">
-          <a href="#" class="block px-4 py-3 text-base font-semibold text-brand-charcoal-900 hover:bg-brand-gray-50 rounded-lg">Tours</a>
+          <%= link_to "Tours", tours_path, class: "block px-4 py-3 text-base font-semibold text-brand-charcoal-900 hover:bg-brand-gray-50 rounded-lg" %>
           <a href="#" class="block px-4 py-3 text-base font-semibold text-brand-charcoal-900 hover:bg-brand-gray-50 rounded-lg">Destinations</a>
           <a href="#" class="block px-4 py-3 text-base font-semibold text-brand-charcoal-900 hover:bg-brand-gray-50 rounded-lg">Airport Transfer</a>
           <a href="#" class="block px-4 py-3 text-base font-semibold text-brand-charcoal-900 hover:bg-brand-gray-50 rounded-lg">Private Tours</a>
