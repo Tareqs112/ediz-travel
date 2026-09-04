@@ -16,7 +16,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   </head>
 
   <body class="flex flex-col min-h-screen font-sans text-brand-charcoal-900">
@@ -36,7 +36,7 @@
           </div>
 
           <!-- Desktop Navigation -->
-          <nav class="hidden lg:flex md:space-x-8">
+          <nav class="hidden lg:flex gap-8">
             <a href="#" class="link-nav">Tours</a>
             <a href="#" class="link-nav">Destinations</a>
             <a href="#" class="link-nav">Airport Transfer</a>
@@ -46,7 +46,7 @@
           </nav>
 
           <!-- Desktop Right Section -->
-          <div class="hidden lg:flex items-center space-x-6">
+          <div class="hidden lg:flex items-center gap-6">
             <!-- Language Selector Placeholder -->
             <div class="text-sm font-medium text-brand-charcoal-700 cursor-pointer hover:text-brand-green-700">
               EN / TR / AR
@@ -80,7 +80,7 @@
       </div>
 
       <!-- Mobile Menu Panel -->
-      <div data-mobile-menu-target="menu" class="hidden lg:hidden border-t border-brand-gray-200 bg-white shadow-lg absolute w-full left-0">
+      <div data-mobile-menu-target="menu" class="hidden lg:hidden border-t border-brand-gray-200 bg-white shadow-lg absolute w-full inset-x-0">
         <div class="px-4 pt-2 pb-6 space-y-1 sm:px-6">
           <a href="#" class="block px-3 py-2 text-base font-medium text-brand-charcoal-900 hover:bg-brand-gray-50 rounded-md">Tours</a>
           <a href="#" class="block px-3 py-2 text-base font-medium text-brand-charcoal-900 hover:bg-brand-gray-50 rounded-md">Destinations</a>
@@ -99,7 +99,7 @@
     </header>
 
     <!-- Main Content -->
-    <main class="flex-grow pb-16 lg:pb-0">
+    <main class="flex-grow pb-[calc(4rem+env(safe-area-inset-bottom))] lg:pb-0">
       <%= yield %>
     </main>
 
@@ -160,7 +160,7 @@
         
         <div class="border-t border-brand-charcoal-700 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-brand-gray-200">
           <p>&copy; <%= Time.current.year %> 61 EDİZ TRAVEL. All rights reserved.</p>
-          <div class="flex space-x-4 mt-4 md:mt-0">
+          <div class="flex gap-4 mt-4 md:mt-0">
             <span>Trabzon, Türkiye</span>
           </div>
         </div>
@@ -168,12 +168,12 @@
     </footer>
 
     <!-- Mobile Sticky CTA (Hidden on Desktop) -->
-    <div class="lg:hidden fixed bottom-0 left-0 w-full bg-white border-t border-brand-gray-200 p-3 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-40 flex gap-3">
-      <a href="#" class="flex-1 flex justify-center items-center gap-2 bg-[#25D366] text-white font-medium py-3 px-4 rounded-lg shadow-sm">
+    <div class="lg:hidden fixed bottom-0 inset-x-0 w-full bg-white border-t border-brand-gray-200 p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-40 flex gap-3">
+      <a href="#" class="flex-1 flex justify-center items-center gap-2 bg-[#25D366] text-white font-medium py-3 px-4 rounded-lg shadow-sm active:bg-green-600 transition-colors">
         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12.002 22A10.002 10.002 0 013.415 15.11l-1.077 3.93 4.025-1.055A9.957 9.957 0 0112 22c5.514 0 10-4.486 10-10S17.514 2 12 2 2 6.486 2 12c0 1.76.457 3.407 1.25 4.846L2.016 21.4l4.673-1.226A9.972 9.972 0 0112 22z"/></svg>
         [WhatsApp]
       </a>
-      <a href="#" class="flex-1 flex justify-center items-center bg-brand-green-700 text-white font-medium py-3 px-4 rounded-lg shadow-sm">
+      <a href="#" class="flex-1 flex justify-center items-center bg-brand-green-700 text-white font-medium py-3 px-4 rounded-lg shadow-sm active:bg-brand-green-800 transition-colors">
         Book Now
       </a>
     </div>
