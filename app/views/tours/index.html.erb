@@ -1,0 +1,26 @@
+<div class="container-main py-24 min-h-screen">
+  <h1 class="text-4xl font-sans font-bold text-brand-charcoal-900 mb-10">All Tours</h1>
+  
+  <% if @tours.any? %>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <% @tours.each do |tour| %>
+        <div class="p-6 border border-brand-gray-200 rounded-xl bg-white shadow-sm">
+          <h2 class="text-xl font-medium text-brand-charcoal-900 mb-2"><%= tour.title %></h2>
+          <span class="inline-block px-3 py-1 bg-brand-green-50 text-brand-green-700 text-xs font-semibold rounded-full mb-4">
+            Active
+          </span>
+          <p class="text-brand-charcoal-600 font-light mb-4 line-clamp-3">
+            <%= tour.description %>
+          </p>
+          <div class="text-sm text-brand-gray-300 font-mono">
+            Slug: <%= tour.slug %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="p-12 text-center bg-brand-gray-50 border border-brand-gray-200 rounded-xl">
+      <p class="text-lg text-brand-charcoal-600">No active tours found in the database.</p>
+    </div>
+  <% end %>
+</div>
