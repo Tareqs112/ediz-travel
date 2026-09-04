@@ -24,54 +24,56 @@
     <!-- Navbar -->
     <header class="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-sm border-b border-brand-gray-200 shadow-sm" data-controller="mobile-menu">
       <div class="container-main">
-        <div class="flex items-center justify-between h-20">
+        <div class="flex items-center justify-between h-20 lg:h-24">
           
           <!-- Logo -->
-          <div class="flex-shrink-0">
-            <a href="/" class="flex items-center gap-2 group">
-              <span class="text-2xl font-bold tracking-tighter text-brand-green-900">
-                <span class="text-brand-gold-500">61</span> EDİZ TRAVEL
-              </span>
+          <div class="flex-shrink-0 flex items-center">
+            <a href="/" class="block">
+              <% if File.exist?(Rails.root.join("app/assets/images/ediz-travel-logo.png")) %>
+                <%= image_tag "ediz-travel-logo.png", alt: "61 EDİZ TRAVEL", class: "h-10 md:h-12 w-auto object-contain" %>
+              <% else %>
+                <div class="h-10 md:h-12 w-32 md:w-40 bg-brand-gray-100 rounded"></div>
+              <% end %>
             </a>
           </div>
 
           <!-- Desktop Navigation -->
-          <nav class="hidden lg:flex gap-8">
-            <a href="#" class="link-nav">Tours</a>
-            <a href="#" class="link-nav">Destinations</a>
-            <a href="#" class="link-nav">Airport Transfer</a>
-            <a href="#" class="link-nav">Private Tours</a>
-            <a href="#" class="link-nav">Packages</a>
-            <a href="#" class="link-nav">Travel Guide</a>
+          <nav class="hidden lg:flex items-center gap-5 xl:gap-8">
+            <a href="#" class="link-nav whitespace-nowrap">Tours</a>
+            <a href="#" class="link-nav whitespace-nowrap">Destinations</a>
+            <a href="#" class="link-nav whitespace-nowrap">Airport Transfer</a>
+            <a href="#" class="link-nav whitespace-nowrap">Private Tours</a>
+            <a href="#" class="link-nav whitespace-nowrap">Packages</a>
+            <a href="#" class="link-nav whitespace-nowrap">Travel Guide</a>
           </nav>
 
           <!-- Desktop Right Section -->
-          <div class="hidden lg:flex items-center gap-6">
+          <div class="hidden lg:flex items-center gap-5 xl:gap-6">
             <!-- Language Selector Placeholder -->
-            <div class="text-sm font-medium text-brand-charcoal-700 cursor-pointer hover:text-brand-green-700">
+            <div class="text-sm font-semibold text-brand-charcoal-700 cursor-pointer hover:text-brand-green-700 whitespace-nowrap">
               EN / TR / AR
             </div>
             <!-- WhatsApp Placeholder -->
-            <a href="#" class="text-brand-green-600 hover:text-brand-green-700 flex items-center gap-1 font-medium">
+            <a href="#" class="text-brand-green-600 hover:text-brand-green-700 flex items-center gap-1.5 font-medium whitespace-nowrap">
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12.002 22A10.002 10.002 0 013.415 15.11l-1.077 3.93 4.025-1.055A9.957 9.957 0 0112 22c5.514 0 10-4.486 10-10S17.514 2 12 2 2 6.486 2 12c0 1.76.457 3.407 1.25 4.846L2.016 21.4l4.673-1.226A9.972 9.972 0 0112 22z"/></svg>
               [WhatsApp]
             </a>
             <!-- CTA -->
-            <a href="#" class="btn-primary">
+            <a href="#" class="btn-primary whitespace-nowrap">
               Book Your Trip
             </a>
           </div>
 
           <!-- Mobile menu button -->
           <div class="flex items-center lg:hidden">
-            <button type="button" data-action="click->mobile-menu#toggle" class="text-brand-charcoal-700 hover:text-brand-green-700 focus:outline-none p-2" aria-expanded="false">
+            <button type="button" data-action="click->mobile-menu#toggle" class="text-brand-charcoal-700 hover:text-brand-green-700 focus:outline-none p-2 -mr-2" aria-expanded="false">
               <span class="sr-only">Open main menu</span>
               <!-- Hamburger -->
-              <svg data-mobile-menu-target="openIcon" class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg data-mobile-menu-target="openIcon" class="block h-7 w-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
               </svg>
               <!-- Close (X) -->
-              <svg data-mobile-menu-target="closeIcon" class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg data-mobile-menu-target="closeIcon" class="hidden h-7 w-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
@@ -80,18 +82,18 @@
       </div>
 
       <!-- Mobile Menu Panel -->
-      <div data-mobile-menu-target="menu" class="hidden lg:hidden border-t border-brand-gray-200 bg-white shadow-lg absolute w-full inset-x-0">
-        <div class="px-4 pt-2 pb-6 space-y-1 sm:px-6">
-          <a href="#" class="block px-3 py-2 text-base font-medium text-brand-charcoal-900 hover:bg-brand-gray-50 rounded-md">Tours</a>
-          <a href="#" class="block px-3 py-2 text-base font-medium text-brand-charcoal-900 hover:bg-brand-gray-50 rounded-md">Destinations</a>
-          <a href="#" class="block px-3 py-2 text-base font-medium text-brand-charcoal-900 hover:bg-brand-gray-50 rounded-md">Airport Transfer</a>
-          <a href="#" class="block px-3 py-2 text-base font-medium text-brand-charcoal-900 hover:bg-brand-gray-50 rounded-md">Private Tours</a>
-          <a href="#" class="block px-3 py-2 text-base font-medium text-brand-charcoal-900 hover:bg-brand-gray-50 rounded-md">Packages</a>
-          <a href="#" class="block px-3 py-2 text-base font-medium text-brand-charcoal-900 hover:bg-brand-gray-50 rounded-md">Travel Guide</a>
+      <div data-mobile-menu-target="menu" class="hidden lg:hidden border-t border-brand-gray-200 bg-white shadow-xl absolute w-full inset-x-0 overflow-y-auto max-h-[calc(100vh-5rem)]">
+        <div class="px-4 py-4 space-y-2 sm:px-6">
+          <a href="#" class="block px-4 py-3 text-base font-semibold text-brand-charcoal-900 hover:bg-brand-gray-50 rounded-lg">Tours</a>
+          <a href="#" class="block px-4 py-3 text-base font-semibold text-brand-charcoal-900 hover:bg-brand-gray-50 rounded-lg">Destinations</a>
+          <a href="#" class="block px-4 py-3 text-base font-semibold text-brand-charcoal-900 hover:bg-brand-gray-50 rounded-lg">Airport Transfer</a>
+          <a href="#" class="block px-4 py-3 text-base font-semibold text-brand-charcoal-900 hover:bg-brand-gray-50 rounded-lg">Private Tours</a>
+          <a href="#" class="block px-4 py-3 text-base font-semibold text-brand-charcoal-900 hover:bg-brand-gray-50 rounded-lg">Packages</a>
+          <a href="#" class="block px-4 py-3 text-base font-semibold text-brand-charcoal-900 hover:bg-brand-gray-50 rounded-lg">Travel Guide</a>
           
-          <div class="mt-4 pt-4 border-t border-brand-gray-200">
-            <div class="flex flex-col gap-4 px-3">
-              <span class="text-sm font-medium text-brand-charcoal-700">Language: EN / TR / AR</span>
+          <div class="mt-6 pt-6 border-t border-brand-gray-200">
+            <div class="flex flex-col gap-4 px-4">
+              <span class="text-sm font-semibold text-brand-charcoal-700">Language: EN / TR / AR</span>
             </div>
           </div>
         </div>
@@ -99,7 +101,7 @@
     </header>
 
     <!-- Main Content -->
-    <main class="flex-grow pb-[calc(4rem+env(safe-area-inset-bottom))] lg:pb-0">
+    <main class="flex-grow pb-[calc(4.5rem+env(safe-area-inset-bottom))] lg:pb-0">
       <%= yield %>
     </main>
 
@@ -110,57 +112,62 @@
           
           <!-- Brand Info -->
           <div class="lg:col-span-2">
-            <span class="text-2xl font-bold tracking-tighter text-white block mb-4">
-              <span class="text-brand-gold-500">61</span> EDİZ TRAVEL
-            </span>
-            <p class="text-brand-gray-200 mb-6 max-w-sm">
+            <a href="/" class="block mb-6">
+              <% if File.exist?(Rails.root.join("app/assets/images/ediz-travel-logo.png")) %>
+                <%= image_tag "ediz-travel-logo.png", alt: "61 EDİZ TRAVEL", class: "h-12 md:h-16 w-auto object-contain" %>
+              <% else %>
+                <div class="h-12 md:h-16 w-40 bg-brand-charcoal-800 rounded border border-brand-charcoal-700"></div>
+              <% end %>
+            </a>
+            
+            <p class="text-brand-gray-200 mb-8 max-w-sm leading-relaxed">
               Premium travel agency offering unforgettable experiences in Trabzon and the Eastern Black Sea region.
             </p>
-            <div class="inline-flex items-center gap-3 bg-brand-charcoal-800 px-4 py-3 rounded-lg border border-brand-charcoal-700">
+            <div class="inline-flex items-center gap-4 bg-brand-charcoal-800 px-5 py-4 rounded-xl border border-brand-charcoal-700 shadow-sm">
               <div class="text-brand-gold-500">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
               </div>
               <div>
-                <p class="text-xs text-brand-gray-200 uppercase tracking-wider font-semibold">TÜRSAB Licensed Travel Agency</p>
-                <p class="text-sm font-medium text-white">Document No: 15956</p>
+                <p class="text-xs text-brand-gray-200 uppercase tracking-wider font-bold mb-0.5">TÜRSAB Licensed</p>
+                <p class="text-sm font-semibold text-white">Document No: 15956</p>
               </div>
             </div>
           </div>
 
           <!-- Links -->
           <div>
-            <h3 class="text-lg font-semibold mb-4 text-white">Explore</h3>
-            <ul class="space-y-3">
-              <li><a href="#" class="text-brand-gray-200 hover:text-white transition">Tours</a></li>
-              <li><a href="#" class="text-brand-gray-200 hover:text-white transition">Destinations</a></li>
-              <li><a href="#" class="text-brand-gray-200 hover:text-white transition">Packages</a></li>
-              <li><a href="#" class="text-brand-gray-200 hover:text-white transition">Travel Guide</a></li>
+            <h3 class="text-lg font-semibold mb-5 text-white">Explore</h3>
+            <ul class="space-y-4">
+              <li><a href="#" class="text-brand-gray-200 hover:text-white hover:underline transition">Tours</a></li>
+              <li><a href="#" class="text-brand-gray-200 hover:text-white hover:underline transition">Destinations</a></li>
+              <li><a href="#" class="text-brand-gray-200 hover:text-white hover:underline transition">Packages</a></li>
+              <li><a href="#" class="text-brand-gray-200 hover:text-white hover:underline transition">Travel Guide</a></li>
             </ul>
           </div>
           
           <div>
-            <h3 class="text-lg font-semibold mb-4 text-white">Services</h3>
-            <ul class="space-y-3">
-              <li><a href="#" class="text-brand-gray-200 hover:text-white transition">Private Tours</a></li>
-              <li><a href="#" class="text-brand-gray-200 hover:text-white transition">Airport Transfer</a></li>
-              <li><a href="#" class="text-brand-gray-200 hover:text-white transition">Corporate</a></li>
+            <h3 class="text-lg font-semibold mb-5 text-white">Services</h3>
+            <ul class="space-y-4">
+              <li><a href="#" class="text-brand-gray-200 hover:text-white hover:underline transition">Private Tours</a></li>
+              <li><a href="#" class="text-brand-gray-200 hover:text-white hover:underline transition">Airport Transfer</a></li>
+              <li><a href="#" class="text-brand-gray-200 hover:text-white hover:underline transition">Corporate</a></li>
             </ul>
           </div>
           
           <div>
-            <h3 class="text-lg font-semibold mb-4 text-white">Company</h3>
-            <ul class="space-y-3">
-              <li><a href="#" class="text-brand-gray-200 hover:text-white transition">About Us</a></li>
-              <li><a href="#" class="text-brand-gray-200 hover:text-white transition">Contact</a></li>
-              <li><a href="#" class="text-brand-gray-200 hover:text-white transition">Legal</a></li>
+            <h3 class="text-lg font-semibold mb-5 text-white">Company</h3>
+            <ul class="space-y-4">
+              <li><a href="#" class="text-brand-gray-200 hover:text-white hover:underline transition">About Us</a></li>
+              <li><a href="#" class="text-brand-gray-200 hover:text-white hover:underline transition">Contact</a></li>
+              <li><a href="#" class="text-brand-gray-200 hover:text-white hover:underline transition">Legal</a></li>
             </ul>
           </div>
 
         </div>
         
-        <div class="border-t border-brand-charcoal-700 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-brand-gray-200">
+        <div class="border-t border-brand-charcoal-700 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-brand-gray-300">
           <p>&copy; <%= Time.current.year %> 61 EDİZ TRAVEL. All rights reserved.</p>
-          <div class="flex gap-4 mt-4 md:mt-0">
+          <div class="flex gap-4 mt-4 md:mt-0 font-medium">
             <span>Trabzon, Türkiye</span>
           </div>
         </div>
@@ -168,12 +175,12 @@
     </footer>
 
     <!-- Mobile Sticky CTA (Hidden on Desktop) -->
-    <div class="lg:hidden fixed bottom-0 inset-x-0 w-full bg-white border-t border-brand-gray-200 p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-40 flex gap-3">
-      <a href="#" class="flex-1 flex justify-center items-center gap-2 bg-[#25D366] text-white font-medium py-3 px-4 rounded-lg shadow-sm active:bg-green-600 transition-colors">
+    <div class="lg:hidden fixed bottom-0 inset-x-0 w-full bg-white border-t border-brand-gray-200 p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] shadow-[0_-8px_15px_-3px_rgba(0,0,0,0.1)] z-40 flex gap-3">
+      <a href="#" class="flex-1 flex justify-center items-center gap-2 bg-[#25D366] text-white font-semibold py-3.5 px-4 rounded-xl shadow-sm active:bg-green-600 transition-colors">
         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12.002 22A10.002 10.002 0 013.415 15.11l-1.077 3.93 4.025-1.055A9.957 9.957 0 0112 22c5.514 0 10-4.486 10-10S17.514 2 12 2 2 6.486 2 12c0 1.76.457 3.407 1.25 4.846L2.016 21.4l4.673-1.226A9.972 9.972 0 0112 22z"/></svg>
         [WhatsApp]
       </a>
-      <a href="#" class="flex-1 flex justify-center items-center bg-brand-green-700 text-white font-medium py-3 px-4 rounded-lg shadow-sm active:bg-brand-green-800 transition-colors">
+      <a href="#" class="flex-1 flex justify-center items-center bg-brand-green-700 text-white font-semibold py-3.5 px-4 rounded-xl shadow-sm active:bg-brand-green-800 transition-colors">
         Book Now
       </a>
     </div>
