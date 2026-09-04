@@ -226,7 +226,7 @@
                 <%= tour.description.sub(/\A\[DEVELOPMENT PLACEHOLDER\]\s*/, "") %>
               </p>
               <div class="mt-auto pt-6 border-t border-brand-gray-100 flex items-center justify-between">
-                <a href="#" class="inline-flex items-center text-sm font-medium text-brand-charcoal-900 group-hover:text-brand-gold-500 transition-colors uppercase tracking-widest">
+                <a href="<%= tour_path(tour) %>" class="inline-flex items-center text-sm font-medium text-brand-charcoal-900 group-hover:text-brand-gold-500 transition-colors uppercase tracking-widest">
                   Explore Tour
                 </a>
                 <span class="text-brand-charcoal-900 group-hover:text-brand-gold-500 transition-transform duration-500 group-hover:translate-x-1">&rarr;</span>
