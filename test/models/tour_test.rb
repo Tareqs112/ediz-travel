@@ -1,7 +1,8 @@
 require "test_helper"
 
 class TourTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "should have an image attachment" do
+    tour = Tour.new
+    assert tour.respond_to?(:image)
+  end
 end
