@@ -50,107 +50,127 @@
 </section>
 
 <!-- Services Section -->
-<section class="bg-white py-24 lg:py-32 border-t border-brand-charcoal-900/5">
+<section class="bg-[#faf9f6] py-24 lg:py-32 relative">
   <div class="container-main">
     
-    <!-- Section Header -->
-    <div class="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20 lg:mb-28">
-      <div class="max-w-2xl">
-        <div class="mb-6 inline-flex items-center gap-4">
-          <span class="w-12 h-[1px] bg-brand-gold-500 opacity-80"></span>
-          <span class="text-brand-gold-500 font-semibold tracking-[0.2em] text-xs sm:text-sm uppercase">Our Services</span>
-        </div>
-        <h2 class="text-4xl lg:text-5xl font-sans font-medium text-brand-charcoal-900 tracking-tight leading-tight">
-          Travel Your Way
-        </h2>
-      </div>
-      <div class="max-w-md md:pb-2">
-        <p class="text-lg text-brand-charcoal-600 font-light leading-relaxed">
-          From private tours to seamless transfers, discover experiences designed around your journey.
-        </p>
-      </div>
-    </div>
-
-    <!-- Services Grid (Editorial border structure) -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-t border-l border-brand-gray-200">
+    <div class="flex flex-col lg:flex-row gap-16 lg:gap-24">
       
-      <!-- Card 1: Private Tours -->
-      <div class="group border-b border-r border-brand-gray-200 p-8 lg:p-10 flex flex-col hover:bg-brand-gray-50 transition-colors duration-500">
-        <div class="flex items-start justify-between mb-12">
-          <div class="w-14 h-14 rounded-full bg-brand-green-50 flex items-center justify-center text-brand-green-700 group-hover:bg-brand-green-700 group-hover:text-white transition-colors duration-500">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
-              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
-            </svg>
+      <!-- Sticky Header Column -->
+      <div class="w-full lg:w-5/12 xl:w-1/3">
+        <div class="sticky top-32">
+          <div class="mb-6 inline-flex items-center gap-4">
+            <span class="w-12 h-[1px] bg-brand-gold-500 opacity-80"></span>
+            <span class="text-brand-gold-500 font-semibold tracking-[0.2em] text-xs sm:text-sm uppercase">Our Services</span>
           </div>
-          <span class="text-3xl font-light text-brand-gray-200 font-sans tracking-tighter">01</span>
+          <h2 class="text-4xl lg:text-5xl font-sans font-medium text-brand-charcoal-900 tracking-tight leading-[1.1] mb-6">
+            Travel Your Way
+          </h2>
+          <p class="text-lg text-brand-charcoal-600 font-light leading-relaxed">
+            From private tours to seamless transfers, discover experiences designed around your journey.
+          </p>
         </div>
-        <h3 class="text-xl font-medium text-brand-charcoal-900 mb-4">Private Tours</h3>
-        <p class="text-brand-charcoal-600 font-light leading-relaxed mb-8 flex-grow">
-          Explore Trabzon and the Black Sea with a journey tailored to you.
-        </p>
-        <a href="#" class="inline-flex items-center text-sm font-medium text-brand-gold-500 hover:text-brand-gold-400 transition-colors mt-auto uppercase tracking-wider">
-          Discover <span class="ml-2 transition-transform group-hover:translate-x-1">&rarr;</span>
-        </a>
       </div>
 
-      <!-- Card 2: Airport Transfer -->
-      <div class="group border-b border-r border-brand-gray-200 p-8 lg:p-10 flex flex-col hover:bg-brand-gray-50 transition-colors duration-500">
-        <div class="flex items-start justify-between mb-12">
-          <div class="w-14 h-14 rounded-full bg-brand-green-50 flex items-center justify-center text-brand-green-700 group-hover:bg-brand-green-700 group-hover:text-white transition-colors duration-500">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12" />
-            </svg>
+      <!-- Services List -->
+      <div class="w-full lg:w-7/12 xl:w-2/3 flex flex-col border-t border-brand-charcoal-900/10">
+        
+        <!-- Service 1: Private Tours -->
+        <div class="group flex flex-col sm:flex-row items-start gap-6 sm:gap-10 py-10 lg:py-12 border-b border-brand-charcoal-900/10 hover:border-brand-gold-400 transition-colors duration-500 cursor-pointer">
+          <!-- Number -->
+          <div class="flex-shrink-0 w-12 sm:w-16">
+            <span class="text-3xl font-light text-brand-charcoal-900/20 group-hover:text-brand-gold-500 transition-colors duration-500 font-sans tracking-tighter">01</span>
           </div>
-          <span class="text-3xl font-light text-brand-gray-200 font-sans tracking-tighter">02</span>
-        </div>
-        <h3 class="text-xl font-medium text-brand-charcoal-900 mb-4">Airport Transfer</h3>
-        <p class="text-brand-charcoal-600 font-light leading-relaxed mb-8 flex-grow">
-          Comfortable, reliable transfers between Trabzon Airport and your destination.
-        </p>
-        <a href="#" class="inline-flex items-center text-sm font-medium text-brand-gold-500 hover:text-brand-gold-400 transition-colors mt-auto uppercase tracking-wider">
-          Reserve <span class="ml-2 transition-transform group-hover:translate-x-1">&rarr;</span>
-        </a>
-      </div>
-
-      <!-- Card 3: Custom Trips -->
-      <div class="group border-b border-r border-brand-gray-200 p-8 lg:p-10 flex flex-col hover:bg-brand-gray-50 transition-colors duration-500">
-        <div class="flex items-start justify-between mb-12">
-          <div class="w-14 h-14 rounded-full bg-brand-green-50 flex items-center justify-center text-brand-green-700 group-hover:bg-brand-green-700 group-hover:text-white transition-colors duration-500">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M15.042 21.672L13.684 16.6m0 0l-2.51 2.225.569-9.47 5.227 7.917-3.286-.672zM12 2.25V4.5m5.834.166l-1.591 1.591M20.25 10.5H18M7.757 14.743l-1.59 1.59M6 10.5H3.75m4.007-4.243l-1.59-1.59" />
-            </svg>
+          
+          <!-- Content -->
+          <div class="flex-grow">
+            <div class="flex items-center gap-5 mb-5">
+              <div class="text-brand-charcoal-900 group-hover:text-brand-green-700 transition-colors duration-500">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.25">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                </svg>
+              </div>
+              <h3 class="text-2xl font-medium text-brand-charcoal-900 group-hover:text-brand-green-800 transition-colors duration-500">Private Tours</h3>
+            </div>
+            <p class="text-lg text-brand-charcoal-600 font-light leading-relaxed mb-6 max-w-xl">
+              Explore Trabzon and the Black Sea with a journey tailored to you.
+            </p>
+            <div class="inline-flex items-center text-sm font-medium text-brand-charcoal-900 group-hover:text-brand-gold-500 transition-colors duration-500 uppercase tracking-widest">
+              Discover <span class="ml-2 transition-transform duration-500 group-hover:translate-x-2">&rarr;</span>
+            </div>
           </div>
-          <span class="text-3xl font-light text-brand-gray-200 font-sans tracking-tighter">03</span>
         </div>
-        <h3 class="text-xl font-medium text-brand-charcoal-900 mb-4">Custom Trips</h3>
-        <p class="text-brand-charcoal-600 font-light leading-relaxed mb-8 flex-grow">
-          Build a personalized itinerary around the places and experiences you want to discover.
-        </p>
-        <a href="#" class="inline-flex items-center text-sm font-medium text-brand-gold-500 hover:text-brand-gold-400 transition-colors mt-auto uppercase tracking-wider">
-          Start planning <span class="ml-2 transition-transform group-hover:translate-x-1">&rarr;</span>
-        </a>
-      </div>
 
-      <!-- Card 4: Travel Packages -->
-      <div class="group border-b border-r border-brand-gray-200 p-8 lg:p-10 flex flex-col hover:bg-brand-gray-50 transition-colors duration-500">
-        <div class="flex items-start justify-between mb-12">
-          <div class="w-14 h-14 rounded-full bg-brand-green-50 flex items-center justify-center text-brand-green-700 group-hover:bg-brand-green-700 group-hover:text-white transition-colors duration-500">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z" />
-            </svg>
+        <!-- Service 2: Airport Transfer -->
+        <div class="group flex flex-col sm:flex-row items-start gap-6 sm:gap-10 py-10 lg:py-12 border-b border-brand-charcoal-900/10 hover:border-brand-gold-400 transition-colors duration-500 cursor-pointer">
+          <div class="flex-shrink-0 w-12 sm:w-16">
+            <span class="text-3xl font-light text-brand-charcoal-900/20 group-hover:text-brand-gold-500 transition-colors duration-500 font-sans tracking-tighter">02</span>
           </div>
-          <span class="text-3xl font-light text-brand-gray-200 font-sans tracking-tighter">04</span>
+          <div class="flex-grow">
+            <div class="flex items-center gap-5 mb-5">
+              <div class="text-brand-charcoal-900 group-hover:text-brand-green-700 transition-colors duration-500">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.25">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12" />
+                </svg>
+              </div>
+              <h3 class="text-2xl font-medium text-brand-charcoal-900 group-hover:text-brand-green-800 transition-colors duration-500">Airport Transfer</h3>
+            </div>
+            <p class="text-lg text-brand-charcoal-600 font-light leading-relaxed mb-6 max-w-xl">
+              Comfortable, reliable transfers between Trabzon Airport and your destination.
+            </p>
+            <div class="inline-flex items-center text-sm font-medium text-brand-charcoal-900 group-hover:text-brand-gold-500 transition-colors duration-500 uppercase tracking-widest">
+              Reserve <span class="ml-2 transition-transform duration-500 group-hover:translate-x-2">&rarr;</span>
+            </div>
+          </div>
         </div>
-        <h3 class="text-xl font-medium text-brand-charcoal-900 mb-4">Travel Packages</h3>
-        <p class="text-brand-charcoal-600 font-light leading-relaxed mb-8 flex-grow">
-          Thoughtfully planned journeys combining destinations, experiences, and essential travel services.
-        </p>
-        <a href="#" class="inline-flex items-center text-sm font-medium text-brand-gold-500 hover:text-brand-gold-400 transition-colors mt-auto uppercase tracking-wider">
-          View packages <span class="ml-2 transition-transform group-hover:translate-x-1">&rarr;</span>
-        </a>
-      </div>
 
+        <!-- Service 3: Custom Trips -->
+        <div class="group flex flex-col sm:flex-row items-start gap-6 sm:gap-10 py-10 lg:py-12 border-b border-brand-charcoal-900/10 hover:border-brand-gold-400 transition-colors duration-500 cursor-pointer">
+          <div class="flex-shrink-0 w-12 sm:w-16">
+            <span class="text-3xl font-light text-brand-charcoal-900/20 group-hover:text-brand-gold-500 transition-colors duration-500 font-sans tracking-tighter">03</span>
+          </div>
+          <div class="flex-grow">
+            <div class="flex items-center gap-5 mb-5">
+              <div class="text-brand-charcoal-900 group-hover:text-brand-green-700 transition-colors duration-500">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.25">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.042 21.672L13.684 16.6m0 0l-2.51 2.225.569-9.47 5.227 7.917-3.286-.672zM12 2.25V4.5m5.834.166l-1.591 1.591M20.25 10.5H18M7.757 14.743l-1.59 1.59M6 10.5H3.75m4.007-4.243l-1.59-1.59" />
+                </svg>
+              </div>
+              <h3 class="text-2xl font-medium text-brand-charcoal-900 group-hover:text-brand-green-800 transition-colors duration-500">Custom Trips</h3>
+            </div>
+            <p class="text-lg text-brand-charcoal-600 font-light leading-relaxed mb-6 max-w-xl">
+              Build a personalized itinerary around the places and experiences you want to discover.
+            </p>
+            <div class="inline-flex items-center text-sm font-medium text-brand-charcoal-900 group-hover:text-brand-gold-500 transition-colors duration-500 uppercase tracking-widest">
+              Start planning <span class="ml-2 transition-transform duration-500 group-hover:translate-x-2">&rarr;</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Service 4: Travel Packages -->
+        <div class="group flex flex-col sm:flex-row items-start gap-6 sm:gap-10 py-10 lg:py-12 border-b border-brand-charcoal-900/10 hover:border-brand-gold-400 transition-colors duration-500 cursor-pointer">
+          <div class="flex-shrink-0 w-12 sm:w-16">
+            <span class="text-3xl font-light text-brand-charcoal-900/20 group-hover:text-brand-gold-500 transition-colors duration-500 font-sans tracking-tighter">04</span>
+          </div>
+          <div class="flex-grow">
+            <div class="flex items-center gap-5 mb-5">
+              <div class="text-brand-charcoal-900 group-hover:text-brand-green-700 transition-colors duration-500">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.25">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z" />
+                </svg>
+              </div>
+              <h3 class="text-2xl font-medium text-brand-charcoal-900 group-hover:text-brand-green-800 transition-colors duration-500">Travel Packages</h3>
+            </div>
+            <p class="text-lg text-brand-charcoal-600 font-light leading-relaxed mb-6 max-w-xl">
+              Thoughtfully planned journeys combining destinations, experiences, and essential travel services.
+            </p>
+            <div class="inline-flex items-center text-sm font-medium text-brand-charcoal-900 group-hover:text-brand-gold-500 transition-colors duration-500 uppercase tracking-widest">
+              View packages <span class="ml-2 transition-transform duration-500 group-hover:translate-x-2">&rarr;</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
 </section>
