@@ -1,11 +1,12 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 one:
   title: MyString One
   slug: my-string-one
   description: MyText One
   destination: MyString
   active: true
+  duration: "Full Day"
+  tour_type: "Private"
+  group_size: "Up to 8"
 
 two:
   title: MyString Two
@@ -13,3 +14,6 @@ two:
   description: MyText Two
   destination: MyString
   active: false
+  duration: "Half Day"
+  tour_type: "Group"
+  group_size: "Up to 15"
