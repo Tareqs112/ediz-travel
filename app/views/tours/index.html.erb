@@ -4,16 +4,16 @@
   <% if @tours.any? %>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       <% @tours.each do |tour| %>
-        <div class="p-6 border border-brand-gray-200 rounded-xl bg-white shadow-sm">
+        <div class="p-6 border border-brand-gray-200 rounded-xl bg-white shadow-sm flex flex-col h-full">
           <h2 class="text-xl font-medium text-brand-charcoal-900 mb-2"><%= tour.title %></h2>
           <span class="inline-block px-3 py-1 bg-brand-green-50 text-brand-green-700 text-xs font-semibold rounded-full mb-4">
             Active
           </span>
-          <p class="text-brand-charcoal-600 font-light mb-4 line-clamp-3">
-            <%= tour.description %>
+          <p class="text-brand-charcoal-600 font-light mb-6 line-clamp-3">
+            <%= tour.description.sub(/\A\[DEVELOPMENT PLACEHOLDER\]\s*/, "") %>
           </p>
-          <div class="text-sm text-brand-gray-300 font-mono">
-            Slug: <%= tour.slug %>
+          <div class="mt-auto">
+            <%= link_to "Explore Tour &rarr;".html_safe, tour_path(tour), class: "inline-block font-medium text-brand-gold-500 hover:text-brand-gold-600 transition-colors" %>
           </div>
         </div>
       <% end %>
