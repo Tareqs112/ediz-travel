@@ -1,0 +1,52 @@
+<section class="relative w-full h-[85vh] min-h-[600px] flex items-center justify-center overflow-hidden bg-brand-charcoal-900">
+  <!-- Cinematic Background Placeholder (Ready for actual Trabzon photography) -->
+  <div class="absolute inset-0 z-0">
+    <% if File.exist?(Rails.root.join("app/assets/images/hero-trabzon-bg.jpg")) %>
+      <%= image_tag "hero-trabzon-bg.jpg", alt: "Trabzon and Eastern Black Sea Landscape", class: "w-full h-full object-cover object-center" %>
+    <% else %>
+      <!-- Fallback when image is missing: A premium dark gradient simulating a cinematic natural atmosphere -->
+      <div class="w-full h-full bg-gradient-to-br from-brand-charcoal-900 via-brand-green-900 to-brand-charcoal-900 opacity-90"></div>
+      <div class="absolute inset-0 flex items-center justify-center text-white/10 font-medium text-sm tracking-widest uppercase pointer-events-none">
+        [Trabzon Photography Asset Placeholder]
+      </div>
+    <% end %>
+  </div>
+  
+  <!-- Overlay for text readability (Darker at the bottom and left for text contrast) -->
+  <div class="absolute inset-0 z-10 bg-gradient-to-t from-brand-charcoal-900/90 via-brand-charcoal-900/40 to-transparent"></div>
+  <div class="absolute inset-0 z-10 bg-gradient-to-r from-brand-charcoal-900/70 to-transparent"></div>
+
+  <!-- Hero Content -->
+  <div class="relative z-20 container-main w-full text-center md:text-left flex flex-col items-center md:items-start justify-center pt-16 md:pt-0">
+    
+    <!-- Eyebrow -->
+    <div class="mb-5 inline-flex items-center gap-3">
+      <span class="w-8 md:w-12 h-[1px] bg-brand-gold-500 hidden md:block opacity-80"></span>
+      <span class="text-brand-gold-400 font-bold tracking-[0.2em] text-xs md:text-sm uppercase">
+        Trabzon &bull; Eastern Black Sea
+      </span>
+    </div>
+
+    <!-- Main Heading -->
+    <h1 class="text-white font-heading text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1] mb-6 max-w-4xl">
+      Discover Trabzon.<br>
+      <span class="text-brand-gray-200">Experience the Black Sea.</span>
+    </h1>
+
+    <!-- Supporting Text -->
+    <p class="text-lg md:text-xl text-brand-gray-300 mb-10 max-w-2xl font-light leading-relaxed">
+      Private tours, unforgettable landscapes, and carefully planned journeys across Trabzon and the Eastern Black Sea.
+    </p>
+
+    <!-- CTAs -->
+    <div class="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
+      <a href="#" class="btn bg-white text-brand-charcoal-900 hover:bg-brand-gray-100 px-8 py-3.5 shadow-lg w-full sm:w-auto font-semibold">
+        Explore Tours
+      </a>
+      <a href="#" class="btn border border-white/30 bg-white/10 backdrop-blur-md text-white hover:bg-white/20 px-8 py-3.5 w-full sm:w-auto font-semibold">
+        Plan Your Trip
+      </a>
+    </div>
+
+  </div>
+</section>
