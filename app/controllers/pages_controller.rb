@@ -11,4 +11,7 @@ class PagesController < ApplicationController
 
   def private_tours
   end
+
+  def packages
+  end
 end

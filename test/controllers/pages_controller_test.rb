@@ -20,4 +20,9 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
     get private_tours_url
     assert_response :success
   end
+
+  test "should get packages" do
+    get packages_url
+    assert_response :success
+  end
 end
