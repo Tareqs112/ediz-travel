@@ -10,4 +10,9 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
     get plan_your_trip_url
     assert_response :success
   end
+
+  test "should get airport_transfer" do
+    get airport_transfer_url
+    assert_response :success
+  end
 end

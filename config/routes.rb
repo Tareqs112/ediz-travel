@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   get "plan-your-trip", to: "pages#plan_your_trip", as: :plan_your_trip
+  get "airport-transfer", to: "pages#airport_transfer", as: :airport_transfer
   resources :tours, only: [:index, :show], param: :slug
   root "pages#home"
 end

@@ -5,4 +5,7 @@ class PagesController < ApplicationController
 
   def plan_your_trip
   end
+
+  def airport_transfer
+  end
 end
