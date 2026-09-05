@@ -8,4 +8,7 @@ class PagesController < ApplicationController
 
   def airport_transfer
   end
+
+  def private_tours
+  end
 end

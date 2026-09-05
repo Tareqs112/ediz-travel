@@ -1,0 +1,127 @@
+<div class="bg-white min-h-screen border-t border-brand-gray-200/50">
+  
+  <!-- Hero Section -->
+  <div class="pt-16 lg:pt-24 pb-12 lg:pb-16">
+    <div class="container-main text-center max-w-4xl mx-auto">
+      <div class="mb-6 inline-flex items-center justify-center gap-4">
+        <span class="w-12 h-[1px] bg-brand-gold-500 opacity-80"></span>
+        <span class="text-brand-gold-500 font-semibold tracking-[0.2em] text-xs sm:text-sm uppercase">Private Tours</span>
+        <span class="w-12 h-[1px] bg-brand-gold-500 opacity-80"></span>
+      </div>
+      <h1 class="text-4xl lg:text-6xl font-sans font-medium text-brand-charcoal-900 tracking-tight leading-[1.1] mb-6">
+        Your Journey, Your Way.
+      </h1>
+      <p class="text-lg lg:text-xl text-brand-charcoal-600 font-light leading-relaxed mb-10 max-w-3xl mx-auto">
+        Private travel experiences across Trabzon and the Eastern Black Sea, shaped around your interests and pace.
+      </p>
+      <div class="flex justify-center">
+        <%= link_to "Plan Your Private Tour", plan_your_trip_path, class: "inline-block px-10 py-4 bg-brand-charcoal-900 hover:bg-brand-green-800 text-white font-medium text-sm tracking-widest uppercase transition-colors" %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Image Placeholder -->
+  <div class="container-main mb-16 lg:mb-24">
+    <div class="w-full aspect-[16/9] lg:aspect-[21/9] bg-[#faf9f6] flex flex-col items-center justify-center text-brand-gray-400 border border-brand-gray-200/50">
+      <svg class="w-12 h-12 mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+      </svg>
+      <span class="text-xs uppercase tracking-widest font-semibold mb-2">Image Asset Pending</span>
+      <span class="text-xs font-mono">Private Tours</span>
+    </div>
+  </div>
+
+  <!-- Why Private -->
+  <div class="bg-[#faf9f6] py-16 lg:py-24 border-y border-brand-gray-200/60">
+    <div class="container-main">
+      <div class="max-w-3xl mx-auto text-center mb-16">
+        <h2 class="text-3xl lg:text-4xl font-medium text-brand-charcoal-900 tracking-tight">Why Choose Private?</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-8 divide-y md:divide-y-0 md:divide-x divide-brand-gray-200/60">
+        
+        <div class="pt-8 md:pt-0 md:px-6 lg:px-12 text-center flex flex-col items-center">
+          <span class="text-brand-gold-500 mb-4 block">
+            <svg class="w-8 h-8 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </span>
+          <h3 class="text-xl font-medium text-brand-charcoal-900 mb-3">Your Own Pace</h3>
+          <p class="text-brand-charcoal-600 font-light leading-relaxed text-sm">
+            Spend more time at the locations you love. No rushing to meet group schedules.
+          </p>
+        </div>
+        
+        <div class="pt-8 md:pt-0 md:px-6 lg:px-12 text-center flex flex-col items-center">
+          <span class="text-brand-gold-500 mb-4 block">
+            <svg class="w-8 h-8 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" />
+            </svg>
+          </span>
+          <h3 class="text-xl font-medium text-brand-charcoal-900 mb-3">Flexible Experiences</h3>
+          <p class="text-brand-charcoal-600 font-light leading-relaxed text-sm">
+            Adjust the itinerary on the fly. We are here to accommodate your preferences.
+          </p>
+        </div>
+        
+        <div class="pt-8 md:pt-0 md:px-6 lg:px-12 text-center flex flex-col items-center">
+          <span class="text-brand-gold-500 mb-4 block">
+            <svg class="w-8 h-8 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
+            </svg>
+          </span>
+          <h3 class="text-xl font-medium text-brand-charcoal-900 mb-3">Private Journey</h3>
+          <p class="text-brand-charcoal-600 font-light leading-relaxed text-sm">
+            Travel exclusively with your family or group in a dedicated, comfortable vehicle.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- How It Works Flow -->
+  <div class="py-16 lg:py-24 bg-white border-b border-brand-gray-200/50">
+    <div class="container-main max-w-5xl mx-auto">
+      <div class="max-w-3xl mx-auto text-center mb-16 lg:mb-20">
+        <h2 class="text-3xl lg:text-4xl font-medium text-brand-charcoal-900 tracking-tight">How It Works</h2>
+      </div>
+      
+      <div class="flex flex-col md:flex-row items-start justify-between gap-12 md:gap-4">
+        
+        <div class="flex flex-col items-center text-center w-full md:w-1/3 px-4">
+          <div class="w-16 h-16 rounded-full bg-brand-green-50 flex items-center justify-center text-brand-green-700 font-medium text-xl mb-6">01</div>
+          <h3 class="text-xl font-medium text-brand-charcoal-900 mb-3">Tell Us What You Want</h3>
+          <p class="text-brand-charcoal-600 font-light text-sm">Share your ideas, preferred destinations, and requirements.</p>
+        </div>
+        
+        <div class="hidden md:block w-[1px] h-32 bg-brand-gray-200/60 mt-8"></div>
+        <div class="md:hidden w-full h-[1px] bg-brand-gray-200/60"></div>
+        
+        <div class="flex flex-col items-center text-center w-full md:w-1/3 px-4">
+          <div class="w-16 h-16 rounded-full bg-brand-green-50 flex items-center justify-center text-brand-green-700 font-medium text-xl mb-6">02</div>
+          <h3 class="text-xl font-medium text-brand-charcoal-900 mb-3">We Shape the Journey</h3>
+          <p class="text-brand-charcoal-600 font-light text-sm">We carefully design an itinerary that matches your pace.</p>
+        </div>
+        
+        <div class="hidden md:block w-[1px] h-32 bg-brand-gray-200/60 mt-8"></div>
+        <div class="md:hidden w-full h-[1px] bg-brand-gray-200/60"></div>
+
+        <div class="flex flex-col items-center text-center w-full md:w-1/3 px-4">
+          <div class="w-16 h-16 rounded-full bg-brand-green-50 flex items-center justify-center text-brand-green-700 font-medium text-xl mb-6">03</div>
+          <h3 class="text-xl font-medium text-brand-charcoal-900 mb-3">Enjoy Your Trip</h3>
+          <p class="text-brand-charcoal-600 font-light text-sm">Travel comfortably while we handle the local details.</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA Section -->
+  <div class="bg-brand-green-900 py-16 lg:py-24 text-center text-white border-t border-brand-green-800">
+    <div class="container-main max-w-2xl mx-auto">
+      <h2 class="text-3xl lg:text-5xl font-sans font-medium tracking-tight mb-8">Let's Create Your Journey.</h2>
+      <%= link_to "Plan Your Private Tour", plan_your_trip_path, class: "inline-block px-10 py-4 bg-white text-brand-green-900 hover:bg-brand-gray-100 font-medium text-sm tracking-widest uppercase transition-colors" %>
+    </div>
+  </div>
+
+</div>
