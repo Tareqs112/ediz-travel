@@ -1,15 +1,63 @@
-<div class="container-main py-24 min-h-screen">
-  <h1 class="text-4xl font-sans font-bold text-brand-charcoal-900 mb-10">All Tours</h1>
+<div class="bg-[#faf9f6] min-h-screen">
   
-  <% if @tours.any? %>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
-      <% @tours.each do |tour| %>
-        <%= render "shared/components/tour_card", tour: tour %>
-      <% end %>
+  <!-- Header -->
+  <div class="pt-16 lg:pt-24 pb-12 border-b border-brand-gray-200/50 bg-white">
+    <div class="container-main">
+      <%= render "shared/components/section_heading",
+                 eyebrow: "Our Journeys",
+                 title: "Discover Tours",
+                 description: "Browse our curated selection of tours across the Eastern Black Sea." %>
+                 
+      <!-- Search & Filter Bar -->
+      <div class="bg-[#faf9f6] border border-brand-gray-200/60 p-4 lg:p-6 flex flex-col lg:flex-row gap-4 items-center justify-between">
+        <form class="flex-grow flex flex-col sm:flex-row w-full gap-4">
+          <div class="relative flex-grow">
+            <span class="absolute left-4 top-1/2 -translate-y-1/2 text-brand-gray-400">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            </span>
+            <input type="text" placeholder="Search tours..." class="w-full bg-white border border-brand-gray-200 py-3 pl-12 pr-4 text-sm focus:outline-none focus:border-brand-gold-500 transition-colors">
+          </div>
+          
+          <div class="flex gap-4 w-full sm:w-auto">
+            <select class="w-full sm:w-40 bg-white border border-brand-gray-200 py-3 px-4 text-sm focus:outline-none focus:border-brand-gold-500 transition-colors text-brand-charcoal-700">
+              <option value="">Destination</option>
+              <option value="trabzon">Trabzon</option>
+              <option value="rize">Rize</option>
+              <option value="artvin">Artvin</option>
+            </select>
+            
+            <select class="w-full sm:w-40 bg-white border border-brand-gray-200 py-3 px-4 text-sm focus:outline-none focus:border-brand-gold-500 transition-colors text-brand-charcoal-700">
+              <option value="">Tour Type</option>
+              <option value="private">Private</option>
+              <option value="group">Group</option>
+            </select>
+          </div>
+        </form>
+        
+        <div class="w-full lg:w-auto flex justify-between lg:justify-end items-center gap-4 border-t lg:border-t-0 border-brand-gray-200/60 pt-4 lg:pt-0">
+          <span class="text-xs font-semibold text-brand-gray-500 uppercase tracking-widest whitespace-nowrap">Sort by:</span>
+          <select class="bg-transparent text-sm font-medium text-brand-charcoal-900 focus:outline-none cursor-pointer">
+            <option>Recommended</option>
+            <option>Price: Low to High</option>
+            <option>Price: High to Low</option>
+            <option>Duration: Short to Long</option>
+          </select>
+        </div>
+      </div>
     </div>
-  <% else %>
-    <%= render "shared/components/empty_state",
-               title: "No active tours found",
-               message: "There are currently no active tours in our database. Please check back later." %>
-  <% end %>
+  </div>
+
+  <div class="container-main py-16 lg:py-24">
+    <% if @tours.any? %>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
+        <% @tours.each do |tour| %>
+          <%= render "shared/components/tour_card", tour: tour %>
+        <% end %>
+      </div>
+    <% else %>
+      <%= render "shared/components/empty_state",
+                 title: "No active tours found",
+                 message: "There are currently no active tours matching your criteria. Please try adjusting your filters." %>
+    <% end %>
+  </div>
 </div>

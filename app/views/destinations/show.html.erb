@@ -1,0 +1,75 @@
+<div class="bg-white min-h-screen">
+  
+  <!-- Hero Section -->
+  <div class="relative w-full aspect-[21/9] bg-brand-charcoal-900 overflow-hidden flex items-center justify-center">
+    <div class="absolute inset-0 bg-brand-gray-200 flex flex-col items-center justify-center text-brand-gray-400">
+      <span class="text-xs uppercase tracking-widest font-semibold mb-2">Destination Hero Pending</span>
+    </div>
+    <div class="absolute inset-0 bg-brand-charcoal-900/60"></div>
+    <div class="relative z-10 text-center container-main mt-16">
+      <span class="text-brand-gold-500 font-semibold tracking-[0.2em] text-xs sm:text-sm uppercase block mb-4">Destination</span>
+      <h1 class="text-4xl lg:text-7xl font-sans font-medium text-white tracking-tight leading-tight capitalize"><%= @slug.tr('-', ' ') %></h1>
+    </div>
+  </div>
+
+  <!-- Content Section -->
+  <div class="container-main py-16 lg:py-24">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-16 lg:gap-24">
+      
+      <!-- Main Info -->
+      <div class="lg:col-span-2">
+        <h2 class="text-3xl font-medium text-brand-charcoal-900 tracking-tight mb-8">About <%= @slug.tr('-', ' ').titleize %></h2>
+        <div class="prose prose-lg text-brand-charcoal-600 font-light leading-relaxed mb-12">
+          <p>
+            [DEVELOPMENT PLACEHOLDER] This destination offers a blend of spectacular natural beauty and rich cultural heritage. 
+            Visitors can expect lush green landscapes, traditional architecture, and a profound sense of tranquility.
+          </p>
+          <p>
+            It is one of the most highly sought-after spots in the Eastern Black Sea region, making it an essential part of any Trabzon itinerary.
+          </p>
+        </div>
+        
+        <h3 class="text-2xl font-medium text-brand-charcoal-900 tracking-tight mb-6">Popular Attractions</h3>
+        <ul class="space-y-4 mb-12">
+          <li class="flex items-start gap-4">
+            <span class="text-brand-gold-500 mt-1"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></span>
+            <span class="text-brand-charcoal-600 font-light">Scenic Viewpoints</span>
+          </li>
+          <li class="flex items-start gap-4">
+            <span class="text-brand-gold-500 mt-1"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></span>
+            <span class="text-brand-charcoal-600 font-light">Historical Architecture</span>
+          </li>
+          <li class="flex items-start gap-4">
+            <span class="text-brand-gold-500 mt-1"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></span>
+            <span class="text-brand-charcoal-600 font-light">Local Culinary Spots</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Sidebar -->
+      <div>
+        <div class="bg-[#faf9f6] border border-brand-gray-200/60 p-8 sticky top-32">
+          <h3 class="text-xl font-medium text-brand-charcoal-900 mb-6">Travel Information</h3>
+          
+          <div class="space-y-6">
+            <div>
+              <span class="block text-xs uppercase tracking-widest font-semibold text-brand-gray-500 mb-1">Region</span>
+              <span class="text-brand-charcoal-900 font-medium">Eastern Black Sea</span>
+            </div>
+            <div>
+              <span class="block text-xs uppercase tracking-widest font-semibold text-brand-gray-500 mb-1">Best Time to Visit</span>
+              <span class="text-brand-charcoal-900 font-medium">May - September</span>
+            </div>
+          </div>
+          
+          <hr class="border-brand-gray-200 my-8">
+          
+          <h4 class="font-medium text-brand-charcoal-900 mb-4">Want to explore here?</h4>
+          <%= link_to "View Available Tours", tours_path, class: "block w-full text-center px-6 py-4 bg-brand-charcoal-900 hover:bg-brand-green-800 text-white font-medium text-sm tracking-widest uppercase transition-colors" %>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+</div>

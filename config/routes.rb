@@ -14,6 +14,12 @@ Rails.application.routes.draw do
   get "airport-transfer", to: "pages#airport_transfer", as: :airport_transfer
   get "private-tours", to: "pages#private_tours", as: :private_tours
   get "packages", to: "pages#packages", as: :packages
+  get "about", to: "pages#about", as: :about
+  get "contact", to: "pages#contact", as: :contact
+  get "faq", to: "pages#faq", as: :faq
+  get "search", to: "search#index", as: :search
+  
+  resources :destinations, only: [:index, :show], param: :slug
   resources :tours, only: [:index, :show], param: :slug
   root "pages#home"
 end

@@ -25,4 +25,19 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
     get packages_url
     assert_response :success
   end
+
+  test "should get about" do
+    get about_url
+    assert_response :success
+  end
+
+  test "should get contact" do
+    get contact_url
+    assert_response :success
+  end
+
+  test "should get faq" do
+    get faq_url
+    assert_response :success
+  end
 end

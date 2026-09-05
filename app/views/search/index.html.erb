@@ -1,0 +1,39 @@
+<div class="bg-white min-h-screen">
+  
+  <div class="pt-16 lg:pt-24 pb-16 border-b border-brand-gray-200/50">
+    <div class="container-main">
+      <div class="max-w-3xl mb-16 lg:mb-24">
+        <div class="mb-6 inline-flex items-center gap-4">
+          <span class="w-12 h-[1px] bg-brand-gold-500 opacity-80"></span>
+          <span class="text-brand-gold-500 font-semibold tracking-[0.2em] text-xs sm:text-sm uppercase">Search Results</span>
+        </div>
+        <h1 class="text-3xl lg:text-5xl font-sans font-medium text-brand-charcoal-900 tracking-tight leading-tight mb-6">
+          <% if @query.present? %>
+            Results for "<%= @query %>"
+          <% else %>
+            Search Experiences
+          <% end %>
+        </h1>
+        
+        <form action="/search" method="get" class="flex gap-4 mt-8">
+          <input type="text" name="q" value="<%= @query %>" class="flex-grow border-b border-brand-gray-200 py-3 bg-transparent text-brand-charcoal-900 focus:outline-none focus:border-brand-gold-500 text-lg" placeholder="Search tours, destinations...">
+          <button type="submit" class="px-8 py-3 bg-brand-charcoal-900 hover:bg-brand-green-800 text-white font-medium text-sm tracking-widest uppercase transition-colors">
+            Search
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-main py-16 lg:py-24">
+    <% if @query.present? %>
+      <%= render "shared/components/empty_state",
+                 title: "No results found",
+                 message: "We couldn't find any tours or destinations matching '#{@query}'. Try adjusting your search terms." %>
+    <% else %>
+      <%= render "shared/components/empty_state",
+                 title: "Start exploring",
+                 message: "Enter a search term above to find tours, destinations, and packages." %>
+    <% end %>
+  </div>
+</div>

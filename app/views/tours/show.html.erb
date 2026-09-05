@@ -73,6 +73,25 @@
       <!-- Left Column (Content) -->
       <div class="w-full lg:w-2/3">
         
+        <!-- Highlights -->
+        <div class="mb-16">
+          <h2 class="text-2xl font-medium text-brand-charcoal-900 mb-8 pb-4 border-b border-brand-gray-200/60">Highlights</h2>
+          <ul class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <li class="flex items-start text-brand-charcoal-600 font-light leading-relaxed">
+              <span class="text-brand-gold-500 mr-3 mt-1"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></span>
+              Experience the best of <%= @tour.destination %>.
+            </li>
+            <li class="flex items-start text-brand-charcoal-600 font-light leading-relaxed">
+              <span class="text-brand-gold-500 mr-3 mt-1"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></span>
+              Professional and knowledgeable guides.
+            </li>
+            <li class="flex items-start text-brand-charcoal-600 font-light leading-relaxed">
+              <span class="text-brand-gold-500 mr-3 mt-1"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></span>
+              Comfortable private transportation.
+            </li>
+          </ul>
+        </div>
+        
         <!-- Itinerary -->
         <% if @tour.itinerary.present? && @tour.itinerary.any? %>
           <div class="mb-16">
@@ -135,6 +154,24 @@
           <% end %>
 
         </div>
+        
+        <div class="mt-16 space-y-12 pb-8 border-b border-brand-gray-200/60 lg:border-none">
+          <!-- Meeting Point -->
+          <div>
+            <h2 class="text-xl font-medium text-brand-charcoal-900 mb-4">Meeting Point</h2>
+            <p class="text-brand-charcoal-600 font-light leading-relaxed">
+              Hotel pickup is included in Trabzon city center. Please provide your hotel details during booking.
+            </p>
+          </div>
+          <!-- Cancellation Policy -->
+          <div>
+            <h2 class="text-xl font-medium text-brand-charcoal-900 mb-4">Cancellation Policy</h2>
+            <p class="text-brand-charcoal-600 font-light leading-relaxed">
+              Free cancellation up to 24 hours before the experience starts (local time).
+            </p>
+          </div>
+        </div>
+
       </div>
 
       <!-- Right Column (Sidebar) -->
@@ -156,5 +193,22 @@
       </div>
 
     </div>
-  </div>
+</div>
+  <div class="bg-[#faf9f6] py-16 lg:py-24 border-t border-brand-gray-200/50">
+    <div class="container-main">
+      <div class="flex items-end justify-between gap-8 mb-12">
+        <h2 class="text-3xl font-medium text-brand-charcoal-900 tracking-tight">You might also like</h2>
+        <%= link_to "View all tours &rarr;".html_safe, tours_path, class: "hidden md:inline-block font-medium text-brand-gold-500 hover:text-brand-gold-600 transition-colors uppercase tracking-widest text-sm" %>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <% Tour.where.not(id: @tour.id).limit(3).each do |related_tour| %>
+          <%= render "shared/components/tour_card", tour: related_tour %>
+        <% end %>
+      </div>
+      
+      <div class="mt-10 md:hidden text-center">
+        <%= link_to "View all tours &rarr;".html_safe, tours_path, class: "inline-block font-medium text-brand-gold-500 hover:text-brand-gold-600 transition-colors uppercase tracking-widest text-sm" %>
+      </div>
+    </div>
 </div>

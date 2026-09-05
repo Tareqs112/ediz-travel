@@ -27,9 +27,9 @@
           <div>
             <h3 class="text-lg font-semibold mb-5 text-white">Explore</h3>
             <ul class="space-y-4">
-              <li><a href="#" class="text-brand-gray-200 hover:text-white hover:underline transition">Tours</a></li>
-              <li><a href="#" class="text-brand-gray-200 hover:text-white hover:underline transition">Destinations</a></li>
-              <li><a href="#" class="text-brand-gray-200 hover:text-white hover:underline transition">Packages</a></li>
+              <li><%= link_to "Tours", tours_path, class: "text-brand-gray-200 hover:text-white hover:underline transition" %></li>
+              <li><%= link_to "Destinations", destinations_path, class: "text-brand-gray-200 hover:text-white hover:underline transition" %></li>
+              <li><%= link_to "Packages", packages_path, class: "text-brand-gray-200 hover:text-white hover:underline transition" %></li>
               <li><a href="#" class="text-brand-gray-200 hover:text-white hover:underline transition">Travel Guide</a></li>
             </ul>
           </div>
@@ -37,8 +37,8 @@
           <div>
             <h3 class="text-lg font-semibold mb-5 text-white">Services</h3>
             <ul class="space-y-4">
-              <li><a href="#" class="text-brand-gray-200 hover:text-white hover:underline transition">Private Tours</a></li>
-              <li><a href="#" class="text-brand-gray-200 hover:text-white hover:underline transition">Airport Transfer</a></li>
+              <li><%= link_to "Private Tours", private_tours_path, class: "text-brand-gray-200 hover:text-white hover:underline transition" %></li>
+              <li><%= link_to "Airport Transfer", airport_transfer_path, class: "text-brand-gray-200 hover:text-white hover:underline transition" %></li>
               <li><a href="#" class="text-brand-gray-200 hover:text-white hover:underline transition">Corporate</a></li>
             </ul>
           </div>
@@ -46,8 +46,9 @@
           <div>
             <h3 class="text-lg font-semibold mb-5 text-white">Company</h3>
             <ul class="space-y-4">
-              <li><a href="#" class="text-brand-gray-200 hover:text-white hover:underline transition">About Us</a></li>
-              <li><a href="#" class="text-brand-gray-200 hover:text-white hover:underline transition">Contact</a></li>
+              <li><%= link_to "About Us", about_path, class: "text-brand-gray-200 hover:text-white hover:underline transition" %></li>
+              <li><%= link_to "Contact", contact_path, class: "text-brand-gray-200 hover:text-white hover:underline transition" %></li>
+              <li><%= link_to "FAQ", faq_path, class: "text-brand-gray-200 hover:text-white hover:underline transition" %></li>
               <li><a href="#" class="text-brand-gray-200 hover:text-white hover:underline transition">Legal</a></li>
             </ul>
           </div>
