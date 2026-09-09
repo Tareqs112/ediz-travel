@@ -1,15 +1,13 @@
 <% is_dark = local_assigns[:dark] || false %>
-<div class="max-w-3xl <%= local_assigns[:center] ? 'mx-auto text-center' : '' %> mb-16 lg:mb-24">
+<div class="max-w-3xl <%= local_assigns[:center] ? 'mx-auto text-center' : '' %> <%= local_assigns[:no_margin] ? '' : 'mb-8 lg:mb-16' %>">
   <% if local_assigns[:eyebrow] %>
-    <div class="mb-6 inline-flex items-center justify-center gap-4">
+    <div class="mb-4 lg:mb-6 inline-flex items-center justify-center gap-4">
       <span class="w-12 h-[1px] bg-brand-gold-500 opacity-80"></span>
       <span class="text-brand-gold-500 font-semibold tracking-[0.2em] text-xs sm:text-sm uppercase"><%= eyebrow %></span>
       <% if local_assigns[:center] %><span class="w-12 h-[1px] bg-brand-gold-500 opacity-80"></span><% end %>
     </div>
   <% end %>
-  <h2 class="text-3xl lg:text-5xl font-sans font-medium tracking-tight leading-tight mb-6 <%= is_dark ? 'text-white' : 'text-brand-charcoal-900' %>">
-    <%= title %>
-  </h2>
+  <%= content_tag(local_assigns[:as_h1] ? :h1 : :h2, title, class: "text-2xl lg:text-5xl font-sans font-medium tracking-tight leading-tight mb-4 lg:mb-6 #{is_dark ? 'text-white' : 'text-brand-charcoal-900'}") %>
   <% if local_assigns[:description] %>
     <p class="text-lg font-light leading-relaxed <%= is_dark ? 'text-white/80' : 'text-brand-charcoal-600' %>">
       <%= description %>

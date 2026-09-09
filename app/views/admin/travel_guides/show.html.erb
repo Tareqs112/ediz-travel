@@ -1,0 +1,87 @@
+<% content_for :title, "#{@travel_guide.title} - Admin" %>
+
+<div class="mb-6 flex flex-wrap items-center justify-between gap-4">
+  <%= link_to "&larr; Back to Travel Guides".html_safe, admin_travel_guides_path, class: "text-gray-500 hover:text-gray-700 font-medium text-sm" %>
+  
+  <div class="flex flex-wrap items-center gap-2">
+    <%= link_to "Preview Article", preview_admin_travel_guide_path(@travel_guide), target: "_blank", class: "px-4 py-2 border border-gray-300 bg-white text-gray-700 rounded-md text-sm font-medium hover:bg-gray-50" %>
+    
+    <% if @travel_guide.published? %>
+      <%= button_to "Unpublish", unpublish_admin_travel_guide_path(@travel_guide), method: :patch, class: "px-4 py-2 border border-amber-300 text-amber-800 bg-amber-50 rounded-md text-sm font-medium hover:bg-amber-100 cursor-pointer" %>
+    <% else %>
+      <%= button_to "Publish Now", publish_admin_travel_guide_path(@travel_guide), method: :patch, class: "px-4 py-2 bg-brand-green-700 text-white rounded-md text-sm font-medium hover:bg-brand-green-800 cursor-pointer" %>
+    <% end %>
+
+    <%= link_to "Edit Article", edit_admin_travel_guide_path(@travel_guide), class: "px-4 py-2 border border-gray-300 bg-white text-gray-700 rounded-md text-sm font-medium hover:bg-gray-50" %>
+    <%= button_to "Delete", admin_travel_guide_path(@travel_guide), method: :delete, form: { data: { turbo_confirm: "Delete article '#{@travel_guide.title}'?" } }, class: "px-4 py-2 bg-red-600 text-white rounded-md text-sm font-medium hover:bg-red-700 cursor-pointer" %>
+  </div>
+</div>
+
+<div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+  <div class="px-6 py-5 border-b border-gray-200 flex flex-wrap items-center justify-between gap-4">
+    <div>
+      <h2 class="text-xl font-semibold text-gray-900"><%= @travel_guide.title %></h2>
+      <p class="text-xs text-gray-500 font-mono mt-0.5">/<%= @travel_guide.slug %></p>
+    </div>
+    
+    <div>
+      <% if @travel_guide.published? %>
+        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-800">
+          PUBLISHED
+        </span>
+      <% else %>
+        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 text-gray-700">
+          DRAFT
+        </span>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="p-6 space-y-6">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pb-6 border-b border-gray-100 text-sm">
+      <div>
+        <span class="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-1">Published Date</span>
+        <span class="font-medium text-gray-900"><%= @travel_guide.published_at&.strftime("%B %d, %Y at %H:%M") || "Not scheduled / Draft" %></span>
+      </div>
+
+      <div>
+        <span class="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-1">Tags</span>
+        <div class="flex flex-wrap gap-1">
+          <% if @travel_guide.tags.present? && @travel_guide.tags.any? %>
+            <% @travel_guide.tags.each do |tag| %>
+              <span class="px-2 py-0.5 bg-gray-100 text-gray-700 text-xs rounded"><%= tag %></span>
+            <% end %>
+          <% else %>
+            <span class="text-gray-400 text-xs">None</span>
+          <% end %>
+        </div>
+      </div>
+
+      <div>
+        <span class="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-1">SEO Description</span>
+        <p class="text-xs text-gray-700 font-light"><%= @travel_guide.meta_description.presence || "Using fallback from excerpt" %></p>
+      </div>
+    </div>
+
+    <% if @travel_guide.image.attached? %>
+      <div class="pb-6 border-b border-gray-100">
+        <span class="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">Cover Image</span>
+        <div class="max-w-md aspect-video rounded-lg overflow-hidden border border-gray-200">
+          <%= image_tag @travel_guide.image, alt: @travel_guide.title, class: "w-full h-full object-cover" %>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="pb-6 border-b border-gray-100">
+      <span class="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">Excerpt</span>
+      <p class="text-base text-gray-700 font-light leading-relaxed bg-gray-50 p-4 rounded-md border border-gray-100"><%= @travel_guide.excerpt %></p>
+    </div>
+
+    <div>
+      <span class="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-3">Article Content Preview</span>
+      <div class="prose prose-brand max-w-none text-brand-charcoal-800 font-light leading-relaxed p-6 bg-white border border-gray-100 rounded-md">
+        <%= raw @travel_guide.sanitized_content %>
+      </div>
+    </div>
+  </div>
+</div>

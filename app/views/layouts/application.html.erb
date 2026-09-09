@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full antialiased bg-brand-gray-50">
+<html lang="<%= I18n.locale %>" dir="<%= rtl? ? 'rtl' : 'ltr' %>" class="h-full antialiased bg-brand-gray-50">
   <head>
-    <title><%= content_for(:title) || "61 EDİZ TRAVEL - Premium Travel Agency in Trabzon" %></title>
+    <title><%= content_for(:title) || t("seo.default_title") %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="<%= content_for(:meta_description) || t("seo.default_meta_description") %>">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
@@ -11,6 +12,10 @@
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
+    <link rel="alternate" hreflang="en" href="<%= switch_locale_path(:en) %>">
+    <link rel="alternate" hreflang="ar" href="<%= switch_locale_path(:ar) %>">
+    <link rel="alternate" hreflang="tr" href="<%= switch_locale_path(:tr) %>">
+    <link rel="alternate" hreflang="x-default" href="<%= switch_locale_path(:en) %>">
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
     <!-- Fonts -->
@@ -19,7 +24,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   </head>
 
-  <body class="flex flex-col min-h-screen font-sans text-brand-charcoal-900">
+  <body class="flex flex-col min-h-screen <%= rtl? ? 'font-arabic' : 'font-sans' %> text-brand-charcoal-900">
     
     <%= render "shared/navbar" %>
 

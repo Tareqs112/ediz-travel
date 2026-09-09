@@ -1,0 +1,31 @@
+<% content_for :title, "Contact Messages" %>
+
+<div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
+  <div class="overflow-x-auto">
+    <table class="min-w-full divide-y divide-gray-200">
+      <thead class="bg-gray-50">
+        <tr>
+          <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+          <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+          <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase tracking-wider">Subject</th>
+          <th scope="col" class="relative px-6 py-3"><span class="sr-only">Actions</span></th>
+        </tr>
+      </thead>
+      <tbody class="bg-white divide-y divide-gray-200">
+        <% @contact_messages.each do |msg| %>
+          <tr class="hover:bg-gray-50">
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= msg.created_at.to_date.to_formatted_s(:short) %></td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"><%= msg.name %></td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= msg.subject %></td>
+            <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
+              <%= link_to "Read", admin_contact_message_path(msg), class: "text-brand-green-600 hover:text-brand-green-900" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <% if @contact_messages.empty? %>
+    <div class="p-8 text-center text-gray-500">No messages found.</div>
+  <% end %>
+</div>

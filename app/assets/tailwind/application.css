@@ -23,6 +23,11 @@
 
   --font-sans: "Inter", "Noto Sans", "Noto Sans Arabic", system-ui, -apple-system, sans-serif;
   --font-heading: "Inter", "Noto Sans", "Noto Sans Arabic", system-ui, -apple-system, sans-serif;
+  --font-arabic: "Noto Sans Arabic", "Inter", system-ui, -apple-system, sans-serif;
+}
+
+[dir="rtl"] {
+  font-family: var(--font-arabic);
 }
 
 @layer components {
@@ -100,5 +105,15 @@
   /* Image Containers */
   .img-container {
     @apply relative overflow-hidden rounded-xl bg-brand-gray-100;
+  }
+}
+
+@layer utilities {
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
   }
 }

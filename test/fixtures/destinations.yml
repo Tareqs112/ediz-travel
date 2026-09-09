@@ -1,0 +1,17 @@
+one:
+  name: Trabzon
+  slug: trabzon
+  short_description: A coastal city.
+  description: Trabzon is beautiful.
+  region: Black Sea
+  best_time_to_visit: Summer
+  active: true
+
+two:
+  name: Uzungol
+  slug: uzungol
+  short_description: A lake.
+  description: A long lake.
+  region: Trabzon
+  best_time_to_visit: Summer
+  active: true

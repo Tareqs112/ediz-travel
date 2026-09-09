@@ -1,0 +1,43 @@
+<% content_for :title, "View Package" %>
+
+<div class="mb-6 flex items-center justify-between">
+  <%= link_to "&larr; Back to Packages".html_safe, admin_packages_path, class: "text-gray-500 hover:text-gray-700 font-medium text-sm" %>
+  <div class="flex gap-2">
+    <%= link_to "Edit", edit_admin_package_path(@package), class: "px-4 py-2 border border-gray-300 text-gray-700 rounded-md text-sm font-medium hover:bg-gray-50" %>
+    <%= link_to "Delete", admin_package_path(@package), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "px-4 py-2 bg-red-600 text-white rounded-md text-sm font-medium hover:bg-red-700" %>
+  </div>
+</div>
+
+<div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
+  <div class="px-6 py-5 border-b border-gray-200">
+    <h3 class="text-lg font-medium leading-6 text-gray-900"><%= @package.title %></h3>
+  </div>
+  <div class="px-6 py-5">
+    <dl class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-8">
+      <% if @package.image.attached? %>
+        <div class="sm:col-span-2">
+          <dt class="text-sm font-medium text-gray-500">Image</dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            <%= image_tag @package.image, alt: @package.title, class: "w-64 h-auto rounded-lg shadow-sm" %>
+          </dd>
+        </div>
+      <% end %>
+      <div class="sm:col-span-1">
+        <dt class="text-sm font-medium text-gray-500">Slug</dt>
+        <dd class="mt-1 text-sm text-gray-900"><%= @package.slug %></dd>
+      </div>
+      <div class="sm:col-span-1">
+        <dt class="text-sm font-medium text-gray-500">Duration</dt>
+        <dd class="mt-1 text-sm text-gray-900"><%= @package.duration %></dd>
+      </div>
+      <div class="sm:col-span-2">
+        <dt class="text-sm font-medium text-gray-500">Linked Destinations</dt>
+        <dd class="mt-1 text-sm text-gray-900"><%= @package.destinations.map(&:name).join(", ") %></dd>
+      </div>
+      <div class="sm:col-span-2">
+        <dt class="text-sm font-medium text-gray-500">Linked Tours</dt>
+        <dd class="mt-1 text-sm text-gray-900"><%= @package.tours.map(&:title).join(", ") %></dd>
+      </div>
+    </dl>
+  </div>
+</div>

@@ -1,63 +1,67 @@
+<% content_for :title, t("tours.page_title") %>
+
 <div class="bg-[#faf9f6] min-h-screen">
   
   <!-- Header -->
-  <div class="pt-16 lg:pt-24 pb-12 border-b border-brand-gray-200/50 bg-white">
+  <div class="pt-3 lg:pt-24 pb-3 lg:pb-12 border-b border-brand-gray-200/50 bg-white">
     <div class="container-main">
       <%= render "shared/components/section_heading",
-                 eyebrow: "Our Journeys",
-                 title: "Discover Tours",
-                 description: "Browse our curated selection of tours across the Eastern Black Sea." %>
+                 eyebrow: t("tours.eyebrow"),
+                 title: t("tours.heading"),
+                 description: t("tours.subheading"),
+                 no_margin: true,
+                 as_h1: true %>
                  
       <!-- Search & Filter Bar -->
-      <div class="bg-[#faf9f6] border border-brand-gray-200/60 p-4 lg:p-6 flex flex-col lg:flex-row gap-4 items-center justify-between">
-        <form class="flex-grow flex flex-col sm:flex-row w-full gap-4">
-          <div class="relative flex-grow">
-            <span class="absolute left-4 top-1/2 -translate-y-1/2 text-brand-gray-400">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-            </span>
-            <input type="text" placeholder="Search tours..." class="w-full bg-white border border-brand-gray-200 py-3 pl-12 pr-4 text-sm focus:outline-none focus:border-brand-gold-500 transition-colors">
+      <div class="bg-[#faf9f6] border border-brand-gray-200/60 p-4 lg:p-6 mt-4 lg:mt-8">
+        <%= form_with url: tours_path, method: :get, local: true, class: "flex flex-col lg:flex-row gap-3 lg:gap-4 items-center justify-between w-full" do |f| %>
+          
+          <div class="flex-grow flex flex-col sm:flex-row w-full gap-4">
+            <div class="relative flex-grow">
+              <span class="absolute start-4 top-1/2 -translate-y-1/2 text-brand-gray-400">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+              </span>
+              <%= f.text_field :q, value: params[:q], placeholder: t("tours.search_placeholder"), class: "w-full bg-white border border-brand-gray-200 py-2 sm:py-3 ps-10 sm:ps-12 pe-3 sm:pe-4 text-xs sm:text-sm focus:outline-none focus:border-brand-gold-500 transition-colors" %>
+            </div>
+            
+            <div class="flex gap-2 sm:gap-4 w-full sm:w-auto">
+              <%= f.select :destination_id, options_from_collection_for_select(Destination.where(active: true).order(:name), "id", "name", params[:destination_id]), { prompt: t("tours.all_destinations") }, class: "w-full sm:w-40 bg-white border border-brand-gray-200 py-2 sm:py-3 px-2 sm:px-4 text-xs sm:text-sm focus:outline-none focus:border-brand-gold-500 transition-colors text-brand-charcoal-700 appearance-none rounded-none", onchange: "this.form.submit();" %>
+              
+              <%= f.select :tour_type, options_for_select([[t("tours.type_private"), "Private"], [t("tours.type_group"), "Group"], [t("tours.type_group_or_private"), "Group or Private"]], params[:tour_type]), { prompt: t("tours.all_types") }, class: "w-full sm:w-40 bg-white border border-brand-gray-200 py-2 sm:py-3 px-2 sm:px-4 text-xs sm:text-sm focus:outline-none focus:border-brand-gold-500 transition-colors text-brand-charcoal-700 appearance-none rounded-none", onchange: "this.form.submit();" %>
+            </div>
           </div>
           
-          <div class="flex gap-4 w-full sm:w-auto">
-            <select class="w-full sm:w-40 bg-white border border-brand-gray-200 py-3 px-4 text-sm focus:outline-none focus:border-brand-gold-500 transition-colors text-brand-charcoal-700">
-              <option value="">Destination</option>
-              <option value="trabzon">Trabzon</option>
-              <option value="rize">Rize</option>
-              <option value="artvin">Artvin</option>
-            </select>
+          <div class="w-full lg:w-auto flex justify-between lg:justify-end items-center gap-4 border-t lg:border-t-0 border-brand-gray-200/60 pt-2 lg:pt-0">
+            <span class="text-xs font-semibold text-brand-gray-500 uppercase tracking-widest whitespace-nowrap"><%= t("tours.sort_by") %></span>
+            <%= f.select :sort, options_for_select([
+              [t("tours.sort_newest"), "newest"],
+              [t("tours.sort_oldest"), "oldest"],
+              [t("tours.sort_title_asc"), "title_asc"],
+              [t("tours.sort_title_desc"), "title_desc"]
+            ], params[:sort] || "newest"), {}, class: "bg-transparent text-xs sm:text-sm font-medium text-brand-charcoal-900 focus:outline-none cursor-pointer appearance-none", onchange: "this.form.submit();" %>
             
-            <select class="w-full sm:w-40 bg-white border border-brand-gray-200 py-3 px-4 text-sm focus:outline-none focus:border-brand-gold-500 transition-colors text-brand-charcoal-700">
-              <option value="">Tour Type</option>
-              <option value="private">Private</option>
-              <option value="group">Group</option>
-            </select>
+            <!-- Hidden submit button for text search 'Enter' key -->
+            <%= f.submit t("search.search_button"), class: "hidden" %>
           </div>
-        </form>
-        
-        <div class="w-full lg:w-auto flex justify-between lg:justify-end items-center gap-4 border-t lg:border-t-0 border-brand-gray-200/60 pt-4 lg:pt-0">
-          <span class="text-xs font-semibold text-brand-gray-500 uppercase tracking-widest whitespace-nowrap">Sort by:</span>
-          <select class="bg-transparent text-sm font-medium text-brand-charcoal-900 focus:outline-none cursor-pointer">
-            <option>Recommended</option>
-            <option>Price: Low to High</option>
-            <option>Price: High to Low</option>
-            <option>Duration: Short to Long</option>
-          </select>
-        </div>
+          
+        <% end %>
       </div>
     </div>
   </div>
 
-  <div class="container-main py-16 lg:py-24">
-    <% if @tours.any? %>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
-        <% @tours.each do |tour| %>
-          <%= render "shared/components/tour_card", tour: tour %>
-        <% end %>
+  <div class="container-main py-3 lg:py-16">
+<% if @tours.any? %>
+  <div class="flex overflow-x-auto snap-x snap-mandatory gap-4 md:gap-8 pb-8 hide-scrollbar md:grid md:grid-cols-2 lg:grid-cols-3">
+    <% @tours.each do |tour| %>
+      <div class="snap-start flex-none w-[80%] sm:w-[60%] md:w-auto h-auto">
+        <%= render "shared/components/tour_card", tour: tour %>
       </div>
+    <% end %>
+  </div>
     <% else %>
       <%= render "shared/components/empty_state",
-                 title: "No active tours found",
-                 message: "There are currently no active tours matching your criteria. Please try adjusting your filters." %>
+                 title: t("tours.empty_title"),
+                 message: t("tours.empty_message") %>
     <% end %>
   </div>
 </div>

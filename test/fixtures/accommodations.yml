@@ -1,0 +1,19 @@
+one:
+  name: Ayder Resort
+  slug: ayder-resort
+  accommodation_type: hotel
+  short_description: Beautiful hotel in Ayder
+  description: Full description of Ayder Resort
+  location: Ayder Plateau
+  active: true
+  featured: true
+
+two:
+  name: Uzungol Chalet
+  slug: uzungol-chalet
+  accommodation_type: chalet
+  short_description: Cozy wooden chalet
+  description: Full description of Uzungol Chalet
+  location: Uzungol
+  active: true
+  featured: false

@@ -1,0 +1,145 @@
+<% content_for :title, "#{@travel_guide.title} - 61 EDİZ TRAVEL" %>
+<% content_for :meta_description, @travel_guide.meta_description_or_fallback %>
+
+<% if local_assigns[:is_preview] || @is_preview %>
+  <aside aria-label="Admin Preview Mode" class="bg-brand-charcoal-900 text-white py-3 px-4 sticky top-0 z-50 shadow-md border-b border-brand-gold-500/40">
+    <div class="container-main flex flex-wrap items-center justify-between gap-3 text-xs sm:text-sm">
+      <div class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full <%= @travel_guide.published? ? 'bg-green-400' : 'bg-amber-400' %>"></span>
+        <span>Admin Preview Mode &bull; Status: <strong class="uppercase tracking-wider <%= @travel_guide.published? ? 'text-green-400' : 'text-amber-400' %>"><%= @travel_guide.status %></strong></span>
+      </div>
+      <div class="flex items-center gap-4">
+        <%= link_to "&larr; Back to Editor".html_safe, edit_admin_travel_guide_path(@travel_guide), class: "text-brand-gold-400 hover:text-brand-gold-300 font-medium underline" %>
+        <%= link_to "Admin List", admin_travel_guides_path, class: "text-gray-300 hover:text-white" %>
+      </div>
+    </div>
+  </aside>
+<% end %>
+
+<article class="bg-white min-h-screen">
+  <!-- Article Header Section -->
+  <header class="pt-10 lg:pt-20 pb-8 lg:pb-12 bg-[#faf9f6] border-b border-brand-gray-200/50">
+    <div class="container-main max-w-4xl">
+      
+      <div class="mb-6">
+        <%= link_to "<span class=\"inline-block rtl:rotate-180\">&larr;</span> #{t('travel_guides.show.back_to_guides')}".html_safe, travel_guides_path, class: "text-xs font-semibold tracking-widest uppercase text-brand-charcoal-500 hover:text-brand-green-700 transition-colors inline-flex items-center gap-1" %>
+      </div>
+
+      <% if @travel_guide.tags.present? && @travel_guide.tags.any? %>
+        <div class="flex flex-wrap gap-2 mb-4">
+          <span class="text-xs uppercase tracking-[0.2em] text-brand-gold-600 font-bold">
+            <%= @travel_guide.tags.first %>
+          </span>
+        </div>
+      <% end %>
+
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-sans font-medium text-brand-charcoal-900 tracking-tight leading-[1.15] mb-6">
+        <%= @travel_guide.title %>
+      </h1>
+
+      <% if @travel_guide.excerpt.present? %>
+        <p class="text-lg sm:text-xl text-brand-charcoal-600 font-light leading-relaxed mb-6">
+          <%= @travel_guide.excerpt %>
+        </p>
+      <% end %>
+
+      <div class="flex flex-wrap items-center gap-4 text-xs sm:text-sm text-brand-charcoal-500 font-light pt-4 border-t border-brand-gray-200/60">
+        <span><%= t("travel_guides.show.published") %> <%= @travel_guide.published_at&.strftime("%B %d, %Y") || @travel_guide.created_at.strftime("%B %d, %Y") %></span>
+        <span>&bull;</span>
+        <span><%= t("travel_guides.show.min_read", count: @travel_guide.estimated_reading_time) %></span>
+        <span>&bull;</span>
+        <span><%= t("travel_guides.show.editorial") %></span>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Cover Image -->
+  <div class="container-main max-w-5xl my-8 lg:my-12">
+    <div class="w-full aspect-[16/9] md:aspect-[21/9] bg-brand-gray-100 overflow-hidden shadow-sm border border-brand-gray-200/60">
+      <% if @travel_guide.image.attached? %>
+        <%= image_tag @travel_guide.image, alt: @travel_guide.title, class: "w-full h-full object-cover" %>
+      <% else %>
+        <div class="w-full h-full flex items-center justify-center text-brand-gray-300 bg-brand-gray-50">
+          <svg class="w-12 h-12 opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+          </svg>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Article Body Content -->
+  <div class="container-main max-w-3xl pb-16">
+    <div class="prose prose-lg prose-brand max-w-none text-brand-charcoal-700 font-light leading-relaxed space-y-6">
+      <%= raw @travel_guide.sanitized_content %>
+    </div>
+
+    <!-- Article Tags Footer -->
+    <% if @travel_guide.tags.present? && @travel_guide.tags.any? %>
+      <div class="mt-12 pt-6 border-t border-brand-gray-200 flex flex-wrap items-center gap-2">
+        <span class="text-xs uppercase tracking-widest font-semibold text-brand-charcoal-500 me-2"><%= t("travel_guides.show.tags") %></span>
+        <% @travel_guide.tags.each do |tag| %>
+          <span class="px-3 py-1 bg-brand-gray-100 text-brand-charcoal-800 text-xs font-medium rounded-full">
+            <%= tag %>
+          </span>
+        <% end %>
+      </div>
+    <% end %>
+
+    <!-- Plan Your Trip CTA Card -->
+    <div class="mt-16 p-8 lg:p-10 bg-[#faf9f6] border border-brand-gray-200/70 relative overflow-hidden">
+      <div class="w-1 h-full bg-brand-gold-500 absolute start-0 top-0"></div>
+      <div class="max-w-xl">
+        <span class="text-xs uppercase tracking-[0.2em] text-brand-gold-500 font-bold block mb-2"><%= t("travel_guides.show.cta_eyebrow") %></span>
+        <h2 class="text-2xl font-medium text-brand-charcoal-900 mb-3"><%= t("travel_guides.show.cta_title") %></h2>
+        <p class="text-brand-charcoal-600 font-light text-sm leading-relaxed mb-6">
+          <%= t("travel_guides.show.cta_desc") %>
+        </p>
+        <%= link_to t("travel_guides.show.plan_your_trip"), plan_your_trip_path, class: "inline-block px-8 py-3.5 bg-brand-charcoal-900 hover:bg-brand-green-800 text-white font-medium text-xs tracking-widest uppercase transition-colors" %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Related Travel Guide Articles -->
+  <% if @related_guides.present? && @related_guides.any? %>
+    <section class="bg-[#faf9f6] py-16 lg:py-24 border-t border-brand-gray-200/50">
+      <div class="container-main max-w-5xl">
+        <div class="flex items-center justify-between mb-8">
+          <h2 class="text-xl sm:text-2xl font-medium text-brand-charcoal-900 tracking-tight"><%= t("travel_guides.show.more_guides") %></h2>
+          <%= link_to "#{t('travel_guides.show.view_all_guides')} <span class=\"inline-block rtl:rotate-180\">&rarr;</span>".html_safe, travel_guides_path, class: "text-xs font-semibold uppercase tracking-widest text-brand-charcoal-700 hover:text-brand-green-700 transition" %>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+          <% @related_guides.each do |related| %>
+            <article class="bg-white border border-brand-gray-200/70 flex flex-col group h-full">
+              <div class="w-full aspect-[16/10] bg-brand-gray-100 overflow-hidden">
+                <% if related.image.attached? %>
+                  <%= image_tag related.image, alt: related.title, loading: "lazy", class: "w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" %>
+                <% else %>
+                  <div class="w-full h-full flex items-center justify-center text-brand-gray-300 bg-brand-gray-50">
+                    <svg class="w-8 h-8 opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" /></svg>
+                  </div>
+                <% end %>
+              </div>
+              <div class="p-6 flex flex-col flex-grow">
+                <span class="text-[10px] uppercase tracking-widest text-brand-gold-500 font-bold mb-2 block">
+                  <%= related.published_at&.strftime("%B %d, %Y") || related.created_at.strftime("%B %d, %Y") %>
+                </span>
+                <h3 class="text-base font-medium text-brand-charcoal-900 group-hover:text-brand-green-700 transition-colors leading-snug mb-3">
+                  <%= link_to related.title, travel_guide_path(related) %>
+                </h3>
+                <p class="text-xs text-brand-charcoal-600 font-light leading-relaxed line-clamp-2 mb-4">
+                  <%= related.excerpt %>
+                </p>
+                <div class="mt-auto">
+                  <%= link_to "#{t('travel_guides.read_article')} <span class=\"inline-block rtl:rotate-180\">&rarr;</span>".html_safe, travel_guide_path(related), class: "text-[11px] font-semibold text-brand-charcoal-900 uppercase tracking-widest group-hover:text-brand-green-700 transition-colors" %>
+                </div>
+              </div>
+            </article>
+          <% end %>
+        </div>
+      </div>
+    </section>
+  <% end %>
+</article>

@@ -1,66 +1,68 @@
-    <!-- Global Footer -->
-    <footer class="bg-brand-charcoal-900 text-white mt-auto">
-      <div class="container-main py-12 md:py-16">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12">
-          
-          <!-- Brand Info -->
-          <div class="lg:col-span-2">
-            <a href="/" class="block mb-6">
-              <%= image_tag "ediz-travel-logo.png", alt: "61 EDİZ TRAVEL", class: "h-12 md:h-16 w-auto object-contain" %>
-            </a>
-            
-            <p class="text-brand-gray-200 mb-8 max-w-sm leading-relaxed">
-              Premium travel agency offering unforgettable experiences in Trabzon and the Eastern Black Sea region.
-            </p>
-            <div class="inline-flex items-center gap-4 bg-brand-charcoal-800 px-5 py-4 rounded-xl border border-brand-charcoal-700 shadow-sm">
-              <div class="text-brand-gold-500">
-                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
-              </div>
-              <div>
-                <p class="text-xs text-brand-gray-200 uppercase tracking-wider font-bold mb-0.5">TÜRSAB Licensed</p>
-                <p class="text-sm font-semibold text-white">Document No: 15956</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Links -->
-          <div>
-            <h3 class="text-lg font-semibold mb-5 text-white">Explore</h3>
-            <ul class="space-y-4">
-              <li><%= link_to "Tours", tours_path, class: "text-brand-gray-200 hover:text-white hover:underline transition" %></li>
-              <li><%= link_to "Destinations", destinations_path, class: "text-brand-gray-200 hover:text-white hover:underline transition" %></li>
-              <li><%= link_to "Packages", packages_path, class: "text-brand-gray-200 hover:text-white hover:underline transition" %></li>
-              <li><a href="#" class="text-brand-gray-200 hover:text-white hover:underline transition">Travel Guide</a></li>
-            </ul>
-          </div>
-          
-          <div>
-            <h3 class="text-lg font-semibold mb-5 text-white">Services</h3>
-            <ul class="space-y-4">
-              <li><%= link_to "Private Tours", private_tours_path, class: "text-brand-gray-200 hover:text-white hover:underline transition" %></li>
-              <li><%= link_to "Airport Transfer", airport_transfer_path, class: "text-brand-gray-200 hover:text-white hover:underline transition" %></li>
-              <li><a href="#" class="text-brand-gray-200 hover:text-white hover:underline transition">Corporate</a></li>
-            </ul>
-          </div>
-          
-          <div>
-            <h3 class="text-lg font-semibold mb-5 text-white">Company</h3>
-            <ul class="space-y-4">
-              <li><%= link_to "About Us", about_path, class: "text-brand-gray-200 hover:text-white hover:underline transition" %></li>
-              <li><%= link_to "Contact", contact_path, class: "text-brand-gray-200 hover:text-white hover:underline transition" %></li>
-              <li><%= link_to "FAQ", faq_path, class: "text-brand-gray-200 hover:text-white hover:underline transition" %></li>
-              <li><a href="#" class="text-brand-gray-200 hover:text-white hover:underline transition">Legal</a></li>
-            </ul>
-          </div>
-
-        </div>
+<!-- Global Footer -->
+<footer class="bg-brand-charcoal-900 text-white mt-auto">
+  <div class="container-main py-8 md:py-16">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 lg:gap-12">
+      
+      <!-- Brand Info -->
+      <div class="lg:col-span-2">
+        <%= link_to root_path, class: "block mb-6" do %>
+          <%= image_tag "ediz-travel-logo.png", alt: "61 EDİZ TRAVEL", class: "h-12 md:h-16 w-auto object-contain" %>
+        <% end %>
         
-        <div class="border-t border-brand-charcoal-700 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-brand-gray-300">
-          <p>&copy; <%= Time.current.year %> 61 EDİZ TRAVEL. All rights reserved.</p>
-          <div class="flex gap-4 mt-4 md:mt-0 font-medium">
-            <span>Trabzon, Türkiye</span>
+        <p class="text-brand-gray-200 mb-8 max-w-sm leading-relaxed">
+          <%= t("footer.tagline") %>
+        </p>
+        <div class="inline-flex items-center gap-4 bg-brand-charcoal-800 px-5 py-4 rounded-xl border border-brand-charcoal-700 shadow-sm">
+          <div class="text-brand-gold-500">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+          </div>
+          <div>
+            <p class="text-xs text-brand-gray-200 uppercase tracking-wider font-bold mb-0.5"><%= t("common.tursab_licensed") %></p>
+            <p class="text-sm font-semibold text-white"><%= t("common.tursab_document_no") %></p>
+            <p class="text-[11px] text-brand-gray-300 font-light mt-0.5">LAZ TUR TURİZM İNŞAAT TİC. LTD. ŞTİ.</p>
           </div>
         </div>
       </div>
-    </footer>
 
+      <!-- Links -->
+      <div>
+        <h3 class="text-lg font-semibold mb-5 text-white"><%= t("footer.explore") %></h3>
+        <ul class="space-y-4">
+          <li><%= link_to t("nav.tours"), tours_path, class: "text-brand-gray-200 hover:text-white hover:underline transition" %></li>
+          <li><%= link_to t("nav.services"), services_path, class: "text-brand-gray-200 hover:text-white hover:underline transition" %></li>
+          <li><%= link_to t("nav.travel_guide"), travel_guides_path, class: "text-brand-gray-200 hover:text-white hover:underline transition" %></li>
+        </ul>
+      </div>
+      
+      <div>
+        <h3 class="text-lg font-semibold mb-5 text-white"><%= t("footer.services") %></h3>
+        <ul class="space-y-4">
+          <li><%= link_to t("services.airport_transfer"), airport_transfer_path, class: "text-brand-gray-200 hover:text-white hover:underline transition" %></li>
+          <li><%= link_to t("services.car_rental"), car_rental_path, class: "text-brand-gray-200 hover:text-white hover:underline transition" %></li>
+          <li><%= link_to t("services.chauffeured_car"), chauffeured_car_path, class: "text-brand-gray-200 hover:text-white hover:underline transition" %></li>
+          <li><%= link_to t("services.accommodation"), accommodations_path, class: "text-brand-gray-200 hover:text-white hover:underline transition" %></li>
+          <li><%= link_to t("services.private_tours"), private_tours_path, class: "text-brand-gray-200 hover:text-white hover:underline transition" %></li>
+          <li><%= link_to t("services.travel_packages"), packages_path, class: "text-brand-gray-200 hover:text-white hover:underline transition" %></li>
+        </ul>
+      </div>
+      
+      <div>
+        <h3 class="text-lg font-semibold mb-5 text-white"><%= t("footer.company") %></h3>
+        <ul class="space-y-4">
+          <li><%= link_to t("footer.about_us"), about_path, class: "text-brand-gray-200 hover:text-white hover:underline transition" %></li>
+          <li><%= link_to t("footer.contact"), contact_path, class: "text-brand-gray-200 hover:text-white hover:underline transition" %></li>
+          <li><%= link_to t("footer.faq"), faq_path, class: "text-brand-gray-200 hover:text-white hover:underline transition" %></li>
+        </ul>
+      </div>
+
+    </div>
+    
+    <div class="border-t border-brand-charcoal-700 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-brand-gray-300">
+      <p>&copy; <%= Time.current.year %> 61 EDİZ TRAVEL &bull; LAZ TUR TURİZM İNŞAAT TİCARET LİMİTED ŞİRKETİ. <%= t("footer.all_rights_reserved") %></p>
+      <div class="flex gap-4 mt-4 md:mt-0 font-medium">
+        <span><%= t("footer.location") %></span>
+      </div>
+    </div>
+    </div>
+  </div>
+</footer>

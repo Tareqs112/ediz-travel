@@ -1,0 +1,167 @@
+<% content_for :title, "Trip Inquiry Details" %>
+
+<div class="mb-6 flex justify-between items-center">
+  <%= link_to "&larr; Back to Inquiries".html_safe, admin_trip_inquiries_path, class: "text-sm font-medium text-gray-500 hover:text-gray-900" %>
+  
+  <% badge_class = case @trip_inquiry.inquiry_type
+                   when "airport_transfer" then "bg-blue-100 text-blue-800"
+                   when "private_transport" then "bg-purple-100 text-purple-800"
+                   else "bg-gray-100 text-gray-800"
+                   end %>
+  <span class="px-3 py-1 rounded-full text-xs font-semibold <%= badge_class %> uppercase tracking-wider">
+    <%= @trip_inquiry.inquiry_type.titleize %>
+  </span>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+  <!-- Details -->
+  <div class="lg:col-span-2 space-y-8">
+    <div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
+      <div class="px-6 py-5 border-b border-gray-200 bg-gray-50 flex justify-between items-center">
+        <h3 class="text-lg font-medium text-gray-900">Customer Information</h3>
+      </div>
+      <div class="px-6 py-5">
+        <dl class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-6">
+          <div>
+            <dt class="text-sm font-medium text-gray-500">Full Name</dt>
+            <dd class="mt-1 text-sm text-gray-900"><%= @trip_inquiry.customer_name %></dd>
+          </div>
+          <div>
+            <dt class="text-sm font-medium text-gray-500">Email Address</dt>
+            <dd class="mt-1 text-sm text-gray-900"><a href="mailto:<%= @trip_inquiry.email %>" class="text-brand-green-600 hover:underline"><%= @trip_inquiry.email %></a></dd>
+          </div>
+          <div>
+            <dt class="text-sm font-medium text-gray-500">Phone / WhatsApp</dt>
+            <dd class="mt-1 text-sm text-gray-900">
+              <% if @trip_inquiry.phone.present? %>
+                <a href="tel:<%= @trip_inquiry.phone %>" class="text-brand-green-600 hover:underline"><%= @trip_inquiry.phone %></a>
+              <% else %>
+                -
+              <% end %>
+            </dd>
+          </div>
+          <div>
+            <dt class="text-sm font-medium text-gray-500">Preferred Language</dt>
+            <dd class="mt-1 text-sm text-gray-900"><%= @trip_inquiry.preferred_language.presence || "-" %></dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
+      <div class="px-6 py-5 border-b border-gray-200 bg-gray-50">
+        <h3 class="text-lg font-medium text-gray-900">
+          <% if @trip_inquiry.airport_transfer? || @trip_inquiry.private_transport? %>
+            Transport Details
+          <% else %>
+            Trip Details
+          <% end %>
+        </h3>
+      </div>
+      <div class="px-6 py-5">
+        <dl class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-6">
+          
+          <% if @trip_inquiry.airport_transfer? || @trip_inquiry.private_transport? %>
+            <div>
+              <dt class="text-sm font-medium text-gray-500">Pickup Date</dt>
+              <dd class="mt-1 text-sm text-gray-900"><%= @trip_inquiry.travel_date.to_formatted_s(:long) %></dd>
+            </div>
+            <div>
+              <dt class="text-sm font-medium text-gray-500">Pickup Time</dt>
+              <dd class="mt-1 text-sm text-gray-900"><%= @trip_inquiry.pickup_time %></dd>
+            </div>
+            <div>
+              <dt class="text-sm font-medium text-gray-500">Number of Passengers</dt>
+              <dd class="mt-1 text-sm text-gray-900"><%= @trip_inquiry.travelers_count %></dd>
+            </div>
+            <div>
+              <dt class="text-sm font-medium text-gray-500">Vehicle Preference</dt>
+              <dd class="mt-1 text-sm text-gray-900"><%= @trip_inquiry.vehicle_preference.presence || "None specified" %></dd>
+            </div>
+            
+            <% if @trip_inquiry.airport_transfer? %>
+              <div class="sm:col-span-2">
+                <dt class="text-sm font-medium text-gray-500">Flight Details</dt>
+                <dd class="mt-1 text-sm text-gray-900"><%= @trip_inquiry.flight_details.presence || "None specified" %></dd>
+              </div>
+            <% end %>
+            
+            <div class="sm:col-span-2">
+              <dt class="text-sm font-medium text-gray-500">Pickup Location</dt>
+              <dd class="mt-1 text-sm text-gray-900 bg-gray-50 p-4 rounded-md border border-gray-100"><%= @trip_inquiry.pickup_location %></dd>
+            </div>
+            <div class="sm:col-span-2">
+              <dt class="text-sm font-medium text-gray-500">Dropoff Location</dt>
+              <dd class="mt-1 text-sm text-gray-900 bg-gray-50 p-4 rounded-md border border-gray-100"><%= @trip_inquiry.dropoff_location %></dd>
+            </div>
+            
+          <% else %>
+            <div>
+              <dt class="text-sm font-medium text-gray-500">Travel Date</dt>
+              <dd class="mt-1 text-sm text-gray-900"><%= @trip_inquiry.travel_date.to_formatted_s(:long) %></dd>
+            </div>
+            <div>
+              <dt class="text-sm font-medium text-gray-500">Number of Travelers</dt>
+              <dd class="mt-1 text-sm text-gray-900"><%= @trip_inquiry.travelers_count %> Guests</dd>
+            </div>
+            <div>
+              <dt class="text-sm font-medium text-gray-500">Duration</dt>
+              <dd class="mt-1 text-sm text-gray-900"><%= @trip_inquiry.duration_days ? "#{@trip_inquiry.duration_days} Days" : "-" %></dd>
+            </div>
+            
+            <% if @trip_inquiry.package %>
+              <div class="sm:col-span-2">
+                <dt class="text-sm font-medium text-gray-500">Inquired Package</dt>
+                <dd class="mt-1 text-sm text-gray-900">
+                  <%= link_to @trip_inquiry.package.title, admin_package_path(@trip_inquiry.package), class: "text-brand-green-600 hover:underline font-medium" %>
+                </dd>
+              </div>
+            <% end %>
+            
+            <div class="sm:col-span-2">
+              <dt class="text-sm font-medium text-gray-500">Requested Destinations / Interests</dt>
+              <dd class="mt-1 text-sm text-gray-900 bg-gray-50 p-4 rounded-md"><%= @trip_inquiry.interests.presence || "No destinations provided." %></dd>
+            </div>
+          <% end %>
+
+          <div class="sm:col-span-2">
+            <dt class="text-sm font-medium text-gray-500">Additional Notes</dt>
+            <dd class="mt-1 text-sm text-gray-900 bg-gray-50 p-4 rounded-md"><%= @trip_inquiry.notes.presence || "No additional notes provided." %></dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sidebar -->
+  <div class="space-y-8">
+    <div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
+      <div class="px-6 py-5 border-b border-gray-200 bg-gray-50">
+        <h3 class="text-lg font-medium text-gray-900">Manage Status</h3>
+      </div>
+      <div class="px-6 py-5">
+        
+        <% if @trip_inquiry.errors.any? %>
+          <div class="bg-red-50 text-red-800 p-3 mb-4 rounded text-sm">
+            <%= @trip_inquiry.errors.full_messages.to_sentence %>
+          </div>
+        <% end %>
+
+        <%= form_with(model: [:admin, @trip_inquiry], local: true) do |f| %>
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Current Status</label>
+            <%= f.select :status, TripInquiry::VALID_STATUSES.map { |s| [s.titleize, s] }, {}, class: "w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 text-sm" %>
+          </div>
+          <%= f.submit "Update Status", class: "w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-900 hover:bg-gray-800 focus:outline-none cursor-pointer" %>
+        <% end %>
+      </div>
+    </div>
+    
+    <div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
+      <div class="px-6 py-5">
+        <dt class="text-sm font-medium text-gray-500">Date Received</dt>
+        <dd class="mt-1 text-sm text-gray-900"><%= @trip_inquiry.created_at.to_formatted_s(:long) %></dd>
+      </div>
+    </div>
+  </div>
+</div>

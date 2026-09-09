@@ -7,8 +7,10 @@
 # Ignore bundler config.
 /.bundle
 
-# Ignore all environment files.
+# Ignore all environment files and local secrets.
 /.env*
+.env
+.env*.local
 
 # Ignore all logfiles and tempfiles.
 /log/*
@@ -32,7 +34,16 @@
 
 # Ignore key files for decrypting credentials and more.
 /config/*.key
-
+/config/credentials/*.key
+config/master.key
 
 /app/assets/builds/*
 !/app/assets/builds/.keep
+
+# Ignore macOS system files.
+.DS_Store
+**/.DS_Store
+
+# Ignore node modules if applicable.
+/node_modules/
+node_modules/

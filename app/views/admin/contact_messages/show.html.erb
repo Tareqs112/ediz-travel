@@ -1,0 +1,32 @@
+<% content_for :title, "Message Details" %>
+
+<div class="mb-6">
+  <%= link_to "&larr; Back to Messages".html_safe, admin_contact_messages_path, class: "text-sm font-medium text-gray-500 hover:text-gray-900" %>
+</div>
+
+<div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden max-w-3xl">
+  <div class="px-6 py-5 border-b border-gray-200 bg-gray-50">
+    <h3 class="text-lg font-medium text-gray-900"><%= @contact_message.subject.presence || "No Subject" %></h3>
+  </div>
+  <div class="px-6 py-5">
+    <dl class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-6">
+      <div>
+        <dt class="text-sm font-medium text-gray-500">From</dt>
+        <dd class="mt-1 text-sm text-gray-900"><%= @contact_message.name %></dd>
+      </div>
+      <div>
+        <dt class="text-sm font-medium text-gray-500">Email</dt>
+        <dd class="mt-1 text-sm text-gray-900"><a href="mailto:<%= @contact_message.email %>" class="text-brand-green-600 hover:underline"><%= @contact_message.email %></a></dd>
+      </div>
+      <div>
+        <dt class="text-sm font-medium text-gray-500">Date Received</dt>
+        <dd class="mt-1 text-sm text-gray-900"><%= @contact_message.created_at.to_formatted_s(:long) %></dd>
+      </div>
+      
+      <div class="sm:col-span-2">
+        <dt class="text-sm font-medium text-gray-500">Message</dt>
+        <dd class="mt-2 text-sm text-gray-900 bg-gray-50 p-4 rounded-md whitespace-pre-wrap"><%= @contact_message.message %></dd>
+      </div>
+    </dl>
+  </div>
+</div>

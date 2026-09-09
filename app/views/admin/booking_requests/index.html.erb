@@ -1,0 +1,77 @@
+<% content_for :title, "Booking Requests" %>
+
+<div class="mb-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+  <div class="flex flex-wrap gap-2">
+    <%= link_to "All", admin_booking_requests_path(q: params[:q]), class: "px-4 py-2 rounded-md text-sm font-medium #{params[:status].blank? ? 'bg-gray-800 text-white' : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'}" %>
+    <% BookingRequest::VALID_STATUSES.each do |status| %>
+      <%= link_to status.titleize, admin_booking_requests_path(status: status, q: params[:q]), class: "px-4 py-2 rounded-md text-sm font-medium #{params[:status] == status ? 'bg-gray-800 text-white' : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'}" %>
+    <% end %>
+  </div>
+
+  <%= form_with(url: admin_booking_requests_path, method: :get, local: true, class: "flex w-full md:w-auto") do |f| %>
+    <% if params[:status].present? %>
+      <%= f.hidden_field :status, value: params[:status] %>
+    <% end %>
+    <%= f.text_field :q, value: params[:q], placeholder: "Search name or email...", class: "rounded-s-md border-gray-300 focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm w-full md:w-64" %>
+    <%= f.submit "Search", class: "inline-flex items-center px-4 py-2 border border-s-0 border-transparent rounded-e-md shadow-sm text-sm font-medium text-white bg-gray-900 hover:bg-gray-800 focus:outline-none cursor-pointer" %>
+  <% end %>
+</div>
+
+<div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
+  <div class="overflow-x-auto">
+    <table class="min-w-full divide-y divide-gray-200">
+      <thead class="bg-gray-50">
+        <tr>
+          <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase tracking-wider">Ref ID</th>
+          <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase tracking-wider">Date Received</th>
+          <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
+          <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase tracking-wider">Tour</th>
+          <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase tracking-wider">Travel Date</th>
+          <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+          <th scope="col" class="relative px-6 py-3">
+            <span class="sr-only">Actions</span>
+          </th>
+        </tr>
+      </thead>
+      <tbody class="bg-white divide-y divide-gray-200">
+        <% @booking_requests.each do |req| %>
+          <tr class="hover:bg-gray-50">
+            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">#<%= req.id.to_s.rjust(4, '0') %></td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= req.created_at.to_date.to_formatted_s(:short) %></td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="text-sm font-medium text-gray-900"><%= req.customer_name %></div>
+              <div class="text-sm text-gray-500"><%= req.preferred_language %> • <%= req.travelers_count %> pax</div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><%= req.tour.title %></td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= req.travel_date.to_formatted_s(:long) %></td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <%
+                status_classes = case req.status
+                                 when "new" then "bg-blue-100 text-blue-800"
+                                 when "contacted" then "bg-yellow-100 text-yellow-800"
+                                 when "quoted" then "bg-orange-100 text-orange-800"
+                                 when "confirmed" then "bg-green-100 text-green-800"
+                                 when "completed" then "bg-gray-100 text-gray-800"
+                                 when "cancelled" then "bg-red-100 text-red-800"
+                                 else "bg-gray-100 text-gray-800"
+                                 end
+              %>
+              <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full <%= status_classes %>">
+                <%= req.status.titleize %>
+              </span>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
+              <%= link_to "View", admin_booking_request_path(req), class: "text-brand-green-600 hover:text-brand-green-900" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  
+  <% if @booking_requests.empty? %>
+    <div class="p-8 text-center text-gray-500">
+      No booking requests found.
+    </div>
+  <% end %>
+</div>

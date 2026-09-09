@@ -1,0 +1,118 @@
+<% content_for :title, t("accommodations.page_title") %>
+
+<div class="bg-brand-gray-50 min-h-screen">
+  
+  <!-- Header Section -->
+  <div class="bg-white border-b border-brand-gray-200 pt-16 pb-12 lg:pt-24 lg:pb-16">
+    <div class="container-main">
+      <div class="max-w-3xl">
+        <div class="mb-4 inline-flex items-center gap-4">
+          <span class="w-12 h-[1px] bg-brand-gold-500 opacity-80"></span>
+          <span class="text-brand-gold-500 font-semibold tracking-[0.2em] text-xs uppercase"><%= t("accommodations.eyebrow") %></span>
+        </div>
+        <h1 class="text-2xl lg:text-5xl font-sans font-medium text-brand-charcoal-900 tracking-tight leading-[1.1] mb-6">
+          <%= @type.present? ? t("accommodations.#{@type.pluralize}", default: @type.capitalize.pluralize) : t("accommodations.heading_default") %>
+        </h1>
+        <p class="text-base lg:text-lg text-brand-charcoal-600 font-light leading-relaxed max-w-2xl">
+          <%= t("accommodations.subtitle") %>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Category Filter Bar -->
+  <div class="bg-white border-b border-brand-gray-200 sticky top-[4.5rem] lg:top-24 z-30 shadow-sm">
+    <div class="container-main">
+      <div class="flex overflow-x-auto hide-scrollbar py-4 gap-2 lg:gap-4">
+        <%= link_to t("accommodations.all_stays"), accommodations_path, class: "px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors #{ @type.blank? ? 'bg-brand-charcoal-900 text-white' : 'bg-brand-gray-100 text-brand-charcoal-700 hover:bg-brand-gray-200' }" %>
+        <%= link_to t("accommodations.hotels"), accommodations_path(type: "hotel"), class: "px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors #{ @type == 'hotel' ? 'bg-brand-charcoal-900 text-white' : 'bg-brand-gray-100 text-brand-charcoal-700 hover:bg-brand-gray-200' }" %>
+        <%= link_to t("accommodations.bungalows"), accommodations_path(type: "bungalow"), class: "px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors #{ @type == 'bungalow' ? 'bg-brand-charcoal-900 text-white' : 'bg-brand-gray-100 text-brand-charcoal-700 hover:bg-brand-gray-200' }" %>
+        <%= link_to t("accommodations.apartments"), accommodations_path(type: "apartment"), class: "px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors #{ @type == 'apartment' ? 'bg-brand-charcoal-900 text-white' : 'bg-brand-gray-100 text-brand-charcoal-700 hover:bg-brand-gray-200' }" %>
+        <%= link_to t("accommodations.chalets"), accommodations_path(type: "chalet"), class: "px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors #{ @type == 'chalet' ? 'bg-brand-charcoal-900 text-white' : 'bg-brand-gray-100 text-brand-charcoal-700 hover:bg-brand-gray-200' }" %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Listings Section -->
+  <div class="container-main py-8 lg:py-20">
+    
+    <% if @accommodations.any? %>
+      <div class="flex overflow-x-auto snap-x snap-mandatory gap-4 md:gap-8 pb-8 hide-scrollbar md:grid md:grid-cols-2 lg:grid-cols-3">
+        <% @accommodations.each do |accommodation| %>
+          <div class="snap-start flex-none w-[85%] sm:w-[60%] md:w-auto h-auto">
+          <%= link_to accommodation_path(accommodation.slug), class: "group flex flex-col bg-white border border-brand-gray-200/60 overflow-hidden hover:shadow-xl transition-all duration-300 h-full" do %>
+            
+            <!-- Image -->
+            <div class="relative w-full aspect-[16/9] md:aspect-[4/3] bg-brand-gray-100 overflow-hidden">
+              <% if accommodation.image.attached? %>
+                <%= image_tag accommodation.image, alt: accommodation.name, loading: "lazy", class: "w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" %>
+              <% else %>
+                <div class="absolute inset-0 flex items-center justify-center text-brand-gray-300 bg-brand-gray-50">
+                  <svg class="w-10 h-10 opacity-40" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.75a.75.75 0 01.75-.75h3a.75.75 0 01.75.75V21" />
+                  </svg>
+                </div>
+              <% end %>
+              
+              <% if accommodation.featured? %>
+                <div class="absolute top-4 start-4 bg-white/90 backdrop-blur text-brand-charcoal-900 px-3 py-1 text-xs font-bold uppercase tracking-wider shadow-sm">
+                  <%= t("accommodations.featured") %>
+                </div>
+              <% end %>
+            </div>
+
+            <!-- Content -->
+            <div class="p-4 md:p-6 flex flex-col flex-grow">
+              <div class="flex items-center justify-between mb-3">
+                <span class="text-xs uppercase tracking-widest font-semibold text-brand-gold-500">
+                  <%= accommodation.accommodation_type %>
+                </span>
+                <% if accommodation.location.present? %>
+                  <span class="text-xs font-medium text-brand-gray-500 flex items-center gap-1">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                    <%= accommodation.location %>
+                  </span>
+                <% end %>
+              </div>
+              
+              <h3 class="text-xl font-medium text-brand-charcoal-900 mb-2 md:mb-3 group-hover:text-brand-green-700 transition-colors">
+                <%= accommodation.name %>
+              </h3>
+              
+              <% if accommodation.short_description.present? %>
+                <p class="text-sm text-brand-charcoal-600 font-light leading-relaxed mb-4 md:mb-6 line-clamp-2 md:line-clamp-3">
+                  <%= accommodation.short_description %>
+                </p>
+              <% end %>
+              
+              <div class="mt-auto pt-4 border-t border-brand-gray-100 flex items-center justify-between">
+                <span class="text-sm font-medium text-brand-charcoal-900 uppercase tracking-wider"><%= t("accommodations.view_details") %></span>
+                <svg class="w-5 h-5 text-brand-green-700 transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1 rtl:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+              </div>
+            </div>
+          <% end %>
+        </div>
+        <% end %>
+      </div>
+    
+    <% else %>
+      <!-- Empty State -->
+      <div class="bg-white border border-brand-gray-200/60 p-6 lg:p-20 flex flex-col items-center text-center max-w-4xl mx-auto">
+        <div class="w-16 h-16 bg-brand-gray-50 rounded-full flex items-center justify-center mb-6">
+          <svg class="w-8 h-8 text-brand-gold-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+        </div>
+        
+        <h3 class="text-2xl font-medium text-brand-charcoal-900 mb-4">
+          <%= t("accommodations.empty_title") %>
+        </h3>
+        
+        <p class="text-brand-charcoal-600 font-light leading-relaxed max-w-xl mb-8">
+          <%= t("accommodations.empty_desc") %>
+        </p>
+        
+        <%= link_to t("accommodations.request_accommodation"), plan_your_trip_path, class: "inline-flex items-center gap-2 px-8 py-4 bg-brand-charcoal-900 hover:bg-brand-green-800 text-white font-medium text-sm tracking-widest uppercase transition-colors" %>
+      </div>
+    <% end %>
+    
+  </div>
+</div>

@@ -1,0 +1,192 @@
+<% 
+  is_transfer = @trip_inquiry.airport_transfer?
+  is_car_rental = @trip_inquiry.car_rental?
+  is_chauffeured = @trip_inquiry.chauffeured_car?
+  is_private = @trip_inquiry.private_transport?
+  is_transport = is_transfer || is_private || is_car_rental || is_chauffeured
+  
+  title = case @trip_inquiry.inquiry_type
+          when "airport_transfer" then t("trip_inquiries.titles.airport_transfer")
+          when "car_rental" then t("trip_inquiries.titles.car_rental")
+          when "chauffeured_car" then t("trip_inquiries.titles.chauffeured_car")
+          when "private_transport" then t("trip_inquiries.titles.private_transport")
+          else t("trip_inquiries.titles.general")
+          end
+          
+  subtitle = case @trip_inquiry.inquiry_type
+             when "airport_transfer" then t("trip_inquiries.subtitles.airport_transfer")
+             when "car_rental" then t("trip_inquiries.subtitles.car_rental")
+             when "chauffeured_car" then t("trip_inquiries.subtitles.chauffeured_car")
+             when "private_transport" then t("trip_inquiries.subtitles.private_transport")
+             else t("trip_inquiries.subtitles.general")
+             end
+%>
+<% content_for :title, "#{title.chomp('.')} - 61 EDİZ TRAVEL" %>
+
+<div class="bg-white min-h-screen border-t border-brand-gray-200/50">
+  <div class="container-main py-10 lg:py-24">
+    
+    <!-- Intro Block -->
+    <div class="max-w-3xl mb-16 lg:mb-20">
+      <div class="mb-6 inline-flex items-center gap-4">
+        <span class="w-12 h-[1px] bg-brand-gold-500 opacity-80"></span>
+        <span class="text-brand-gold-500 font-semibold tracking-[0.2em] text-xs sm:text-sm uppercase"><%= t("trip_inquiries.eyebrow") %></span>
+      </div>
+      <h1 class="text-2xl lg:text-5xl font-sans font-medium text-brand-charcoal-900 tracking-tight leading-[1.1] mb-6">
+        <%= title %>
+      </h1>
+      <p class="text-base lg:text-lg text-brand-charcoal-600 font-light leading-relaxed max-w-2xl">
+        <%= subtitle %>
+      </p>
+    </div>
+
+    <!-- Main Layout -->
+    <div class="flex flex-col lg:flex-row gap-10 lg:gap-24">
+      
+      <!-- Left: Form -->
+      <div class="w-full lg:w-2/3">
+        
+        <% if @trip_inquiry.errors.any? %>
+          <div class="bg-red-50 text-red-800 p-4 mb-8 border-s-4 border-red-500">
+            <h3 class="text-sm font-semibold mb-2"><%= t("trip_inquiries.errors_header") %></h3>
+            <ul class="list-disc ps-5 text-sm space-y-1">
+              <% @trip_inquiry.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <%= form_with model: @trip_inquiry, url: trip_inquiries_path, local: true, class: "space-y-6 lg:space-y-10" do |f| %>
+          <%= f.hidden_field :inquiry_type %>
+          <%= f.hidden_field :package_id %>
+          <%= f.hidden_field :accommodation_id %>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="flex flex-col">
+              <%= f.label :customer_name, t("trip_inquiries.form.full_name"), class: "text-sm font-medium text-brand-charcoal-900 mb-2" %>
+              <%= f.text_field :customer_name, required: true, class: "w-full border-b border-brand-gray-200 py-3 px-0 bg-transparent text-brand-charcoal-900 focus:outline-none focus:border-brand-green-700 transition-colors placeholder:text-brand-gray-300 font-light", placeholder: t("trip_inquiries.form.full_name_placeholder") %>
+            </div>
+
+            <div class="flex flex-col">
+              <%= f.label :email, t("trip_inquiries.form.email"), class: "text-sm font-medium text-brand-charcoal-900 mb-2" %>
+              <%= f.email_field :email, required: true, class: "w-full border-b border-brand-gray-200 py-3 px-0 bg-transparent text-brand-charcoal-900 focus:outline-none focus:border-brand-green-700 transition-colors placeholder:text-brand-gray-300 font-light", placeholder: t("trip_inquiries.form.email_placeholder") %>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="flex flex-col">
+              <%= f.label :phone, t("trip_inquiries.form.phone"), class: "text-sm font-medium text-brand-charcoal-900 mb-2" %>
+              <%= f.text_field :phone, class: "w-full border-b border-brand-gray-200 py-3 px-0 bg-transparent text-brand-charcoal-900 focus:outline-none focus:border-brand-green-700 transition-colors placeholder:text-brand-gray-300 font-light", placeholder: t("trip_inquiries.form.phone_placeholder") %>
+            </div>
+
+            <div class="flex flex-col">
+              <%= f.label :travelers_count, is_transport ? t("trip_inquiries.form.passengers_count") : t("trip_inquiries.form.travelers_count"), class: "text-sm font-medium text-brand-charcoal-900 mb-2" %>
+              <%= f.number_field :travelers_count, required: true, min: 1, class: "w-full border-b border-brand-gray-200 py-3 px-0 bg-transparent text-brand-charcoal-900 focus:outline-none focus:border-brand-green-700 transition-colors placeholder:text-brand-gray-300 font-light", placeholder: t("trip_inquiries.form.count_placeholder") %>
+            </div>
+          </div>
+
+          <% if is_transport %>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div class="flex flex-col">
+                <%= f.label :travel_date, t("trip_inquiries.form.pickup_date"), class: "text-sm font-medium text-brand-charcoal-900 mb-2" %>
+                <%= f.date_field :travel_date, required: true, class: "w-full border-b border-brand-gray-200 py-3 px-0 bg-transparent text-brand-charcoal-900 focus:outline-none focus:border-brand-green-700 transition-colors font-light" %>
+              </div>
+              <div class="flex flex-col">
+                <%= f.label :pickup_time, t("trip_inquiries.form.pickup_time"), class: "text-sm font-medium text-brand-charcoal-900 mb-2" %>
+                <%= f.time_field :pickup_time, required: true, class: "w-full border-b border-brand-gray-200 py-3 px-0 bg-transparent text-brand-charcoal-900 focus:outline-none focus:border-brand-green-700 transition-colors font-light" %>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div class="flex flex-col">
+                <%= f.label :pickup_location, t("trip_inquiries.form.pickup_location"), class: "text-sm font-medium text-brand-charcoal-900 mb-2" %>
+                <%= f.text_field :pickup_location, required: true, class: "w-full border-b border-brand-gray-200 py-3 px-0 bg-transparent text-brand-charcoal-900 focus:outline-none focus:border-brand-green-700 transition-colors placeholder:text-brand-gray-300 font-light", placeholder: is_transfer ? t("trip_inquiries.form.pickup_placeholder_transfer") : t("trip_inquiries.form.pickup_placeholder_general") %>
+              </div>
+              <div class="flex flex-col">
+                <%= f.label :dropoff_location, t("trip_inquiries.form.dropoff_location"), class: "text-sm font-medium text-brand-charcoal-900 mb-2" %>
+                <%= f.text_field :dropoff_location, required: true, class: "w-full border-b border-brand-gray-200 py-3 px-0 bg-transparent text-brand-charcoal-900 focus:outline-none focus:border-brand-green-700 transition-colors placeholder:text-brand-gray-300 font-light", placeholder: t("trip_inquiries.form.dropoff_placeholder") %>
+              </div>
+            </div>
+
+            <% if is_transfer %>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="flex flex-col">
+                  <%= f.label :flight_details, t("trip_inquiries.form.flight_details"), class: "text-sm font-medium text-brand-charcoal-900 mb-2" %>
+                  <%= f.text_field :flight_details, class: "w-full border-b border-brand-gray-200 py-3 px-0 bg-transparent text-brand-charcoal-900 focus:outline-none focus:border-brand-green-700 transition-colors placeholder:text-brand-gray-300 font-light", placeholder: t("trip_inquiries.form.flight_placeholder") %>
+                </div>
+                <div class="flex flex-col">
+                  <%= f.label :vehicle_preference, t("trip_inquiries.form.vehicle_preference"), class: "text-sm font-medium text-brand-charcoal-900 mb-2" %>
+                  <%= f.select :vehicle_preference, [
+                    [t("trip_inquiries.form.vehicle_standard_minivan"), "Standard Minivan"],
+                    [t("trip_inquiries.form.vehicle_vip_minivan"), "VIP Minivan"],
+                    [t("trip_inquiries.form.vehicle_sedan"), "Sedan"]
+                  ], { prompt: t("trip_inquiries.form.vehicle_no_preference") }, class: "w-full border-b border-brand-gray-200 py-3 px-0 bg-transparent text-brand-charcoal-900 focus:outline-none focus:border-brand-green-700 transition-colors font-light appearance-none cursor-pointer" %>
+                </div>
+              </div>
+            <% else %>
+              <div class="flex flex-col">
+                <%= f.label :vehicle_preference, t("trip_inquiries.form.vehicle_preference"), class: "text-sm font-medium text-brand-charcoal-900 mb-2" %>
+                <%= f.select :vehicle_preference, [
+                  [t("trip_inquiries.form.vehicle_standard_minivan"), "Standard Minivan"],
+                  [t("trip_inquiries.form.vehicle_vip_minivan"), "VIP Minivan"],
+                  [t("trip_inquiries.form.vehicle_sedan"), "Sedan"]
+                ], { prompt: t("trip_inquiries.form.vehicle_no_preference") }, class: "w-full border-b border-brand-gray-200 py-3 px-0 bg-transparent text-brand-charcoal-900 focus:outline-none focus:border-brand-green-700 transition-colors font-light appearance-none cursor-pointer" %>
+              </div>
+            <% end %>
+            
+          <% else %>
+            <!-- General Travel Form Fields -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div class="flex flex-col">
+                <%= f.label :travel_date, t("trip_inquiries.form.travel_date"), class: "text-sm font-medium text-brand-charcoal-900 mb-2" %>
+                <%= f.date_field :travel_date, required: true, class: "w-full border-b border-brand-gray-200 py-3 px-0 bg-transparent text-brand-charcoal-900 focus:outline-none focus:border-brand-green-700 transition-colors font-light" %>
+              </div>
+              <div class="flex flex-col">
+                <%= f.label :duration_days, t("trip_inquiries.form.duration_days"), class: "text-sm font-medium text-brand-charcoal-900 mb-2" %>
+                <%= f.number_field :duration_days, min: 1, class: "w-full border-b border-brand-gray-200 py-3 px-0 bg-transparent text-brand-charcoal-900 focus:outline-none focus:border-brand-green-700 transition-colors placeholder:text-brand-gray-300 font-light", placeholder: t("trip_inquiries.form.duration_placeholder") %>
+              </div>
+              <div class="flex flex-col">
+                <%= f.label :preferred_language, t("trip_inquiries.form.preferred_language"), class: "text-sm font-medium text-brand-charcoal-900 mb-2" %>
+                <%= f.select :preferred_language, [["English", "English"], ["Arabic", "Arabic"], ["Turkish", "Turkish"]], { prompt: t("trip_inquiries.form.select_language") }, class: "w-full border-b border-brand-gray-200 py-3 px-0 bg-transparent text-brand-charcoal-900 focus:outline-none focus:border-brand-green-700 transition-colors font-light appearance-none cursor-pointer" %>
+              </div>
+            </div>
+
+            <div class="flex flex-col">
+              <%= f.label :interests, t("trip_inquiries.form.interests"), class: "text-sm font-medium text-brand-charcoal-900 mb-2" %>
+              <%= f.text_area :interests, rows: 2, class: "w-full border-b border-brand-gray-200 py-3 px-0 bg-transparent text-brand-charcoal-900 focus:outline-none focus:border-brand-green-700 transition-colors placeholder:text-brand-gray-300 font-light resize-none", placeholder: t("trip_inquiries.form.interests_placeholder") %>
+            </div>
+          <% end %>
+
+          <!-- Additional Notes -->
+          <div class="flex flex-col">
+            <%= f.label :notes, t("trip_inquiries.form.notes"), class: "text-sm font-medium text-brand-charcoal-900 mb-2" %>
+            <%= f.text_area :notes, rows: 4, class: "w-full border-b border-brand-gray-200 py-3 px-0 bg-transparent text-brand-charcoal-900 focus:outline-none focus:border-brand-green-700 transition-colors placeholder:text-brand-gray-300 font-light resize-none", placeholder: t("trip_inquiries.form.notes_placeholder") %>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="pt-6">
+            <%= f.submit t("trip_inquiries.form.submit"), class: "inline-block px-10 py-4 bg-brand-charcoal-900 hover:bg-brand-green-800 text-white font-medium text-sm tracking-widest uppercase transition-colors cursor-pointer" %>
+          </div>
+        <% end %>
+      </div>
+
+      <!-- Right: Side Panel -->
+      <div class="w-full lg:w-1/3">
+        <div class="sticky top-32">
+          <div class="bg-[#faf9f6] border border-brand-gray-200/60 p-5 lg:p-10 flex flex-col">
+            <h3 class="text-xl font-medium text-brand-charcoal-900 mb-4"><%= t("trip_inquiries.side_panel.title") %></h3>
+            <p class="text-brand-charcoal-600 font-light leading-relaxed mb-8">
+              <%= t("trip_inquiries.side_panel.desc") %>
+            </p>
+            <div class="border-t border-brand-gray-200/60 pt-6">
+              <span class="text-xs uppercase tracking-widest font-semibold text-brand-gold-500 block mb-2"><%= t("trip_inquiries.side_panel.immediate_help") %></span>
+              <p class="text-sm text-brand-charcoal-500 font-light"><%= t("trip_inquiries.side_panel.immediate_help_desc") %></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

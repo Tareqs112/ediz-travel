@@ -1,25 +1,61 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
+  resource :session, path: 'admin/session', only: [:new, :create, :destroy]
   get "up" => "rails/health#show", as: :rails_health_check
 
-  # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
-  # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
-  # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
+  # Admin Architecture (outside locale scope)
+  namespace :admin do
+    root to: "dashboard#index"
+    resources :tours, param: :slug
+    resources :destinations, param: :slug
+    resources :accommodations, param: :slug
+    resources :packages, param: :slug
+    resources :travel_guides, param: :slug do
+      member do
+        get :preview
+        patch :publish
+        patch :unpublish
+        delete "body_images/:image_id", to: "travel_guides#remove_body_image", as: :remove_body_image
+      end
+      collection do
+        post :upload_image
+      end
+    end
+    resources :booking_requests, only: [:index, :show, :update]
+    resources :trip_inquiries, only: [:index, :show, :update]
+    resources :contact_messages, only: [:index, :show]
+  end
 
-  # Defines the root path route ("/")
-  get "plan-your-trip", to: "pages#plan_your_trip", as: :plan_your_trip
-  get "airport-transfer", to: "pages#airport_transfer", as: :airport_transfer
-  get "private-tours", to: "pages#private_tours", as: :private_tours
-  get "packages", to: "pages#packages", as: :packages
-  get "about", to: "pages#about", as: :about
-  get "contact", to: "pages#contact", as: :contact
-  get "faq", to: "pages#faq", as: :faq
-  get "search", to: "search#index", as: :search
-  
-  resources :destinations, only: [:index, :show], param: :slug
-  resources :tours, only: [:index, :show], param: :slug
-  root "pages#home"
+  # Multilingual Public Routes
+  scope "(:locale)", locale: /en|ar|tr|[a-z]{2}/ do
+    # Navigation & Generic Inquiries
+    get "plan-your-trip", to: "trip_inquiries#new", as: :plan_your_trip
+    resources :trip_inquiries, only: [:create, :show]
+
+    # Services Architecture
+    get "services", to: "services#index", as: :services
+    get "services/airport-transfer", to: "services#airport_transfer", as: :airport_transfer
+    get "services/car-rental", to: "services#car_rental", as: :car_rental
+    get "services/chauffeured-car", to: "services#chauffeured_car", as: :chauffeured_car
+    get "services/private-tours", to: "services#private_tours", as: :private_tours
+    
+    # Aliased services (pointing to their respective controllers)
+    resources :packages, path: "services/travel-packages", only: [:index, :show], param: :slug, as: :packages
+    resources :accommodations, path: "services/accommodation", only: [:index, :show], param: :slug, as: :accommodations
+
+    # Travel Guide
+    resources :travel_guides, path: "travel-guide", only: [:index, :show], param: :slug
+
+    # Other Primary Routes
+    resources :tours, only: [:index, :show], param: :slug do
+      resources :booking_requests, only: [:new, :create, :show]
+    end
+
+    get "about", to: "pages#about", as: :about
+    get "contact", to: "pages#contact", as: :contact
+    resources :contact_messages, only: [:create]
+    get "faq", to: "pages#faq", as: :faq
+    get "search", to: "search#index", as: :search
+
+    root "pages#home"
+  end
 end

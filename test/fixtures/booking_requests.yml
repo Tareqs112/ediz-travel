@@ -1,0 +1,21 @@
+one:
+  customer_name: "Jane Doe"
+  email: "jane@example.com"
+  phone: "+90 555 123 4567"
+  travel_date: 2027-05-15
+  travelers_count: 2
+  preferred_language: "English"
+  notes: "Looking forward to the trip!"
+  status: "new"
+  tour: one
+
+two:
+  customer_name: "John Smith"
+  email: "john@example.com"
+  phone: "+44 7700 900077"
+  travel_date: 2027-06-20
+  travelers_count: 4
+  preferred_language: "Turkish"
+  notes: "Need vegetarian options."
+  status: "confirmed"
+  tour: two

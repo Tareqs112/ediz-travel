@@ -1,292 +1,234 @@
-<section class="relative w-full h-[90vh] min-h-[700px] flex items-center overflow-hidden bg-black">
-  <!-- Clean, neutral background fallback (Image ready) -->
+<section class="relative w-full min-h-[450px] lg:min-h-[700px] py-20 lg:py-0 lg:h-[90vh] flex items-center justify-center overflow-hidden bg-brand-green-900">
   <div class="absolute inset-0 z-0">
     <% if File.exist?(Rails.root.join("app/assets/images/hero-trabzon-bg.jpg")) %>
       <%= image_tag "hero-trabzon-bg.jpg", alt: "Trabzon and Eastern Black Sea Landscape", class: "w-full h-full object-cover object-center" %>
-      <!-- Overlays only applied if image exists to ensure contrast -->
-      <div class="absolute inset-0 z-10 bg-gradient-to-t from-black/95 via-black/50 to-transparent"></div>
-      <div class="absolute inset-0 z-10 bg-gradient-to-r from-black/80 via-black/30 to-transparent"></div>
+      <div class="absolute inset-0 z-10 bg-black/40"></div>
     <% else %>
-      <!-- Deep cinematic palette avoiding cool/blue tones (using pure black and forest green) -->
-      <div class="w-full h-full bg-black bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-brand-green-900/30 via-black to-black"></div>
+      <div class="w-full h-full bg-brand-green-900"></div>
     <% end %>
   </div>
 
-  <!-- Hero Content -->
-  <div class="relative z-20 container-main w-full pt-20 lg:pt-0">
+  <div class="relative z-20 container-main w-full pt-20 lg:pt-0 text-center flex flex-col items-center">
     
-    <div class="max-w-4xl flex flex-col gap-6">
-      <!-- Eyebrow -->
+    <div class="max-w-4xl flex flex-col items-center gap-6">
       <div class="inline-flex items-center gap-4">
-        <span class="w-10 sm:w-12 h-[1px] bg-brand-gold-500 opacity-80"></span>
+        <span class="w-8 sm:w-12 h-[1px] bg-brand-gold-500 opacity-80"></span>
         <span class="text-brand-gold-500 font-semibold tracking-[0.2em] text-xs sm:text-sm uppercase">
-          Trabzon &bull; Eastern Black Sea
+          <%= t("home.region_badge") %>
         </span>
+        <span class="w-8 sm:w-12 h-[1px] bg-brand-gold-500 opacity-80"></span>
       </div>
 
-      <!-- Main Heading -->
-      <h1 class="text-white font-sans text-5xl sm:text-6xl lg:text-[4.5rem] font-medium tracking-tight leading-[1.15]">
-        Discover Trabzon.<br>
-        <span class="text-brand-gray-300">Experience the Black Sea.</span>
+      <h1 class="text-white font-sans text-5xl sm:text-6xl lg:text-[5rem] font-medium tracking-tight leading-[1.1]">
+        <%= t("home.hero_title_line1") %><br>
+        <span class="text-brand-gray-200"><%= t("home.hero_title_line2") %></span>
       </h1>
 
-      <!-- Supporting Text -->
-      <p class="text-lg sm:text-xl text-white/95 font-light leading-relaxed max-w-[600px] mt-2 mb-4">
-        Private tours, unforgettable landscapes, and carefully planned journeys across Trabzon and the Eastern Black Sea.
+      <p class="text-lg sm:text-xl text-white/90 font-light leading-relaxed max-w-2xl mt-2 mb-6">
+        <%= t("home.hero_subtitle") %>
       </p>
 
-      <!-- CTAs -->
-      <div class="flex flex-col sm:flex-row items-center gap-4 sm:gap-5 w-full sm:w-auto">
-        <a href="#" class="btn bg-white text-black hover:bg-brand-gray-100 px-10 py-4 shadow-xl w-full sm:w-auto font-semibold text-center transition-transform hover:-translate-y-0.5 rounded-lg">
-          Explore Tours
-        </a>
-        <a href="#" class="btn bg-transparent border border-white/20 text-white hover:bg-white/5 hover:border-white/50 px-10 py-4 w-full sm:w-auto font-medium text-center transition-all rounded-lg">
-          Plan Your Trip
-        </a>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 w-full sm:w-auto">
+        <%= link_to t("home.explore_tours"), tours_path, class: "btn bg-white text-brand-green-900 hover:bg-brand-gray-100 px-10 py-4 shadow-xl w-full sm:w-auto font-medium text-sm tracking-widest uppercase text-center transition-colors rounded-none" %>
+        <%= link_to t("home.plan_your_trip"), plan_your_trip_path, class: "btn bg-transparent border border-white/30 text-white hover:bg-white/10 hover:border-white/50 px-10 py-4 w-full sm:w-auto font-medium text-sm tracking-widest uppercase text-center transition-colors rounded-none" %>
       </div>
     </div>
 
   </div>
 </section>
-
-<!-- Services Section -->
-<section class="bg-[#faf9f6] py-24 lg:py-32 relative">
-  <div class="container-main">
-    
-    <div class="flex flex-col lg:flex-row gap-16 lg:gap-24">
-      
-      <!-- Sticky Header Column -->
-      <div class="w-full lg:w-5/12 xl:w-1/3">
-        <div class="sticky top-32">
-          <div class="mb-6 inline-flex items-center gap-4">
-            <span class="w-12 h-[1px] bg-brand-gold-500 opacity-80"></span>
-            <span class="text-brand-gold-500 font-semibold tracking-[0.2em] text-xs sm:text-sm uppercase">Our Services</span>
-          </div>
-          <h2 class="text-4xl lg:text-5xl font-sans font-medium text-brand-charcoal-900 tracking-tight leading-[1.1] mb-6">
-            Travel Your Way
-          </h2>
-          <p class="text-lg text-brand-charcoal-600 font-light leading-relaxed">
-            From private tours to seamless transfers, discover experiences designed around your journey.
-          </p>
-        </div>
-      </div>
-
-      <!-- Services List -->
-      <div class="w-full lg:w-7/12 xl:w-2/3 flex flex-col border-t border-brand-charcoal-900/10">
-        
-        <!-- Service 1: Private Tours -->
-        <div class="group flex flex-col sm:flex-row items-start gap-6 sm:gap-10 py-10 lg:py-12 border-b border-brand-charcoal-900/10 hover:border-brand-gold-400 transition-colors duration-500 cursor-pointer">
-          <!-- Number -->
-          <div class="flex-shrink-0 w-12 sm:w-16">
-            <span class="text-3xl font-light text-brand-charcoal-900/20 group-hover:text-brand-gold-500 transition-colors duration-500 font-sans tracking-tighter">01</span>
-          </div>
-          
-          <!-- Content -->
-          <div class="flex-grow">
-            <div class="flex items-center gap-5 mb-5">
-              <div class="text-brand-charcoal-900 group-hover:text-brand-green-700 transition-colors duration-500">
-                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.25">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
-                </svg>
-              </div>
-              <h3 class="text-2xl font-medium text-brand-charcoal-900 group-hover:text-brand-green-800 transition-colors duration-500">Private Tours</h3>
-            </div>
-            <p class="text-lg text-brand-charcoal-600 font-light leading-relaxed mb-6 max-w-xl">
-              Explore Trabzon and the Black Sea with a journey tailored to you.
-            </p>
-            <div class="inline-flex items-center text-sm font-medium text-brand-charcoal-900 group-hover:text-brand-gold-500 transition-colors duration-500 uppercase tracking-widest">
-              Discover <span class="ml-2 transition-transform duration-500 group-hover:translate-x-2">&rarr;</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Service 2: Airport Transfer -->
-        <div class="group flex flex-col sm:flex-row items-start gap-6 sm:gap-10 py-10 lg:py-12 border-b border-brand-charcoal-900/10 hover:border-brand-gold-400 transition-colors duration-500 cursor-pointer">
-          <div class="flex-shrink-0 w-12 sm:w-16">
-            <span class="text-3xl font-light text-brand-charcoal-900/20 group-hover:text-brand-gold-500 transition-colors duration-500 font-sans tracking-tighter">02</span>
-          </div>
-          <div class="flex-grow">
-            <div class="flex items-center gap-5 mb-5">
-              <div class="text-brand-charcoal-900 group-hover:text-brand-green-700 transition-colors duration-500">
-                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.25">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12" />
-                </svg>
-              </div>
-              <h3 class="text-2xl font-medium text-brand-charcoal-900 group-hover:text-brand-green-800 transition-colors duration-500">Airport Transfer</h3>
-            </div>
-            <p class="text-lg text-brand-charcoal-600 font-light leading-relaxed mb-6 max-w-xl">
-              Comfortable, reliable transfers between Trabzon Airport and your destination.
-            </p>
-            <div class="inline-flex items-center text-sm font-medium text-brand-charcoal-900 group-hover:text-brand-gold-500 transition-colors duration-500 uppercase tracking-widest">
-              Reserve <span class="ml-2 transition-transform duration-500 group-hover:translate-x-2">&rarr;</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Service 3: Custom Trips -->
-        <div class="group flex flex-col sm:flex-row items-start gap-6 sm:gap-10 py-10 lg:py-12 border-b border-brand-charcoal-900/10 hover:border-brand-gold-400 transition-colors duration-500 cursor-pointer">
-          <div class="flex-shrink-0 w-12 sm:w-16">
-            <span class="text-3xl font-light text-brand-charcoal-900/20 group-hover:text-brand-gold-500 transition-colors duration-500 font-sans tracking-tighter">03</span>
-          </div>
-          <div class="flex-grow">
-            <div class="flex items-center gap-5 mb-5">
-              <div class="text-brand-charcoal-900 group-hover:text-brand-green-700 transition-colors duration-500">
-                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.25">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.042 21.672L13.684 16.6m0 0l-2.51 2.225.569-9.47 5.227 7.917-3.286-.672zM12 2.25V4.5m5.834.166l-1.591 1.591M20.25 10.5H18M7.757 14.743l-1.59 1.59M6 10.5H3.75m4.007-4.243l-1.59-1.59" />
-                </svg>
-              </div>
-              <h3 class="text-2xl font-medium text-brand-charcoal-900 group-hover:text-brand-green-800 transition-colors duration-500">Custom Trips</h3>
-            </div>
-            <p class="text-lg text-brand-charcoal-600 font-light leading-relaxed mb-6 max-w-xl">
-              Build a personalized itinerary around the places and experiences you want to discover.
-            </p>
-            <div class="inline-flex items-center text-sm font-medium text-brand-charcoal-900 group-hover:text-brand-gold-500 transition-colors duration-500 uppercase tracking-widest">
-              Start planning <span class="ml-2 transition-transform duration-500 group-hover:translate-x-2">&rarr;</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Service 4: Travel Packages -->
-        <div class="group flex flex-col sm:flex-row items-start gap-6 sm:gap-10 py-10 lg:py-12 border-b border-brand-charcoal-900/10 hover:border-brand-gold-400 transition-colors duration-500 cursor-pointer">
-          <div class="flex-shrink-0 w-12 sm:w-16">
-            <span class="text-3xl font-light text-brand-charcoal-900/20 group-hover:text-brand-gold-500 transition-colors duration-500 font-sans tracking-tighter">04</span>
-          </div>
-          <div class="flex-grow">
-            <div class="flex items-center gap-5 mb-5">
-              <div class="text-brand-charcoal-900 group-hover:text-brand-green-700 transition-colors duration-500">
-                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.25">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z" />
-                </svg>
-              </div>
-              <h3 class="text-2xl font-medium text-brand-charcoal-900 group-hover:text-brand-green-800 transition-colors duration-500">Travel Packages</h3>
-            </div>
-            <p class="text-lg text-brand-charcoal-600 font-light leading-relaxed mb-6 max-w-xl">
-              Thoughtfully planned journeys combining destinations, experiences, and essential travel services.
-            </p>
-            <div class="inline-flex items-center text-sm font-medium text-brand-charcoal-900 group-hover:text-brand-gold-500 transition-colors duration-500 uppercase tracking-widest">
-              View packages <span class="ml-2 transition-transform duration-500 group-hover:translate-x-2">&rarr;</span>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-</section>
-
-<%= render "pages/home_destinations" %>
 
 <!-- Featured Experiences Section -->
-<section class="bg-white py-24 lg:py-32">
+<section class="bg-[#faf9f6] py-12 lg:py-24">
   <div class="container-main">
     
-    <!-- Section Header -->
-    <div class="flex flex-col md:flex-row md:items-end justify-between gap-8">
-      <%= render "shared/components/section_heading", 
-                 eyebrow: "Curated Journeys", 
-                 title: "Featured Experiences", 
-                 description: "Discover some of the journeys waiting for you across Trabzon and the Eastern Black Sea." %>
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-6 lg:mb-12">
+      <div class="max-w-2xl">
+        <%= render "shared/components/section_heading", 
+                   eyebrow: t("home.curated_journeys"), 
+                   title: t("home.featured_experiences"), 
+                   description: t("home.featured_description"),
+                   no_margin: true %>
+      </div>
+      <div class="pb-2">
+        <%= link_to tours_path, class: "text-sm font-semibold tracking-widest uppercase text-brand-charcoal-900 hover:text-brand-green-700 transition-colors inline-flex items-center gap-1" do %>
+          <%= t("home.view_all_tours") %> <span class="inline-block rtl:rotate-180">&rarr;</span>
+        <% end %>
+      </div>
     </div>
 
-    <!-- Featured Tours Grid -->
-    <% if @featured_tours.any? %>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
-        <% @featured_tours.each do |tour| %>
-          <%= render "shared/components/tour_card", tour: tour %>
+<% if @featured_tours.any? %>
+  <div class="flex overflow-x-auto snap-x snap-mandatory gap-4 md:gap-8 pb-8 hide-scrollbar md:grid md:grid-cols-2 lg:grid-cols-3">
+    <% @featured_tours.each do |tour| %>
+      <div class="snap-start flex-none w-[80%] sm:w-[60%] md:w-auto h-auto">
+        <%= render "shared/components/tour_card", tour: tour %>
+      </div>
+    <% end %>
+  </div>
+    <% else %>
+      <%= render "shared/components/empty_state", 
+                 title: t("home.empty_tours_title"), 
+                 message: t("home.empty_tours_message") %>
+    <% end %>
+
+  </div>
+</section>
+
+<!-- Travel Services Section -->
+<section class="bg-white py-12 lg:py-24 border-t border-brand-gray-200/50">
+  <div class="container-main">
+    
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-6 lg:mb-12">
+      <div class="max-w-2xl">
+        <%= render "shared/components/section_heading", 
+                   eyebrow: t("home.our_expertise"), 
+                   title: t("home.travel_services"), 
+                   description: t("home.services_description"),
+                   no_margin: true %>
+      </div>
+      <div class="pb-2">
+        <%= link_to services_path, class: "text-sm font-semibold tracking-widest uppercase text-brand-charcoal-900 hover:text-brand-green-700 transition-colors inline-flex items-center gap-1" do %>
+          <%= t("home.view_all_services") %> <span class="inline-block rtl:rotate-180">&rarr;</span>
+        <% end %>
+      </div>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-10">
+      
+      <!-- Transportation -->
+      <div class="group border border-brand-gray-200/60 p-6 lg:p-10 hover:border-brand-gold-400 transition-colors duration-500 bg-[#faf9f6]">
+        <h3 class="text-xl font-medium text-brand-charcoal-900 group-hover:text-brand-green-800 transition-colors duration-500 mb-6 pb-4 border-b border-brand-gray-200/60"><%= t("home.transportation") %></h3>
+        <ul class="space-y-4">
+          <li><%= link_to t("home.airport_transfers"), airport_transfer_path, class: "text-brand-charcoal-700 hover:text-brand-green-700 transition-colors block" %></li>
+          <li><%= link_to t("home.car_rental"), car_rental_path, class: "text-brand-charcoal-700 hover:text-brand-green-700 transition-colors block" %></li>
+          <li><%= link_to t("home.chauffeured_car"), chauffeured_car_path, class: "text-brand-charcoal-700 hover:text-brand-green-700 transition-colors block" %></li>
+        </ul>
+      </div>
+
+      <!-- Accommodation -->
+      <div class="group border border-brand-gray-200/60 p-6 lg:p-10 hover:border-brand-gold-400 transition-colors duration-500 bg-[#faf9f6]">
+        <h3 class="text-xl font-medium text-brand-charcoal-900 group-hover:text-brand-green-800 transition-colors duration-500 mb-6 pb-4 border-b border-brand-gray-200/60"><%= t("home.accommodation") %></h3>
+        <ul class="space-y-4">
+          <li><%= link_to t("home.hotels"), accommodations_path(type: 'hotel'), class: "text-brand-charcoal-700 hover:text-brand-green-700 transition-colors block" %></li>
+          <li><%= link_to t("home.apartments"), accommodations_path(type: 'apartment'), class: "text-brand-charcoal-700 hover:text-brand-green-700 transition-colors block" %></li>
+          <li><%= link_to t("home.bungalows"), accommodations_path(type: 'bungalow'), class: "text-brand-charcoal-700 hover:text-brand-green-700 transition-colors block" %></li>
+          <li><%= link_to t("home.chalets"), accommodations_path(type: 'chalet'), class: "text-brand-charcoal-700 hover:text-brand-green-700 transition-colors block" %></li>
+        </ul>
+      </div>
+
+      <!-- Experiences -->
+      <div class="group border border-brand-gray-200/60 p-6 lg:p-10 hover:border-brand-gold-400 transition-colors duration-500 bg-[#faf9f6]">
+        <h3 class="text-xl font-medium text-brand-charcoal-900 group-hover:text-brand-green-800 transition-colors duration-500 mb-6 pb-4 border-b border-brand-gray-200/60"><%= t("home.experiences") %></h3>
+        <ul class="space-y-4">
+          <li><%= link_to t("home.private_tours"), private_tours_path, class: "text-brand-charcoal-700 hover:text-brand-green-700 transition-colors block" %></li>
+          <li><%= link_to t("home.travel_packages"), packages_path, class: "text-brand-charcoal-700 hover:text-brand-green-700 transition-colors block" %></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+<!-- Why 61 EDİZ TRAVEL Section -->
+
+<section class="bg-brand-green-900 text-white py-12 lg:py-32 border-t border-brand-green-800 relative overflow-hidden">
+  <div class="absolute inset-0 bg-brand-charcoal-900/10 pointer-events-none"></div>
+
+  <div class="container-main relative z-10">
+    <%= render "shared/components/section_heading",
+               center: true,
+               dark: true,
+               eyebrow: t("home.why_us_eyebrow"),
+               title: t("home.why_us_title"),
+               description: t("home.why_us_desc") %>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-y-6 md:gap-y-0 md:divide-x divide-white/15 border-t border-b border-white/15 py-6 lg:py-16 mt-4 lg:mt-16 text-center md:text-start">
+      
+      <div class="px-0 py-2 md:py-0 md:pe-8 lg:pe-12 md:ps-0 flex flex-col md:justify-start">
+        <span class="text-2xl lg:text-3xl font-light text-brand-gold-500 font-sans tracking-tighter block mb-2 lg:mb-4">01</span>
+        <h3 class="text-lg lg:text-xl font-medium text-white mb-2 lg:mb-4"><%= t("home.pillar_1_title") %></h3>
+        <p class="text-white/70 font-light leading-relaxed">
+          <%= t("home.pillar_1_desc") %>
+        </p>
+      </div>
+
+      <div class="px-0 py-2 md:py-0 md:px-8 lg:px-12 flex flex-col md:justify-start">
+        <span class="text-2xl lg:text-3xl font-light text-brand-gold-500 font-sans tracking-tighter block mb-2 lg:mb-4">02</span>
+        <h3 class="text-lg lg:text-xl font-medium text-white mb-2 lg:mb-4"><%= t("home.pillar_2_title") %></h3>
+        <p class="text-white/70 font-light leading-relaxed">
+          <%= t("home.pillar_2_desc") %>
+        </p>
+      </div>
+
+      <div class="px-0 py-2 md:py-0 md:ps-8 lg:ps-12 md:pe-0 flex flex-col md:justify-start">
+        <span class="text-2xl lg:text-3xl font-light text-brand-gold-500 font-sans tracking-tighter block mb-2 lg:mb-4">03</span>
+        <h3 class="text-lg lg:text-xl font-medium text-white mb-2 lg:mb-4"><%= t("home.pillar_3_title") %></h3>
+        <p class="text-white/70 font-light leading-relaxed">
+          <%= t("home.pillar_3_desc_html").html_safe %>
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- Travel Guide Preview Section -->
+<section class="bg-[#faf9f6] py-12 lg:py-32 border-t border-brand-gray-200/50">
+  <div class="container-main">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 <%= @travel_guides && @travel_guides.any? ? 'mb-12' : 'mb-6' %>">
+      <div class="max-w-2xl">
+        <%= render "shared/components/section_heading", 
+                   eyebrow: t("home.travel_guide_eyebrow"), 
+                   title: t("home.travel_guide_title"), 
+                   description: t("home.travel_guide_desc"),
+                   no_margin: !(@travel_guides && @travel_guides.any?) %>
+      </div>
+      <div class="pb-2">
+        <%= link_to travel_guides_path, class: "text-sm font-semibold tracking-widest uppercase text-brand-charcoal-900 hover:text-brand-green-700 transition-colors inline-flex items-center gap-1" do %>
+          <%= t("home.view_all_guides") %> <span class="inline-block rtl:rotate-180">&rarr;</span>
+        <% end %>
+      </div>
+    </div>
+    
+    <% if @travel_guides && @travel_guides.any? %>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <% @travel_guides.first(3).each do |guide| %>
+          <div class="border border-brand-gray-200/60 p-6 hover:border-brand-gold-400 transition-colors bg-white">
+            <h3 class="text-lg font-medium text-brand-charcoal-900 mb-3"><%= link_to guide.title, travel_guide_path(guide) %></h3>
+            <p class="text-sm text-brand-charcoal-600 font-light line-clamp-3"><%= guide.excerpt %></p>
+          </div>
         <% end %>
       </div>
     <% else %>
       <%= render "shared/components/empty_state", 
-                 title: "Experiences Coming Soon", 
-                 message: "Our curated journeys are currently being finalized. Please check back shortly for new adventures." %>
+                 title: t("home.empty_guides_title"), 
+                 message: t("home.empty_guides_message") %>
     <% end %>
-
   </div>
 </section>
 
-<%= render "pages/home_social_proof" %>
-
-<!-- Why 61 EDİZ TRAVEL Section -->
-<section class="bg-brand-green-900 text-white py-24 lg:py-32 border-t border-brand-green-800 relative overflow-hidden">
-  
-  <!-- Subtle Background Pattern / Noise -->
-  <div class="absolute inset-0 bg-brand-charcoal-900/10 pointer-events-none"></div>
-
-  <div class="container-main relative z-10">
-    
-    <!-- Header -->
-    <%= render "shared/components/section_heading",
-               center: true,
-               dark: true,
-               eyebrow: "Why 61 Ediz Travel",
-               title: "A Journey Designed Around You",
-               description: "From the first idea to the final destination, we focus on making your journey across the Black Sea simple, personal, and memorable." %>
-
-    <!-- 3 Column Editorial Split -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-y-12 md:gap-y-0 divide-y md:divide-y-0 md:divide-x divide-white/15 border-t border-b border-white/15 py-12 lg:py-16">
-      
-      <!-- Point 1 -->
-      <div class="px-0 py-8 md:py-0 md:pr-8 lg:pr-12 md:pl-0 flex flex-col justify-start">
-        <span class="text-5xl font-light text-brand-gold-500/80 font-sans tracking-tighter block mb-8">01</span>
-        <h3 class="text-2xl font-medium text-white mb-4">Tailored Journeys</h3>
-        <p class="text-white/70 font-light leading-relaxed text-lg">
-          Travel plans shaped around your interests, pace, and destinations.
-        </p>
-      </div>
-
-      <!-- Point 2 -->
-      <div class="px-0 py-8 md:py-0 md:px-8 lg:px-12 flex flex-col justify-start">
-        <span class="text-5xl font-light text-brand-gold-500/80 font-sans tracking-tighter block mb-8">02</span>
-        <h3 class="text-2xl font-medium text-white mb-4">Local Experiences</h3>
-        <p class="text-white/70 font-light leading-relaxed text-lg">
-          Discover Trabzon and the Eastern Black Sea through carefully planned experiences.
-        </p>
-      </div>
-
-      <!-- Point 3 -->
-      <div class="px-0 py-8 md:py-0 md:pl-8 lg:pl-12 md:pr-0 flex flex-col justify-start">
-        <span class="text-5xl font-light text-brand-gold-500/80 font-sans tracking-tighter block mb-8">03</span>
-        <h3 class="text-2xl font-medium text-white mb-4">TÜRSAB Licensed Agency</h3>
-        <p class="text-white/70 font-light leading-relaxed text-lg">
-          61 EDİZ TRAVEL — TÜRSAB Document No. 15956.
-        </p>
-      </div>
-
-    </div>
-
-  </div>
-</section>
-
-<!-- Plan Your Trip CTA Section -->
-<section class="bg-brand-green-900 text-white py-16 lg:py-24 border-t border-brand-green-800/50">
+<!-- Final CTA Section -->
+<section class="bg-white py-12 lg:py-20">
   <div class="container-main text-center">
-    <div class="max-w-3xl mx-auto flex flex-col items-center">
+    <div class="max-w-2xl mx-auto flex flex-col items-center">
       
-      <!-- Eyebrow -->
       <div class="mb-6 inline-flex items-center gap-4">
         <span class="w-8 h-[1px] bg-brand-gold-500 opacity-80"></span>
-        <span class="text-brand-gold-500 font-semibold tracking-[0.2em] text-xs sm:text-sm uppercase">Plan Your Journey</span>
+        <span class="text-brand-gold-500 font-semibold tracking-[0.2em] text-xs sm:text-sm uppercase"><%= t("home.cta_eyebrow") %></span>
         <span class="w-8 h-[1px] bg-brand-gold-500 opacity-80"></span>
       </div>
       
-      <!-- Heading -->
-      <h2 class="text-4xl lg:text-5xl font-sans font-medium text-white tracking-tight leading-[1.1] mb-6">
-        Your Trip, Your Way<span class="text-brand-gold-500">.</span>
+      <h2 class="text-2xl lg:text-5xl font-sans font-medium text-brand-charcoal-900 tracking-tight leading-[1.1] mb-6">
+        <%= t("home.cta_title") %>
       </h2>
       
-      <!-- Supporting text -->
-      <p class="text-lg lg:text-xl text-white/80 font-light leading-relaxed mb-10 max-w-2xl">
-        Tell us what you want to experience across Trabzon and the Eastern Black Sea, and we'll help shape the journey around you.
+      <p class="text-base lg:text-lg text-brand-charcoal-600 font-light leading-relaxed mb-10">
+        <%= t("home.cta_subtitle") %>
       </p>
       
-      <!-- CTAs -->
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 w-full sm:w-auto">
-        <%= link_to "Plan Your Trip", plan_your_trip_path, class: "w-full sm:w-auto px-8 py-4 bg-white text-brand-green-900 font-medium text-sm tracking-widest uppercase hover:bg-brand-gray-100 transition-colors" %>
-        <%= link_to tours_path, class: "w-full sm:w-auto px-8 py-4 bg-transparent border border-white/20 text-white font-medium text-sm tracking-widest uppercase hover:bg-white/10 transition-colors" do %>
-          Explore Tours
-        <% end %>
-      </div>
+      <%= link_to t("nav.plan_your_trip"), plan_your_trip_path, class: "px-10 py-5 bg-brand-charcoal-900 text-white font-medium text-sm tracking-widest uppercase hover:bg-brand-green-900 transition-colors inline-block" %>
       
     </div>
   </div>

@@ -1,0 +1,164 @@
+<% content_for :title, "#{@package.title} - 61 EDİZ TRAVEL" %>
+
+<div class="bg-white">
+  <!-- Hero Section -->
+  <div class="relative w-full h-[50vh] lg:h-[70vh] bg-brand-charcoal-900 overflow-hidden pt-20">
+    <% if @package.image.attached? %>
+      <%= image_tag @package.image, alt: @package.title, class: "absolute inset-0 w-full h-full object-cover opacity-60" %>
+    <% else %>
+      <div class="absolute inset-0 bg-brand-charcoal-800 opacity-80"></div>
+    <% end %>
+    
+    <div class="absolute inset-0 bg-gradient-to-t from-brand-charcoal-900/90 via-brand-charcoal-900/30 to-transparent"></div>
+    
+    <div class="absolute inset-0 flex items-end pb-12 lg:pb-24">
+      <div class="container-main">
+        <div class="max-w-3xl">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="bg-brand-gold-500 text-white px-3 py-1 text-xs font-bold uppercase tracking-wider">
+              <%= @package.duration %>
+            </span>
+          </div>
+          <h1 class="text-3xl lg:text-6xl font-sans font-medium text-white tracking-tight leading-[1.1] mb-6">
+            <%= @package.title %>
+          </h1>
+          <% if @package.short_description.present? %>
+            <p class="text-lg lg:text-xl text-brand-gray-200 font-light leading-relaxed max-w-2xl">
+              <%= @package.short_description %>
+            </p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content Section -->
+  <div class="container-main py-12 lg:py-24">
+    <div class="flex flex-col lg:flex-row gap-12 lg:gap-24">
+      
+      <!-- Main Content -->
+      <div class="lg:w-2/3">
+        <% if @package.description.present? %>
+          <!-- Overview -->
+          <div class="mb-12 lg:mb-16">
+            <h2 class="text-xl lg:text-2xl font-medium text-brand-charcoal-900 mb-6 lg:mb-8 pb-4 border-b border-brand-gray-200/60"><%= t("packages.show.overview") %></h2>
+            <div class="prose prose-lg prose-brand max-w-none text-brand-charcoal-600 font-light leading-relaxed">
+              <%= simple_format @package.description %>
+            </div>
+          </div>
+        <% end %>
+
+        <% if (@package.highlights.present? && @package.highlights.any?) || (@package.included.present? && @package.included.any?) || (@package.excluded.present? && @package.excluded.any?) %>
+          <!-- Included / Excluded / Highlights -->
+          <div class="grid md:grid-cols-2 gap-12 mb-12 lg:mb-16">
+            <% if @package.highlights.present? && @package.highlights.any? %>
+              <div class="md:col-span-2">
+                <h3 class="text-sm uppercase tracking-widest font-semibold text-brand-charcoal-900 mb-6"><%= t("packages.show.highlights") %></h3>
+                <ul class="space-y-4">
+                  <% @package.highlights.each do |item| %>
+                    <li class="flex items-start gap-4">
+                      <svg class="w-5 h-5 text-brand-gold-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                      <span class="text-brand-charcoal-700 leading-relaxed font-light"><%= item %></span>
+                    </li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
+            
+            <% if @package.included.present? && @package.included.any? %>
+              <div>
+                <h3 class="text-sm uppercase tracking-widest font-semibold text-brand-charcoal-900 mb-6"><%= t("packages.show.included") %></h3>
+                <ul class="space-y-4">
+                  <% @package.included.each do |item| %>
+                    <li class="flex items-start gap-4">
+                      <svg class="w-5 h-5 text-brand-green-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                      <span class="text-brand-charcoal-700 leading-relaxed font-light"><%= item %></span>
+                    </li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
+
+            <% if @package.excluded.present? && @package.excluded.any? %>
+              <div>
+                <h3 class="text-sm uppercase tracking-widest font-semibold text-brand-charcoal-900 mb-6"><%= t("packages.show.not_included") %></h3>
+                <ul class="space-y-4">
+                  <% @package.excluded.each do |item| %>
+                    <li class="flex items-start gap-4">
+                      <svg class="w-5 h-5 text-brand-gray-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                      <span class="text-brand-charcoal-700 leading-relaxed font-light"><%= item %></span>
+                    </li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+
+          <!-- Itinerary -->
+          <% if @package.itinerary.present? && @package.itinerary.any? %>
+            <div class="mb-10 lg:mb-16">
+              <h2 class="text-xl lg:text-2xl font-medium text-brand-charcoal-900 mb-6 lg:mb-8 pb-4 border-b border-brand-gray-200/60"><%= t("packages.show.itinerary") %></h2>
+              <div class="space-y-12">
+                <% @package.itinerary.each do |day| %>
+                  <div class="flex flex-col md:flex-row gap-4 md:gap-8">
+                    <div class="md:w-32 flex-shrink-0">
+                      <span class="text-sm font-semibold text-brand-gold-500 uppercase tracking-widest block"><%= t("packages.show.day") %> <%= day['day'] || day[:day] %></span>
+                    </div>
+                    <div>
+                      <h3 class="text-xl font-medium text-brand-charcoal-900 mb-3"><%= day['title'] || day[:title] %></h3>
+                      <p class="text-brand-charcoal-600 font-light leading-relaxed">
+                        <%= day['desc'] || day[:desc] %>
+                      </p>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+
+          <!-- Related Records -->
+          <% if @package.destinations.any? || @package.tours.any? %>
+            <div class="mb-10 lg:mb-16 pt-8 border-t border-brand-gray-200/60">
+              <h2 class="text-xl lg:text-2xl font-medium text-brand-charcoal-900 mb-6 lg:mb-8"><%= t("packages.show.explore_further") %></h2>
+              
+              <% if @package.destinations.any? %>
+                <div class="mb-8">
+                  <h3 class="text-sm uppercase tracking-widest font-semibold text-brand-charcoal-900 mb-4"><%= t("packages.show.destinations_in_package") %></h3>
+                  <div class="flex flex-wrap gap-2">
+                    <% @package.destinations.each do |dest| %>
+                      <span class="px-4 py-2 bg-brand-gray-100 text-brand-charcoal-800 text-sm rounded-full"><%= dest.name %></span>
+                    <% end %>
+                  </div>
+                </div>
+              <% end %>
+
+              <% if @package.tours.any? %>
+                <div>
+                  <h3 class="text-sm uppercase tracking-widest font-semibold text-brand-charcoal-900 mb-4"><%= t("packages.show.included_tours") %></h3>
+                  <div class="flex flex-wrap gap-2">
+                    <% @package.tours.each do |tour| %>
+                      <%= link_to tour.title, tour_path(tour), class: "px-4 py-2 border border-brand-gray-200 hover:border-brand-gold-500 hover:text-brand-gold-600 text-brand-charcoal-800 text-sm transition-colors rounded-full" %>
+                    <% end %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+
+        <!-- Right Sidebar CTA -->
+        <div class="lg:w-1/3">
+          <div class="sticky top-28 bg-brand-gray-100 p-8 lg:p-10 border border-brand-gray-200/60">
+            <h3 class="text-2xl font-medium text-brand-charcoal-900 mb-4"><%= t("packages.show.ready_to_start") %></h3>
+            <p class="text-brand-charcoal-600 font-light leading-relaxed mb-8">
+              <%= t("packages.show.ready_to_start_desc") %>
+            </p>
+            <%= link_to t("packages.show.inquire_now"), plan_your_trip_path(package_id: @package.id), class: "block w-full py-4 px-8 bg-brand-charcoal-900 hover:bg-brand-green-800 text-white font-medium text-sm tracking-widest uppercase transition-colors text-center" %>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

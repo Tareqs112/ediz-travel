@@ -1,0 +1,23 @@
+one:
+  customer_name: "Jane Doe"
+  email: "jane@example.com"
+  phone: "123456789"
+  travel_date: 2027-01-01
+  travelers_count: 2
+  preferred_language: "English"
+  duration_days: 5
+  interests: "Nature, Culture"
+  notes: "Looking forward to it"
+  status: "new"
+
+two:
+  customer_name: "John Smith"
+  email: "john@example.com"
+  phone: "987654321"
+  travel_date: 2027-02-01
+  travelers_count: 4
+  preferred_language: "Turkish"
+  duration_days: 7
+  interests: "Food, History"
+  notes: "Vegetarian options needed"
+  status: "new"

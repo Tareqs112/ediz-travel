@@ -1,72 +1,89 @@
-    <!-- Navbar -->
-    <header class="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-sm border-b border-brand-gray-200 shadow-sm" data-controller="mobile-menu">
-      <div class="container-main">
-        <div class="flex items-center justify-between h-20 lg:h-24">
-          
-          <!-- Logo -->
-          <div class="flex-shrink-0 flex items-center">
-            <%= link_to root_path, class: "block" do %>
-              <%= image_tag "ediz-travel-logo.png", alt: "61 EDİZ TRAVEL", class: "h-10 md:h-12 w-auto object-contain" %>
-            <% end %>
-          </div>
-
-          <!-- Desktop Navigation -->
-          <nav class="hidden lg:flex items-center gap-5 xl:gap-8">
-            <%= link_to "Tours", tours_path, class: "link-nav whitespace-nowrap" %>
-            <%= link_to "Destinations", destinations_path, class: "link-nav whitespace-nowrap" %>
-            <%= link_to "Airport Transfer", airport_transfer_path, class: "link-nav whitespace-nowrap" %>
-            <%= link_to "Private Tours", private_tours_path, class: "link-nav whitespace-nowrap" %>
-            <%= link_to "Packages", packages_path, class: "link-nav whitespace-nowrap" %>
-            <a href="#" class="link-nav whitespace-nowrap">Travel Guide</a>
-          </nav>
-
-          <!-- Desktop Right Section -->
-          <div class="hidden lg:flex items-center gap-5 xl:gap-6">
-            <!-- Language Selector Placeholder -->
-            <div class="text-sm font-semibold text-brand-charcoal-700 cursor-pointer hover:text-brand-green-700 whitespace-nowrap">
-              EN / TR / AR
-            </div>
-            <!-- WhatsApp Placeholder -->
-            <a href="#" class="text-brand-green-600 hover:text-brand-green-700 flex items-center gap-1.5 font-medium whitespace-nowrap">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12.002 22A10.002 10.002 0 013.415 15.11l-1.077 3.93 4.025-1.055A9.957 9.957 0 0112 22c5.514 0 10-4.486 10-10S17.514 2 12 2 2 6.486 2 12c0 1.76.457 3.407 1.25 4.846L2.016 21.4l4.673-1.226A9.972 9.972 0 0112 22z"/></svg>
-              [WhatsApp]
-            </a>
-            <!-- CTA -->
-            <%= link_to "Book Your Trip", plan_your_trip_path, class: "btn-primary whitespace-nowrap" %>
-          </div>
-
-          <!-- Mobile menu button -->
-          <div class="flex items-center lg:hidden">
-            <button type="button" data-action="click->mobile-menu#toggle" class="text-brand-charcoal-700 hover:text-brand-green-700 focus:outline-none p-2 -mr-2" aria-expanded="false">
-              <span class="sr-only">Open main menu</span>
-              <!-- Hamburger -->
-              <svg data-mobile-menu-target="openIcon" class="block h-7 w-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-              <!-- Close (X) -->
-              <svg data-mobile-menu-target="closeIcon" class="hidden h-7 w-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-          </div>
-        </div>
+<!-- Navbar -->
+<header class="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-sm border-b border-brand-gray-200 shadow-sm" data-controller="mobile-menu">
+  <div class="container-main">
+    <div class="flex items-center justify-between h-16 lg:h-24">
+      
+      <!-- Logo -->
+      <div class="flex-shrink-0 flex items-center">
+        <%= link_to root_path, class: "block" do %>
+          <%= image_tag "ediz-travel-logo.png", alt: "61 EDİZ TRAVEL", class: "h-8 md:h-12 w-auto object-contain" %>
+        <% end %>
       </div>
 
-      <!-- Mobile Menu Panel -->
-      <div data-mobile-menu-target="menu" class="hidden lg:hidden border-t border-brand-gray-200 bg-white shadow-xl absolute w-full inset-x-0 overflow-y-auto max-h-[calc(100vh-5rem)]">
-        <div class="px-4 py-4 space-y-2 sm:px-6">
-          <%= link_to "Tours", tours_path, class: "block px-4 py-3 text-base font-semibold text-brand-charcoal-900 hover:bg-brand-gray-50 rounded-lg" %>
-          <%= link_to "Destinations", destinations_path, class: "block px-4 py-3 text-base font-semibold text-brand-charcoal-900 hover:bg-brand-gray-50 rounded-lg" %>
-          <%= link_to "Airport Transfer", airport_transfer_path, class: "block px-4 py-3 text-base font-semibold text-brand-charcoal-900 hover:bg-brand-gray-50 rounded-lg" %>
-          <%= link_to "Private Tours", private_tours_path, class: "block px-4 py-3 text-base font-semibold text-brand-charcoal-900 hover:bg-brand-gray-50 rounded-lg" %>
-          <%= link_to "Packages", packages_path, class: "block px-4 py-3 text-base font-semibold text-brand-charcoal-900 hover:bg-brand-gray-50 rounded-lg" %>
-          <a href="#" class="block px-4 py-3 text-base font-semibold text-brand-charcoal-900 hover:bg-brand-gray-50 rounded-lg">Travel Guide</a>
-          
-          <div class="mt-6 pt-6 border-t border-brand-gray-200">
-            <div class="flex flex-col gap-4 px-4">
-              <span class="text-sm font-semibold text-brand-charcoal-700">Language: EN / TR / AR</span>
-            </div>
+      <!-- Desktop Navigation -->
+      <nav class="hidden lg:flex items-center gap-5 xl:gap-8">
+        <%= link_to t("nav.home"), root_path, class: "link-nav whitespace-nowrap" %>
+        <%= link_to t("nav.tours"), tours_path, class: "link-nav whitespace-nowrap" %>
+        <%= link_to t("nav.services"), services_path, class: "link-nav whitespace-nowrap" %>
+        <%= link_to t("nav.travel_guide"), travel_guides_path, class: "link-nav whitespace-nowrap" %>
+        <%= link_to t("nav.about"), about_path, class: "link-nav whitespace-nowrap" %>
+      </nav>
+
+      <!-- Desktop Right Section -->
+      <div class="hidden lg:flex items-center gap-4 xl:gap-6">
+        <!-- Language Switcher (Desktop) -->
+        <div class="relative" data-controller="language-menu">
+          <button type="button" data-action="click->language-menu#toggle" class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-brand-charcoal-700 hover:text-brand-green-800 border border-brand-gray-200 hover:border-brand-gray-300 rounded-md transition-colors bg-brand-gray-50/50 cursor-pointer" aria-expanded="false" aria-label="<%= t('common.language') %>">
+            <svg class="w-3.5 h-3.5 text-brand-gold-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9 9 0 100-18 9 9 0 000 18z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.6 9h16.8M3.6 15h16.8" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3a14.5 14.5 0 00-3.5 9 14.5 14.5 0 003.5 9 14.5 14.5 0 003.5-9A14.5 14.5 0 0012 3z" />
+            </svg>
+            <span class="font-medium"><%= locale_display_name %></span>
+            <svg class="w-3 h-3 text-brand-charcoal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div data-language-menu-target="menu" class="hidden absolute end-0 mt-1.5 w-32 bg-white border border-brand-gray-200 rounded-lg shadow-lg py-1 z-50">
+            <%= link_to "English", switch_locale_path(:en), class: "block px-3.5 py-2 text-xs transition-colors #{I18n.locale == :en ? 'font-bold text-brand-green-800 bg-brand-green-50/60' : 'text-brand-charcoal-700 hover:bg-brand-gray-50'}" %>
+            <%= link_to "العربية", switch_locale_path(:ar), class: "block px-3.5 py-2 text-xs transition-colors #{I18n.locale == :ar ? 'font-bold text-brand-green-800 bg-brand-green-50/60' : 'text-brand-charcoal-700 hover:bg-brand-gray-50'}" %>
+            <%= link_to "Türkçe", switch_locale_path(:tr), class: "block px-3.5 py-2 text-xs transition-colors #{I18n.locale == :tr ? 'font-bold text-brand-green-800 bg-brand-green-50/60' : 'text-brand-charcoal-700 hover:bg-brand-gray-50'}" %>
           </div>
         </div>
+
+        <!-- CTA -->
+        <%= link_to t("nav.plan_your_trip"), plan_your_trip_path, class: "btn-primary whitespace-nowrap" %>
       </div>
-    </header>
+
+      <!-- Mobile menu button -->
+      <div class="flex items-center lg:hidden">
+        <button type="button" data-action="click->mobile-menu#toggle" class="text-brand-charcoal-700 hover:text-brand-green-700 focus:outline-none p-2 -me-2 cursor-pointer" aria-expanded="false">
+          <span class="sr-only">Open main menu</span>
+          <!-- Hamburger -->
+          <svg data-mobile-menu-target="openIcon" class="block h-7 w-7 pointer-events-none" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          <!-- Close (X) -->
+          <svg data-mobile-menu-target="closeIcon" class="hidden h-7 w-7 pointer-events-none" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Menu Panel -->
+  <div data-mobile-menu-target="menu" class="hidden lg:hidden border-t border-brand-gray-200 bg-white shadow-xl absolute w-full inset-x-0 overflow-y-auto max-h-[calc(100vh-5rem)]">
+    <div class="px-4 py-4 space-y-2 sm:px-6">
+      <%= link_to t("nav.home"), root_path, class: "block px-4 py-3 text-base font-semibold text-brand-charcoal-900 hover:bg-brand-gray-50 rounded-lg" %>
+      <%= link_to t("nav.tours"), tours_path, class: "block px-4 py-3 text-base font-semibold text-brand-charcoal-900 hover:bg-brand-gray-50 rounded-lg" %>
+      <%= link_to t("nav.services"), services_path, class: "block px-4 py-3 text-base font-semibold text-brand-charcoal-900 hover:bg-brand-gray-50 rounded-lg" %>
+      <%= link_to t("nav.travel_guide"), travel_guides_path, class: "block px-4 py-3 text-base font-semibold text-brand-charcoal-900 hover:bg-brand-gray-50 rounded-lg" %>
+      <%= link_to t("nav.about"), about_path, class: "block px-4 py-3 text-base font-semibold text-brand-charcoal-900 hover:bg-brand-gray-50 rounded-lg" %>
+    </div>
+
+    <!-- Mobile Language Selector -->
+    <div class="px-4 py-3 border-t border-brand-gray-100 flex items-center justify-between sm:px-6 bg-brand-gray-50/60">
+      <span class="text-xs font-semibold uppercase tracking-wider text-brand-charcoal-500"><%= t("common.language") %></span>
+      <div class="inline-flex items-center gap-1.5">
+        <%= link_to "English", switch_locale_path(:en), class: "px-2.5 py-1 text-xs rounded-md font-medium transition-colors #{I18n.locale == :en ? 'bg-brand-charcoal-900 text-white' : 'bg-white border border-brand-gray-200 text-brand-charcoal-700 hover:bg-brand-gray-100'}" %>
+        <%= link_to "العربية", switch_locale_path(:ar), class: "px-2.5 py-1 text-xs rounded-md font-medium transition-colors #{I18n.locale == :ar ? 'bg-brand-charcoal-900 text-white' : 'bg-white border border-brand-gray-200 text-brand-charcoal-700 hover:bg-brand-gray-100'}" %>
+        <%= link_to "Türkçe", switch_locale_path(:tr), class: "px-2.5 py-1 text-xs rounded-md font-medium transition-colors #{I18n.locale == :tr ? 'bg-brand-charcoal-900 text-white' : 'bg-white border border-brand-gray-200 text-brand-charcoal-700 hover:bg-brand-gray-100'}" %>
+      </div>
+    </div>
+
+    <div class="px-4 py-4 border-t border-brand-gray-100 sm:px-6">
+      <%= link_to t("nav.plan_your_trip"), plan_your_trip_path, class: "block w-full text-center px-4 py-3 bg-brand-charcoal-900 text-white font-medium text-sm tracking-widest uppercase hover:bg-brand-green-900 transition-colors rounded-lg" %>
+    </div>
+  </div>
+</header>

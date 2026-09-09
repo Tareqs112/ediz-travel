@@ -1,0 +1,29 @@
+one:
+  title: "Guide 1"
+  slug: "guide-1"
+  excerpt: "MyText"
+  content: "MyText"
+  active: true
+  published_at: 2026-09-06 08:16:22
+  tags: "{Trabzon,Black Sea}"
+  meta_description: "Explore Trabzon guide"
+
+two:
+  title: "Guide 2"
+  slug: "guide-2"
+  excerpt: "MyText"
+  content: "MyText"
+  active: true
+  published_at: 2026-09-06 08:16:22
+  tags: "{Uzungöl,Travel Tips}"
+  meta_description: "Uzungöl highlights"
+
+draft_guide:
+  title: "Draft Guide"
+  slug: "draft-guide"
+  excerpt: "Draft excerpt"
+  content: "Draft content"
+  active: false
+  published_at: null
+  tags: "{Draft}"
+  meta_description: "Draft guide description"

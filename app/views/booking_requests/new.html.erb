@@ -1,0 +1,88 @@
+<% content_for :title, t("booking_requests.page_title", tour: @tour.title) %>
+
+<div class="bg-[#faf9f6] min-h-screen">
+  
+  <!-- Back Navigation -->
+<div class="container-main pt-6 lg:pt-12 pb-2 lg:pb-6">
+  <%= link_to tour_path(@tour), class: "inline-flex items-center text-sm font-medium text-brand-charcoal-600 hover:text-brand-gold-500 transition-colors uppercase tracking-widest" do %>
+    <span class="me-2 inline-block rtl:rotate-180">&larr;</span> <%= t("booking_requests.back_to_tour", tour: @tour.title) %>
+  <% end %>
+</div>
+
+  <div class="pt-8 lg:pt-12 pb-10 lg:pb-16 border-b border-brand-gray-200/50 bg-white">
+    <div class="container-main max-w-4xl">
+      <%= render "shared/components/section_heading",
+                 eyebrow: t("booking_requests.eyebrow"),
+                 title: t("booking_requests.title"),
+                 description: t("booking_requests.description", tour: @tour.title),
+                 as_h1: true %>
+    </div>
+  </div>
+
+  <div class="container-main py-8 lg:py-24">
+    <div class="max-w-2xl mx-auto bg-white border border-brand-gray-200 p-5 md:p-8 lg:p-12 shadow-sm">
+      
+      <% if @booking_request.errors.any? %>
+        <div class="bg-red-50 text-red-800 p-4 mb-8 border-s-4 border-red-500">
+          <h3 class="text-sm font-semibold mb-2"><%= t("booking_requests.errors_header") %></h3>
+          <ul class="list-disc ps-5 text-sm space-y-1">
+            <% @booking_request.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <%= form_with(model: [@tour, @booking_request], local: true, class: "space-y-6") do |f| %>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <%= f.label :customer_name, t("booking_requests.full_name"), class: "block text-xs font-semibold text-brand-charcoal-900 uppercase tracking-widest mb-2" %>
+            <%= f.text_field :customer_name, required: true, autocomplete: "name", class: "w-full border-b border-brand-gray-200 py-3 bg-transparent text-brand-charcoal-900 focus:outline-none focus:border-brand-gold-500 transition-colors", placeholder: "John Doe" %>
+          </div>
+          <div>
+            <%= f.label :email, t("booking_requests.email"), class: "block text-xs font-semibold text-brand-charcoal-900 uppercase tracking-widest mb-2" %>
+            <%= f.email_field :email, required: true, autocomplete: "email", class: "w-full border-b border-brand-gray-200 py-3 bg-transparent text-brand-charcoal-900 focus:outline-none focus:border-brand-gold-500 transition-colors", placeholder: "john@example.com" %>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <%= f.label :phone, t("booking_requests.phone"), class: "block text-xs font-semibold text-brand-charcoal-900 uppercase tracking-widest mb-2" %>
+            <%= f.telephone_field :phone, autocomplete: "tel", class: "w-full border-b border-brand-gray-200 py-3 bg-transparent text-brand-charcoal-900 focus:outline-none focus:border-brand-gold-500 transition-colors", placeholder: "+90..." %>
+          </div>
+          <div>
+            <%= f.label :preferred_language, t("booking_requests.preferred_language"), class: "block text-xs font-semibold text-brand-charcoal-900 uppercase tracking-widest mb-2" %>
+            <div class="relative">
+  <%= f.select :preferred_language, [["English", "English"], ["Turkish", "Turkish"], ["Arabic", "Arabic"]], { include_blank: t("booking_requests.select_language") }, class: "w-full border-b border-brand-gray-200 py-3 bg-transparent text-brand-charcoal-900 focus:outline-none focus:border-brand-gold-500 transition-colors appearance-none cursor-pointer pe-8 rtl:pe-0 rtl:ps-8" %>
+  <div class="pointer-events-none absolute inset-y-0 end-0 rtl:start-0 rtl:end-auto flex items-center px-2 text-brand-charcoal-500">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+  </div>
+</div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <%= f.label :travel_date, t("booking_requests.travel_date"), class: "block text-xs font-semibold text-brand-charcoal-900 uppercase tracking-widest mb-2" %>
+            <%= f.date_field :travel_date, required: true, class: "w-full border-b border-brand-gray-200 py-3 bg-transparent text-brand-charcoal-900 focus:outline-none focus:border-brand-gold-500 transition-colors" %>
+          </div>
+          <div>
+            <%= f.label :travelers_count, t("booking_requests.travelers_count"), class: "block text-xs font-semibold text-brand-charcoal-900 uppercase tracking-widest mb-2" %>
+            <%= f.number_field :travelers_count, required: true, min: 1, class: "w-full border-b border-brand-gray-200 py-3 bg-transparent text-brand-charcoal-900 focus:outline-none focus:border-brand-gold-500 transition-colors", placeholder: "2" %>
+          </div>
+        </div>
+
+        <div>
+          <%= f.label :notes, t("booking_requests.notes"), class: "block text-xs font-semibold text-brand-charcoal-900 uppercase tracking-widest mb-2" %>
+          <%= f.text_area :notes, rows: 4, class: "w-full border-b border-brand-gray-200 py-3 bg-transparent text-brand-charcoal-900 focus:outline-none focus:border-brand-gold-500 transition-colors", placeholder: t("booking_requests.notes_placeholder") %>
+        </div>
+
+        <div class="pt-6">
+          <%= f.submit t("booking_requests.submit"), class: "w-full px-8 py-4 bg-brand-charcoal-900 hover:bg-brand-green-800 text-white font-medium text-sm tracking-widest uppercase transition-colors cursor-pointer" %>
+        </div>
+      <% end %>
+      
+    </div>
+  </div>
+</div>

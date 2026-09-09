@@ -1,3 +1,5 @@
+<% content_for :title, @query.present? ? t("search.page_title_with_query", query: @query) : t("search.page_title") %>
+
 <div class="bg-white min-h-screen">
   
   <div class="pt-16 lg:pt-24 pb-16 border-b border-brand-gray-200/50">
@@ -5,35 +7,63 @@
       <div class="max-w-3xl mb-16 lg:mb-24">
         <div class="mb-6 inline-flex items-center gap-4">
           <span class="w-12 h-[1px] bg-brand-gold-500 opacity-80"></span>
-          <span class="text-brand-gold-500 font-semibold tracking-[0.2em] text-xs sm:text-sm uppercase">Search Results</span>
+          <span class="text-brand-gold-500 font-semibold tracking-[0.2em] text-xs sm:text-sm uppercase"><%= t("search.eyebrow") %></span>
         </div>
-        <h1 class="text-3xl lg:text-5xl font-sans font-medium text-brand-charcoal-900 tracking-tight leading-tight mb-6">
+        <h1 class="text-2xl lg:text-5xl font-sans font-medium text-brand-charcoal-900 tracking-tight leading-tight mb-6">
           <% if @query.present? %>
-            Results for "<%= @query %>"
+            <%= t("search.results_for", query: @query) %>
           <% else %>
-            Search Experiences
+            <%= t("search.search_experiences") %>
           <% end %>
         </h1>
         
-        <form action="/search" method="get" class="flex gap-4 mt-8">
-          <input type="text" name="q" value="<%= @query %>" class="flex-grow border-b border-brand-gray-200 py-3 bg-transparent text-brand-charcoal-900 focus:outline-none focus:border-brand-gold-500 text-lg" placeholder="Search tours, destinations...">
-          <button type="submit" class="px-8 py-3 bg-brand-charcoal-900 hover:bg-brand-green-800 text-white font-medium text-sm tracking-widest uppercase transition-colors">
-            Search
+        <%= form_with url: search_path, method: :get, class: "flex gap-4 mt-8" do %>
+          <input type="text" name="q" value="<%= @query %>" class="flex-grow border-b border-brand-gray-200 py-3 bg-transparent text-brand-charcoal-900 focus:outline-none focus:border-brand-gold-500 text-lg" placeholder="<%= t("search.input_placeholder") %>">
+          <button type="submit" class="px-8 py-3 bg-brand-charcoal-900 hover:bg-brand-green-800 text-white font-medium text-sm tracking-widest uppercase transition-colors cursor-pointer">
+            <%= t("search.search_button") %>
           </button>
-        </form>
+        <% end %>
       </div>
     </div>
   </div>
 
-  <div class="container-main py-16 lg:py-24">
+  <div class="container-main py-10 lg:py-24">
     <% if @query.present? %>
-      <%= render "shared/components/empty_state",
-                 title: "No results found",
-                 message: "We couldn't find any tours or destinations matching '#{@query}'. Try adjusting your search terms." %>
+      <% if @tours.any? || @packages.any? %>
+        <% if @tours.any? %>
+          <div class="mb-16">
+            <h2 class="text-xl lg:text-2xl font-medium text-brand-charcoal-900 mb-8 pb-3 border-b border-brand-gray-200/60">
+              <%= t("search.tours_count", count: @tours.size) %>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <% @tours.each do |tour| %>
+                <%= render "shared/components/tour_card", tour: tour %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+
+        <% if @packages.any? %>
+          <div class="mb-16">
+            <h2 class="text-xl lg:text-2xl font-medium text-brand-charcoal-900 mb-8 pb-3 border-b border-brand-gray-200/60">
+              <%= t("search.packages_count", count: @packages.size) %>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <% @packages.each do |package| %>
+                <%= render "shared/components/package_card", package: package %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+        <%= render "shared/components/empty_state",
+                   title: t("search.empty_results_title"),
+                   message: t("search.empty_results_desc", query: @query) %>
+      <% end %>
     <% else %>
       <%= render "shared/components/empty_state",
-                 title: "Start exploring",
-                 message: "Enter a search term above to find tours, destinations, and packages." %>
+                 title: t("search.start_exploring_title"),
+                 message: t("search.start_exploring_desc") %>
     <% end %>
   </div>
 </div>

@@ -1,0 +1,48 @@
+<div class="min-h-screen bg-[#faf9f6] flex flex-col justify-center py-12 sm:px-6 lg:px-8 font-sans">
+  <div class="sm:mx-auto sm:w-full sm:max-w-md">
+    <h2 class="mt-6 text-center text-3xl font-medium tracking-tight text-brand-charcoal-900">
+      Admin Portal
+    </h2>
+    <p class="mt-2 text-center text-sm text-brand-charcoal-600 font-light">
+      61 EDİZ TRAVEL
+    </p>
+  </div>
+
+  <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+    <div class="bg-white py-8 px-4 shadow-sm border border-brand-gray-200 sm:rounded-lg sm:px-10">
+      
+      <% if flash[:alert] %>
+        <div class="bg-red-50 text-red-800 p-4 mb-6 border-s-4 border-red-500 text-sm">
+          <%= flash[:alert] %>
+        </div>
+      <% end %>
+
+      <% if flash[:notice] %>
+        <div class="bg-green-50 text-green-800 p-4 mb-6 border-s-4 border-brand-green-700 text-sm">
+          <%= flash[:notice] %>
+        </div>
+      <% end %>
+
+      <%= form_with url: session_url, class: "space-y-6" do |form| %>
+        <div>
+          <%= form.label :email_address, "Email Address", class: "block text-xs font-semibold text-brand-charcoal-900 uppercase tracking-widest mb-2" %>
+          <div class="mt-1">
+            <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "username", placeholder: "admin@ediztravel.com", value: params[:email_address], class: "w-full border-b border-brand-gray-200 py-3 bg-transparent text-brand-charcoal-900 focus:outline-none focus:border-brand-gold-500 transition-colors" %>
+          </div>
+        </div>
+
+        <div>
+          <%= form.label :password, "Password", class: "block text-xs font-semibold text-brand-charcoal-900 uppercase tracking-widest mb-2" %>
+          <div class="mt-1">
+            <%= form.password_field :password, required: true, autocomplete: "current-password", placeholder: "••••••••", maxlength: 72, class: "w-full border-b border-brand-gray-200 py-3 bg-transparent text-brand-charcoal-900 focus:outline-none focus:border-brand-gold-500 transition-colors" %>
+          </div>
+        </div>
+
+        <div class="pt-4">
+          <%= form.submit "Sign In", class: "w-full px-8 py-4 bg-brand-charcoal-900 hover:bg-brand-green-800 text-white font-medium text-sm tracking-widest uppercase transition-colors cursor-pointer" %>
+        </div>
+      <% end %>
+      
+    </div>
+  </div>
+</div>

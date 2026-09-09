@@ -1,0 +1,15 @@
+one:
+  title: Package One
+  slug: package-one
+  description: MyText
+  short_description: MyText
+  duration: 5 Days
+  active: true
+
+two:
+  title: Package Two
+  slug: package-two
+  description: MyText
+  short_description: MyText
+  duration: 7 Days
+  active: false

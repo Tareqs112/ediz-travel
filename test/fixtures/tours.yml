@@ -2,7 +2,7 @@ one:
   title: MyString One
   slug: my-string-one
   description: MyText One
-  destination: MyString
+  destination: one
   active: true
   duration: "Full Day"
   tour_type: "Private"
@@ -12,7 +12,7 @@ two:
   title: MyString Two
   slug: my-string-two
   description: MyText Two
-  destination: MyString
+  destination: two
   active: false
   duration: "Half Day"
   tour_type: "Group"

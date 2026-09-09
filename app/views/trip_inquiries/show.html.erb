@@ -1,0 +1,24 @@
+<% content_for :title, t("trip_inquiries.success.page_title") %>
+
+<div class="bg-white min-h-screen flex items-center justify-center border-t border-brand-gray-200/50">
+  <div class="container-main py-10 lg:py-24 text-center">
+    
+    <div class="max-w-2xl mx-auto">
+      <div class="w-20 h-20 bg-brand-green-50 rounded-full flex items-center justify-center mx-auto mb-8">
+        <svg class="w-10 h-10 text-brand-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+        </svg>
+      </div>
+      
+      <h1 class="text-2xl lg:text-5xl font-sans font-medium text-brand-charcoal-900 tracking-tight leading-tight mb-6"><%= t("trip_inquiries.success.title") %></h1>
+      
+      <% inquiry_type_text = @trip_inquiry.inquiry_type.in?(%w[airport_transfer private_transport car_rental chauffeured_car]) ? t("trip_inquiries.success.transport_request") : t("trip_inquiries.success.trip_inquiry") %>
+      <p class="text-base lg:text-lg text-brand-charcoal-600 font-light leading-relaxed mb-8">
+        <%= t("trip_inquiries.success.message", name: @trip_inquiry.customer_name, inquiry_type: inquiry_type_text, email: @trip_inquiry.email) %>
+      </p>
+      
+      <%= link_to t("trip_inquiries.success.return_to_home"), root_path, class: "inline-block px-10 py-4 bg-brand-charcoal-900 text-white hover:bg-brand-green-800 font-medium text-sm tracking-widest uppercase transition-colors" %>
+    </div>
+    
+  </div>
+</div>

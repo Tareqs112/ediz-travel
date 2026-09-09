@@ -1,0 +1,177 @@
+<div class="mb-6 sm:flex sm:items-center sm:justify-between">
+  <div>
+    <h1 class="text-2xl font-bold text-gray-900">Travel Guides</h1>
+    <p class="mt-1 text-sm text-gray-500">Manage regional destination articles, travel tips, and editorial content.</p>
+  </div>
+  <div class="mt-4 sm:mt-0">
+    <%= link_to "+ New Article", new_admin_travel_guide_path, class: "inline-flex items-center px-4 py-2 bg-brand-green-700 hover:bg-brand-green-800 text-white text-sm font-medium rounded-md shadow-sm transition" %>
+  </div>
+</div>
+
+<!-- Status Filter Tabs -->
+<div class="border-b border-gray-200 mb-6">
+  <nav class="-mb-px flex space-x-6" aria-label="Tabs">
+    <%= link_to admin_travel_guides_path, class: "whitespace-nowrap pb-3 px-1 border-b-2 font-medium text-sm #{@status == 'all' ? 'border-brand-green-600 text-brand-green-700' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}" do %>
+      All <span class="ml-1 px-2 py-0.5 text-xs rounded-full bg-gray-100 text-gray-600"><%= @total_count %></span>
+    <% end %>
+
+    <%= link_to admin_travel_guides_path(status: "published"), class: "whitespace-nowrap pb-3 px-1 border-b-2 font-medium text-sm #{@status == 'published' ? 'border-brand-green-600 text-brand-green-700' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}" do %>
+      Published <span class="ml-1 px-2 py-0.5 text-xs rounded-full bg-green-100 text-green-800"><%= @published_count %></span>
+    <% end %>
+
+    <%= link_to admin_travel_guides_path(status: "draft"), class: "whitespace-nowrap pb-3 px-1 border-b-2 font-medium text-sm #{@status == 'draft' ? 'border-brand-green-600 text-brand-green-700' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}" do %>
+      Drafts <span class="ml-1 px-2 py-0.5 text-xs rounded-full bg-gray-100 text-gray-600"><%= @draft_count %></span>
+    <% end %>
+  </nav>
+</div>
+
+<% if @travel_guides.any? %>
+  <!-- Desktop Table (hidden on mobile) -->
+  <div class="hidden md:block bg-white shadow-sm rounded-lg border border-gray-200 overflow-hidden">
+    <table class="min-w-full divide-y divide-gray-200">
+      <thead class="bg-gray-50">
+        <tr>
+          <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Article</th>
+          <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+          <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tags</th>
+          <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Published Date</th>
+          <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Updated</th>
+          <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="bg-white divide-y divide-gray-200">
+        <% @travel_guides.each do |guide| %>
+          <tr class="hover:bg-gray-50 transition">
+            <td class="px-6 py-4">
+              <div class="flex items-center">
+                <div class="w-12 h-12 rounded bg-gray-100 overflow-hidden flex-shrink-0 mr-4 border border-gray-200">
+                  <% if guide.image.attached? %>
+                    <%= image_tag guide.image, alt: guide.title, class: "w-full h-full object-cover" %>
+                  <% else %>
+                    <div class="w-full h-full flex items-center justify-center text-gray-400 text-xs">No img</div>
+                  <% end %>
+                </div>
+                <div class="min-w-0">
+                  <div class="text-sm font-medium text-gray-900 truncate max-w-xs">
+                    <%= link_to guide.title, edit_admin_travel_guide_path(guide), class: "hover:text-brand-green-700" %>
+                  </div>
+                  <div class="text-xs text-gray-500 font-mono truncate max-w-xs">
+                    /<%= guide.slug %>
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <% if guide.published? %>
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                  PUBLISHED
+                </span>
+              <% else %>
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-700">
+                  DRAFT
+                </span>
+              <% end %>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-xs text-gray-500">
+              <% if guide.tags.present? && guide.tags.any? %>
+                <div class="flex flex-wrap gap-1 max-w-xs">
+                  <% guide.tags.first(2).each do |tag| %>
+                    <span class="px-1.5 py-0.5 bg-gray-100 text-gray-600 rounded"><%= tag %></span>
+                  <% end %>
+                  <% if guide.tags.size > 2 %>
+                    <span class="text-gray-400">+<%= guide.tags.size - 2 %></span>
+                  <% end %>
+                </div>
+              <% else %>
+                <span class="text-gray-400">—</span>
+              <% end %>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              <%= guide.published_at&.strftime("%b %d, %Y") || "—" %>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-xs text-gray-400">
+              <%= time_ago_in_words(guide.updated_at) %> ago
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+              <div class="inline-flex items-center gap-3">
+                <%= link_to "Preview", preview_admin_travel_guide_path(guide), target: "_blank", class: "text-gray-600 hover:text-brand-green-700" %>
+                <%= link_to "Edit", edit_admin_travel_guide_path(guide), class: "text-brand-green-700 hover:text-brand-green-900" %>
+                
+                <% if guide.published? %>
+                  <%= button_to "Unpublish", unpublish_admin_travel_guide_path(guide), method: :patch, class: "text-amber-600 hover:text-amber-800 text-xs font-medium cursor-pointer" %>
+                <% else %>
+                  <%= button_to "Publish", publish_admin_travel_guide_path(guide), method: :patch, class: "text-green-700 hover:text-green-900 text-xs font-medium cursor-pointer" %>
+                <% end %>
+
+                <%= button_to "Delete", admin_travel_guide_path(guide), method: :delete, class: "text-red-600 hover:text-red-900 text-xs cursor-pointer", form: { data: { turbo_confirm: "Delete article '#{guide.title}'?" } } %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Mobile Card List (visible on small screens) -->
+  <div class="md:hidden space-y-4">
+    <% @travel_guides.each do |guide| %>
+      <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm space-y-3">
+        <div class="flex items-start gap-3">
+          <div class="w-16 h-16 rounded bg-gray-100 overflow-hidden flex-shrink-0 border border-gray-200">
+            <% if guide.image.attached? %>
+              <%= image_tag guide.image, alt: guide.title, class: "w-full h-full object-cover" %>
+            <% else %>
+              <div class="w-full h-full flex items-center justify-center text-gray-400 text-xs">No img</div>
+            <% end %>
+          </div>
+          <div class="min-w-0 flex-grow">
+            <div class="flex items-center gap-2 mb-1">
+              <% if guide.published? %>
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-green-100 text-green-800">PUBLISHED</span>
+              <% else %>
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-gray-100 text-gray-700">DRAFT</span>
+              <% end %>
+              <span class="text-xs text-gray-400"><%= guide.published_at&.strftime("%b %d, %Y") %></span>
+            </div>
+            <h3 class="text-sm font-semibold text-gray-900 leading-tight">
+              <%= link_to guide.title, edit_admin_travel_guide_path(guide) %>
+            </h3>
+            <p class="text-xs text-gray-500 font-mono mt-0.5">/<%= guide.slug %></p>
+          </div>
+        </div>
+
+        <div class="pt-2 border-t border-gray-100 flex flex-wrap items-center justify-between gap-2 text-xs">
+          <div class="flex items-center gap-3">
+            <%= link_to "Preview", preview_admin_travel_guide_path(guide), target: "_blank", class: "text-gray-600 font-medium" %>
+            <%= link_to "Edit", edit_admin_travel_guide_path(guide), class: "text-brand-green-700 font-medium" %>
+          </div>
+          <div class="flex items-center gap-3">
+            <% if guide.published? %>
+              <%= button_to "Unpublish", unpublish_admin_travel_guide_path(guide), method: :patch, class: "text-amber-600 font-medium cursor-pointer" %>
+            <% else %>
+              <%= button_to "Publish", publish_admin_travel_guide_path(guide), method: :patch, class: "text-green-700 font-medium cursor-pointer" %>
+            <% end %>
+            <%= button_to "Delete", admin_travel_guide_path(guide), method: :delete, class: "text-red-600 cursor-pointer", form: { data: { turbo_confirm: "Delete this article?" } } %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <div class="bg-white rounded-lg border border-gray-200 p-12 text-center">
+    <div class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-4 text-gray-400">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" /></svg>
+    </div>
+    <h3 class="text-base font-medium text-gray-900 mb-1">No articles found</h3>
+    <p class="text-sm text-gray-500 mb-6">
+      <% if @status == 'published' %>
+        No published articles yet. Publish a draft to make it live.
+      <% elsif @status == 'draft' %>
+        No drafts currently saved.
+      <% else %>
+        Get started by creating your first regional travel guide.
+      <% end %>
+    </p>
+    <%= link_to "+ Create First Article", new_admin_travel_guide_path, class: "inline-flex items-center px-4 py-2 bg-brand-green-700 text-white text-sm font-medium rounded-md hover:bg-brand-green-800 transition" %>
+  </div>
+<% end %>
