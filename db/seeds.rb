@@ -90,3 +90,15 @@ tours.each do |tour_attrs|
 end
 
 puts "Created #{Tour.count} tours in the database."
+
+if ENV["ADMIN_EMAIL"].present? && ENV["ADMIN_PASSWORD"].present?
+  puts "Seeding admin user..."
+  admin = User.find_or_initialize_by(email_address: ENV["ADMIN_EMAIL"])
+  if admin.new_record?
+    admin.password = ENV["ADMIN_PASSWORD"]
+    admin.save!
+    puts "Admin user created (#{admin.email_address})."
+  else
+    puts "Admin user already exists (#{admin.email_address}). Password was not changed."
+  end
+end
