@@ -1,29 +1,46 @@
+---
 one:
-  title: "Guide 1"
-  slug: "guide-1"
-  excerpt: "MyText"
-  content: "MyText"
+  title: Guide 1
+  slug: guide-1
+  excerpt: MyText
+  content: MyText
   active: true
-  published_at: 2026-09-06 08:16:22
+  published_at: 2026-09-06 11:16:22.000000000 +03:00
   tags: "{Trabzon,Black Sea}"
-  meta_description: "Explore Trabzon guide"
-
+  meta_description: Explore Trabzon guide
+  translations:
+    en:
+      title: Guide 1
+      excerpt: MyText
+      meta_description: Explore Trabzon guide
+      content: MyText
 two:
-  title: "Guide 2"
-  slug: "guide-2"
-  excerpt: "MyText"
-  content: "MyText"
+  title: Guide 2
+  slug: guide-2
+  excerpt: MyText
+  content: MyText
   active: true
-  published_at: 2026-09-06 08:16:22
+  published_at: 2026-09-06 11:16:22.000000000 +03:00
   tags: "{Uzungöl,Travel Tips}"
-  meta_description: "Uzungöl highlights"
-
+  meta_description: Uzungöl highlights
+  translations:
+    en:
+      title: Guide 2
+      excerpt: MyText
+      meta_description: Uzungöl highlights
+      content: MyText
 draft_guide:
-  title: "Draft Guide"
-  slug: "draft-guide"
-  excerpt: "Draft excerpt"
-  content: "Draft content"
+  title: Draft Guide
+  slug: draft-guide
+  excerpt: Draft excerpt
+  content: Draft content
   active: false
-  published_at: null
+  published_at:
   tags: "{Draft}"
-  meta_description: "Draft guide description"
+  meta_description: Draft guide description
+  translations:
+    en:
+      title: Draft Guide
+      excerpt: Draft excerpt
+      meta_description: Draft guide description
+      content: Draft content

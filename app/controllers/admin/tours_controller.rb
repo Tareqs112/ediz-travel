@@ -44,23 +44,40 @@ class Admin::ToursController < Admin::BaseController
   end
 
   def tour_params
-    p = params.require(:tour).permit(
-      :title, :slug, :description, :cancellation_policy, :duration, :group_size, 
-      :meeting_point, :tour_type, :active, :destination_id, :image,
-      :included, :excluded, :highlights, :languages,
-      itinerary: [:day, :title, :desc]
-    )
-    
-    [:included, :excluded, :highlights, :languages].each do |arr_field|
+  permit_args = [
+    :slug, :duration, :group_size, :tour_type, :active, :destination_id, :image,
+    :price_from, :currency, :featured
+  ]
+
+  [:en, :ar, :tr].each do |l|
+    permit_args += [
+      :"title_#{l}", :"description_#{l}", :"cancellation_policy_#{l}",
+      :"meeting_point_#{l}", :"included_#{l}", :"excluded_#{l}",
+      :"highlights_#{l}", { :"itinerary_#{l}" => [:day, :title, :desc] }
+    ]
+  end
+  # languages remains untranslated
+  permit_args << :languages
+
+  p = params.require(:tour).permit(*permit_args)
+
+  [:en, :ar, :tr].each do |l|
+    [:"included_#{l}", :"excluded_#{l}", :"highlights_#{l}"].each do |arr_field|
       if p[arr_field].is_a?(String)
         p[arr_field] = p[arr_field].split("\n").map(&:strip).reject(&:blank?)
       end
     end
-    
-    if p[:itinerary].is_a?(Array)
-      p[:itinerary] = p[:itinerary].reject { |day| day[:title].blank? && day[:desc].blank? }
+
+    it_field = :"itinerary_#{l}"
+    if p[it_field].is_a?(Array)
+      p[it_field] = p[it_field].reject { |day| day[:title].blank? && day[:desc].blank? }
     end
-    
-    p
   end
+
+  if p[:languages].is_a?(String)
+    p[:languages] = p[:languages].split("\n").map(&:strip).reject(&:blank?)
+  end
+
+  p
+end
 end

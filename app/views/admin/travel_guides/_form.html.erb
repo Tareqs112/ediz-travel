@@ -1,171 +1,150 @@
-<%= form_with(model: [:admin, @travel_guide], data: { controller: "article-editor", action: "submit->article-editor#sync" }, class: "space-y-8") do |f| %>
+<%= form_with(model: [:admin, @travel_guide], class: "bg-transparent") do |f| %>
   <% if @travel_guide.errors.any? %>
-    <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-r-md">
-      <div class="flex">
-        <div class="ml-3">
-          <h3 class="text-sm font-medium text-red-800"><%= pluralize(@travel_guide.errors.count, "error") %> prohibited this article from being saved:</h3>
-          <div class="mt-2 text-sm text-red-700">
-            <ul class="list-disc pl-5 space-y-1">
-              <% @travel_guide.errors.full_messages.each do |msg| %>
-                <li><%= msg %></li>
-              <% end %>
-            </ul>
-          </div>
-        </div>
-      </div>
+    <div class="bg-red-50 text-red-800 p-4 rounded-md mb-6 shadow-sm border border-red-100">
+      <h4 class="font-semibold text-sm">Please fix the following <%= pluralize(@travel_guide.errors.count, "error") %>:</h4>
+      <ul class="list-disc ps-5 text-sm mt-2 space-y-1">
+        <% @travel_guide.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
     </div>
   <% end %>
 
-  <!-- Section 1: Article Metadata -->
-  <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 space-y-6">
-    <h2 class="text-base font-semibold text-gray-900 border-b border-gray-100 pb-3">Article Information</h2>
-
-    <div>
-      <%= f.label :title, "Article Title *", class: "block text-sm font-medium text-gray-700 mb-1" %>
-      <%= f.text_field :title, required: true, class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-base py-2.5 px-3", placeholder: "e.g. Best Time to Visit Trabzon & Eastern Black Sea" %>
+  <!-- Section 1: Basic Info -->
+  <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 space-y-6 mb-6">
+    <div class="flex items-center justify-between border-b border-gray-100 pb-4">
+      <h2 class="text-base font-semibold text-gray-900">General Information</h2>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       <div>
         <%= f.label :slug, "URL Slug", class: "block text-sm font-medium text-gray-700 mb-1" %>
-        <%= f.text_field :slug, class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm py-2 px-3", placeholder: "auto-generated-from-title" %>
-        <p class="mt-1 text-xs text-gray-500">Leave blank to auto-generate. Must be unique.</p>
+        <%= f.text_field :slug, class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm py-2 px-3 bg-gray-50", placeholder: "e.g. guide-to-trabzon" %>
+        <p class="mt-1 text-xs text-gray-500">Leave blank to auto-generate from English title.</p>
       </div>
 
-      <div>
-        <%= f.label :tag_list, "Tags", class: "block text-sm font-medium text-gray-700 mb-1" %>
-        <%= f.text_field :tag_list, value: @travel_guide.tag_list, data: { article_editor_target: "tagInput" }, class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm py-2 px-3", placeholder: "Trabzon, Uzungöl, Travel Tips" %>
-        <div class="mt-2 flex flex-wrap gap-1.5 items-center text-xs text-gray-500">
-          <span>Quick add:</span>
-          <% ["Trabzon", "Uzungöl", "Ayder", "Sümela", "Black Sea", "Travel Tips", "Itineraries"].each do |suggested_tag| %>
-            <button type="button" data-tag="<%= suggested_tag %>" data-action="click->article-editor#appendTag" class="px-2 py-0.5 bg-gray-100 hover:bg-brand-green-50 hover:text-brand-green-700 rounded text-gray-700 transition cursor-pointer">
-              + <%= suggested_tag %>
-            </button>
-          <% end %>
-        </div>
+      <div data-controller="tag-input">
+        <%= f.label :tag_list, "Tags (comma separated)", class: "block text-sm font-medium text-gray-700 mb-1" %>
+        <%= f.text_field :tag_list, value: @travel_guide.tag_list, data: { tag_input_target: "input" }, class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm py-2 px-3", placeholder: "nature, history, food..." %>
       </div>
     </div>
 
     <div>
-      <%= f.label :excerpt, "Excerpt / Introduction *", class: "block text-sm font-medium text-gray-700 mb-1" %>
-      <%= f.text_area :excerpt, rows: 3, required: true, class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm p-3", placeholder: "A compelling summary of the article. Displayed on cards and at the beginning of the guide." %>
-    </div>
-
-    <div>
-      <%= f.label :meta_description, "SEO Meta Description", class: "block text-sm font-medium text-gray-700 mb-1" %>
-      <%= f.text_field :meta_description, class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm py-2 px-3", placeholder: "Brief snippet for Google search results (recommended 150-160 characters)" %>
-      <p class="mt-1 text-xs text-gray-500">Optional. Falls back to excerpt if left blank.</p>
+      <%= f.label :image, "Cover Image", class: "block text-sm font-medium text-gray-700 mb-1" %>
+      <% if @travel_guide.image.attached? %>
+        <div class="mb-3">
+          <%= image_tag @travel_guide.image, class: "h-32 rounded object-cover" %>
+        </div>
+      <% end %>
+      <%= f.file_field :image, accept: "image/*", class: "block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200" %>
     </div>
   </div>
 
-  <!-- Section 2: Cover Image -->
-  <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 space-y-4">
-    <h2 class="text-base font-semibold text-gray-900 border-b border-gray-100 pb-3">Cover Image</h2>
+  <% [ ['en', 'English'], ['ar', 'Arabic'], ['tr', 'Turkish'] ].each do |loc, loc_name| %>
+    <div class="mb-8 pt-6 border-t border-gray-200 <%= loc == 'en' ? 'mt-4' : 'mt-8' %>">
+      <h3 class="text-xl font-semibold text-gray-900 mb-6"><%= loc_name %> Content <%= loc == 'en' ? '(Required)' : '(Optional Fallback)' %></h3>
 
-    <% if @travel_guide.image.attached? %>
-      <div class="flex flex-col sm:flex-row gap-6 items-start">
-        <div class="w-full sm:w-64 aspect-[16/9] rounded-lg overflow-hidden border border-gray-200 bg-gray-50 flex-shrink-0">
-          <%= image_tag @travel_guide.image, alt: @travel_guide.title, class: "w-full h-full object-cover" %>
+      <!-- Text Content -->
+      <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 space-y-6 mb-6">
+        <div>
+          <%= f.label :"title_#{loc}", "Article Title (#{loc_name})", class: "block text-sm font-medium text-gray-700 mb-1" %>
+          <%= f.text_field :"title_#{loc}", class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm py-2 px-3", placeholder: "e.g. 10 Best Places to Visit in Trabzon" %>
         </div>
-        <div class="flex-grow space-y-2">
-          <p class="text-sm font-medium text-gray-900">Current Cover Image</p>
-          <p class="text-xs text-gray-500">To replace this image, choose a new file below:</p>
-          <%= f.file_field :image, accept: "image/*", class: "block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-brand-green-50 file:text-brand-green-700 hover:file:bg-brand-green-100" %>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <%= f.label :"excerpt_#{loc}", "Excerpt / Short Summary", class: "block text-sm font-medium text-gray-700 mb-1" %>
+            <%= f.text_area :"excerpt_#{loc}", rows: 3, class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm py-2 px-3", placeholder: "A brief 1-2 sentence summary for cards and lists..." %>
+          </div>
+
+          <div>
+            <%= f.label :"meta_description_#{loc}", "SEO Meta Description", class: "block text-sm font-medium text-gray-700 mb-1" %>
+            <%= f.text_area :"meta_description_#{loc}", rows: 3, class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm py-2 px-3", placeholder: "Optimize for search engines (optional)..." %>
+          </div>
         </div>
       </div>
-    <% else %>
-      <div>
-        <p class="text-xs text-gray-500 mb-2">Upload a high-resolution landscape photo for the article header and listing cards.</p>
-        <%= f.file_field :image, accept: "image/*", class: "block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-brand-green-50 file:text-brand-green-700 hover:file:bg-brand-green-100" %>
-      </div>
-    <% end %>
-  </div>
 
-  <!-- Section 3: Article Content & Rich Editor -->
-  <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 space-y-4">
-    <div class="flex items-center justify-between border-b border-gray-100 pb-3">
-      <div>
-        <h2 class="text-base font-semibold text-gray-900">Article Content</h2>
-        <p class="text-xs text-gray-500 mt-0.5">Use the formatting toolbar below to compose paragraphs, headings, lists, quotes, and images.</p>
-      </div>
-    </div>
+      <!-- Visual Editor -->
+      <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200" data-controller="article-editor">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-base font-semibold text-gray-900">Article Body (#{loc_name})</h2>
+        </div>
 
-    <!-- Formatting Toolbar -->
-    <div class="flex flex-wrap items-center gap-1.5 p-2 bg-gray-50 border border-gray-200 rounded-t-md">
-      <div class="flex items-center gap-1 pr-2 border-r border-gray-200">
-        <button type="button" data-action="click->article-editor#formatBlock" data-tag="h2" class="px-2.5 py-1 text-xs font-bold rounded bg-white hover:bg-gray-100 border border-gray-200 text-gray-800 shadow-xs" title="Heading 2">H2</button>
-        <button type="button" data-action="click->article-editor#formatBlock" data-tag="h3" class="px-2.5 py-1 text-xs font-bold rounded bg-white hover:bg-gray-100 border border-gray-200 text-gray-800 shadow-xs" title="Heading 3">H3</button>
-        <button type="button" data-action="click->article-editor#formatBlock" data-tag="p" class="px-2.5 py-1 text-xs font-medium rounded bg-white hover:bg-gray-100 border border-gray-200 text-gray-800 shadow-xs" title="Paragraph">P</button>
-      </div>
+        <div class="flex flex-wrap items-center gap-2 p-2 bg-gray-50 border border-gray-200 border-b-0 rounded-t-md">
+          <div class="flex items-center gap-1 pr-2 border-r border-gray-200">
+            <button type="button" data-action="click->article-editor#formatBlock" data-tag="h2" class="px-2 py-1 text-xs font-bold rounded bg-white hover:bg-gray-100 border border-gray-200 text-gray-800 shadow-xs" title="Heading 2">H2</button>
+            <button type="button" data-action="click->article-editor#formatBlock" data-tag="h3" class="px-2 py-1 text-xs font-semibold rounded bg-white hover:bg-gray-100 border border-gray-200 text-gray-800 shadow-xs" title="Heading 3">H3</button>
+            <button type="button" data-action="click->article-editor#formatBlock" data-tag="p" class="px-2 py-1 text-xs rounded bg-white hover:bg-gray-100 border border-gray-200 text-gray-800 shadow-xs" title="Paragraph">¶</button>
+          </div>
 
-      <div class="flex items-center gap-1 pr-2 border-r border-gray-200">
-        <button type="button" data-action="click->article-editor#format" data-command="bold" class="w-7 h-7 flex items-center justify-center font-bold text-sm rounded bg-white hover:bg-gray-100 border border-gray-200 text-gray-800 shadow-xs" title="Bold">B</button>
-        <button type="button" data-action="click->article-editor#format" data-command="italic" class="w-7 h-7 flex items-center justify-center italic font-serif text-sm rounded bg-white hover:bg-gray-100 border border-gray-200 text-gray-800 shadow-xs" title="Italic">I</button>
-      </div>
+          <div class="flex items-center gap-1 pr-2 border-r border-gray-200">
+            <button type="button" data-action="click->article-editor#format" data-command="bold" class="w-7 h-7 flex items-center justify-center font-bold text-sm rounded bg-white hover:bg-gray-100 border border-gray-200 text-gray-800 shadow-xs" title="Bold">B</button>
+            <button type="button" data-action="click->article-editor#format" data-command="italic" class="w-7 h-7 flex items-center justify-center italic font-serif text-sm rounded bg-white hover:bg-gray-100 border border-gray-200 text-gray-800 shadow-xs" title="Italic">I</button>
+          </div>
 
-      <div class="flex items-center gap-1 pr-2 border-r border-gray-200">
-        <button type="button" data-action="click->article-editor#formatBlock" data-tag="blockquote" class="px-2 py-1 text-xs font-serif italic rounded bg-white hover:bg-gray-100 border border-gray-200 text-gray-800 shadow-xs" title="Quote">"Quote"</button>
-        <button type="button" data-action="click->article-editor#format" data-command="insertUnorderedList" class="px-2 py-1 text-xs rounded bg-white hover:bg-gray-100 border border-gray-200 text-gray-800 shadow-xs" title="Bullet List">&bull; List</button>
-        <button type="button" data-action="click->article-editor#format" data-command="insertOrderedList" class="px-2 py-1 text-xs rounded bg-white hover:bg-gray-100 border border-gray-200 text-gray-800 shadow-xs" title="Numbered List">1. List</button>
-      </div>
+          <div class="flex items-center gap-1 pr-2 border-r border-gray-200">
+            <button type="button" data-action="click->article-editor#formatBlock" data-tag="blockquote" class="px-2 py-1 text-xs font-serif italic rounded bg-white hover:bg-gray-100 border border-gray-200 text-gray-800 shadow-xs" title="Quote">"Quote"</button>
+            <button type="button" data-action="click->article-editor#format" data-command="insertUnorderedList" class="px-2 py-1 text-xs rounded bg-white hover:bg-gray-100 border border-gray-200 text-gray-800 shadow-xs" title="Bullet List">&bull; List</button>
+            <button type="button" data-action="click->article-editor#format" data-command="insertOrderedList" class="px-2 py-1 text-xs rounded bg-white hover:bg-gray-100 border border-gray-200 text-gray-800 shadow-xs" title="Numbered List">1. List</button>
+          </div>
 
-      <div class="flex items-center gap-1">
-        <button type="button" data-action="click->article-editor#createLink" class="px-2.5 py-1 text-xs rounded bg-white hover:bg-gray-100 border border-gray-200 text-brand-green-700 font-medium shadow-xs" title="Insert Link">&#128279; Link</button>
-        
-        <label class="px-2.5 py-1 text-xs rounded bg-white hover:bg-gray-100 border border-gray-200 text-brand-green-700 font-medium shadow-xs cursor-pointer inline-flex items-center gap-1" title="Upload & Insert Image">
-          <span>&#128247; + Image</span>
-          <input type="file" accept="image/*" class="hidden" data-action="change->article-editor#uploadInlineImage">
-        </label>
-      </div>
-    </div>
+          <div class="flex items-center gap-1">
+            <button type="button" data-action="click->article-editor#createLink" class="px-2.5 py-1 text-xs rounded bg-white hover:bg-gray-100 border border-gray-200 text-brand-green-700 font-medium shadow-xs" title="Insert Link">&#128279; Link</button>
 
-    <!-- Visual Editor Box -->
-    <div
-      data-article-editor-target="editor"
-      data-action="input->article-editor#sync blur->article-editor#sync"
-      contenteditable="true"
-      class="min-h-[380px] p-4 bg-white border border-t-0 border-gray-200 rounded-b-md focus:outline-none focus:ring-1 focus:ring-brand-green-500 prose prose-brand max-w-none text-brand-charcoal-800 font-light leading-relaxed">
-      <%= raw @travel_guide.sanitized_content %>
-    </div>
+            <label class="px-2.5 py-1 text-xs rounded bg-white hover:bg-gray-100 border border-gray-200 text-brand-green-700 font-medium shadow-xs cursor-pointer inline-flex items-center gap-1" title="Upload & Insert Image">
+              <span>&#128247; + Image</span>
+              <input type="file" accept="image/*" class="hidden" data-action="change->article-editor#uploadInlineImage">
+            </label>
+          </div>
+        </div>
 
-    <!-- Hidden Form Field Synced with Editor -->
-    <%= f.hidden_field :content, data: { article_editor_target: "input" } %>
+        <div
+          data-article-editor-target="editor"
+          data-action="input->article-editor#sync blur->article-editor#sync"
+          contenteditable="true"
+          class="min-h-[380px] p-4 bg-white border border-t-0 border-gray-200 rounded-b-md focus:outline-none focus:ring-1 focus:ring-brand-green-500 prose prose-brand max-w-none text-brand-charcoal-800 font-light leading-relaxed">
+          <%= raw f.object.send(:"content_#{loc}").presence ? ActionController::Base.helpers.sanitize(f.object.send(:"content_#{loc}"), tags: TravelGuide::ALLOWED_TAGS, attributes: TravelGuide::ALLOWED_ATTRIBUTES) : "" %>
+        </div>
 
-    <!-- Attached Body Images Shelf -->
-    <% if @travel_guide.persisted? && @travel_guide.body_images.attached? %>
-      <div class="mt-6 pt-6 border-t border-gray-100">
-        <h3 class="text-xs uppercase tracking-widest font-semibold text-gray-600 mb-3">Attached Body Images</h3>
-        <p class="text-xs text-gray-500 mb-3">Click "Insert" to place any of these images into your article content at the cursor position.</p>
-        <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-3">
-          <% @travel_guide.body_images.each do |body_img| %>
-            <div class="border border-gray-200 rounded p-1.5 bg-gray-50 flex flex-col items-center">
-              <div class="w-full aspect-video rounded overflow-hidden mb-2 bg-gray-200">
-                <%= image_tag body_img, alt: "Article image", class: "w-full h-full object-cover" %>
-              </div>
-              <div class="w-full flex justify-between gap-1 text-[11px]">
-                <button
-                  type="button"
-                  data-action="click->article-editor#insertImageTag"
-                  data-image-url="<%= rails_blob_path(body_img, only_path: true) %>"
-                  data-image-alt="<%= @travel_guide.title %>"
-                  class="text-brand-green-700 hover:text-brand-green-900 font-medium cursor-pointer">
-                  + Insert
-                </button>
-                <%= link_to "Remove", remove_body_image_admin_travel_guide_path(@travel_guide, image_id: body_img.id), data: { turbo_method: :delete, turbo_confirm: "Remove this image?" }, class: "text-red-600 hover:text-red-800" %>
-              </div>
+        <%= f.hidden_field :"content_#{loc}", data: { article_editor_target: "input" } %>
+
+        <% if @travel_guide.persisted? && @travel_guide.body_images.attached? && loc == 'en' %>
+          <div class="mt-6 pt-6 border-t border-gray-100">
+            <h3 class="text-xs uppercase tracking-widest font-semibold text-gray-600 mb-3">Attached Body Images (Global)</h3>
+            <p class="text-xs text-gray-500 mb-3">Click "Insert" to place any of these images into your article content at the cursor position.</p>
+            <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-3">
+              <% @travel_guide.body_images.each do |body_img| %>
+                <div class="border border-gray-200 rounded p-1.5 bg-gray-50 flex flex-col items-center">
+                  <div class="w-full aspect-video rounded overflow-hidden mb-2 bg-gray-200">
+                    <%= image_tag body_img, alt: "Article image", class: "w-full h-full object-cover" %>
+                  </div>
+                  <div class="w-full flex justify-between gap-1 text-[11px]">
+                    <button
+                      type="button"
+                      data-action="click->article-editor#insertImageTag"
+                      data-image-url="<%= rails_blob_path(body_img, only_path: true) %>"
+                      data-image-alt="<%= @travel_guide.title %>"
+                      class="text-brand-green-700 hover:text-brand-green-900 font-medium cursor-pointer">
+                      + Insert
+                    </button>
+                    <%= link_to "Remove", remove_body_image_admin_travel_guide_path(@travel_guide, image_id: body_img.id), data: { turbo_method: :delete, turbo_confirm: "Remove this image?" }, class: "text-red-600 hover:text-red-800" %>
+                  </div>
+                </div>
+              <% end %>
             </div>
-          <% end %>
-        </div>
-      </div>
-    <% end %>
+          </div>
+        <% end %>
 
-    <!-- Upload Additional Body Images -->
-    <div class="mt-4 pt-4 border-t border-gray-100">
-      <label class="block text-xs font-medium text-gray-700 mb-1">Upload Additional Body Images</label>
-      <p class="text-xs text-gray-500 mb-2">You can select multiple photos at once to add to the article's image gallery.</p>
-      <%= f.file_field :body_images, multiple: true, accept: "image/*", class: "block w-full text-xs text-gray-500 file:mr-3 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-xs file:font-medium file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200" %>
+        <% if loc == 'en' %>
+          <div class="mt-4 pt-4 border-t border-gray-100">
+            <label class="block text-xs font-medium text-gray-700 mb-1">Upload Additional Body Images</label>
+            <p class="text-xs text-gray-500 mb-2">You can select multiple photos at once to add to the article's image gallery.</p>
+            <%= f.file_field :body_images, multiple: true, accept: "image/*", class: "block w-full text-xs text-gray-500 file:mr-3 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-xs file:font-medium file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200" %>
+          </div>
+        <% end %>
+      </div>
     </div>
-  </div>
+  <% end %>
 
   <!-- Section 4: Publishing Status & Controls -->
   <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 space-y-4">

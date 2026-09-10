@@ -113,10 +113,14 @@ module Admin
     end
 
     def travel_guide_params
-      params.require(:travel_guide).permit(
-        :title, :slug, :excerpt, :content, :active, :published_at,
-        :image, :meta_description, :tag_list, tags: [], body_images: []
-      )
-    end
+  permit_args = [
+    :slug, :active, :published_at,
+    :image, :tag_list, tags: [], body_images: []
+  ]
+  [:en, :ar, :tr].each do |loc|
+    permit_args += [:"title_#{loc}", :"excerpt_#{loc}", :"content_#{loc}", :"meta_description_#{loc}"]
+  end
+  params.require(:travel_guide).permit(*permit_args)
+end
   end
 end

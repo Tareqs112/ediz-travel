@@ -1,19 +1,35 @@
+---
 one:
   title: MyString One
   slug: my-string-one
   description: MyText One
   destination: one
   active: true
-  duration: "Full Day"
-  tour_type: "Private"
-  group_size: "Up to 8"
-
+  duration: Full Day
+  tour_type: Private
+  group_size: Up to 8
+  translations:
+    en:
+      title: MyString One
+      description: MyText One
+      included:
+      excluded:
+      highlights:
+      itinerary:
 two:
   title: MyString Two
   slug: my-string-two
   description: MyText Two
   destination: two
   active: false
-  duration: "Half Day"
-  tour_type: "Group"
-  group_size: "Up to 15"
+  duration: Half Day
+  tour_type: Group
+  group_size: Up to 15
+  translations:
+    en:
+      title: MyString Two
+      description: MyText Two
+      included:
+      excluded:
+      highlights:
+      itinerary:

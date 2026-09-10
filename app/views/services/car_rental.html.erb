@@ -2,24 +2,72 @@
 
 <div class="bg-brand-gray-50 min-h-screen">
   <div class="pt-8 lg:pt-24 pb-8 lg:pb-32">
-    <div class="container-main max-w-4xl">
+    <div class="container-main max-w-6xl">
       <%= render "shared/components/section_heading",
                  eyebrow: t("car_rental_page.eyebrow"),
                  title: t("car_rental_page.title"),
                  description: t("car_rental_page.description"),
                  as_h1: true %>
                  
-      <div class="bg-white border border-brand-gray-200 p-6 lg:p-12 mt-6 lg:mt-12">
-        <h2 class="text-2xl font-medium text-brand-charcoal-900 mb-6"><%= t("car_rental_page.how_it_works") %></h2>
-        <p class="text-brand-charcoal-600 font-light leading-relaxed mb-8">
-          <%= t("car_rental_page.how_it_works_desc") %>
-        </p>
-        
-        <div class="border-t border-brand-gray-100 pt-8 text-center">
-          <h3 class="text-lg font-medium text-brand-charcoal-900 mb-4"><%= t("car_rental_page.request_vehicle") %></h3>
-          <%= link_to t("car_rental_page.inquire_now"), plan_your_trip_path(inquiry_type: 'car_rental'), class: "btn-primary inline-block" %>
+      <% if @vehicles.any? %>
+        <div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <% @vehicles.each do |vehicle| %>
+            <div class="bg-white border border-brand-gray-200 overflow-hidden group flex flex-col">
+              <% if vehicle.image.attached? %>
+                <div class="aspect-w-16 aspect-h-10 bg-brand-gray-100 overflow-hidden">
+                  <%= image_tag vehicle.image, class: "object-cover w-full h-full group-hover:scale-105 transition-transform duration-500" %>
+                </div>
+              <% else %>
+                <div class="aspect-w-16 aspect-h-10 bg-brand-gray-100 flex items-center justify-center overflow-hidden">
+                  <svg class="w-12 h-12 text-brand-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 16a2 2 0 002-2h4a2 2 0 002 2m-8 0a2 2 0 01-2-2m10 0a2 2 0 012-2V9a2 2 0 00-2-2H6a2 2 0 00-2 2v5a2 2 0 012 2m10 0v1m-10 0v1"></path></svg>
+                </div>
+              <% end %>
+              <div class="p-6 flex-grow flex flex-col">
+                <h3 class="text-xl font-medium text-brand-charcoal-900 mb-2"><%= vehicle.name %></h3>
+                <% if vehicle.description.present? %>
+                  <p class="text-sm text-brand-charcoal-600 font-light mb-4 line-clamp-2"><%= vehicle.description %></p>
+                <% end %>
+                <div class="flex flex-wrap gap-3 mb-6">
+                  <% if vehicle.passenger_capacity.present? %>
+                    <span class="inline-flex items-center text-xs text-brand-charcoal-600 bg-brand-gray-50 px-2 py-1 border border-brand-gray-100">
+                      <svg class="w-3.5 h-3.5 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                      <%= vehicle.passenger_capacity %> Seats
+                    </span>
+                  <% end %>
+                  <% if vehicle.luggage_capacity.present? %>
+                    <span class="inline-flex items-center text-xs text-brand-charcoal-600 bg-brand-gray-50 px-2 py-1 border border-brand-gray-100">
+                      <svg class="w-3.5 h-3.5 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+                      <%= vehicle.luggage_capacity %> Bags
+                    </span>
+                  <% end %>
+                </div>
+                <div class="mt-auto border-t border-brand-gray-100 pt-4 flex items-center justify-between">
+                  <div>
+                    <% if vehicle.price_from.present? %>
+                      <span class="text-xs text-brand-charcoal-500 uppercase tracking-wider block">Starting from</span>
+                      <span class="text-lg font-medium text-brand-charcoal-900"><%= number_to_currency(vehicle.price_from, unit: vehicle.currency.present? ? vehicle.currency + " " : "$", precision: 0) %> <span class="text-xs font-normal text-brand-charcoal-500">/ day</span></span>
+                    <% else %>
+                      <span class="text-sm text-brand-charcoal-500">Contact for pricing</span>
+                    <% end %>
+                  </div>
+                  <%= link_to "Inquire", plan_your_trip_path(inquiry_type: 'car_rental', vehicle: vehicle.name), class: "text-sm font-semibold text-brand-charcoal-900 hover:text-brand-green-700 uppercase tracking-wider" %>
+                </div>
+              </div>
+            </div>
+          <% end %>
         </div>
-      </div>
+      <% else %>
+        <div class="bg-white border border-brand-gray-200 p-6 lg:p-12 mt-6 lg:mt-12 text-center max-w-4xl mx-auto">
+          <h2 class="text-2xl font-medium text-brand-charcoal-900 mb-6"><%= t("car_rental_page.how_it_works") %></h2>
+          <p class="text-brand-charcoal-600 font-light leading-relaxed mb-8">
+            <%= t("car_rental_page.how_it_works_desc") %>
+          </p>
+          <div class="border-t border-brand-gray-100 pt-8 text-center">
+            <h3 class="text-lg font-medium text-brand-charcoal-900 mb-4"><%= t("car_rental_page.request_vehicle") %></h3>
+            <%= link_to t("car_rental_page.inquire_now"), plan_your_trip_path(inquiry_type: 'car_rental'), class: "btn-primary inline-block" %>
+          </div>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

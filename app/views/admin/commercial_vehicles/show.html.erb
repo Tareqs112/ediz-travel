@@ -1,0 +1,70 @@
+<% content_for :title, @commercial_vehicle.name %>
+
+<div class="md:flex md:items-center md:justify-between mb-8">
+  <div class="min-w-0 flex-1">
+    <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight"><%= @commercial_vehicle.name %></h2>
+  </div>
+  <div class="mt-4 flex md:ml-4 md:mt-0 gap-3">
+    <%= link_to "Edit", edit_admin_commercial_vehicle_path(@commercial_vehicle), class: "inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" %>
+    <%= button_to "Delete", admin_commercial_vehicle_path(@commercial_vehicle), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "inline-flex items-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500" %>
+  </div>
+</div>
+
+<div class="overflow-hidden bg-white shadow sm:rounded-lg">
+  <div class="px-4 py-6 sm:px-6">
+    <h3 class="text-base font-semibold leading-7 text-gray-900">Vehicle Information</h3>
+    <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">Public marketing details.</p>
+  </div>
+  <div class="border-t border-gray-100">
+    <dl class="divide-y divide-gray-100">
+
+      <% if @commercial_vehicle.image.attached? %>
+        <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <dt class="text-sm font-medium text-gray-900">Image</dt>
+          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+            <%= image_tag @commercial_vehicle.image, class: "h-48 object-cover rounded-md border" %>
+          </dd>
+        </div>
+      <% end %>
+
+      <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-900">Category</dt>
+        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"><%= @commercial_vehicle.category.titleize %></dd>
+      </div>
+
+      <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-900">Status</dt>
+        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+          <% if @commercial_vehicle.active? %>
+            <span class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">Active</span>
+          <% else %>
+            <span class="inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10">Inactive</span>
+          <% end %>
+        </dd>
+      </div>
+
+      <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-900">Starting Price</dt>
+        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+          <%= @commercial_vehicle.price_from.present? ? number_to_currency(@commercial_vehicle.price_from, unit: @commercial_vehicle.currency.present? ? @commercial_vehicle.currency + " " : "$", precision: 0) : "Not set" %>
+        </dd>
+      </div>
+
+      <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-900">Passenger Capacity</dt>
+        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"><%= @commercial_vehicle.passenger_capacity.present? ? "#{@commercial_vehicle.passenger_capacity} passengers" : "Not set" %></dd>
+      </div>
+
+      <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-900">Luggage Capacity</dt>
+        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"><%= @commercial_vehicle.luggage_capacity.present? ? "#{@commercial_vehicle.luggage_capacity} bags" : "Not set" %></dd>
+      </div>
+
+      <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-900">Description</dt>
+        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"><%= @commercial_vehicle.description.presence || "No description provided." %></dd>
+      </div>
+
+    </dl>
+  </div>
+</div>

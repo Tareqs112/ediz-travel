@@ -29,13 +29,13 @@ class Admin::CrudTest < ActionDispatch::IntegrationTest
 
   test "should create tour" do
     assert_difference("Tour.count") do
-      post admin_tours_url, params: { tour: { title: "New Tour", slug: "new-tour", description: "Desc", active: true } }
+      post admin_tours_url, params: { tour: { title_en: "New Tour", slug: "new-tour", description_en: "Desc", active: true } }
     end
     assert_redirected_to admin_tour_url(Tour.last)
   end
 
   test "should update tour" do
-    patch admin_tour_url(@tour), params: { tour: { title: "Updated Title" } }
+    patch admin_tour_url(@tour), params: { tour: { title_en: "Updated Title" } }
     assert_redirected_to admin_tour_url(@tour)
     @tour.reload
     assert_equal "Updated Title", @tour.title
@@ -66,7 +66,7 @@ class Admin::CrudTest < ActionDispatch::IntegrationTest
 
   test "should create destination" do
     assert_difference("Destination.count") do
-      post admin_destinations_url, params: { destination: { name: "New Dest", slug: "new-dest", description: "Desc", active: true } }
+      post admin_destinations_url, params: { destination: { name: "New Dest", slug: "new-dest", description_en: "Desc", active: true } }
     end
     assert_redirected_to admin_destination_url(Destination.last)
   end
@@ -103,7 +103,7 @@ class Admin::CrudTest < ActionDispatch::IntegrationTest
 
   test "should create accommodation" do
     assert_difference("Accommodation.count") do
-      post admin_accommodations_url, params: { accommodation: { name: "New Acc", slug: "new-acc", description: "Desc", active: true, accommodation_type: "hotel" } }
+      post admin_accommodations_url, params: { accommodation: { name: "New Acc", slug: "new-acc", description_en: "Desc", active: true, accommodation_type: "hotel" } }
     end
     assert_redirected_to admin_accommodation_url(Accommodation.last)
   end
@@ -124,7 +124,7 @@ class Admin::CrudTest < ActionDispatch::IntegrationTest
 test "should update tour itinerary" do
   patch admin_tour_url(@tour), params: { 
     tour: { 
-      itinerary: [
+      itinerary_en: [
         { day: "1", title: "Day 1", desc: "First day" },
         { day: "2", title: "", desc: "" } # Should be rejected
       ]

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_10_061541) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_10_065233) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -94,6 +94,36 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_10_061541) do
     t.index ["source"], name: "index_bookings_on_source"
     t.index ["status"], name: "index_bookings_on_status"
     t.index ["trip_inquiry_id"], name: "index_bookings_on_trip_inquiry_id"
+  end
+
+  create_table "business_settings", force: :cascade do |t|
+    t.string "address"
+    t.text "booking_policies"
+    t.string "company_name"
+    t.string "contact_email"
+    t.datetime "created_at", null: false
+    t.string "google_maps_url"
+    t.boolean "singleton_guard", default: true, null: false
+    t.string "tursab_number"
+    t.datetime "updated_at", null: false
+    t.string "whatsapp_number"
+    t.index ["singleton_guard"], name: "index_business_settings_on_singleton_guard", unique: true
+  end
+
+  create_table "commercial_vehicles", force: :cascade do |t|
+    t.boolean "active", default: true, null: false
+    t.string "category", null: false
+    t.datetime "created_at", null: false
+    t.string "currency"
+    t.text "description"
+    t.integer "luggage_capacity"
+    t.string "name", null: false
+    t.integer "passenger_capacity"
+    t.decimal "price_from", precision: 10, scale: 2
+    t.jsonb "translations", default: {}
+    t.datetime "updated_at", null: false
+    t.index ["active"], name: "index_commercial_vehicles_on_active"
+    t.index ["category"], name: "index_commercial_vehicles_on_category"
   end
 
   create_table "contact_messages", force: :cascade do |t|
@@ -363,6 +393,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_10_061541) do
     t.string "slug", null: false
     t.string "title", null: false
     t.string "tour_type"
+    t.jsonb "translations", default: {}
     t.datetime "updated_at", null: false
     t.index ["active"], name: "index_tours_on_active"
     t.index ["destination_id"], name: "index_tours_on_destination_id"
@@ -379,6 +410,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_10_061541) do
     t.string "slug"
     t.string "tags", default: [], array: true
     t.string "title"
+    t.jsonb "translations", default: {}
     t.datetime "updated_at", null: false
     t.index ["active"], name: "index_travel_guides_on_active"
     t.index ["published_at"], name: "index_travel_guides_on_published_at"

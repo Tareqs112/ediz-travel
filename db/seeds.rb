@@ -102,3 +102,25 @@ if ENV["ADMIN_EMAIL"].present? && ENV["ADMIN_PASSWORD"].present?
     puts "Admin user already exists (#{admin.email_address}). Password was not changed."
   end
 end
+
+puts "Seeding Business Setting..."
+BusinessSetting.first_or_create!(
+  company_name: '61 EDİZ TRAVEL',
+  whatsapp_number: '+905540171890',
+  tursab_number: '15956',
+  singleton_guard: true
+)
+puts "Business setting verified."
+
+puts "Seeding Commercial Vehicles..."
+[
+  { name: 'Mercedes Vito', category: 'chauffeured', price_from: 80, currency: 'USD' },
+  { name: 'Renault Taliant', category: 'self_drive', price_from: 40, currency: 'USD' },
+  { name: 'Dacia Duster', category: 'self_drive', price_from: 60, currency: 'USD' }
+].each do |vehicle_attrs|
+  CommercialVehicle.find_or_create_by!(name: vehicle_attrs[:name], category: vehicle_attrs[:category]) do |v|
+    v.price_from = vehicle_attrs[:price_from]
+    v.currency = vehicle_attrs[:currency]
+  end
+end
+puts "Commercial Vehicles verified."

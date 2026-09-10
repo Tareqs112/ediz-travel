@@ -29,8 +29,10 @@ Rails.application.routes.draw do
     resources :contact_messages, only: [:index, :show]
     resources :drivers
     resources :vehicles
+    resources :commercial_vehicles
     resources :customers
     resources :bookings
+    resource :business_setting, only: [:edit, :update]
   end
 
   # Multilingual Public Routes

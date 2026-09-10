@@ -32,11 +32,11 @@ class Admin::TravelGuidesControllerTest < ActionDispatch::IntegrationTest
       post admin_travel_guides_url, params: {
         publication_action: "save_draft",
         travel_guide: {
-          title: "New Draft Guide",
-          excerpt: "Draft excerpt",
-          content: "<p>Draft body</p>",
+          title_en: "New Draft Guide",
+          excerpt_en: "Draft excerpt",
+          content_en: "<p>Draft body</p>",
           tag_list: "Trabzon, Tips",
-          meta_description: "Draft meta"
+          meta_description_en: "Draft meta"
         }
       }
     end
@@ -52,9 +52,9 @@ class Admin::TravelGuidesControllerTest < ActionDispatch::IntegrationTest
       post admin_travel_guides_url, params: {
         publication_action: "publish",
         travel_guide: {
-          title: "New Published Guide",
-          excerpt: "Published excerpt",
-          content: "<p>Published body</p>",
+          title_en: "New Published Guide",
+          excerpt_en: "Published excerpt",
+          content_en: "<p>Published body</p>",
           tag_list: "Rize, Ayder"
         }
       }
@@ -77,7 +77,7 @@ class Admin::TravelGuidesControllerTest < ActionDispatch::IntegrationTest
   test "should update travel guide" do
     patch admin_travel_guide_url(@guide), params: {
       publication_action: "publish",
-      travel_guide: { title: "Updated Title", tag_list: "UpdatedTag" }
+      travel_guide: { title_en: "Updated Title", tag_list: "UpdatedTag" }
     }
     assert_redirected_to admin_travel_guides_url
     @guide.reload

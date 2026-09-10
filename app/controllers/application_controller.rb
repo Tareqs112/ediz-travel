@@ -1,11 +1,9 @@
 class ApplicationController < ActionController::Base
-  # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
   allow_browser versions: :modern
-
-  # Changes to the importmap will invalidate the etag for HTML responses
   stale_when_importmap_changes
 
   before_action :set_locale
+  helper_method :current_business_setting
 
   def default_url_options
     if admin_or_sessions_controller?
@@ -16,6 +14,10 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def current_business_setting
+    @current_business_setting ||= BusinessSetting.current
+  end
 
   def set_locale
     locale_param = params[:locale].to_s.downcase.presence

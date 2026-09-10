@@ -25,11 +25,16 @@
           <li><%= link_to "Customers", admin_customers_path, class: "block px-3 py-2 rounded-md transition #{request.path.start_with?('/admin/customers') ? 'bg-gray-800 text-white' : 'text-gray-400 hover:bg-gray-800'}" %></li>
           <li><%= link_to "Bookings", admin_bookings_path, class: "block px-3 py-2 rounded-md transition #{request.path.start_with?('/admin/bookings') ? 'bg-gray-800 text-white' : 'text-gray-400 hover:bg-gray-800'}" %></li>
           <li><%= link_to "Drivers", admin_drivers_path, class: "block px-3 py-2 rounded-md transition #{request.path.start_with?('/admin/drivers') ? 'bg-gray-800 text-white' : 'text-gray-400 hover:bg-gray-800'}" %></li>
-          <li><%= link_to "Vehicles", admin_vehicles_path, class: "block px-3 py-2 rounded-md transition #{request.path.start_with?('/admin/vehicles') ? 'bg-gray-800 text-white' : 'text-gray-400 hover:bg-gray-800'}" %></li>
+          <li><%= link_to "Fleet (Operational)", admin_vehicles_path, class: "block px-3 py-2 rounded-md transition #{request.path.start_with?('/admin/vehicles') ? 'bg-gray-800 text-white' : 'text-gray-400 hover:bg-gray-800'}" %></li>
+          <li><%= link_to "Commercial Vehicles", admin_commercial_vehicles_path, class: "block px-3 py-2 rounded-md transition #{request.path.start_with?('/admin/commercial_vehicles') ? 'bg-gray-800 text-white' : 'text-gray-400 hover:bg-gray-800'}" %></li>
           <li><%= link_to "Destinations", admin_destinations_path, class: "block px-3 py-2 rounded-md transition #{request.path.start_with?('/admin/destinations') ? 'bg-gray-800 text-white' : 'text-gray-400 hover:bg-gray-800'}" %></li>
           <li><%= link_to "Booking Requests", admin_booking_requests_path, class: "block px-3 py-2 rounded-md transition #{request.path.start_with?('/admin/booking_requests') ? 'bg-gray-800 text-white' : 'text-gray-400 hover:bg-gray-800'}" %></li>
           <li><%= link_to "Trip Inquiries", admin_trip_inquiries_path, class: "block px-3 py-2 rounded-md transition #{request.path.start_with?('/admin/trip_inquiries') ? 'bg-gray-800 text-white' : 'text-gray-400 hover:bg-gray-800'}" %></li>
           <li><%= link_to "Contact Messages", admin_contact_messages_path, class: "block px-3 py-2 rounded-md transition #{request.path.start_with?('/admin/contact_messages') ? 'bg-gray-800 text-white' : 'text-gray-400 hover:bg-gray-800'}" %></li>
+        </ul>
+        <div class="mt-8 mb-2 px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">System</div>
+        <ul class="space-y-1 px-3">
+          <li><%= link_to "Business Information", edit_admin_business_setting_path, class: "block px-3 py-2 rounded-md transition #{request.path.start_with?('/admin/business_setting') ? 'bg-gray-800 text-white' : 'text-gray-400 hover:bg-gray-800'}" %></li>
         </ul>
       </nav>
       <div class="p-4 border-t border-gray-800 text-sm">

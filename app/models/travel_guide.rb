@@ -1,10 +1,14 @@
 class TravelGuide < ApplicationRecord
+  extend Mobility
+  fixed_translates :title, :excerpt, :meta_description, :content, fallbacks: { ar: :en, tr: :en }
+
   has_one_attached :image
   has_many_attached :body_images
 
   validates :title, presence: true
   validates :slug, presence: true, uniqueness: true
 
+  before_save :sync_legacy_columns
   before_validation :generate_slug
   before_validation :set_default_published_at, if: -> { active? && published_at.blank? }
 
@@ -74,13 +78,20 @@ class TravelGuide < ApplicationRecord
 
   private
 
+  def sync_legacy_columns
+  write_attribute(:title, title_en)
+  write_attribute(:excerpt, excerpt_en)
+  write_attribute(:meta_description, meta_description_en)
+  write_attribute(:content, content_en)
+end
+
   def set_default_published_at
     self.published_at = Time.current
   end
 
   def generate_slug
-    if slug.blank? && title.present?
-      base_slug = title.parameterize.presence || "guide-#{SecureRandom.hex(4)}"
+    if slug.blank? && title_en.present?
+      base_slug = title_en.parameterize.presence || "guide-#{SecureRandom.hex(4)}"
       base_slug = base_slug.truncate(100, omission: "")
       new_slug = base_slug
       counter = 1

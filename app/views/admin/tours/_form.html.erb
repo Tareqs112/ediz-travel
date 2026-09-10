@@ -9,99 +9,118 @@
       </ul>
     </div>
   <% end %>
-  
-  <div class="mb-4">
-      <%= f.label :title, class: "block text-sm font-medium text-gray-700" %>
-      <%= f.text_field :title, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm" %>
-    </div>
-    <div class="mb-4">
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+    <div class="col-span-1">
       <%= f.label :slug, class: "block text-sm font-medium text-gray-700" %>
       <%= f.text_field :slug, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm" %>
     </div>
-    <div class="mb-4">
-      <%= f.label :description, class: "block text-sm font-medium text-gray-700" %>
-      <%= f.text_area :description, rows: 4, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm" %>
+    <div class="col-span-1">
+      <%= f.label :destination_id, class: "block text-sm font-medium text-gray-700" %>
+      <%= f.collection_select :destination_id, Destination.all, :id, :name, { prompt: "Select Destination" }, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm" %>
     </div>
-    <div class="mb-4">
-      <%= f.label :cancellation_policy, class: "block text-sm font-medium text-gray-700" %>
-      <%= f.text_area :cancellation_policy, rows: 4, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm" %>
-    </div>
-    <div class="mb-4">
+
+    <div class="col-span-1">
       <%= f.label :duration, class: "block text-sm font-medium text-gray-700" %>
       <%= f.text_field :duration, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm" %>
     </div>
-    <div class="mb-4">
+    <div class="col-span-1">
       <%= f.label :group_size, class: "block text-sm font-medium text-gray-700" %>
       <%= f.text_field :group_size, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm" %>
     </div>
-    <div class="mb-4">
-      <%= f.label :meeting_point, class: "block text-sm font-medium text-gray-700" %>
-      <%= f.text_area :meeting_point, rows: 4, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm" %>
-    </div>
-    <div class="mb-4">
+
+    <div class="col-span-1">
       <%= f.label :tour_type, class: "block text-sm font-medium text-gray-700" %>
       <%= f.text_field :tour_type, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm" %>
     </div>
-    <div class="mb-4">
+    <div class="col-span-1">
+      <%= f.label :languages, "Languages (Global, e.g. EN, AR)", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.text_area :languages, value: Array(f.object.languages).join("\n"), rows: 2, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm" %>
+    </div>
+
+    <div class="col-span-1 md:col-span-2">
+      <%= f.label :image, class: "block text-sm font-medium text-gray-700" %>
+      <%= f.file_field :image, class: "mt-1 block w-full text-sm text-gray-500 file:me-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-gray-50 file:text-gray-700 hover:file:bg-gray-100" %>
+    </div>
+
+    <div class="col-span-1 md:col-span-2">
       <div class="flex items-center mt-2">
         <%= f.check_box :active, class: "h-4 w-4 text-brand-green-600 focus:ring-brand-green-500 border-gray-300 rounded" %>
         <%= f.label :active, class: "ms-2 block text-sm text-gray-900" %>
       </div>
     </div>
-    <div class="mb-4">
-      <%= f.label :destination_id, class: "block text-sm font-medium text-gray-700" %>
-      <%= f.collection_select :destination_id, Destination.all, :id, :name, { prompt: "Select Destination" }, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm" %>
-    </div>
-    <div class="mb-4">
-      <%= f.label :image, class: "block text-sm font-medium text-gray-700" %>
-      <%= f.file_field :image, class: "mt-1 block w-full text-sm text-gray-500 file:me-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-gray-50 file:text-gray-700 hover:file:bg-gray-100" %>
-    </div>
-    <div class="mb-4">
-      <%= f.label :included, class: "block text-sm font-medium text-gray-700" %>
-      <%= f.text_area :included, value: Array(f.object.included).join("\n"), rows: 4, placeholder: "One item per line", class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm" %>
-    </div>
-    <div class="mb-4">
-      <%= f.label :excluded, class: "block text-sm font-medium text-gray-700" %>
-      <%= f.text_area :excluded, value: Array(f.object.excluded).join("\n"), rows: 4, placeholder: "One item per line", class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm" %>
-    </div>
-    <div class="mb-4">
-      <%= f.label :highlights, class: "block text-sm font-medium text-gray-700" %>
-      <%= f.text_area :highlights, value: Array(f.object.highlights).join("\n"), rows: 4, placeholder: "One item per line", class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm" %>
-    </div>
-    <div class="mb-4">
-      <%= f.label :languages, class: "block text-sm font-medium text-gray-700" %>
-      <%= f.text_area :languages, value: Array(f.object.languages).join("\n"), rows: 4, placeholder: "One item per line", class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm" %>
-    </div>
-  
-<div class="mb-8 pt-6 border-t border-gray-200">
-  <h3 class="text-lg font-medium text-gray-900 mb-4">Itinerary</h3>
-  <p class="text-sm text-gray-500 mb-4">Add up to 10 days. Leave title and description blank to ignore a day.</p>
-  
-  <div class="space-y-4">
-    <% 
-       current_itinerary = Array(@tour.itinerary)
-       10.times do |i| 
-         day_data = current_itinerary[i] || {}
-    %>
-      <div class="grid grid-cols-1 md:grid-cols-12 gap-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
-        <div class="md:col-span-2">
-          <label class="block text-xs font-medium text-gray-700">Day</label>
-          <input type="text" name="tour[itinerary][][day]" value="<%= day_data['day'] || day_data[:day] || (i + 1) %>" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm">
+  </div>
+
+  <% [ ['en', 'English'], ['ar', 'Arabic'], ['tr', 'Turkish'] ].each do |loc, loc_name| %>
+    <div class="mb-8 pt-6 border-t border-gray-200">
+      <h3 class="text-xl font-semibold text-gray-900 mb-6"><%= loc_name %> Content <%= loc == 'en' ? '(Required)' : '(Optional Fallback)' %></h3>
+
+      <div class="grid grid-cols-1 gap-6">
+        <div>
+          <%= f.label :"title_#{loc}", "Title", class: "block text-sm font-medium text-gray-700" %>
+          <%= f.text_field :"title_#{loc}", class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm" %>
         </div>
-        <div class="md:col-span-4">
-          <label class="block text-xs font-medium text-gray-700">Title</label>
-          <input type="text" name="tour[itinerary][][title]" value="<%= day_data['title'] || day_data[:title] %>" placeholder="e.g. Arrival in Trabzon" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm">
+
+        <div>
+          <%= f.label :"description_#{loc}", "Description", class: "block text-sm font-medium text-gray-700" %>
+          <%= f.text_area :"description_#{loc}", rows: 4, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm" %>
         </div>
-        <div class="md:col-span-6">
-          <label class="block text-xs font-medium text-gray-700">Description</label>
-          <textarea name="tour[itinerary][][desc]" rows="2" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm"><%= day_data['desc'] || day_data[:desc] %></textarea>
+
+        <div>
+          <%= f.label :"cancellation_policy_#{loc}", "Cancellation Policy", class: "block text-sm font-medium text-gray-700" %>
+          <%= f.text_area :"cancellation_policy_#{loc}", rows: 3, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm" %>
+        </div>
+
+        <div>
+          <%= f.label :"meeting_point_#{loc}", "Meeting Point", class: "block text-sm font-medium text-gray-700" %>
+          <%= f.text_area :"meeting_point_#{loc}", rows: 2, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm" %>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <%= f.label :"included_#{loc}", "Included (One per line)", class: "block text-sm font-medium text-gray-700" %>
+            <%= f.text_area :"included_#{loc}", value: Array(f.object.send(:"included_#{loc}")).join("\n"), rows: 4, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm" %>
+          </div>
+          <div>
+            <%= f.label :"excluded_#{loc}", "Excluded (One per line)", class: "block text-sm font-medium text-gray-700" %>
+            <%= f.text_area :"excluded_#{loc}", value: Array(f.object.send(:"excluded_#{loc}")).join("\n"), rows: 4, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm" %>
+          </div>
+          <div>
+            <%= f.label :"highlights_#{loc}", "Highlights (One per line)", class: "block text-sm font-medium text-gray-700" %>
+            <%= f.text_area :"highlights_#{loc}", value: Array(f.object.send(:"highlights_#{loc}")).join("\n"), rows: 4, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm" %>
+          </div>
+        </div>
+
+        <div class="mt-4 bg-gray-50 p-4 rounded-lg border border-gray-200">
+          <h4 class="text-md font-medium text-gray-900 mb-4">Itinerary (<%= loc_name %>)</h4>
+          <div class="space-y-4">
+            <%
+               current_itinerary = Array(f.object.send(:"itinerary_#{loc}"))
+               10.times do |i|
+                 day_data = current_itinerary[i] || {}
+            %>
+              <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
+                <div class="md:col-span-2">
+                  <label class="block text-xs font-medium text-gray-700">Day</label>
+                  <input type="text" name="tour[itinerary_<%= loc %>][][day]" value="<%= day_data['day'] || day_data[:day] || (i + 1) %>" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm">
+                </div>
+                <div class="md:col-span-4">
+                  <label class="block text-xs font-medium text-gray-700">Title</label>
+                  <input type="text" name="tour[itinerary_<%= loc %>][][title]" value="<%= day_data['title'] || day_data[:title] %>" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm">
+                </div>
+                <div class="md:col-span-6">
+                  <label class="block text-xs font-medium text-gray-700">Description</label>
+                  <textarea name="tour[itinerary_<%= loc %>][][desc]" rows="2" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm"><%= day_data['desc'] || day_data[:desc] %></textarea>
+                </div>
+              </div>
+            <% end %>
+          </div>
         </div>
       </div>
-    <% end %>
-  </div>
-</div>
+    </div>
+  <% end %>
 
-  <div class="mt-6 flex justify-end gap-3">
+  <div class="mt-6 flex justify-end gap-3 pt-4 border-t border-gray-200">
     <%= link_to "Cancel", admin_tours_path, class: "px-4 py-2 border border-gray-300 text-gray-700 rounded-md text-sm font-medium hover:bg-gray-50" %>
     <%= f.submit class: "px-4 py-2 bg-gray-900 text-white rounded-md text-sm font-medium hover:bg-gray-800 cursor-pointer" %>
   </div>
