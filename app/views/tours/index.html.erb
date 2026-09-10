@@ -1,67 +1,83 @@
-<% content_for :title, t("tours.page_title") %>
+<% content_for :title, t("tours.page_title", default: "Private Tours in Trabzon & The Black Sea - 61 EDİZ TRAVEL") %>
+<% content_for :meta_description, t("seo.tours_meta_description", default: "Explore our collection of private tours in Trabzon, Uzungöl, Ayder, and the Eastern Black Sea. Tailored itineraries with local expertise.") %>
 
 <div class="bg-[#faf9f6] min-h-screen">
   
-  <!-- Header -->
-  <div class="pt-3 lg:pt-24 pb-3 lg:pb-12 border-b border-brand-gray-200/50 bg-white">
-    <div class="container-main">
-      <%= render "shared/components/section_heading",
-                 eyebrow: t("tours.eyebrow"),
-                 title: t("tours.heading"),
-                 description: t("tours.subheading"),
-                 no_margin: true,
-                 as_h1: true %>
-                 
-      <!-- Search & Filter Bar -->
-      <div class="bg-[#faf9f6] border border-brand-gray-200/60 p-4 lg:p-6 mt-4 lg:mt-8">
-        <%= form_with url: tours_path, method: :get, local: true, class: "flex flex-col lg:flex-row gap-3 lg:gap-4 items-center justify-between w-full" do |f| %>
-          
-          <div class="flex-grow flex flex-col sm:flex-row w-full gap-4">
-            <div class="relative flex-grow">
-              <span class="absolute start-4 top-1/2 -translate-y-1/2 text-brand-gray-400">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-              </span>
-              <%= f.text_field :q, value: params[:q], placeholder: t("tours.search_placeholder"), class: "w-full bg-white border border-brand-gray-200 py-2 sm:py-3 ps-10 sm:ps-12 pe-3 sm:pe-4 text-xs sm:text-sm focus:outline-none focus:border-brand-gold-500 transition-colors" %>
-            </div>
-            
-            <div class="flex gap-2 sm:gap-4 w-full sm:w-auto">
-              <%= f.select :destination_id, options_from_collection_for_select(Destination.where(active: true).order(:name), "id", "name", params[:destination_id]), { prompt: t("tours.all_destinations") }, class: "w-full sm:w-40 bg-white border border-brand-gray-200 py-2 sm:py-3 px-2 sm:px-4 text-xs sm:text-sm focus:outline-none focus:border-brand-gold-500 transition-colors text-brand-charcoal-700 appearance-none rounded-none", onchange: "this.form.submit();" %>
-              
-              <%= f.select :tour_type, options_for_select([[t("tours.type_private"), "Private"], [t("tours.type_group"), "Group"], [t("tours.type_group_or_private"), "Group or Private"]], params[:tour_type]), { prompt: t("tours.all_types") }, class: "w-full sm:w-40 bg-white border border-brand-gray-200 py-2 sm:py-3 px-2 sm:px-4 text-xs sm:text-sm focus:outline-none focus:border-brand-gold-500 transition-colors text-brand-charcoal-700 appearance-none rounded-none", onchange: "this.form.submit();" %>
-            </div>
-          </div>
-          
-          <div class="w-full lg:w-auto flex justify-between lg:justify-end items-center gap-4 border-t lg:border-t-0 border-brand-gray-200/60 pt-2 lg:pt-0">
-            <span class="text-xs font-semibold text-brand-gray-500 uppercase tracking-widest whitespace-nowrap"><%= t("tours.sort_by") %></span>
-            <%= f.select :sort, options_for_select([
-              [t("tours.sort_newest"), "newest"],
-              [t("tours.sort_oldest"), "oldest"],
-              [t("tours.sort_title_asc"), "title_asc"],
-              [t("tours.sort_title_desc"), "title_desc"]
-            ], params[:sort] || "newest"), {}, class: "bg-transparent text-xs sm:text-sm font-medium text-brand-charcoal-900 focus:outline-none cursor-pointer appearance-none", onchange: "this.form.submit();" %>
-            
-            <!-- Hidden submit button for text search 'Enter' key -->
-            <%= f.submit t("search.search_button"), class: "hidden" %>
-          </div>
-          
-        <% end %>
-      </div>
+  <%# Hero / Introduction %>
+  <div class="pt-24 lg:pt-32 pb-12 lg:pb-20 bg-brand-charcoal-900 text-white">
+    <div class="container-main text-center max-w-3xl mx-auto">
+      <span class="text-brand-gold-500 text-xs font-semibold tracking-widest uppercase mb-4 block"><%= t("tours.eyebrow", default: "Our Collection") %></span>
+      <h1 class="text-3xl md:text-5xl lg:text-6xl font-sans font-medium tracking-tight mb-6 leading-[1.15]">
+        <%= t("tours.heading", default: "Private Experiences") %>
+      </h1>
+      <p class="text-white/80 text-lg md:text-xl font-light leading-relaxed max-w-2xl mx-auto">
+        <%= t("tours.subheading", default: "Thoughtfully designed itineraries across the Eastern Black Sea. Every journey is fully private, unhurried, and tailored to you.") %>
+      </p>
     </div>
   </div>
 
-  <div class="container-main py-3 lg:py-16">
-<% if @tours.any? %>
-  <div class="flex overflow-x-auto snap-x snap-mandatory gap-4 md:gap-8 pb-8 hide-scrollbar md:grid md:grid-cols-2 lg:grid-cols-3">
-    <% @tours.each do |tour| %>
-      <div class="snap-start flex-none w-[80%] sm:w-[60%] md:w-auto h-auto">
-        <%= render "shared/components/tour_card", tour: tour %>
-      </div>
-    <% end %>
+  <%# Discovery Controls %>
+  <div class="border-b border-brand-gray-200/60 bg-white sticky top-0 z-40">
+    <div class="container-main py-4">
+      <%= form_with url: tours_path, method: :get, local: true, class: "flex flex-wrap md:flex-nowrap items-center justify-between gap-4" do |f| %>
+        
+        <div class="flex items-center w-full md:w-auto gap-4 md:flex-nowrap flex-wrap">
+          <%# Search %>
+          <div class="relative w-full md:w-64">
+            <span class="absolute start-3 top-1/2 -translate-y-1/2 text-brand-gray-400">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            </span>
+            <%= f.text_field :q, value: params[:q], placeholder: t("tours.search_placeholder", default: "Search destinations..."), class: "w-full bg-[#faf9f6] border border-brand-gray-200 py-2.5 ps-9 pe-3 text-sm focus:outline-none focus:border-brand-gold-500 transition-colors" %>
+          </div>
+          
+          <%# Destination %>
+          <div class="w-full md:w-48">
+            <%= f.select :destination_id, options_from_collection_for_select(Destination.where(active: [true, nil]).order(:name), "id", "name", params[:destination_id]), { prompt: t("tours.all_destinations", default: "All Destinations") }, class: "w-full bg-[#faf9f6] border border-brand-gray-200 py-2.5 px-3 text-sm focus:outline-none focus:border-brand-gold-500 transition-colors text-brand-charcoal-700 rounded-none", onchange: "this.form.submit();" %>
+          </div>
+        </div>
+        
+        <%# Sort %>
+        <div class="flex items-center justify-end w-full md:w-auto gap-3">
+          <span class="text-xs font-semibold text-brand-gray-500 uppercase tracking-widest whitespace-nowrap hidden sm:inline"><%= t("tours.sort_by", default: "Sort By:") %></span>
+          <%= f.select :sort, options_for_select([
+            [t("tours.sort_newest", default: "Newest"), "newest"],
+            [t("tours.sort_title_asc", default: "A-Z"), "title_asc"],
+            [t("tours.sort_title_desc", default: "Z-A"), "title_desc"]
+          ], params[:sort] || "newest"), {}, class: "w-full md:w-40 bg-transparent text-sm font-medium text-brand-charcoal-900 border-none focus:ring-0 cursor-pointer text-end md:text-start p-0", onchange: "this.form.submit();" %>
+          <%= f.submit t("search.search_button", default: "Search"), class: "hidden" %>
+        </div>
+        
+      <% end %>
+    </div>
   </div>
+
+  <%# Tour Collection %>
+  <div class="container-main py-8 md:py-12 lg:py-24">
+    <% if @tours.any? %>
+      <div class="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6 lg:gap-10">
+        <% @tours.each do |tour| %>
+          <%= render "shared/components/tour_card", tour: tour %>
+        <% end %>
+      </div>
     <% else %>
       <%= render "shared/components/empty_state",
-                 title: t("tours.empty_title"),
-                 message: t("tours.empty_message") %>
+                 title: t("tours.empty_title", default: "No tours found"),
+                 message: t("tours.empty_message", default: "Try adjusting your search or filters to find what you're looking for.") %>
     <% end %>
   </div>
+
+  <%# Bottom CTA %>
+  <section class="py-16 lg:py-24 bg-white border-t border-brand-gray-200/60 text-center">
+    <div class="container-main max-w-2xl">
+      <h2 class="text-2xl lg:text-4xl font-sans font-medium tracking-tight mb-6 text-brand-charcoal-900">
+        <%= t("tours.cta_title", default: "Looking for a custom itinerary?") %>
+      </h2>
+      <p class="text-base text-brand-charcoal-600 font-light leading-relaxed mb-8">
+        <%= t("tours.cta_desc", default: "Our local experts can design a personalized journey tailored perfectly to your schedule and preferences.") %>
+      </p>
+      <%= link_to t("nav.plan_your_trip", default: "Plan Your Trip"), plan_your_trip_path,
+          class: "px-10 py-4 inline-block bg-brand-charcoal-900 hover:bg-brand-green-800 text-white font-medium text-sm tracking-widest uppercase transition-colors text-center" %>
+    </div>
+  </section>
+
 </div>

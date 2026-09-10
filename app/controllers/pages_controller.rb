@@ -1,15 +1,23 @@
 class PagesController < ApplicationController
   def home
-    @featured_tours = Tour.where(active: true).with_attached_image.order(featured: :desc, created_at: :asc).limit(3)
-    @travel_guides = TravelGuide.published.with_attached_image.order(published_at: :desc, created_at: :desc).limit(3)
+    # 4 Signature Experiences
+    @featured_tours = Tour.featured.limit(4)
+    
+    # 3 Travel Guides
+    @travel_guides = TravelGuide.published.limit(3)
+    
+    # Specific tours for the Discover editorial section
+    @uzungol = Tour.find_by(slug: 'uzungol-tour')
+    @ayder = Tour.find_by(slug: 'ayder-firtina')
+    @sumela = Tour.find_by(slug: 'sumela-karaca')
+    @trabzon = Tour.find_by(slug: 'trabzon-city-tour')
   end
 
-  
-  
   def about
   end
 
   def contact
+    @contact_message = ContactMessage.new
   end
 
   def faq

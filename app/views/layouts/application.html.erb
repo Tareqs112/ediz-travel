@@ -6,16 +6,50 @@
     <meta name="description" content="<%= content_for(:meta_description) || t("seo.default_meta_description") %>">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
+    <link rel="canonical" href="<%= canonical_url %>">
+    <%# Open Graph %>
+    <meta property="og:title" content="<%= content_for(:title) || t("seo.default_title") %>">
+    <meta property="og:description" content="<%= content_for(:meta_description) || t("seo.default_meta_description") %>">
+    <meta property="og:url" content="<%= canonical_url %>">
+    <meta property="og:type" content="<%= content_for(:og_type) || "website" %>">
+    <meta property="og:site_name" content="61 EDİZ TRAVEL">
+    <meta property="og:locale" content="<%= og_locale %>">
+    <%# Twitter Card %>
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="<%= content_for(:title) || t("seo.default_title") %>">
+    <meta name="twitter:description" content="<%= content_for(:meta_description) || t("seo.default_meta_description") %>">
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= yield :head %>
+    <%# TravelAgency Structured Data %>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TravelAgency",
+      "name": "61 EDİZ TRAVEL",
+      "legalName": "<%= current_business_setting&.company_name.presence || 'LAZ TUR TURİZM İNŞAAT TİCARET LİMİTED ŞİRKETİ' %>",
+      "url": "<%= root_url(locale: nil) %>",
+      "telephone": "<%= current_business_setting&.whatsapp_number %>",
+      "email": "<%= current_business_setting&.contact_email %>",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Trabzon",
+        "addressCountry": "TR"
+      },
+      "areaServed": {
+        "@type": "Place",
+        "name": "Trabzon, Eastern Black Sea, Turkey"
+      }
+    }
+    </script>
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
-    <link rel="alternate" hreflang="en" href="<%= switch_locale_path(:en) %>">
-    <link rel="alternate" hreflang="ar" href="<%= switch_locale_path(:ar) %>">
-    <link rel="alternate" hreflang="tr" href="<%= switch_locale_path(:tr) %>">
-    <link rel="alternate" hreflang="x-default" href="<%= switch_locale_path(:en) %>">
+    <link rel="alternate" hreflang="en" href="<%= switch_locale_url(:en) %>">
+    <link rel="alternate" hreflang="ar" href="<%= switch_locale_url(:ar) %>">
+    <link rel="alternate" hreflang="tr" href="<%= switch_locale_url(:tr) %>">
+    <link rel="alternate" hreflang="x-default" href="<%= switch_locale_url(:en) %>">
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
     <!-- Fonts -->

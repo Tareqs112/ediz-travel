@@ -1,4 +1,40 @@
 <% content_for :title, "#{@tour.title} - 61 EDİZ TRAVEL" %>
+<% content_for :meta_description, truncate(strip_tags(@tour.description), length: 155) %>
+<% content_for :head do %>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TouristTrip",
+    "name": "<%= j @tour.title %>",
+    "description": "<%= j truncate(strip_tags(@tour.description), length: 155) %>",
+    "touristType": "Private",
+    "provider": {
+      "@type": "TravelAgency",
+      "name": "61 EDİZ TRAVEL"
+    },
+    <% if @tour.price_from.present? %>
+    "offers": {
+      "@type": "Offer",
+      "price": "<%= @tour.price_from %>",
+      "priceCurrency": "<%= @tour.currency || 'USD' %>"
+    },
+    <% end %>
+    "itinerary": {
+      "@type": "ItemList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "item": {
+            "@type": "TouristAttraction",
+            "name": "<%= j @tour.destination&.name || 'Trabzon' %>"
+          }
+        }
+      ]
+    }
+  }
+  </script>
+<% end %>
 
 <%
   whatsapp_url = nil
@@ -11,125 +47,119 @@
 
 <div class="bg-white min-h-screen pb-20 lg:pb-0">
 
-  <!-- Back Navigation -->
-  <div class="container-main pt-6 lg:pt-12 pb-4 lg:pb-6">
-    <%= link_to tours_path, class: "inline-flex items-center text-sm font-medium text-brand-charcoal-600 hover:text-brand-gold-500 transition-colors uppercase tracking-widest" do %>
-      <span class="me-2 inline-block rtl:rotate-180">&larr;</span> <%= t("tours.show.back_to_tours") %>
-    <% end %>
-  </div>
-
-  <!-- Hero Image -->
-  <div class="w-full relative bg-[#faf9f6] border-y border-brand-gray-200/60 overflow-hidden">
-    <div class="aspect-[2/1] lg:aspect-[21/9] w-full">
-      <% if @tour.image.attached? %>
-        <%= image_tag @tour.image, alt: @tour.title, class: "w-full h-full object-cover" %>
-      <% else %>
-        <div class="w-full h-full flex flex-col items-center justify-center text-brand-gray-300">
-          <svg class="w-12 h-12 opacity-40" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
-          </svg>
-        </div>
+  <%# Back Navigation - Absolute top left over image or just above it %>
+  <div class="absolute top-0 start-0 z-10 p-4 lg:p-8 w-full bg-gradient-to-b from-black/50 to-transparent">
+    <div class="container-main">
+      <%= link_to tours_path, class: "inline-flex items-center text-xs lg:text-sm font-semibold text-white/90 hover:text-white transition-colors uppercase tracking-widest drop-shadow-md" do %>
+        <span class="me-2 inline-block rtl:rotate-180">&larr;</span> <%= t("tours.show.back_to_tours", default: "Back to Tours") %>
       <% end %>
     </div>
   </div>
 
-  <div class="container-main py-10 lg:py-24">
-
-    <!-- Tour Header -->
-    <div class="max-w-4xl mx-auto text-center mb-10 lg:mb-24">
-      <span class="text-sm font-semibold text-brand-gold-500 uppercase tracking-[0.2em] block mb-3 lg:mb-6">
-        <%= @tour.destination&.name %>
-      </span>
-      <h1 class="text-3xl lg:text-6xl font-sans font-medium text-brand-charcoal-900 tracking-tight leading-[1.1] mb-4 lg:mb-8">
-        <%= @tour.title %>
-      </h1>
-      <p class="text-lg lg:text-xl text-brand-charcoal-600 font-light leading-relaxed max-w-3xl mx-auto">
-        <%= @tour.description.sub(/\A\[DEVELOPMENT PLACEHOLDER\]\s*/, "") %>
-      </p>
-    </div>
-
-    <!-- Tour Info Row -->
-    <% if @tour.duration.present? || @tour.tour_type.present? || @tour.group_size.present? || @tour.price_from.present? || (@tour.languages.present? && @tour.languages.any?) %>
-      <div class="max-w-5xl mx-auto border-t border-b border-brand-gray-200/60 py-6 lg:py-12 mb-10 lg:mb-24">
-        <div class="flex flex-wrap justify-center gap-x-8 gap-y-6 md:gap-4 text-center divide-x-0 md:divide-x divide-brand-gray-200/60">
-
-          <% if @tour.duration.present? %>
-          <div class="flex flex-col px-4 flex-none md:flex-1">
-            <span class="text-xs text-brand-charcoal-500 uppercase tracking-widest mb-2 font-medium"><%= t("tours.show.duration") %></span>
-            <span class="text-lg font-light text-brand-charcoal-900"><%= @tour.duration %></span>
-          </div>
-          <% end %>
-
-          <% if @tour.tour_type.present? %>
-          <div class="flex flex-col px-4 flex-none md:flex-1">
-            <span class="text-xs text-brand-charcoal-500 uppercase tracking-widest mb-2 font-medium"><%= t("tours.show.tour_type") %></span>
-            <span class="text-lg font-light text-brand-charcoal-900"><%= @tour.tour_type %></span>
-          </div>
-          <% end %>
-
-          <% if @tour.price_from.present? %>
-          <div class="flex flex-col px-4 flex-none md:flex-1">
-            <span class="text-xs text-brand-charcoal-500 uppercase tracking-widest mb-2 font-medium"><%= t("tours.show.starting_price") %></span>
-            <span class="text-lg font-light text-brand-charcoal-900">
-              <%= number_to_currency(@tour.price_from, unit: @tour.currency.present? ? @tour.currency + " " : "$", precision: 0) %>
-            </span>
-          </div>
-          <% end %>
-
-          <% if @tour.group_size.present? %>
-          <div class="flex flex-col px-4 flex-none md:flex-1">
-            <span class="text-xs text-brand-charcoal-500 uppercase tracking-widest mb-2 font-medium"><%= t("tours.show.group_size") %></span>
-            <span class="text-lg font-light text-brand-charcoal-900"><%= @tour.group_size %></span>
-          </div>
-          <% end %>
-
-          <% if @tour.languages.present? && @tour.languages.any? %>
-          <div class="flex flex-col px-4 flex-none md:flex-1">
-            <span class="text-xs text-brand-charcoal-500 uppercase tracking-widest mb-2 font-medium"><%= t("tours.show.languages") %></span>
-            <span class="text-lg font-light text-brand-charcoal-900">
-              <%= @tour.languages.join(", ") %>
-            </span>
-          </div>
-          <% end %>
-
-        </div>
+  <%# Hero Image - Large editorial %>
+  <div class="relative w-full h-[60vh] lg:h-[80vh] min-h-[400px] bg-brand-charcoal-900 overflow-hidden">
+    <% if @tour.image.attached? && @tour.image.variable? %>
+      <%= image_tag @tour.image.variant(resize_to_fill: [1920, 1080], format: :webp), alt: @tour.title, class: "absolute inset-0 w-full h-full object-cover", fetchpriority: "high" %>
+    <% else %>
+      <div class="absolute inset-0 flex items-center justify-center bg-brand-charcoal-800">
+        <svg class="w-16 h-16 opacity-20 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" /></svg>
       </div>
     <% end %>
+    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+    
+    <%# Hero Content %>
+    <div class="absolute bottom-0 start-0 w-full p-6 lg:p-16">
+      <div class="container-main">
+        <div class="max-w-4xl">
+          <% if @tour.destination.present? %>
+            <span class="text-xs lg:text-sm font-semibold text-brand-gold-500 uppercase tracking-[0.2em] block mb-3 lg:mb-4 drop-shadow-md">
+              <%= @tour.destination.name %>
+            </span>
+          <% end %>
+          <h1 class="text-3xl sm:text-4xl lg:text-6xl font-sans font-medium text-white tracking-tight leading-[1.1] mb-4 drop-shadow-lg">
+            <%= @tour.title %>
+          </h1>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    <!-- Main Content & Sidebar -->
-    <div class="max-w-6xl mx-auto flex flex-col lg:flex-row gap-10 lg:gap-24">
-
-      <!-- Left Column (Content) -->
+  <div class="container-main py-12 lg:py-20">
+    <div class="flex flex-col lg:flex-row gap-12 lg:gap-24">
+      
+      <%# Main Content Column %>
       <div class="w-full lg:w-2/3">
+        
+        <%# Description %>
+        <div class="mb-12 lg:mb-16">
+          <p class="text-lg lg:text-xl text-brand-charcoal-600 font-light leading-relaxed">
+            <%= @tour.description.sub(/\A\[DEVELOPMENT PLACEHOLDER\]\s*/, "") %>
+          </p>
+        </div>
 
-        <!-- Highlights -->
+        <%# Key Metadata Row (Desktop inline, mobile grid) %>
+        <% if @tour.duration.present? || @tour.tour_type.present? || @tour.group_size.present? || (@tour.languages.present? && @tour.languages.any?) %>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-6 py-8 border-y border-brand-gray-200/60 mb-12 lg:mb-16">
+            <% if @tour.duration.present? %>
+              <div>
+                <span class="text-[10px] lg:text-xs text-brand-charcoal-500 uppercase tracking-widest mb-1.5 font-medium block"><%= t("tours.show.duration", default: "Duration") %></span>
+                <span class="text-base lg:text-lg font-light text-brand-charcoal-900"><%= @tour.duration %></span>
+              </div>
+            <% end %>
+
+            <% if @tour.tour_type.present? %>
+              <div>
+                <span class="text-[10px] lg:text-xs text-brand-charcoal-500 uppercase tracking-widest mb-1.5 font-medium block"><%= t("tours.show.tour_type", default: "Tour Type") %></span>
+                <span class="text-base lg:text-lg font-light text-brand-charcoal-900"><%= @tour.tour_type %></span>
+              </div>
+            <% end %>
+
+            <% if @tour.group_size.present? %>
+              <div>
+                <span class="text-[10px] lg:text-xs text-brand-charcoal-500 uppercase tracking-widest mb-1.5 font-medium block"><%= t("tours.show.group_size", default: "Group Size") %></span>
+                <span class="text-base lg:text-lg font-light text-brand-charcoal-900"><%= @tour.group_size %></span>
+              </div>
+            <% end %>
+
+            <% if @tour.languages.present? && @tour.languages.any? %>
+              <div>
+                <span class="text-[10px] lg:text-xs text-brand-charcoal-500 uppercase tracking-widest mb-1.5 font-medium block"><%= t("tours.show.languages", default: "Languages") %></span>
+                <span class="text-base lg:text-lg font-light text-brand-charcoal-900"><%= @tour.languages.join(", ") %></span>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+
+        <%# Highlights %>
         <% if @tour.highlights.present? && @tour.highlights.any? %>
-          <div class="mb-10 lg:mb-16">
-            <h2 class="text-xl lg:text-2xl font-medium text-brand-charcoal-900 mb-6 lg:mb-8 pb-4 border-b border-brand-gray-200/60"><%= t("tours.show.highlights") %></h2>
-            <ul class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="mb-12 lg:mb-16">
+            <h2 class="text-xl lg:text-2xl font-medium text-brand-charcoal-900 mb-6 lg:mb-8 pb-4 border-b border-brand-gray-200/60"><%= t("tours.show.highlights", default: "Highlights") %></h2>
+            <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
               <% @tour.highlights.each do |highlight| %>
-                <li class="flex items-start text-brand-charcoal-600 font-light leading-relaxed">
-                  <span class="text-brand-gold-500 me-3 mt-1"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></span>
-                  <%= highlight %>
+                <li class="flex items-start text-brand-charcoal-600 font-light leading-relaxed text-base">
+                  <span class="text-brand-gold-500 me-3 mt-1.5 shrink-0">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                  </span>
+                  <span><%= highlight %></span>
                 </li>
               <% end %>
             </ul>
           </div>
         <% end %>
 
-        <!-- Itinerary -->
+        <%# Itinerary %>
         <% if @tour.itinerary.present? && @tour.itinerary.any? %>
-          <div class="mb-10 lg:mb-16">
-            <h2 class="text-xl lg:text-2xl font-medium text-brand-charcoal-900 mb-6 lg:mb-8 pb-4 border-b border-brand-gray-200/60"><%= t("tours.show.itinerary") %></h2>
-            <div class="space-y-12">
-              <% @tour.itinerary.each do |day| %>
-                <div class="flex flex-col md:flex-row gap-4 md:gap-8">
-                  <div class="md:w-32 flex-shrink-0">
-                    <span class="text-sm font-semibold text-brand-gold-500 uppercase tracking-widest block"><%= t("tours.show.day") %> <%= day['day'] || day[:day] %></span>
+          <div class="mb-12 lg:mb-16">
+            <h2 class="text-xl lg:text-2xl font-medium text-brand-charcoal-900 mb-6 lg:mb-8 pb-4 border-b border-brand-gray-200/60"><%= t("tours.show.itinerary", default: "Itinerary") %></h2>
+            <div class="space-y-10 lg:space-y-12">
+              <% @tour.itinerary.each_with_index do |day, index| %>
+                <div class="flex flex-col sm:flex-row gap-4 sm:gap-6 lg:gap-10">
+                  <div class="sm:w-32 flex-shrink-0">
+                    <span class="text-xs font-semibold text-brand-gold-500 uppercase tracking-[0.15em] block sm:mt-1"><%= t("tours.show.day", default: "Day") %> <%= day['day'] || day[:day] || (index + 1) %></span>
                   </div>
-                  <div>
-                    <h3 class="text-xl font-medium text-brand-charcoal-900 mb-3"><%= day['title'] || day[:title] %></h3>
-                    <p class="text-brand-charcoal-600 font-light leading-relaxed">
+                  <div class="flex-grow">
+                    <h3 class="text-lg lg:text-xl font-medium text-brand-charcoal-900 mb-3 leading-snug"><%= day['title'] || day[:title] %></h3>
+                    <p class="text-brand-charcoal-600 font-light leading-relaxed text-base">
                       <%= day['desc'] || day[:desc] %>
                     </p>
                   </div>
@@ -139,22 +169,19 @@
           </div>
         <% end %>
 
+        <%# Included / Excluded %>
         <% if (@tour.included.present? && @tour.included.any?) || (@tour.excluded.present? && @tour.excluded.any?) %>
-          <!-- Included / Excluded -->
-          <div class="grid md:grid-cols-2 gap-12 mb-10 lg:mb-16">
-
+          <div class="grid md:grid-cols-2 gap-10 lg:gap-16 mb-12 lg:mb-16">
             <% if @tour.included.present? && @tour.included.any? %>
               <div>
-                <h2 class="text-xl font-medium text-brand-charcoal-900 mb-6 pb-4 border-b border-brand-gray-200/60"><%= t("tours.show.whats_included") %></h2>
+                <h2 class="text-lg lg:text-xl font-medium text-brand-charcoal-900 mb-6 pb-4 border-b border-brand-gray-200/60"><%= t("tours.show.whats_included", default: "What's Included") %></h2>
                 <ul class="space-y-4">
                   <% @tour.included.each do |item| %>
-                    <li class="flex items-start text-brand-charcoal-600 font-light leading-relaxed">
-                      <span class="text-brand-green-600 me-3 mt-1">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                        </svg>
+                    <li class="flex items-start text-brand-charcoal-600 font-light leading-relaxed text-base">
+                      <span class="text-brand-green-600 me-3 mt-1 shrink-0">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
                       </span>
-                      <%= item %>
+                      <span><%= item %></span>
                     </li>
                   <% end %>
                 </ul>
@@ -163,43 +190,36 @@
 
             <% if @tour.excluded.present? && @tour.excluded.any? %>
               <div>
-                <h2 class="text-xl font-medium text-brand-charcoal-900 mb-6 pb-4 border-b border-brand-gray-200/60"><%= t("tours.show.whats_excluded") %></h2>
+                <h2 class="text-lg lg:text-xl font-medium text-brand-charcoal-900 mb-6 pb-4 border-b border-brand-gray-200/60"><%= t("tours.show.whats_excluded", default: "What's Excluded") %></h2>
                 <ul class="space-y-4">
                   <% @tour.excluded.each do |item| %>
-                    <li class="flex items-start text-brand-charcoal-600 font-light leading-relaxed">
-                      <span class="text-brand-charcoal-300 me-3 mt-1">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
+                    <li class="flex items-start text-brand-charcoal-600 font-light leading-relaxed text-base">
+                      <span class="text-brand-charcoal-300 me-3 mt-1 shrink-0">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
                       </span>
-                      <%= item %>
+                      <span><%= item %></span>
                     </li>
                   <% end %>
                 </ul>
               </div>
             <% end %>
-
           </div>
         <% end %>
-
+        
+        <%# Meeting & Cancellation %>
         <% if @tour.meeting_point.present? || @tour.cancellation_policy.present? %>
-          <div class="mt-10 lg:mt-16 space-y-5 lg:space-y-8 lg:space-y-12 pb-8 border-b border-brand-gray-200/60 lg:border-none">
-            <!-- Meeting Point -->
+          <div class="space-y-8 lg:space-y-12">
             <% if @tour.meeting_point.present? %>
               <div>
-                <h2 class="text-xl font-medium text-brand-charcoal-900 mb-4"><%= t("tours.show.meeting_point") %></h2>
-                <p class="text-brand-charcoal-600 font-light leading-relaxed">
-                  <%= @tour.meeting_point %>
-                </p>
+                <h2 class="text-lg lg:text-xl font-medium text-brand-charcoal-900 mb-4"><%= t("tours.show.meeting_point", default: "Meeting Point") %></h2>
+                <p class="text-brand-charcoal-600 font-light leading-relaxed text-base"><%= @tour.meeting_point %></p>
               </div>
             <% end %>
-            <!-- Cancellation Policy -->
+            
             <% if @tour.cancellation_policy.present? %>
               <div>
-                <h2 class="text-xl font-medium text-brand-charcoal-900 mb-4"><%= t("tours.show.cancellation_policy") %></h2>
-                <p class="text-brand-charcoal-600 font-light leading-relaxed">
-                  <%= @tour.cancellation_policy %>
-                </p>
+                <h2 class="text-lg lg:text-xl font-medium text-brand-charcoal-900 mb-4"><%= t("tours.show.cancellation_policy", default: "Cancellation Policy") %></h2>
+                <p class="text-brand-charcoal-600 font-light leading-relaxed text-base"><%= @tour.cancellation_policy %></p>
               </div>
             <% end %>
           </div>
@@ -207,91 +227,96 @@
 
       </div>
 
-      <!-- Right Column (Sidebar) -->
+      <%# Sidebar (Sticky on Desktop) %>
       <div class="w-full lg:w-1/3">
-        <div class="sticky top-32">
-          <div class="bg-[#faf9f6] border border-brand-gray-200/60 p-5 lg:p-10 flex flex-col items-center text-center">
-            <% if @tour.price_from.present? %>
-  <div class="mb-6 flex flex-col items-center">
-    <span class="text-xs text-brand-charcoal-500 uppercase tracking-widest font-medium mb-1"><%= t("tours.show.starting_price") %></span>
-    <span class="text-3xl lg:text-4xl font-medium text-brand-charcoal-900">
-      <%= number_to_currency(@tour.price_from, unit: @tour.currency.present? ? @tour.currency + " " : "$", precision: 0) %>
-    </span>
-  </div>
-<% else %>
-  <h3 class="text-2xl font-medium text-brand-charcoal-900 mb-4"><%= t("tours.show.plan_your_trip") %></h3>
-<% end %>
+        <div class="sticky top-28 bg-[#faf9f6] border border-brand-gray-200/60 p-6 lg:p-10 flex flex-col items-center text-center">
+          
+          <% if @tour.price_from.present? && @tour.price_from > 0 %>
+            <div class="mb-6 flex flex-col items-center">
+              <span class="text-[11px] text-brand-charcoal-500 uppercase tracking-widest font-medium mb-2 block"><%= t("tours.show.starting_price", default: "Starting From") %></span>
+              <span class="text-3xl lg:text-4xl font-medium text-brand-charcoal-900 leading-none">
+                <%= number_to_currency(@tour.price_from, unit: @tour.currency.present? ? @tour.currency + " " : "$", precision: 0) %>
+              </span>
+            </div>
+          <% else %>
+            <h3 class="text-xl font-medium text-brand-charcoal-900 mb-6"><%= t("tours.show.plan_your_trip", default: "Plan Your Trip") %></h3>
+          <% end %>
 
-<!-- Trust Anchors -->
-<div class="w-full text-start mb-8 space-y-3 border-t border-brand-gray-200/60 pt-6">
-  <% if current_business_setting&.tursab_number.present? %>
-    <div class="flex items-start text-sm text-brand-charcoal-700">
-      <svg class="w-5 h-5 me-3 text-brand-gold-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
-      <span><%= t("about.tursab_licensed", default: "TÜRSAB Licensed") %> &mdash; <%= t("tours.show.tursab_no", default: "TÜRSAB No.") %> <%= current_business_setting.tursab_number %></span>
-    </div>
-  <% end %>
-  <div class="flex items-start text-sm text-brand-charcoal-700">
-    <svg class="w-5 h-5 me-3 text-brand-gold-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-    <span><%= t("tours.show.private_vehicle", default: "Private Vehicle") %></span>
-  </div>
-  <div class="flex items-start text-sm text-brand-charcoal-700">
-    <svg class="w-5 h-5 me-3 text-brand-gold-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
-    <span><%= t("tours.show.free_cancellation_24h", default: "Free Cancellation up to 24 hours before departure") %></span>
-  </div>
-</div>
+          <%# Trust Anchors %>
+          <div class="w-full text-start mb-8 space-y-3.5 border-t border-brand-gray-200/60 pt-6">
+            <% if current_business_setting&.tursab_number.present? %>
+              <div class="flex items-start text-sm text-brand-charcoal-700">
+                <svg class="w-5 h-5 me-3 text-brand-gold-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+                <span><%= t("about.tursab_licensed", default: "TÜRSAB Licensed") %> &mdash; <%= t("tours.show.tursab_no", default: "No.") %> <%= current_business_setting.tursab_number %></span>
+              </div>
+            <% end %>
+            <div class="flex items-start text-sm text-brand-charcoal-700">
+              <svg class="w-5 h-5 me-3 text-brand-gold-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+              <span><%= t("tours.show.private_vehicle", default: "Private Vehicle") %></span>
+            </div>
+            <div class="flex items-start text-sm text-brand-charcoal-700">
+              <svg class="w-5 h-5 me-3 text-brand-gold-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+              <span><%= t("tours.show.free_cancellation_24h", default: "Free Cancellation up to 24h before") %></span>
+            </div>
+          </div>
 
-<p class="text-brand-charcoal-600 font-light leading-relaxed mb-6 w-full text-center">
-  <%= t("tours.show.inquire_description") %>
-</p>
+          <p class="text-brand-charcoal-600 font-light text-sm leading-relaxed mb-6 w-full text-center">
+            <%= t("tours.show.inquire_description", default: "Request a custom itinerary or check availability.") %>
+          </p>
 
-            <%= link_to t("tours.show.inquire_now"), new_tour_booking_request_path(@tour), class: "block w-full py-4 px-8 bg-brand-charcoal-900 hover:bg-brand-green-800 text-white font-medium text-sm tracking-widest uppercase transition-colors text-center" %>
-            <% if current_business_setting&.whatsapp_number.present? %>
-              <%
-                clean_number = current_business_setting.whatsapp_number.to_s.gsub(/[^0-9]/, "")
-                encoded_message = ERB::Util.url_encode("Hello, I'm interested in the '#{@tour.title}' tour.")
-              %>
-              <a href="https://wa.me/<%= clean_number %>?text=<%= encoded_message %>" target="_blank" rel="noopener noreferrer" class="block w-full mt-3 py-4 px-8 bg-[#25D366] hover:bg-[#20bd5a] text-white font-medium text-sm tracking-widest uppercase transition-colors text-center">
-                <svg class="w-5 h-5 inline-block me-2 -mt-1" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" /></svg>
-                WhatsApp
+          <div class="w-full space-y-3">
+            <%= link_to t("tours.show.inquire_now", default: "Inquire Now"), new_tour_booking_request_path(@tour), class: "block w-full py-4 px-6 bg-brand-charcoal-900 hover:bg-brand-green-800 text-white font-medium text-sm tracking-widest uppercase transition-colors text-center" %>
+            
+            <% if whatsapp_url %>
+              <a href="<%= whatsapp_url %>" target="_blank" rel="noopener noreferrer" class="block w-full py-4 px-6 bg-[#25D366] hover:bg-[#20bd5a] text-white font-medium text-sm tracking-widest uppercase transition-colors text-center inline-flex items-center justify-center gap-2">
+                <svg class="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" /></svg>
+                <%= t("tours.show.whatsapp", default: "WhatsApp") %>
               </a>
             <% end %>
-
           </div>
         </div>
       </div>
-
-    </div>
-</div>
-<% if @related_tours.any? %>
-  <div class="bg-[#faf9f6] py-10 lg:py-24 border-t border-brand-gray-200/50">
-    <div class="container-main">
-      <div class="flex items-end justify-between gap-8 mb-12">
-        <h2 class="text-3xl font-medium text-brand-charcoal-900 tracking-tight"><%= t("tours.show.you_might_also_like") %></h2>
-        <%= link_to "#{t('tours.show.view_all_tours')} <span class=\"inline-block rtl:rotate-180\">&rarr;</span>".html_safe, tours_path, class: "hidden md:inline-block font-medium text-brand-gold-500 hover:text-brand-gold-600 transition-colors uppercase tracking-widest text-sm" %>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <% @related_tours.each do |related_tour| %>
-          <%= render "shared/components/tour_card", tour: related_tour %>
-        <% end %>
-      </div>
-
-      <div class="mt-10 md:hidden text-center">
-        <%= link_to "#{t('tours.show.view_all_tours')} <span class=\"inline-block rtl:rotate-180\">&rarr;</span>".html_safe, tours_path, class: "inline-block font-medium text-brand-gold-500 hover:text-brand-gold-600 transition-colors uppercase tracking-widest text-sm" %>
-      </div>
+      
     </div>
   </div>
-<% end %>
 
-<!-- Mobile Fixed Booking CTA -->
-<div class="fixed bottom-0 start-0 end-0 bg-white border-t border-brand-gray-200/60 p-3 sm:p-4 z-50 lg:hidden shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
-  <div class="flex gap-2 sm:gap-3">
-    <%= link_to t("tours.show.inquire_now"), new_tour_booking_request_path(@tour), class: "flex-1 py-3 px-2 sm:px-4 bg-brand-charcoal-900 hover:bg-brand-green-800 text-white font-medium text-xs sm:text-sm tracking-widest uppercase transition-colors text-center flex items-center justify-center" %>
-    <% if whatsapp_url %>
-      <a href="<%= whatsapp_url %>" target="_blank" rel="noopener noreferrer" class="flex-1 py-3 px-2 sm:px-4 bg-[#25D366] hover:bg-[#20bd5a] text-white font-medium text-xs sm:text-sm tracking-widest uppercase transition-colors text-center flex items-center justify-center">
-        <svg class="w-4 h-4 sm:w-5 sm:h-5 inline-block me-1.5 shrink-0" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" /></svg>
-        <span>WhatsApp</span>
-      </a>
-    <% end %>
+  <%# Related Tours %>
+  <% if @related_tours.any? %>
+    <div class="bg-[#faf9f6] py-16 lg:py-24 border-t border-brand-gray-200/50">
+      <div class="container-main">
+        <div class="flex items-end justify-between gap-6 mb-10 lg:mb-12">
+          <h2 class="text-2xl lg:text-3xl font-medium text-brand-charcoal-900 tracking-tight"><%= t("tours.show.you_might_also_like", default: "You Might Also Like") %></h2>
+          <%= link_to tours_path, class: "hidden md:inline-flex items-center font-medium text-brand-charcoal-900 hover:text-brand-green-700 transition-colors uppercase tracking-widest text-sm" do %>
+            <%= t("tours.show.view_all_tours", default: "View All Tours") %> <span class="ms-2 inline-block rtl:rotate-180">&rarr;</span>
+          <% end %>
+        </div>
+
+        <div class="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6 lg:gap-8">
+          <% @related_tours.each do |related_tour| %>
+            <%= render "shared/components/tour_card", tour: related_tour %>
+          <% end %>
+        </div>
+
+        <div class="mt-8 md:hidden text-center">
+          <%= link_to tours_path, class: "inline-flex items-center font-medium text-brand-charcoal-900 hover:text-brand-green-700 transition-colors uppercase tracking-widest text-sm" do %>
+            <%= t("tours.show.view_all_tours", default: "View All Tours") %> <span class="ms-2 inline-block rtl:rotate-180">&rarr;</span>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <%# Mobile Fixed Booking CTA %>
+  <div class="fixed bottom-0 start-0 end-0 bg-white border-t border-brand-gray-200/60 p-3 sm:p-4 z-50 lg:hidden shadow-[0_-4px_10px_-1px_rgba(0,0,0,0.08)]">
+    <div class="flex gap-2 sm:gap-3">
+      <%= link_to t("tours.show.inquire_now", default: "Inquire Now"), new_tour_booking_request_path(@tour), class: "flex-1 py-3.5 px-2 sm:px-4 bg-brand-charcoal-900 hover:bg-brand-green-800 text-white font-medium text-xs sm:text-sm tracking-widest uppercase transition-colors text-center flex items-center justify-center leading-none" %>
+      <% if whatsapp_url %>
+        <a href="<%= whatsapp_url %>" target="_blank" rel="noopener noreferrer" class="flex-1 py-3.5 px-2 sm:px-4 bg-[#25D366] hover:bg-[#20bd5a] text-white font-medium text-xs sm:text-sm tracking-widest uppercase transition-colors text-center flex items-center justify-center gap-1.5 leading-none">
+          <svg class="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" /></svg>
+          <span><%= t("tours.show.whatsapp", default: "WhatsApp") %></span>
+        </a>
+      <% end %>
+    </div>
   </div>
+
 </div>
