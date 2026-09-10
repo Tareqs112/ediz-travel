@@ -1,0 +1,99 @@
+<% content_for :title, "Customer: #{@customer.name}" %>
+
+<div class="mb-6 flex items-center justify-between">
+  <%= link_to "← Back to Customers", admin_customers_path, class: "text-sm text-gray-500 hover:text-gray-900" %>
+  <div class="flex gap-3">
+    <%= link_to "Edit", edit_admin_customer_path(@customer), class: "px-4 py-2 border border-gray-300 text-gray-700 rounded-md text-sm font-medium hover:bg-gray-50" %>
+    <%= link_to "Delete", admin_customer_path(@customer), data: { turbo_method: :delete, turbo_confirm: "Are you sure? This will delete the customer and all associated bookings." }, class: "px-4 py-2 bg-red-600 text-white rounded-md text-sm font-medium hover:bg-red-700" %>
+  </div>
+</div>
+
+<div class="bg-white shadow overflow-hidden sm:rounded-lg mb-8">
+  <div class="px-4 py-5 sm:px-6 flex justify-between items-center">
+    <div>
+      <h3 class="text-lg leading-6 font-medium text-gray-900">Customer Profile</h3>
+    </div>
+  </div>
+  <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
+    <dl class="sm:divide-y sm:divide-gray-200">
+      <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-500">Name</dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"><%= @customer.name %></dd>
+      </div>
+      <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-500">Email Address</dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+          <% if @customer.email.present? %>
+            <a href="mailto:<%= @customer.email %>" class="text-brand-green-600 hover:underline"><%= @customer.email %></a>
+          <% else %>
+            -
+          <% end %>
+        </dd>
+      </div>
+      <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-500">Phone / WhatsApp</dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+          <% if @customer.phone.present? %>
+            <a href="tel:<%= @customer.phone %>" class="text-gray-900 hover:underline"><%= @customer.phone %></a>
+          <% else %>
+            -
+          <% end %>
+        </dd>
+      </div>
+      <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-500">Preferred Language</dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"><%= @customer.preferred_language&.upcase || "-" %></dd>
+      </div>
+      <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-500">Notes</dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 whitespace-pre-wrap"><%= @customer.notes.presence || "No notes." %></dd>
+      </div>
+    </dl>
+  </div>
+</div>
+
+<h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">Booking History</h3>
+<div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
+  <div class="overflow-x-auto">
+    <table class="min-w-full divide-y divide-gray-200">
+      <thead class="bg-gray-50">
+        <tr>
+          <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase tracking-wider">ID / Created</th>
+          <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase tracking-wider">Dates</th>
+          <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase tracking-wider">Source</th>
+          <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+          <th scope="col" class="relative px-6 py-3"><span class="sr-only">Actions</span></th>
+        </tr>
+      </thead>
+      <tbody class="bg-white divide-y divide-gray-200">
+        <% @customer.bookings.order(created_at: :desc).each do |booking| %>
+          <tr class="hover:bg-gray-50">
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+              <div class="font-medium">#<%= booking.id %></div>
+              <div class="text-xs text-gray-500"><%= booking.created_at.to_date.to_fs(:short) %></div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              <% if booking.start_date || booking.end_date %>
+                <%= booking.start_date&.to_fs(:short) || "?" %> &rarr; <%= booking.end_date&.to_fs(:short) || "?" %>
+              <% else %>
+                -
+              <% end %>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              <span class="capitalize"><%= booking.source.tr('_', ' ') %></span>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              <span class="px-2 py-1 bg-gray-100 text-gray-800 rounded-full text-xs font-semibold capitalize"><%= booking.status %></span>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
+              <%= link_to "View", admin_booking_path(booking), class: "text-brand-green-600 hover:text-brand-green-900" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <% if @customer.bookings.empty? %>
+    <div class="p-8 text-center text-gray-500">No bookings found for this customer.</div>
+  <% end %>
+</div>

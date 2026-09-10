@@ -5,6 +5,7 @@ class TripInquiry < ApplicationRecord
   enum :inquiry_type, { general: 'general', airport_transfer: 'airport_transfer', private_transport: 'private_transport', car_rental: 'car_rental', chauffeured_car: 'chauffeured_car' }
   belongs_to :package, optional: true
   belongs_to :accommodation, optional: true
+  has_one :booking
   VALID_STATUSES = %w[new contacted quoted confirmed completed cancelled].freeze
 
   validates :customer_name, presence: true

@@ -25,6 +25,46 @@ class Admin::TripInquiriesController < Admin::BaseController
     end
   end
 
+  def convert_to_booking
+    @trip_inquiry = TripInquiry.find(params[:id])
+
+    if @trip_inquiry.booking.present?
+      redirect_to admin_booking_path(@trip_inquiry.booking), notice: "This inquiry has already been converted to a booking."
+      return
+    end
+
+    customer = nil
+    if @trip_inquiry.email.present?
+      email_matches = Customer.where(email: @trip_inquiry.email)
+      customer = email_matches.first if email_matches.count == 1
+    end
+
+    if customer.nil? && @trip_inquiry.phone.present?
+      phone_matches = Customer.where(phone: @trip_inquiry.phone)
+      customer = phone_matches.first if phone_matches.count == 1
+    end
+
+    if customer.nil?
+      customer = Customer.create!(
+        name: @trip_inquiry.customer_name,
+        email: @trip_inquiry.email,
+        phone: @trip_inquiry.phone,
+        notes: "Created from Trip Inquiry ##{@trip_inquiry.id}"
+      )
+    end
+
+    booking = Booking.create!(
+      customer: customer,
+      trip_inquiry: @trip_inquiry,
+      source: 'website',
+      status: 'draft',
+      start_date: @trip_inquiry.travel_date,
+      notes: @trip_inquiry.notes
+    )
+
+    redirect_to admin_booking_path(booking), notice: "Booking successfully created from inquiry."
+  end
+
   private
 
   def set_trip_inquiry

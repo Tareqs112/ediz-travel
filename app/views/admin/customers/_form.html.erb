@@ -1,0 +1,44 @@
+<%= form_with(model: [:admin, @customer], class: "bg-white shadow rounded-lg p-6") do |f| %>
+  <% if @customer.errors.any? %>
+    <div class="bg-red-50 text-red-800 p-4 rounded-md mb-6">
+      <h4 class="font-semibold text-sm">Please fix the following errors:</h4>
+      <ul class="list-disc ps-5 text-sm mt-2">
+        <% @customer.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div class="mb-4">
+      <%= f.label :name, class: "block text-sm font-medium text-gray-700" %>
+      <%= f.text_field :name, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :preferred_language, class: "block text-sm font-medium text-gray-700" %>
+      <%= f.select :preferred_language, [["English", "en"], ["Arabic", "ar"], ["Turkish", "tr"]], {}, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :email, class: "block text-sm font-medium text-gray-700" %>
+      <%= f.email_field :email, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :phone, "Phone / WhatsApp", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.text_field :phone, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm" %>
+    </div>
+  </div>
+
+  <div class="mb-4">
+    <%= f.label :notes, class: "block text-sm font-medium text-gray-700" %>
+    <%= f.text_area :notes, rows: 4, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm" %>
+  </div>
+
+  <div class="mt-6 flex justify-end gap-3">
+    <%= link_to "Cancel", admin_customers_path, class: "px-4 py-2 border border-gray-300 text-gray-700 rounded-md text-sm font-medium hover:bg-gray-50" %>
+    <%= f.submit class: "px-4 py-2 bg-gray-900 text-white rounded-md text-sm font-medium hover:bg-gray-800 cursor-pointer" %>
+  </div>
+<% end %>

@@ -20,11 +20,17 @@ Rails.application.routes.draw do
         post :upload_image
       end
     end
-    resources :booking_requests, only: [:index, :show, :update]
-    resources :trip_inquiries, only: [:index, :show, :update]
+    resources :booking_requests, only: [:index, :show, :update] do
+      post :convert_to_booking, on: :member
+    end
+    resources :trip_inquiries, only: [:index, :show, :update] do
+      post :convert_to_booking, on: :member
+    end
     resources :contact_messages, only: [:index, :show]
     resources :drivers
     resources :vehicles
+    resources :customers
+    resources :bookings
   end
 
   # Multilingual Public Routes

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_09_220142) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_10_061541) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -78,6 +78,24 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_09_220142) do
     t.index ["tour_id"], name: "index_booking_requests_on_tour_id"
   end
 
+  create_table "bookings", force: :cascade do |t|
+    t.bigint "booking_request_id"
+    t.datetime "created_at", null: false
+    t.bigint "customer_id", null: false
+    t.date "end_date"
+    t.text "notes"
+    t.string "source", default: "other", null: false
+    t.date "start_date"
+    t.string "status", default: "draft", null: false
+    t.bigint "trip_inquiry_id"
+    t.datetime "updated_at", null: false
+    t.index ["booking_request_id"], name: "index_bookings_on_booking_request_id"
+    t.index ["customer_id"], name: "index_bookings_on_customer_id"
+    t.index ["source"], name: "index_bookings_on_source"
+    t.index ["status"], name: "index_bookings_on_status"
+    t.index ["trip_inquiry_id"], name: "index_bookings_on_trip_inquiry_id"
+  end
+
   create_table "contact_messages", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "email"
@@ -85,6 +103,18 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_09_220142) do
     t.string "name"
     t.string "subject"
     t.datetime "updated_at", null: false
+  end
+
+  create_table "customers", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "email"
+    t.string "name", null: false
+    t.text "notes"
+    t.string "phone"
+    t.string "preferred_language", default: "en"
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_customers_on_email"
+    t.index ["phone"], name: "index_customers_on_phone"
   end
 
   create_table "destinations", force: :cascade do |t|
@@ -404,6 +434,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_09_220142) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "booking_requests", "tours"
+  add_foreign_key "bookings", "booking_requests"
+  add_foreign_key "bookings", "customers"
+  add_foreign_key "bookings", "trip_inquiries"
   add_foreign_key "sessions", "users"
   add_foreign_key "solid_queue_batch_executions", "solid_queue_batches", column: "batch_id", on_delete: :cascade
   add_foreign_key "solid_queue_batch_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
