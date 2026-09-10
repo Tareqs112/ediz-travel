@@ -1,0 +1,51 @@
+<%= form_with(model: [:admin, @vehicle], class: "bg-white shadow rounded-lg p-6") do |f| %>
+  <% if @vehicle.errors.any? %>
+    <div class="bg-red-50 text-red-800 p-4 rounded-md mb-6">
+      <h4 class="font-semibold text-sm">Please fix the following errors:</h4>
+      <ul class="list-disc ps-5 text-sm mt-2">
+        <% @vehicle.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div class="mb-4">
+      <%= f.label :name, "Name / Identifier", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.text_field :name, placeholder: "e.g. VIP Vito 1", class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm" %>
+    </div>
+    
+    <div class="mb-4">
+      <%= f.label :plate_number, class: "block text-sm font-medium text-gray-700" %>
+      <%= f.text_field :plate_number, placeholder: "e.g. 61 EDZ 061", class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm uppercase" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :vehicle_type, class: "block text-sm font-medium text-gray-700" %>
+      <%= f.text_field :vehicle_type, placeholder: "e.g. Mercedes-Benz Vito", class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm" %>
+    </div>
+    
+    <div class="mb-4">
+      <%= f.label :ownership_type, "Ownership", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.select :ownership_type, ["Company Owned", "Partner / Freelance"], { prompt: "Select Ownership" }, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm" %>
+    </div>
+  </div>
+  
+  <div class="mb-4">
+    <%= f.label :notes, class: "block text-sm font-medium text-gray-700" %>
+    <%= f.text_area :notes, rows: 4, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm" %>
+  </div>
+  
+  <div class="mb-4">
+    <div class="flex items-center mt-2">
+      <%= f.check_box :active, class: "h-4 w-4 text-brand-green-600 focus:ring-brand-green-500 border-gray-300 rounded" %>
+      <%= f.label :active, class: "ms-2 block text-sm text-gray-900" %>
+    </div>
+  </div>
+
+  <div class="mt-6 flex justify-end gap-3">
+    <%= link_to "Cancel", admin_vehicles_path, class: "px-4 py-2 border border-gray-300 text-gray-700 rounded-md text-sm font-medium hover:bg-gray-50" %>
+    <%= f.submit class: "px-4 py-2 bg-gray-900 text-white rounded-md text-sm font-medium hover:bg-gray-800 cursor-pointer" %>
+  </div>
+<% end %>

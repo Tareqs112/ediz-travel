@@ -23,6 +23,8 @@ Rails.application.routes.draw do
     resources :booking_requests, only: [:index, :show, :update]
     resources :trip_inquiries, only: [:index, :show, :update]
     resources :contact_messages, only: [:index, :show]
+    resources :drivers
+    resources :vehicles
   end
 
   # Multilingual Public Routes

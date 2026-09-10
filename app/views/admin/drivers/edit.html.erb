@@ -1,0 +1,9 @@
+<% content_for :title, "Edit Driver: #{@driver.name}" %>
+
+<div class="mb-6">
+  <%= link_to "← Back to Drivers", admin_drivers_path, class: "text-sm text-gray-500 hover:text-gray-900" %>
+</div>
+
+<div class="max-w-3xl">
+  <%= render "form" %>
+</div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_09_085500) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_09_220142) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -103,6 +103,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_09_085500) do
   create_table "destinations_packages", id: false, force: :cascade do |t|
     t.bigint "destination_id", null: false
     t.bigint "package_id", null: false
+  end
+
+  create_table "drivers", force: :cascade do |t|
+    t.boolean "active", default: true, null: false
+    t.datetime "created_at", null: false
+    t.string "name", null: false
+    t.text "notes"
+    t.string "phone", null: false
+    t.datetime "updated_at", null: false
+    t.index ["active"], name: "index_drivers_on_active"
   end
 
   create_table "packages", force: :cascade do |t|
@@ -376,6 +386,19 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_09_085500) do
     t.string "password_digest", null: false
     t.datetime "updated_at", null: false
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
+  end
+
+  create_table "vehicles", force: :cascade do |t|
+    t.boolean "active", default: true, null: false
+    t.datetime "created_at", null: false
+    t.string "name", null: false
+    t.text "notes"
+    t.string "ownership_type"
+    t.string "plate_number", null: false
+    t.datetime "updated_at", null: false
+    t.string "vehicle_type"
+    t.index ["active"], name: "index_vehicles_on_active"
+    t.index ["plate_number"], name: "index_vehicles_on_plate_number", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
