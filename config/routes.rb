@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Admin Architecture (outside locale scope)
+  get "sitemap.xml", to: "sitemaps#index", format: :xml, as: :sitemap
+
   namespace :admin do
     root to: "dashboard#index"
     resources :tours, param: :slug
