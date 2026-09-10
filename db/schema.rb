@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_10_065233) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_10_065234) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -380,16 +380,19 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_10_065233) do
     t.boolean "active", default: true, null: false
     t.text "cancellation_policy"
     t.datetime "created_at", null: false
+    t.string "currency"
     t.text "description", null: false
     t.bigint "destination_id"
     t.string "duration"
     t.string "excluded", default: [], array: true
+    t.boolean "featured", default: false, null: false
     t.string "group_size"
     t.string "highlights", default: [], array: true
     t.string "included", default: [], array: true
     t.jsonb "itinerary", default: []
     t.string "languages", default: [], array: true
     t.text "meeting_point"
+    t.decimal "price_from", precision: 10, scale: 2
     t.string "slug", null: false
     t.string "title", null: false
     t.string "tour_type"
@@ -397,6 +400,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_10_065233) do
     t.datetime "updated_at", null: false
     t.index ["active"], name: "index_tours_on_active"
     t.index ["destination_id"], name: "index_tours_on_destination_id"
+    t.index ["featured"], name: "index_tours_on_featured"
     t.index ["slug"], name: "index_tours_on_slug", unique: true
   end
 

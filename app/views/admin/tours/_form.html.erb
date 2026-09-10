@@ -44,9 +44,28 @@
     </div>
 
     <div class="col-span-1 md:col-span-2">
-      <div class="flex items-center mt-2">
-        <%= f.check_box :active, class: "h-4 w-4 text-brand-green-600 focus:ring-brand-green-500 border-gray-300 rounded" %>
-        <%= f.label :active, class: "ms-2 block text-sm text-gray-900" %>
+      <div class="flex items-center gap-6 mt-2">
+        <div class="flex items-center">
+          <%= f.check_box :active, class: "h-4 w-4 text-brand-green-600 focus:ring-brand-green-500 border-gray-300 rounded" %>
+          <%= f.label :active, class: "ms-2 block text-sm text-gray-900" %>
+        </div>
+        <div class="flex items-center">
+          <%= f.check_box :featured, class: "h-4 w-4 text-brand-green-600 focus:ring-brand-green-500 border-gray-300 rounded" %>
+          <%= f.label :featured, class: "ms-2 block text-sm text-gray-900" %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-8 pt-6 border-t border-gray-200">
+    <h3 class="text-lg font-medium text-gray-900 mb-4 border-b pb-2">Pricing Information</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <%= f.label :price_from, "Starting Price", class: "block text-sm font-medium text-gray-700" %>
+        <div class="mt-1 flex rounded-md shadow-sm">
+          <%= f.text_field :price_from, class: "flex-1 min-w-0 block w-full px-3 py-2 rounded-none rounded-s-md border-gray-300 focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm", placeholder: "e.g. 150.00" %>
+          <%= f.text_field :currency, class: "inline-flex items-center px-3 py-2 rounded-none rounded-e-md border border-s-0 border-gray-300 bg-gray-50 text-gray-500 sm:text-sm w-24", placeholder: "USD" %>
+        </div>
       </div>
     </div>
   </div>

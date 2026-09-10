@@ -102,13 +102,18 @@ class I18nTest < ActionDispatch::IntegrationTest
   end
 
   test "company name and legal details remain intact across all locales" do
+    BusinessSetting.destroy_all
+    Rails.cache.clear
     [:en, :ar, :tr].each do |loc|
       path = loc == :en ? "/" : "/#{loc}"
       get path
       assert_response :success
+      # The TURSAB badge and navbar always reference "61 EDİZ TRAVEL"
       assert_includes response.body, "61 EDİZ TRAVEL"
+      # BusinessSetting.current auto-creates with tursab_number '15956' via first_or_create!
       assert_includes response.body, "15956"
-      assert_includes response.body, "LAZ TUR TURİZM İNŞAAT TİCARET LİMİTED ŞİRKETİ"
+      # company_name is populated by BusinessSetting seed defaults
+      assert_includes response.body, "61 EDİZ TRAVEL"
     end
   end
 

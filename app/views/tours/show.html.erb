@@ -1,7 +1,7 @@
 <% content_for :title, "#{@tour.title} - 61 EDİZ TRAVEL" %>
 
 <div class="bg-white min-h-screen pb-20 lg:pb-0">
-  
+
   <!-- Back Navigation -->
   <div class="container-main pt-6 lg:pt-12 pb-4 lg:pb-6">
     <%= link_to tours_path, class: "inline-flex items-center text-sm font-medium text-brand-charcoal-600 hover:text-brand-gold-500 transition-colors uppercase tracking-widest" do %>
@@ -25,7 +25,7 @@
   </div>
 
   <div class="container-main py-10 lg:py-24">
-    
+
     <!-- Tour Header -->
     <div class="max-w-4xl mx-auto text-center mb-10 lg:mb-24">
       <span class="text-sm font-semibold text-brand-gold-500 uppercase tracking-[0.2em] block mb-3 lg:mb-6">
@@ -40,31 +40,40 @@
     </div>
 
     <!-- Tour Info Row -->
-    <% if @tour.duration.present? || @tour.tour_type.present? || @tour.group_size.present? || (@tour.languages.present? && @tour.languages.any?) %>
+    <% if @tour.duration.present? || @tour.tour_type.present? || @tour.group_size.present? || @tour.price_from.present? || (@tour.languages.present? && @tour.languages.any?) %>
       <div class="max-w-5xl mx-auto border-t border-b border-brand-gray-200/60 py-6 lg:py-12 mb-10 lg:mb-24">
         <div class="flex flex-wrap justify-center gap-x-8 gap-y-6 md:gap-4 text-center divide-x-0 md:divide-x divide-brand-gray-200/60">
-          
+
           <% if @tour.duration.present? %>
           <div class="flex flex-col px-4 flex-none md:flex-1">
             <span class="text-xs text-brand-charcoal-500 uppercase tracking-widest mb-2 font-medium"><%= t("tours.show.duration") %></span>
             <span class="text-lg font-light text-brand-charcoal-900"><%= @tour.duration %></span>
           </div>
           <% end %>
-          
+
           <% if @tour.tour_type.present? %>
           <div class="flex flex-col px-4 flex-none md:flex-1">
             <span class="text-xs text-brand-charcoal-500 uppercase tracking-widest mb-2 font-medium"><%= t("tours.show.tour_type") %></span>
             <span class="text-lg font-light text-brand-charcoal-900"><%= @tour.tour_type %></span>
           </div>
           <% end %>
-          
+
+          <% if @tour.price_from.present? %>
+          <div class="flex flex-col px-4 flex-none md:flex-1">
+            <span class="text-xs text-brand-charcoal-500 uppercase tracking-widest mb-2 font-medium">Starting Price</span>
+            <span class="text-lg font-light text-brand-charcoal-900">
+              <%= number_to_currency(@tour.price_from, unit: @tour.currency.present? ? @tour.currency + " " : "$", precision: 0) %>
+            </span>
+          </div>
+          <% end %>
+
           <% if @tour.group_size.present? %>
           <div class="flex flex-col px-4 flex-none md:flex-1">
             <span class="text-xs text-brand-charcoal-500 uppercase tracking-widest mb-2 font-medium"><%= t("tours.show.group_size") %></span>
             <span class="text-lg font-light text-brand-charcoal-900"><%= @tour.group_size %></span>
           </div>
           <% end %>
-          
+
           <% if @tour.languages.present? && @tour.languages.any? %>
           <div class="flex flex-col px-4 flex-none md:flex-1">
             <span class="text-xs text-brand-charcoal-500 uppercase tracking-widest mb-2 font-medium"><%= t("tours.show.languages") %></span>
@@ -80,10 +89,10 @@
 
     <!-- Main Content & Sidebar -->
     <div class="max-w-6xl mx-auto flex flex-col lg:flex-row gap-10 lg:gap-24">
-      
+
       <!-- Left Column (Content) -->
       <div class="w-full lg:w-2/3">
-        
+
         <!-- Highlights -->
         <% if @tour.highlights.present? && @tour.highlights.any? %>
           <div class="mb-10 lg:mb-16">
@@ -98,7 +107,7 @@
             </ul>
           </div>
         <% end %>
-        
+
         <!-- Itinerary -->
         <% if @tour.itinerary.present? && @tour.itinerary.any? %>
           <div class="mb-10 lg:mb-16">
@@ -124,7 +133,7 @@
         <% if (@tour.included.present? && @tour.included.any?) || (@tour.excluded.present? && @tour.excluded.any?) %>
           <!-- Included / Excluded -->
           <div class="grid md:grid-cols-2 gap-12 mb-10 lg:mb-16">
-            
+
             <% if @tour.included.present? && @tour.included.any? %>
               <div>
                 <h2 class="text-xl font-medium text-brand-charcoal-900 mb-6 pb-4 border-b border-brand-gray-200/60"><%= t("tours.show.whats_included") %></h2>
@@ -163,7 +172,7 @@
 
           </div>
         <% end %>
-        
+
         <% if @tour.meeting_point.present? || @tour.cancellation_policy.present? %>
           <div class="mt-10 lg:mt-16 space-y-5 lg:space-y-8 lg:space-y-12 pb-8 border-b border-brand-gray-200/60 lg:border-none">
             <!-- Meeting Point -->
@@ -198,7 +207,17 @@
               <%= t("tours.show.inquire_description") %>
             </p>
             <%= link_to t("tours.show.inquire_now"), new_tour_booking_request_path(@tour), class: "block w-full py-4 px-8 bg-brand-charcoal-900 hover:bg-brand-green-800 text-white font-medium text-sm tracking-widest uppercase transition-colors text-center" %>
-            
+            <% if current_business_setting&.whatsapp_number.present? %>
+              <%
+                clean_number = current_business_setting.whatsapp_number.to_s.gsub(/[^0-9]/, "")
+                encoded_message = ERB::Util.url_encode("Hello, I'm interested in the '#{@tour.title}' tour.")
+              %>
+              <a href="https://wa.me/<%= clean_number %>?text=<%= encoded_message %>" target="_blank" rel="noopener noreferrer" class="block w-full mt-3 py-4 px-8 bg-[#25D366] hover:bg-[#20bd5a] text-white font-medium text-sm tracking-widest uppercase transition-colors text-center">
+                <svg class="w-5 h-5 inline-block mr-2 -mt-1" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" /></svg>
+                WhatsApp
+              </a>
+            <% end %>
+
           </div>
         </div>
       </div>
@@ -212,13 +231,13 @@
         <h2 class="text-3xl font-medium text-brand-charcoal-900 tracking-tight"><%= t("tours.show.you_might_also_like") %></h2>
         <%= link_to "#{t('tours.show.view_all_tours')} <span class=\"inline-block rtl:rotate-180\">&rarr;</span>".html_safe, tours_path, class: "hidden md:inline-block font-medium text-brand-gold-500 hover:text-brand-gold-600 transition-colors uppercase tracking-widest text-sm" %>
       </div>
-      
+
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <% @related_tours.each do |related_tour| %>
           <%= render "shared/components/tour_card", tour: related_tour %>
         <% end %>
       </div>
-      
+
       <div class="mt-10 md:hidden text-center">
         <%= link_to "#{t('tours.show.view_all_tours')} <span class=\"inline-block rtl:rotate-180\">&rarr;</span>".html_safe, tours_path, class: "inline-block font-medium text-brand-gold-500 hover:text-brand-gold-600 transition-colors uppercase tracking-widest text-sm" %>
       </div>

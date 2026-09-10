@@ -11,6 +11,9 @@ class Tour < ApplicationRecord
   validates :title, presence: true
   validates :description, presence: true
   validates :slug, presence: true, uniqueness: true
+  validates :price_from, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
+
+  scope :featured, -> { where(featured: true) }
 
   has_one_attached :image
 

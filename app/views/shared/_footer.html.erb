@@ -18,8 +18,8 @@
           </div>
           <div>
             <p class="text-xs text-brand-gray-200 uppercase tracking-wider font-bold mb-0.5"><%= t("common.tursab_licensed") %></p>
-            <p class="text-sm font-semibold text-white"><%= t("common.tursab_document_no") %></p>
-            <p class="text-[11px] text-brand-gray-300 font-light mt-0.5">LAZ TUR TURİZM İNŞAAT TİC. LTD. ŞTİ.</p>
+            <p class="text-sm font-semibold text-white"><%= current_business_setting&.tursab_number.presence || t("common.tursab_document_no") %></p>
+            <p class="text-[11px] text-brand-gray-300 font-light mt-0.5"><%= current_business_setting&.company_name.presence || "LAZ TUR TURİZM İNŞAAT TİC. LTD. ŞTİ." %></p>
           </div>
         </div>
       </div>
@@ -58,9 +58,9 @@
     </div>
     
     <div class="border-t border-brand-charcoal-700 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-brand-gray-300">
-      <p>&copy; <%= Time.current.year %> 61 EDİZ TRAVEL &bull; LAZ TUR TURİZM İNŞAAT TİCARET LİMİTED ŞİRKETİ. <%= t("footer.all_rights_reserved") %></p>
+      <p>&copy; <%= Time.current.year %> 61 EDİZ TRAVEL &bull; <%= current_business_setting&.company_name.presence || "LAZ TUR TURİZM İNŞAAT TİCARET LİMİTED ŞİRKETİ." %> <%= t("footer.all_rights_reserved") %></p>
       <div class="flex gap-4 mt-4 md:mt-0 font-medium">
-        <span><%= t("footer.location") %></span>
+        <span><%= current_business_setting&.address.presence || t("footer.location") %></span>
       </div>
     </div>
     </div>
