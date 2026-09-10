@@ -4,7 +4,26 @@ class ToursController < ApplicationController
 
     if params[:q].present?
       search_term = "%#{params[:q]}%"
-      @tours = @tours.where("title ILIKE ? OR description ILIKE ?", search_term, search_term)
+      locale = I18n.locale.to_s
+
+      # Whitelist the locale against known supported locales to prevent any
+      # possibility of injecting a locale key into a JSONB path.
+      safe_locale = I18n.available_locales.map(&:to_s).include?(locale) ? locale : "en"
+
+      if safe_locale == "en"
+        # English: search legacy column (fast, indexed) OR translations JSONB for robustness
+        @tours = @tours.where(
+          "title ILIKE :term OR description ILIKE :term OR translations->'en'->>'title' ILIKE :term OR translations->'en'->>'description' ILIKE :term",
+          term: search_term
+        )
+      else
+        # Non-English: search translated content for the current locale first,
+        # then fall back to English so tours with only English content are still found.
+        @tours = @tours.where(
+          "translations->:loc->>'title' ILIKE :term OR translations->:loc->>'description' ILIKE :term OR translations->'en'->>'title' ILIKE :term OR translations->'en'->>'description' ILIKE :term",
+          loc: safe_locale, term: search_term
+        )
+      end
     end
 
     if params[:destination_id].present?

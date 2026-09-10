@@ -118,6 +118,8 @@ en:
     empty_message: "There are currently no active tours matching your criteria. Please try adjusting your filters."
     card:
       explore_tour: "Explore Tour"
+      featured: "Featured"
+      from: "From"
     show:
       back_to_tours: "Back to all tours"
       duration: "Duration"

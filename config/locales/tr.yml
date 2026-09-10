@@ -118,6 +118,8 @@ tr:
     empty_message: "Seçtiğiniz kriterlere uygun aktif bir tur bulunamadı. Lütfen filtrelerinizi güncellemeyi deneyin."
     card:
       explore_tour: "Turu İncele"
+      featured: "Öne Çıkan"
+      from: "Başlayan fiyatla"
     show:
       back_to_tours: "Tüm turlara dön"
       duration: "Süre"

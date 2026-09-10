@@ -118,6 +118,8 @@ ar:
     empty_message: "لا توجد جولات تطابق خيارات البحث الحالية. يرجى تجربة تعديل الفلاتر."
     card:
       explore_tour: "تفاصيل الجولة"
+      featured: "مميزة"
+      from: "يبدأ من"
     show:
       back_to_tours: "العودة إلى جميع الجولات"
       duration: "المدة"
