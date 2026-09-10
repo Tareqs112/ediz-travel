@@ -34,7 +34,7 @@
                     </span>
                   <% end %>
                   <span class="text-[11px] text-brand-charcoal-400 font-light">
-                    <%= guide.published_at&.strftime("%B %d, %Y") || guide.created_at.strftime("%B %d, %Y") %>
+                    <%= l((guide.published_at || guide.created_at).to_date, format: :travel_guide) %>
                   </span>
                 </div>
                 <h3 class="text-xl font-medium text-brand-charcoal-900 mb-3 group-hover:text-brand-green-700 transition-colors leading-snug">

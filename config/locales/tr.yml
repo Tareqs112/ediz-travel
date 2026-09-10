@@ -121,6 +121,7 @@ tr:
       featured: "Öne Çıkan"
       from: "Başlayan fiyatla"
     show:
+      starting_price: "Başlangıç Fiyatı"
       back_to_tours: "Tüm turlara dön"
       duration: "Süre"
       tour_type: "Tur Türü"
@@ -225,6 +226,12 @@ tr:
       return_to_home: "Ana Sayfaya Dön"
 
   services:
+    starting_from: "Başlangıç"
+    per_day: "/ gün"
+    contact_for_pricing: "Fiyat bilgisi için ulaşın"
+    seats: "Koltuk"
+    bags: "Bagaj"
+    inquire: "Talep Et"
     page_title: "Seyahat Hizmetleri - 61 EDİZ TRAVEL"
     eyebrow: "Uzmanlığımız"
     title: "Hizmetler"
@@ -467,3 +474,7 @@ tr:
     empty_results_desc: "'%{query}' aramasına uygun tur veya tatil paketi bulunamadı. Lütfen farklı arama terimleri deneyin."
     start_exploring_title: "Keşfetmeye Başlayın"
     start_exploring_desc: "Doğu Karadeniz'deki turları ve tatil paketlerini bulmak için yukarıdaki alana bir arama terimi girin."
+
+  date:
+    formats:
+      travel_guide: "%d %B %Y"

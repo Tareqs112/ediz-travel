@@ -121,6 +121,7 @@ ar:
       featured: "مميزة"
       from: "يبدأ من"
     show:
+      starting_price: "تبدأ الأسعار من"
       back_to_tours: "العودة إلى جميع الجولات"
       duration: "المدة"
       tour_type: "نوع الجولة"
@@ -225,6 +226,12 @@ ar:
       return_to_home: "العودة إلى الرئيسية"
 
   services:
+    starting_from: "تبدأ من"
+    per_day: "/ يوم"
+    contact_for_pricing: "تواصل لمعرفة السعر"
+    seats: "مقاعد"
+    bags: "حقائب"
+    inquire: "استفسار"
     page_title: "خدمات السفر - 61 EDİZ TRAVEL"
     eyebrow: "خبرتنا المحلية"
     title: "الخدمات"
@@ -467,3 +474,7 @@ ar:
     empty_results_desc: "لم نتمكن من العثور على أي جولات أو بكجات تطابق '%{query}'. يرجى تجربة كلمات بحث مختلفة."
     start_exploring_title: "ابدأ الاستكشاف"
     start_exploring_desc: "أدخل كلمة بحث في الحقل أعلاه للعثور على الجولات والبكجات السياحية في الشمال التركي."
+
+  date:
+    formats:
+      travel_guide: "%d %B %Y"

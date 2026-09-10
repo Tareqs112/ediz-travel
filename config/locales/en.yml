@@ -121,6 +121,7 @@ en:
       featured: "Featured"
       from: "From"
     show:
+      starting_price: "Starting Price"
       back_to_tours: "Back to all tours"
       duration: "Duration"
       tour_type: "Tour Type"
@@ -225,6 +226,12 @@ en:
       return_to_home: "Return to Home"
 
   services:
+    starting_from: "Starting from"
+    per_day: "/ day"
+    contact_for_pricing: "Contact for pricing"
+    seats: "Seats"
+    bags: "Bags"
+    inquire: "Inquire"
     page_title: "Travel Services - 61 EDİZ TRAVEL"
     eyebrow: "Our Expertise"
     title: "Services"
@@ -467,3 +474,7 @@ en:
     empty_results_desc: "We couldn't find any tours or packages matching '%{query}'. Try searching with different terms."
     start_exploring_title: "Start exploring"
     start_exploring_desc: "Enter a search term above to find tours and packages across the Eastern Black Sea."
+
+  date:
+    formats:
+      travel_guide: "%B %d, %Y"
