@@ -39,7 +39,11 @@ class OptimizeImageJob < ApplicationJob
             else
               current_image = current_image.resize(0.8)
               quality = 70
-              break if current_image.width < 300
+              if current_image.width < 10
+              Rails.logger.warn "OptimizeImageJob failed: Image cannot be compressed below 500KB (Attachment #{attachment.id})"
+              optimized_buffer = nil
+                break
+              end
             end
           else
             if quality > 70
