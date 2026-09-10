@@ -67,3 +67,5 @@ group :test do
   gem "selenium-webdriver"
 end
 gem 'mobility', '~> 1.3.2'
+
+gem "aws-sdk-s3", "~> 1.231"
