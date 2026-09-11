@@ -4,12 +4,13 @@
   <%= link_to "← Back to Bookings", admin_bookings_path, class: "text-sm text-gray-500 hover:text-gray-900" %>
   <div class="flex gap-3">
     <%= link_to "Edit", edit_admin_booking_path(@booking), class: "px-4 py-2 border border-gray-300 text-gray-700 rounded-md text-sm font-medium hover:bg-gray-50" %>
-    <%= link_to "Delete", admin_booking_path(@booking), data: { turbo_method: :delete, turbo_confirm: "Are you sure? This will delete the booking." }, class: "px-4 py-2 bg-red-600 text-white rounded-md text-sm font-medium hover:bg-red-700" %>
+    <%= link_to "Delete", admin_booking_path(@booking), data: { turbo_method: :delete, turbo_confirm: "Are you sure? This will delete the booking and all its services." }, class: "px-4 py-2 bg-red-600 text-white rounded-md text-sm font-medium hover:bg-red-700" %>
   </div>
 </div>
 
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
   <div class="lg:col-span-2 space-y-8">
+    <%# ═══════════════ BOOKING INFO ═══════════════ %>
     <div class="bg-white shadow overflow-hidden sm:rounded-lg">
       <div class="px-4 py-5 sm:px-6 flex justify-between items-center">
         <div>
@@ -50,21 +51,116 @@
             <dt class="text-sm font-medium text-gray-500">Source</dt>
             <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 capitalize"><%= @booking.source.tr('_', ' ') %></dd>
           </div>
-          <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt class="text-sm font-medium text-gray-500">Notes</dt>
-            <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 whitespace-pre-wrap"><%= @booking.notes.presence || "No notes." %></dd>
-          </div>
+          <% if @booking.notes.present? %>
+            <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt class="text-sm font-medium text-gray-500">Notes</dt>
+              <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 whitespace-pre-wrap"><%= @booking.notes %></dd>
+            </div>
+          <% end %>
         </dl>
       </div>
     </div>
 
-    <!-- Future Trip Services Section -->
-    <div class="bg-gray-50 rounded-lg border border-dashed border-gray-300 p-8 text-center">
-      <h4 class="text-sm font-medium text-gray-900 mb-1">Trip Services (Coming Soon)</h4>
-      <p class="text-sm text-gray-500">This is where drivers, vehicles, and daily operational schedules will be attached in the future.</p>
+    <%# ═══════════════ TRIP SERVICES ═══════════════ %>
+    <div class="bg-white shadow rounded-lg overflow-hidden">
+      <div class="px-6 py-5 border-b border-gray-200 flex items-center justify-between">
+        <div>
+          <h3 class="text-lg font-medium text-gray-900">Trip Services</h3>
+          <p class="text-sm text-gray-500 mt-0.5"><%= @booking.trip_services.size %> service<%= @booking.trip_services.size == 1 ? '' : 's' %></p>
+        </div>
+        <%= link_to new_admin_booking_trip_service_path(@booking), class: "inline-flex items-center gap-1.5 px-4 py-2 bg-gray-900 hover:bg-gray-800 text-white rounded-md text-sm font-medium" do %>
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+          Add Service
+        <% end %>
+      </div>
+
+      <% if @booking.trip_services.any? %>
+        <div class="divide-y divide-gray-100">
+          <% @booking.trip_services.includes(:driver, :vehicle).order(:date, :start_time).each do |service| %>
+            <div class="px-6 py-5 hover:bg-gray-50 transition">
+              <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+                <%# Left: service info %>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center gap-3 mb-1.5">
+                    <span class="text-sm font-semibold text-gray-900">
+                      <%= service.date.strftime("%d %b") %>
+                      <% if service.start_time.present? %>
+                        · <%= service.start_time.strftime("%H:%M") %>
+                        <% if service.end_time.present? %>
+                          – <%= service.end_time.strftime("%H:%M") %>
+                        <% end %>
+                      <% end %>
+                    </span>
+                    <% svc_status_color = case service.status
+                                          when 'assigned' then 'bg-blue-100 text-blue-800'
+                                          when 'in_progress' then 'bg-indigo-100 text-indigo-800'
+                                          when 'completed' then 'bg-green-100 text-green-800'
+                                          when 'cancelled' then 'bg-red-100 text-red-800'
+                                          else 'bg-yellow-100 text-yellow-800'
+                                          end %>
+                    <span class="px-2 py-0.5 rounded-full text-xs font-semibold <%= svc_status_color %> capitalize"><%= service.status.titleize %></span>
+                  </div>
+
+                  <p class="text-sm font-medium text-gray-800"><%= service.service_type.titleize %></p>
+
+                  <% if service.pickup_location.present? || service.dropoff_location.present? %>
+                    <p class="text-sm text-gray-500 mt-0.5">
+                      <%= service.pickup_location.presence || "—" %> → <%= service.dropoff_location.presence || "—" %>
+                    </p>
+                  <% end %>
+
+                  <% driver_has_conflict = service.conflicting_driver_services.exists? %>
+                  <% vehicle_has_conflict = service.conflicting_vehicle_services.exists? %>
+                  
+                  <div class="flex flex-wrap items-center gap-x-5 gap-y-1 mt-2 text-sm">
+                    <span class="<%= service.driver ? '' : 'text-amber-600 font-medium' %>">
+                      <% if service.driver %>
+                        Driver: 
+                        <%= link_to operations_admin_driver_path(service.driver, date: service.date.to_s), class: "font-medium hover:underline #{driver_has_conflict ? 'text-red-600' : 'text-brand-green-700'}" do %>
+                          <%= service.driver.name %>
+                          <% if driver_has_conflict %><span title="Conflict">⚠</span><% end %>
+                        <% end %>
+                      <% else %>
+                        Driver: Unassigned ⚠
+                      <% end %>
+                    </span>
+                    <span class="<%= service.vehicle ? '' : 'text-amber-600 font-medium' %>">
+                      <% if service.vehicle %>
+                        Vehicle: 
+                        <%= link_to operations_admin_vehicle_path(service.vehicle, date: service.date.to_s), class: "font-medium hover:underline #{vehicle_has_conflict ? 'text-red-600' : 'text-brand-green-700'}" do %>
+                          <%= service.vehicle.name %> <span class="text-gray-400 text-xs">(<%= service.vehicle.plate_number %>)</span>
+                          <% if vehicle_has_conflict %><span title="Conflict">⚠</span><% end %>
+                        <% end %>
+                      <% else %>
+                        Vehicle: Unassigned ⚠
+                      <% end %>
+                    </span>
+                  </div>
+
+                  <% if service.notes.present? %>
+                    <p class="text-xs text-gray-400 mt-1.5 italic"><%= truncate(service.notes, length: 80) %></p>
+                  <% end %>
+                </div>
+
+                <%# Right: actions %>
+                <div class="flex-shrink-0 flex items-center gap-2">
+                  <%= link_to "Edit", edit_admin_booking_trip_service_path(@booking, service), class: "text-sm text-blue-600 hover:text-blue-900 font-medium" %>
+                  <%= link_to "Remove", admin_booking_trip_service_path(@booking, service), data: { turbo_method: :delete, turbo_confirm: "Remove this service?" }, class: "text-sm text-red-600 hover:text-red-900 font-medium" %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="p-8 text-center">
+          <p class="text-gray-500 text-sm mb-3">No services added yet.</p>
+          <%= link_to "Add the first service →", new_admin_booking_trip_service_path(@booking), class: "text-sm text-brand-green-600 hover:underline font-medium" %>
+        </div>
+      <% end %>
     </div>
   </div>
 
+  <%# ═══════════════ SIDEBAR ═══════════════ %>
   <div class="space-y-8">
     <% if @booking.booking_request || @booking.trip_inquiry %>
       <div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
@@ -109,5 +205,32 @@
         <% end %>
       </div>
     </div>
+
+    <%# Assignment summary %>
+    <% if @booking.trip_services.any? %>
+      <div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
+        <div class="px-6 py-5 border-b border-gray-200 bg-gray-50">
+          <h3 class="text-lg font-medium text-gray-900">Assignment Summary</h3>
+        </div>
+        <div class="px-6 py-5 space-y-3">
+          <% total = @booking.trip_services.size %>
+          <% unassigned_driver = @booking.trip_services.where(driver_id: nil).count %>
+          <% unassigned_vehicle = @booking.trip_services.where(vehicle_id: nil).count %>
+
+          <div class="flex justify-between text-sm">
+            <span class="text-gray-600">Total services</span>
+            <span class="font-semibold text-gray-900"><%= total %></span>
+          </div>
+          <div class="flex justify-between text-sm">
+            <span class="<%= unassigned_driver > 0 ? 'text-amber-600 font-medium' : 'text-gray-600' %>">Missing driver</span>
+            <span class="font-semibold <%= unassigned_driver > 0 ? 'text-amber-600' : 'text-gray-900' %>"><%= unassigned_driver %></span>
+          </div>
+          <div class="flex justify-between text-sm">
+            <span class="<%= unassigned_vehicle > 0 ? 'text-amber-600 font-medium' : 'text-gray-600' %>">Missing vehicle</span>
+            <span class="font-semibold <%= unassigned_vehicle > 0 ? 'text-amber-600' : 'text-gray-900' %>"><%= unassigned_vehicle %></span>
+          </div>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>

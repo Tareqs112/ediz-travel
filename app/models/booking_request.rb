@@ -1,6 +1,6 @@
 class BookingRequest < ApplicationRecord
   belongs_to :tour
-  has_one :booking
+  has_one :booking, dependent: :restrict_with_error
 
   VALID_STATUSES = %w[new contacted quoted confirmed completed cancelled].freeze
 

@@ -47,3 +47,7 @@ config/master.key
 # Ignore node modules if applicable.
 /node_modules/
 node_modules/
+
+# Ignore SQLite databases.
+*.sqlite3
+*.sqlite3-*

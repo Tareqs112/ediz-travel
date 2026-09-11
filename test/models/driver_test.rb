@@ -16,4 +16,14 @@ class DriverTest < ActiveSupport::TestCase
     driver = Driver.new(name: "Ahmet Yilmaz")
     assert_not driver.save
   end
+
+  test "should not delete driver with historical services" do
+    driver = Driver.create!(name: "Test Driver", phone: "123")
+    customer = Customer.create!(name: "Jane Smith")
+    booking = Booking.create!(customer: customer, source: "walk_in", status: "draft")
+    TripService.create!(booking: booking, service_type: "tour", date: Date.today, status: "pending", driver: driver)
+    
+    assert_not driver.destroy
+    assert_includes driver.errors[:base], "Cannot delete record because dependent trip services exist"
+  end
 end

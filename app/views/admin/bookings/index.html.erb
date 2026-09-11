@@ -29,6 +29,7 @@
           <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
           <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
           <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase tracking-wider">Dates</th>
+          <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase tracking-wider">Services</th>
           <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
           <th scope="col" class="relative px-6 py-3"><span class="sr-only">Actions</span></th>
         </tr>
@@ -46,6 +47,18 @@
                 <%= booking.start_date&.to_fs(:short) || "?" %> &rarr; <%= booking.end_date&.to_fs(:short) || "?" %>
               <% else %>
                 -
+              <% end %>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm">
+              <% total_services = booking.trip_services.size %>
+              <% if total_services > 0 %>
+                <div class="text-gray-900 font-medium"><%= total_services %> service<%= total_services == 1 ? '' : 's' %></div>
+                <% unassigned = booking.trip_services.count { |s| s.driver_id.nil? || s.vehicle_id.nil? } %>
+                <% if unassigned > 0 %>
+                  <div class="text-amber-600 text-xs mt-1 font-medium"><%= unassigned %> needs assignment</div>
+                <% end %>
+              <% else %>
+                <span class="text-gray-400">0 services</span>
               <% end %>
             </td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">

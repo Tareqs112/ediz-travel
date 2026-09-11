@@ -2,7 +2,7 @@ class Admin::DriversController < Admin::BaseController
   before_action :set_driver, only: %i[show edit update destroy]
 
   def index
-    @drivers = Driver.order(:name)
+    @drivers = Driver.includes(:todays_trip_services).order(:name)
   end
 
   def show
@@ -34,8 +34,11 @@ class Admin::DriversController < Admin::BaseController
   end
 
   def destroy
-    @driver.destroy
-    redirect_to admin_drivers_path, notice: "Driver was successfully deleted."
+    if @driver.destroy
+      redirect_to admin_drivers_path, notice: "Driver was successfully deleted."
+    else
+      redirect_to admin_drivers_path, alert: @driver.errors.full_messages.to_sentence
+    end
   end
 
   private

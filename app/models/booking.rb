@@ -2,6 +2,8 @@ class Booking < ApplicationRecord
   belongs_to :customer
   belongs_to :booking_request, optional: true
   belongs_to :trip_inquiry, optional: true
+  has_many :trip_services, dependent: :restrict_with_error
+
 
   VALID_SOURCES = %w[website whatsapp phone walk_in partner other].freeze
   VALID_STATUSES = %w[draft confirmed active completed cancelled].freeze

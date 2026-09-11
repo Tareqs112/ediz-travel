@@ -13,6 +13,21 @@ class Admin::DriversControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should render today's services summary on index" do
+    driver = Driver.create!(name: "Test Driver", phone: "123")
+    customer = Customer.create!(name: "Jane Smith")
+    booking = Booking.create!(customer: customer, source: "walk_in", status: "draft")
+    
+    get admin_drivers_url
+    assert_select "td", text: /None today/
+    
+    TripService.create!(booking: booking, service_type: "tour", date: Date.today, status: "pending", driver: driver)
+    
+    get admin_drivers_url
+    assert_select "td", text: /1 service/
+    assert_select "a", text: /View operations/
+  end
+
   test "should get new" do
     get new_admin_driver_url
     assert_response :success

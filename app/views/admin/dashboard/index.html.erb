@@ -1,4 +1,198 @@
 <% content_for :title, "Dashboard" %>
-<div class="bg-white rounded-lg shadow border border-gray-200 p-8 text-center text-gray-500">
-  Dashboard metrics will appear here.
+
+<div class="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+  <h1 class="text-2xl font-bold text-gray-900">Today's Operations (<%= @today.strftime("%d %b %Y") %>)</h1>
+  <div class="flex gap-2">
+    <%= link_to "New Booking", new_admin_booking_path, class: "px-4 py-2 bg-brand-green-600 text-white rounded-md text-sm font-medium hover:bg-brand-green-700" %>
+    <%= link_to "Full Operations Board →", admin_operations_path, class: "px-4 py-2 border border-gray-300 bg-white text-gray-700 rounded-md text-sm font-medium hover:bg-gray-50" %>
+  </div>
+</div>
+
+<%# TODAY'S SUMMARY %>
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4 mb-8">
+  <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+    <div class="text-xs font-medium text-gray-500 uppercase">Total Today</div>
+    <div class="mt-1 text-2xl font-semibold text-gray-900"><%= @today_total %></div>
+  </div>
+  <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+    <div class="text-xs font-medium text-gray-500 uppercase">Fully Assigned</div>
+    <div class="mt-1 text-2xl font-semibold text-green-600"><%= @today_fully_assigned %></div>
+  </div>
+  <div class="bg-white p-4 rounded-lg shadow-sm border <%= @today_needs_driver > 0 ? 'border-amber-300 bg-amber-50' : 'border-gray-200' %>">
+    <div class="text-xs font-medium text-gray-500 uppercase">Needs Driver</div>
+    <div class="mt-1 text-2xl font-semibold <%= @today_needs_driver > 0 ? 'text-amber-700' : 'text-gray-900' %>"><%= @today_needs_driver %></div>
+  </div>
+  <div class="bg-white p-4 rounded-lg shadow-sm border <%= @today_needs_vehicle > 0 ? 'border-amber-300 bg-amber-50' : 'border-gray-200' %>">
+    <div class="text-xs font-medium text-gray-500 uppercase">Needs Vehicle</div>
+    <div class="mt-1 text-2xl font-semibold <%= @today_needs_vehicle > 0 ? 'text-amber-700' : 'text-gray-900' %>"><%= @today_needs_vehicle %></div>
+  </div>
+  <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+    <div class="text-xs font-medium text-gray-500 uppercase">In Progress</div>
+    <div class="mt-1 text-2xl font-semibold text-blue-600"><%= @today_in_progress %></div>
+  </div>
+  <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+    <div class="text-xs font-medium text-gray-500 uppercase">Completed</div>
+    <div class="mt-1 text-2xl font-semibold text-gray-900"><%= @today_completed %></div>
+  </div>
+  <div class="bg-white p-4 rounded-lg shadow-sm border <%= @today_conflicts_count > 0 ? 'border-red-300 bg-red-50' : 'border-gray-200' %>">
+    <div class="text-xs font-medium text-gray-500 uppercase">Conflicts</div>
+    <div class="mt-1 text-2xl font-semibold <%= @today_conflicts_count > 0 ? 'text-red-600' : 'text-gray-900' %>"><%= @today_conflicts_count %></div>
+  </div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+  
+  <%# LEFT COLUMN: URGENT & QUICK ACTIONS %>
+  <div class="lg:col-span-2 space-y-8">
+    
+    <%# URGENT ATTENTION %>
+    <div>
+      <h2 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
+        <span class="mr-2">⚠</span> Needs Attention
+      </h2>
+      
+      <% if @urgent_services.any? %>
+        <div class="space-y-4">
+          <% @urgent_services.each do |service| %>
+            <% driver_conflict = @today_driver_conflicts[service.driver_id]&.dig(:service_ids)&.include?(service.id) %>
+            <% vehicle_conflict = @today_vehicle_conflicts[service.vehicle_id]&.dig(:service_ids)&.include?(service.id) %>
+            <% has_conflict = driver_conflict || vehicle_conflict %>
+
+            <div class="bg-white rounded-lg shadow-sm border <%= has_conflict ? 'border-red-400' : 'border-amber-400' %> p-4">
+              <div class="flex justify-between items-start mb-2">
+                <div class="text-sm font-bold <%= has_conflict ? 'text-red-700' : 'text-amber-700' %>">
+                  <% if driver_conflict %>Driver Conflict<% end %>
+                  <% if driver_conflict && vehicle_conflict %> & <% end %>
+                  <% if vehicle_conflict %>Vehicle Conflict<% end %>
+                  <% if !has_conflict && service.driver_id.nil? && service.vehicle_id.nil? %>Missing Driver & Vehicle<% end %>
+                  <% if !has_conflict && service.driver_id.nil? && service.vehicle_id.present? %>Missing Driver<% end %>
+                  <% if !has_conflict && service.driver_id.present? && service.vehicle_id.nil? %>Missing Vehicle<% end %>
+                </div>
+                <div class="text-sm font-bold text-gray-900">
+                  <%= service.start_time&.strftime("%H:%M") || "TBD" %>
+                </div>
+              </div>
+              
+              <div class="text-sm text-gray-800 mb-2">
+                <span class="font-medium"><%= service.service_type.titleize %></span> for <%= link_to service.booking.customer.name, admin_booking_path(service.booking), class: "underline hover:text-brand-green-700" %>
+                <% if service.pickup_location.present? %>
+                  <div class="text-gray-500 mt-0.5"><%= service.pickup_location %> &rarr; <%= service.dropoff_location.presence || "..." %></div>
+                <% end %>
+              </div>
+              
+              <div class="flex gap-4 text-sm mt-3 pt-3 border-t border-gray-100">
+                <div>
+                  <span class="text-gray-500">Driver:</span> 
+                  <span class="font-medium <%= service.driver_id.nil? || driver_conflict ? 'text-red-600' : 'text-gray-900' %>">
+                    <%= service.driver&.name || "Unassigned" %>
+                  </span>
+                </div>
+                <div>
+                  <span class="text-gray-500">Vehicle:</span> 
+                  <span class="font-medium <%= service.vehicle_id.nil? || vehicle_conflict ? 'text-red-600' : 'text-gray-900' %>">
+                    <%= service.vehicle&.name || "Unassigned" %>
+                  </span>
+                </div>
+                <div class="ml-auto">
+                  <%= link_to "Fix →", edit_admin_booking_trip_service_path(service.booking, service), class: "text-brand-green-600 font-medium hover:underline" %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="bg-green-50 border border-green-200 rounded-lg p-6 text-center">
+          <div class="text-green-500 text-3xl mb-2">✓</div>
+          <h3 class="text-green-800 font-medium">Everything is ready for today.</h3>
+          <p class="text-sm text-green-600 mt-1">No unassigned services or conflicts found.</p>
+        </div>
+      <% end %>
+    </div>
+    
+    <%# TODAY'S PREVIEW %>
+    <div>
+      <h2 class="text-lg font-bold text-gray-900 mb-4">Today's Schedule Preview</h2>
+      <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+        <% if @todays_services.any? %>
+          <div class="divide-y divide-gray-100">
+            <% @todays_services.reject { |s| s.status == 'cancelled' }.first(5).each do |service| %>
+              <div class="p-4 flex items-center justify-between hover:bg-gray-50">
+                <div>
+                  <div class="font-bold text-gray-900"><%= service.start_time&.strftime("%H:%M") || "TBD" %></div>
+                  <div class="text-sm text-gray-500"><%= service.service_type.titleize %></div>
+                </div>
+                <div class="text-right">
+                  <div class="text-sm font-medium"><%= link_to service.booking.customer.name, admin_booking_path(service.booking), class: "hover:underline hover:text-brand-green-700" %></div>
+                  <div class="text-xs text-gray-500">
+                    <%= service.driver&.name || "No Driver" %> • <%= service.vehicle&.name || "No Vehicle" %>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+          <% if @todays_services.reject { |s| s.status == 'cancelled' }.size > 5 %>
+            <div class="p-3 bg-gray-50 text-center border-t border-gray-200">
+              <%= link_to "View all #{@today_total} services →", admin_operations_path(date: @today.to_s), class: "text-sm font-medium text-brand-green-600 hover:underline" %>
+            </div>
+          <% end %>
+        <% else %>
+          <div class="p-8 text-center text-gray-500 text-sm">No services scheduled for today.</div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <%# RIGHT COLUMN: TOMORROW & QUICK ACTIONS %>
+  <div class="space-y-8">
+    
+    <%# TOMORROW PREVIEW %>
+    <div>
+      <h2 class="text-lg font-bold text-gray-900 mb-4">Tomorrow's Outlook</h2>
+      <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+        <div class="flex justify-between items-center mb-4">
+          <span class="text-gray-500 text-sm"><%= @tomorrow.strftime("%A, %d %b") %></span>
+          <span class="font-bold text-gray-900"><%= @tomorrow_total %> services</span>
+        </div>
+        
+        <div class="space-y-3">
+          <div class="flex justify-between text-sm">
+            <span class="text-gray-600">Fully Assigned</span>
+            <span class="font-medium text-green-600"><%= @tomorrow_fully_assigned %></span>
+          </div>
+          <div class="flex justify-between text-sm">
+            <span class="text-gray-600">Needs Driver</span>
+            <span class="font-medium <%= @tomorrow_needs_driver > 0 ? 'text-amber-600' : 'text-gray-400' %>"><%= @tomorrow_needs_driver %></span>
+          </div>
+          <div class="flex justify-between text-sm">
+            <span class="text-gray-600">Needs Vehicle</span>
+            <span class="font-medium <%= @tomorrow_needs_vehicle > 0 ? 'text-amber-600' : 'text-gray-400' %>"><%= @tomorrow_needs_vehicle %></span>
+          </div>
+          <% if @tomorrow_conflicts_count > 0 %>
+            <div class="flex justify-between text-sm pt-2 border-t border-gray-100">
+              <span class="text-red-600 font-bold">Conflicts</span>
+              <span class="font-bold text-red-600"><%= @tomorrow_conflicts_count %></span>
+            </div>
+          <% end %>
+        </div>
+        
+        <div class="mt-5 text-center">
+          <%= link_to "View Tomorrow's Operations", admin_operations_path(date: @tomorrow.to_s), class: "text-sm font-medium text-brand-green-600 hover:underline block" %>
+        </div>
+      </div>
+    </div>
+
+    <%# QUICK ACTIONS %>
+    <div>
+      <h2 class="text-lg font-bold text-gray-900 mb-4">Quick Links</h2>
+      <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+        <ul class="divide-y divide-gray-100 text-sm font-medium">
+          <li><%= link_to "All Bookings →", admin_bookings_path, class: "block p-4 hover:bg-gray-50 text-gray-700 hover:text-gray-900" %></li>
+          <li><%= link_to "Customers →", admin_customers_path, class: "block p-4 hover:bg-gray-50 text-gray-700 hover:text-gray-900" %></li>
+          <li><%= link_to "Drivers →", admin_drivers_path, class: "block p-4 hover:bg-gray-50 text-gray-700 hover:text-gray-900" %></li>
+          <li><%= link_to "Vehicles →", admin_vehicles_path, class: "block p-4 hover:bg-gray-50 text-gray-700 hover:text-gray-900" %></li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
 </div>

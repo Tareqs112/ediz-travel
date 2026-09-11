@@ -49,6 +49,18 @@ class Admin::CustomersControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to admin_customers_url
   end
 
+  test "should not destroy customer with bookings" do
+    Booking.create!(customer: @customer, source: "website", status: "draft")
+    
+    assert_no_difference("Customer.count") do
+      delete admin_customer_url(@customer)
+    end
+    
+    assert_redirected_to admin_customer_url(@customer)
+    follow_redirect!
+    assert_match /Cannot delete record because dependent bookings exist/, response.body
+  end
+
   test "should redirect unauthenticated user" do
     delete session_url
     get admin_customers_url

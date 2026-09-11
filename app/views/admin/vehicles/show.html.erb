@@ -3,6 +3,7 @@
 <div class="mb-6 flex items-center justify-between">
   <%= link_to "← Back to Vehicles", admin_vehicles_path, class: "text-sm text-gray-500 hover:text-gray-900" %>
   <div class="flex gap-3">
+    <%= link_to "View Operations", operations_admin_vehicle_path(@vehicle), class: "px-4 py-2 border border-brand-green-300 text-brand-green-700 bg-brand-green-50 rounded-md text-sm font-medium hover:bg-brand-green-100" %>
     <%= link_to "Edit", edit_admin_vehicle_path(@vehicle), class: "px-4 py-2 border border-gray-300 text-gray-700 rounded-md text-sm font-medium hover:bg-gray-50" %>
     <%= link_to "Delete", admin_vehicle_path(@vehicle), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "px-4 py-2 bg-red-600 text-white rounded-md text-sm font-medium hover:bg-red-700" %>
   </div>

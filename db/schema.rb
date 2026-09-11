@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_10_065234) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_11_032438) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -446,6 +446,28 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_10_065234) do
     t.index ["package_id"], name: "index_trip_inquiries_on_package_id"
   end
 
+  create_table "trip_services", force: :cascade do |t|
+    t.bigint "booking_id", null: false
+    t.datetime "created_at", null: false
+    t.date "date", null: false
+    t.bigint "driver_id"
+    t.string "dropoff_location"
+    t.time "end_time"
+    t.text "notes"
+    t.string "pickup_location"
+    t.string "service_type", null: false
+    t.time "start_time"
+    t.string "status", default: "pending", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "vehicle_id"
+    t.index ["booking_id"], name: "index_trip_services_on_booking_id"
+    t.index ["date"], name: "index_trip_services_on_date"
+    t.index ["driver_id"], name: "index_trip_services_on_driver_id"
+    t.index ["service_type"], name: "index_trip_services_on_service_type"
+    t.index ["status"], name: "index_trip_services_on_status"
+    t.index ["vehicle_id"], name: "index_trip_services_on_vehicle_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "email_address", null: false
@@ -485,4 +507,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_10_065234) do
   add_foreign_key "tours", "destinations"
   add_foreign_key "trip_inquiries", "accommodations"
   add_foreign_key "trip_inquiries", "packages"
+  add_foreign_key "trip_services", "bookings"
+  add_foreign_key "trip_services", "drivers"
+  add_foreign_key "trip_services", "vehicles"
 end

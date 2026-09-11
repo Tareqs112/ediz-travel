@@ -11,8 +11,7 @@ destinations = [
 ]
 
 destinations.each do |dest_attrs|
-  dest = Destination.find_or_initialize_by(slug: dest_attrs[:slug])
-  dest.update!(dest_attrs)
+  Destination.where(slug: dest_attrs[:slug]).first_or_create!(dest_attrs)
 end
 
 puts "Created #{Destination.count} destinations."
@@ -79,7 +78,11 @@ tours = [
 tours.each do |tour_attrs|
   image_filename = tour_attrs.delete(:image_filename)
   tour = Tour.find_or_initialize_by(slug: tour_attrs[:slug])
-  tour.update!(tour_attrs)
+  
+  if tour.new_record?
+    tour.assign_attributes(tour_attrs)
+    tour.save!
+  end
   
   if image_filename.present?
     image_path = Rails.root.join("app/assets/images", image_filename)

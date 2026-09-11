@@ -13,6 +13,21 @@ class Admin::VehiclesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should render today's services summary on index" do
+    vehicle = Vehicle.create!(name: "Test Vehicle", plate_number: "61 TEST 123")
+    customer = Customer.create!(name: "Jane Smith")
+    booking = Booking.create!(customer: customer, source: "walk_in", status: "draft")
+    
+    get admin_vehicles_url
+    assert_select "td", text: /None today/
+    
+    TripService.create!(booking: booking, service_type: "tour", date: Date.today, status: "pending", vehicle: vehicle)
+    
+    get admin_vehicles_url
+    assert_select "td", text: /1 service/
+    assert_select "a", text: /View operations/
+  end
+
   test "should get new" do
     get new_admin_vehicle_url
     assert_response :success

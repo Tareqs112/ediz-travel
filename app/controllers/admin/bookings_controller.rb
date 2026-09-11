@@ -2,7 +2,7 @@ class Admin::BookingsController < Admin::BaseController
   before_action :set_booking, only: %i[show edit update destroy]
 
   def index
-    @bookings = Booking.includes(:customer).order(created_at: :desc)
+    @bookings = Booking.includes(:customer, :trip_services).order(created_at: :desc)
 
     if params[:status].present? && Booking::VALID_STATUSES.include?(params[:status])
       @bookings = @bookings.where(status: params[:status])
@@ -42,14 +42,17 @@ class Admin::BookingsController < Admin::BaseController
   end
 
   def destroy
-    @booking.destroy
-    redirect_to admin_bookings_path, notice: "Booking was successfully deleted."
+    if @booking.destroy
+      redirect_to admin_bookings_path, notice: "Booking was successfully deleted."
+    else
+      redirect_to admin_booking_path(@booking), alert: @booking.errors.full_messages.to_sentence
+    end
   end
 
   private
 
   def set_booking
-    @booking = Booking.find(params[:id])
+    @booking = Booking.includes(:customer, :booking_request, :trip_inquiry, trip_services: [:driver, :vehicle]).find(params[:id])
   end
 
   def booking_params

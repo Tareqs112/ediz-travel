@@ -18,6 +18,7 @@
       <nav class="flex-1 overflow-y-auto py-4">
         <ul class="space-y-1 px-3">
           <li><%= link_to "Dashboard", admin_root_path, class: "block px-3 py-2 rounded-md hover:bg-gray-800 transition #{current_page?(admin_root_path) ? 'bg-gray-800 text-white' : 'text-gray-400 hover:bg-gray-800'}" %></li>
+          <li><%= link_to "⚡ Daily Operations", admin_operations_path, class: "block px-3 py-2 rounded-md transition #{request.path.start_with?('/admin/operations') ? 'bg-brand-gold-500 text-gray-900 font-semibold' : 'text-brand-gold-400 hover:bg-gray-800 font-medium'}" %></li>
           <li><%= link_to "Tours", admin_tours_path, class: "block px-3 py-2 rounded-md transition #{request.path.start_with?('/admin/tours') ? 'bg-gray-800 text-white' : 'text-gray-400 hover:bg-gray-800'}" %></li>
           <li><%= link_to "Packages", admin_packages_path, class: "block px-3 py-2 rounded-md transition #{request.path.start_with?('/admin/packages') ? 'bg-gray-800 text-white' : 'text-gray-400 hover:bg-gray-800'}" %></li>
           <li><%= link_to "Accommodations", admin_accommodations_path, class: "block px-3 py-2 rounded-md transition #{request.path.start_with?('/admin/accommodations') ? 'bg-gray-800 text-white' : 'text-gray-400 hover:bg-gray-800'}" %></li>

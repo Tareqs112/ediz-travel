@@ -1,5 +1,5 @@
 class Customer < ApplicationRecord
-  has_many :bookings, dependent: :destroy
+  has_many :bookings, dependent: :restrict_with_error
 
   validates :name, presence: true
   validates :preferred_language, inclusion: { in: %w[en ar tr] }, allow_nil: true

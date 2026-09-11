@@ -29,4 +29,18 @@ class BookingTest < ActiveSupport::TestCase
 
     assert_not booking2.save
   end
+
+  test "should delete booking without trip services" do
+    booking = Booking.create!(customer: @customer, source: "website", status: "draft")
+    assert booking.destroy
+  end
+
+  test "should not delete booking with trip services" do
+    booking = Booking.create!(customer: @customer, source: "website", status: "draft")
+    TripService.create!(booking: booking, service_type: "tour", date: Date.today, status: "pending")
+    
+    assert_not booking.destroy
+    assert_includes booking.errors[:base], "Cannot delete record because dependent trip services exist"
+    assert_equal 1, TripService.count
+  end
 end

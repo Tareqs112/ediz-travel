@@ -14,6 +14,32 @@ class Admin::BookingsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should render trip services summary on index" do
+    # 0 services
+    get admin_bookings_url
+    assert_select "td", text: /0 services/
+
+    # 1 unassigned service
+    service1 = TripService.create!(booking: @booking, service_type: "tour", date: Date.today, status: "pending")
+    get admin_bookings_url
+    assert_select "td", text: /1 service/
+    assert_select "td", text: /1 needs assignment/
+
+    # 2 services, 1 unassigned
+    driver = Driver.create!(name: "Test Driver", phone: "123")
+    vehicle = Vehicle.create!(name: "Test Vehicle", plate_number: "ABC")
+    service2 = TripService.create!(booking: @booking, service_type: "tour", date: Date.today, status: "assigned", driver: driver, vehicle: vehicle)
+    get admin_bookings_url
+    assert_select "td", text: /2 services/
+    assert_select "td", text: /1 needs assignment/
+
+    # 2 services, fully assigned
+    service1.update!(driver: driver, vehicle: vehicle)
+    get admin_bookings_url
+    assert_select "td", text: /2 services/
+    assert_select "td", text: /needs assignment/, count: 0
+  end
+
   test "should get new" do
     get new_admin_booking_url
     assert_response :success
@@ -48,6 +74,18 @@ class Admin::BookingsControllerTest < ActionDispatch::IntegrationTest
       delete admin_booking_url(@booking)
     end
     assert_redirected_to admin_bookings_url
+  end
+
+  test "should not destroy booking with trip services" do
+    TripService.create!(booking: @booking, service_type: "tour", date: Date.today, status: "pending")
+    
+    assert_no_difference("Booking.count") do
+      delete admin_booking_url(@booking)
+    end
+    
+    assert_redirected_to admin_booking_url(@booking)
+    follow_redirect!
+    assert_match /Cannot delete record because dependent trip services exist/, response.body
   end
 
   test "should redirect unauthenticated user" do

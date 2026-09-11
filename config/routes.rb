@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     root to: "dashboard#index"
+    get "operations", to: "operations#index", as: :operations
     resources :tours, param: :slug
     resources :destinations, param: :slug
     resources :accommodations, param: :slug
@@ -29,11 +30,17 @@ Rails.application.routes.draw do
       post :convert_to_booking, on: :member
     end
     resources :contact_messages, only: [:index, :show]
-    resources :drivers
-    resources :vehicles
+    resources :drivers do
+      get "operations", to: "driver_operations#show", on: :member
+    end
+    resources :vehicles do
+      get "operations", to: "vehicle_operations#show", on: :member
+    end
     resources :commercial_vehicles
     resources :customers
-    resources :bookings
+    resources :bookings do
+      resources :trip_services, except: [:index, :show]
+    end
     resource :business_setting, only: [:edit, :update]
   end
 

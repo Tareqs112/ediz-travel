@@ -31,4 +31,24 @@ class TourTest < ActiveSupport::TestCase
     assert_equal "Central Hotel", tour.meeting_point
     assert_equal "24 hours notice", tour.cancellation_policy
   end
+
+  test "cannot delete tour if it has a booking request that was converted to a booking" do
+    tour = tours(:one)
+    request = BookingRequest.create!(tour: tour, customer_name: "Test", email: "test@example.com", travel_date: Date.today, travelers_count: 2, status: "new")
+    
+    # Tour can be deleted if request is not converted
+    assert tour.destroy
+    assert_equal 0, BookingRequest.where(id: request.id).count
+    
+    # Recreate
+    tour = Tour.create!(title: "Test Tour", description: "Desc", slug: "test-tour")
+    request = BookingRequest.create!(tour: tour, customer_name: "Test", email: "test@example.com", travel_date: Date.today, travelers_count: 2, status: "new")
+    customer = Customer.create!(name: "Test Customer")
+    Booking.create!(booking_request: request, customer: customer, source: "website", status: "confirmed")
+
+    # Deletion should be blocked
+    assert_not tour.destroy
+    assert_equal 1, BookingRequest.where(id: request.id).count
+    assert_equal 1, Tour.where(id: tour.id).count
+  end
 end

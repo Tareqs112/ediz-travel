@@ -2,7 +2,7 @@ class Admin::VehiclesController < Admin::BaseController
   before_action :set_vehicle, only: %i[show edit update destroy]
 
   def index
-    @vehicles = Vehicle.order(:plate_number)
+    @vehicles = Vehicle.includes(:todays_trip_services).order(:plate_number)
   end
 
   def show
@@ -34,8 +34,11 @@ class Admin::VehiclesController < Admin::BaseController
   end
 
   def destroy
-    @vehicle.destroy
-    redirect_to admin_vehicles_path, notice: "Vehicle was successfully deleted."
+    if @vehicle.destroy
+      redirect_to admin_vehicles_path, notice: "Vehicle was successfully deleted."
+    else
+      redirect_to admin_vehicles_path, alert: @vehicle.errors.full_messages.to_sentence
+    end
   end
 
   private

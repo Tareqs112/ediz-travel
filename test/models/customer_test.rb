@@ -30,4 +30,18 @@ class CustomerTest < ActiveSupport::TestCase
     customer = Customer.new(name: "Mystery Person")
     assert customer.save
   end
+
+  test "should delete customer without bookings" do
+    customer = Customer.create!(name: "Test Customer")
+    assert customer.destroy
+  end
+
+  test "should not delete customer with bookings" do
+    customer = Customer.create!(name: "Test Customer")
+    Booking.create!(customer: customer, source: "website", status: "draft")
+    
+    assert_not customer.destroy
+    assert_includes customer.errors[:base], "Cannot delete record because dependent bookings exist"
+    assert_equal 1, Booking.count
+  end
 end

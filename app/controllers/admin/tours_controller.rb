@@ -33,8 +33,12 @@ class Admin::ToursController < Admin::BaseController
   end
 
   def destroy
-    @tour.destroy
-    redirect_to admin_tours_path, notice: "Tour was successfully deleted."
+    if @tour.destroy
+      redirect_to admin_tours_path, notice: "Tour was successfully deleted."
+    else
+      error_message = @tour.errors.full_messages.to_sentence.presence || "Cannot delete tour because it has dependent records."
+      redirect_to admin_tour_path(@tour), alert: error_message
+    end
   end
 
   private

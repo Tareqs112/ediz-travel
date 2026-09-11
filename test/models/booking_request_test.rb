@@ -68,4 +68,19 @@ class BookingRequestTest < ActiveSupport::TestCase
     booking = BookingRequest.new(@valid_params)
     assert_equal @tour, booking.tour
   end
+
+  test "should delete booking request without booking" do
+    request = BookingRequest.create!(@valid_params)
+    assert request.destroy
+  end
+
+  test "should not delete booking request with booking" do
+    request = BookingRequest.create!(@valid_params)
+    customer = Customer.create!(name: "Test")
+    Booking.create!(booking_request: request, customer: customer, source: "website", status: "confirmed")
+    
+    assert_not request.destroy
+    assert_includes request.errors[:base], "Cannot delete record because a dependent booking exists"
+    assert_equal 1, BookingRequest.where(id: request.id).count
+  end
 end

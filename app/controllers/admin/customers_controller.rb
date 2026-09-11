@@ -34,8 +34,11 @@ class Admin::CustomersController < Admin::BaseController
   end
 
   def destroy
-    @customer.destroy
-    redirect_to admin_customers_path, notice: "Customer was successfully deleted."
+    if @customer.destroy
+      redirect_to admin_customers_path, notice: "Customer was successfully deleted."
+    else
+      redirect_to admin_customer_path(@customer), alert: @customer.errors.full_messages.to_sentence
+    end
   end
 
   private
