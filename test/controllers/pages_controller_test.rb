@@ -27,9 +27,8 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
 
     get root_url
     assert_response :success
-    assert_select "video[autoplay][muted][loop][playsinline][preload='metadata']"
+    assert_select "video[autoplay][muted][loop][playsinline][preload='metadata'][poster]"
     assert_select "video source[type='video/mp4']"
-    assert_select "video img"
 
     attachment.destroy
     blob.destroy
