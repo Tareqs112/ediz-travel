@@ -5,6 +5,8 @@ class BusinessSetting < ApplicationRecord
   # Basic format validations
   validates :contact_email, format: { with: URI::MailTo::EMAIL_REGEXP, allow_blank: true }
 
+  has_one_attached :hero_video
+
   def self.current
     Rails.cache.fetch("business_setting_current", expires_in: 12.hours) do
       first_or_create!(

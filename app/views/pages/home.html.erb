@@ -2,14 +2,27 @@
 <%# ═══════════════════════════════════════════════════════════════
     HERO — Cinematic, image-forward, minimal overlay
     ═══════════════════════════════════════════════════════════════ %>
-<section class="relative w-full h-[90vh] min-h-[560px] max-h-[900px] flex items-end overflow-hidden">
-  <%= image_tag "uzungol.webp",
-        class: "absolute inset-0 w-full h-full object-cover",
-        alt: "Uzungöl, Trabzon",
-        fetchpriority: "high",
-        style: "object-position: center 40%" %>
+<% video_url = hero_video_stream_url %>
+<section class="relative w-full h-[90vh] min-h-[560px] max-h-[900px] flex items-end overflow-hidden bg-black">
+  <% if video_url.present? %>
+    <video autoplay muted loop playsinline preload="metadata"
+           poster="<%= asset_path('uzungol.webp') %>"
+           class="absolute inset-0 w-full h-full object-cover bg-black">
+      <source src="<%= video_url %>" type="video/mp4">
+      <%= image_tag "uzungol.webp",
+            class: "absolute inset-0 w-full h-full object-cover",
+            alt: "Uzungöl, Trabzon",
+            style: "object-position: center 40%" %>
+    </video>
+  <% else %>
+    <%= image_tag "uzungol.webp",
+          class: "absolute inset-0 w-full h-full object-cover",
+          alt: "Uzungöl, Trabzon",
+          fetchpriority: "high",
+          style: "object-position: center 40%" %>
+  <% end %>
 
-  <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent mix-blend-multiply"></div>
+  <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent mix-blend-multiply pointer-events-none"></div>
   
   <div class="relative z-10 w-full container-main pb-16 md:pb-24">
     <div class="max-w-4xl max-w-full">

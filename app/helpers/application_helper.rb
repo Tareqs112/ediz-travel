@@ -52,4 +52,13 @@ module ApplicationHelper
     return "" if destination.nil?
     t("destinations.#{destination.slug}", default: destination.name)
   end
+
+  def hero_video_stream_url
+    return nil unless current_business_setting&.hero_video&.attached?
+
+    rails_storage_proxy_path(current_business_setting.hero_video, only_path: true)
+  rescue StandardError => e
+    Rails.logger.warn("Hero video proxy URL generation failed: #{e.message}")
+    nil
+  end
 end
