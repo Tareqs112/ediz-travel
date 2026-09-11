@@ -148,7 +148,7 @@
               </div>
               <div class="flex flex-col">
                 <%= f.label :preferred_language, t("trip_inquiries.form.preferred_language"), class: "text-sm font-medium text-brand-charcoal-900 mb-2" %>
-                <%= f.select :preferred_language, [["English", "English"], ["Arabic", "Arabic"], ["Turkish", "Turkish"]], { prompt: t("trip_inquiries.form.select_language") }, class: "w-full border-b border-brand-gray-200 py-3 px-0 bg-transparent text-brand-charcoal-900 focus:outline-none focus:border-brand-green-700 transition-colors font-light appearance-none cursor-pointer" %>
+                <%= f.select :preferred_language, [[t("common.languages.en"), "English"], [t("common.languages.ar"), "Arabic"], [t("common.languages.tr"), "Turkish"]], { prompt: t("trip_inquiries.form.select_language") }, class: "w-full border-b border-brand-gray-200 py-3 px-0 bg-transparent text-brand-charcoal-900 focus:outline-none focus:border-brand-green-700 transition-colors font-light appearance-none cursor-pointer" %>
               </div>
             </div>
 

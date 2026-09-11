@@ -13,17 +13,17 @@
   
   <div class="relative z-10 w-full container-main pb-16 md:pb-24">
     <div class="max-w-4xl max-w-full">
-      <span class="inline-block text-brand-gold-400 font-semibold tracking-[0.2em] text-xs md:text-sm uppercase mb-4 opacity-90 slide-up"><%= t(".welcome_prefix", default: "Welcome to 61 EDİZ TRAVEL") %></span>
+      <span class="inline-block text-brand-gold-400 font-semibold tracking-[0.2em] text-xs md:text-sm uppercase mb-4 opacity-90 slide-up"><%= t(".welcome_prefix", default: "TÜRSAB Licensed Local Agency · Trabzon") %></span>
       <h1 class="text-4xl md:text-6xl lg:text-7xl font-semibold text-white leading-[1.1] mb-6 slide-up" style="animation-delay: 100ms">
-        <%= t(".hero_title", default: "The Black Sea, Exclusively Yours.") %>
+        <%= t(".hero_title", default: "Private Travel in Trabzon & The Black Sea") %>
       </h1>
       <p class="text-lg md:text-xl text-white/90 max-w-2xl mb-10 font-light leading-relaxed slide-up" style="animation-delay: 200ms">
-        <%= t(".hero_subtitle", default: "Private journeys, thoughtful itineraries, and local expertise in Trabzon.") %>
+        <%= t(".hero_subtitle", default: "Thoughtfully paced private tours, chauffeured vehicles, and honest local guidance across Trabzon, Rize, and the Eastern Black Sea plateaus.") %>
       </p>
       
       <div class="flex flex-col sm:flex-row gap-4 slide-up" style="animation-delay: 300ms">
         <%= link_to tours_path, class: "btn-primary py-4 px-8" do %>
-          <%= t(".view_tours", default: "View Private Tours") %>
+          <%= t(".view_tours", default: "Explore Private Tours") %>
         <% end %>
         <%= link_to plan_your_trip_path, class: "btn-outline border-white/30 text-white hover:bg-white hover:text-brand-charcoal-900 py-4 px-8 bg-transparent" do %>
           <%= t(".plan_trip", default: "Plan Your Trip") %>
@@ -159,7 +159,7 @@
               <% if tour.duration.present? %>
                 <span class="text-sm text-brand-charcoal-600 flex items-center gap-1.5">
                   <svg class="w-4 h-4 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                  <%= tour.duration %>
+                  <%= localized_duration(tour.duration) %>
                 </span>
               <% end %>
               <% if tour.price_from.present? && tour.price_from > 0 %>

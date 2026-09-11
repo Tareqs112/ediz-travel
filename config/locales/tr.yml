@@ -28,6 +28,11 @@ tr:
     default_title: 61 EDİZ TRAVEL - Trabzon Seçkin Seyahat Acentesi
     default_meta_description: 61 EDİZ TRAVEL, Trabzon ve Doğu Karadeniz genelinde
       özgün, özenle planlanmış seyahat deneyimleri sunan seyahat acentesidir.
+    home_meta_description: Trabzon merkezli TÜRSAB lisanslı seyahat acentesi. Uzungöl,
+      Ayder, Sümela özel turları, havalimanı transferi ve Doğu Karadeniz şoförlü araç
+      hizmetleri.
+    tours_meta_description: Trabzon, Uzungöl, Ayder ve Karadeniz'de özel turları keşfedin.
+      Konforlu araçlar ve deneyimli şoförlerle hazırlanan esnek günübirlik rotalar.
   nav:
     home: Ana Sayfa
     tours: Turlar
@@ -39,8 +44,8 @@ tr:
     search: Arama
     plan_your_trip: Seyahatinizi Planlayın
   footer:
-    tagline: Trabzon ve Doğu Karadeniz bölgesinde unutulmaz deneyimler sunan seçkin
-      seyahat acentesi.
+    tagline: Trabzon merkezli lisanslı seyahat acentesi; Doğu Karadeniz genelinde
+      özel turlar, havalimanı transferleri ve şoförlü araç hizmetleri.
     explore: Keşfet
     services: Hizmetler
     company: Kurumsal
@@ -53,8 +58,8 @@ tr:
     region_badge: Trabzon • Doğu Karadeniz
     hero_title_line1: Trabzon'u Keşfedin.
     hero_title_line2: Karadeniz'i Yaşayın.
-    hero_subtitle: Trabzon ve Doğu Karadeniz genelinde özel turlar, eşsiz manzaralar
-      ve özenle planlanmış seyahat deneyimleri.
+    hero_subtitle: Trabzon, Rize ve Doğu Karadeniz yaylalarında; kendi temponuzda
+      ilerleyen özel turlar, şoförlü araçlar ve güvenilir yerel rehberlik.
     explore_tours: Turları Keşfedin
     plan_your_trip: Seyahatinizi Planlayın
     curated_journeys: Özenle Seçilmiş Rotalar
@@ -500,6 +505,7 @@ tr:
       geçeceğiz.
     error_alert: Mesajınız gönderilirken bir hata oluştu. Lütfen tüm alanları doldurduğunuzdan
       emin olun.
+    direct_contact: Doğrudan İletişim
   faq:
     page_title: S.S.S. - 61 EDİZ TRAVEL
     eyebrow: Yardım Merkezi
@@ -541,3 +547,79 @@ tr:
   date:
     formats:
       travel_guide: "%d %B %Y"
+  tursab_no_html: 'Belge No: <strong>15956</strong>'
+  cta_common:
+    have_question: Sorularınız mı Var?
+    have_question_desc: Tarihler, oda düzeni ve fiyat detayları için doğrudan ekibimizle
+      iletişime geçebilirsiniz.
+  destinations:
+    sumela-monastery: Sümela Manastırı
+    sumela: Sümela Manastırı
+    ayder-plateau: Ayder Yaylası
+    ayder: Ayder Yaylası
+    trabzon: Trabzon
+    uzungol: Uzungöl
+    hidirnebi-plateau: Hıdırnebi Yaylası
+    rize: Rize
+    elevit-plateau: Elevit Yaylası
+    hamsikoy: Hamsiköy
+    cal-cave: Çal Mağarası
+    zigana: Zigana
+    ordu: Ordu
+    black-sea: Karadeniz
+  pages:
+    home:
+      welcome_prefix: TÜRSAB Onaylı Seyahat Acentesi · Trabzon
+      hero_title: Trabzon ve Karadeniz’de Kişiye Özel Seyahat
+      hero_subtitle: Trabzon, Rize ve Doğu Karadeniz yaylalarında; kendi temponuzda
+        ilerleyen özel turlar, şoförlü araçlar ve güvenilir yerel rehberlik.
+      view_tours: Özel Turları Keşfedin
+      plan_trip: Seyahatinizi Planlayın
+      trabzon_based: Trabzon Merkezli Yerel Acente
+      private_focus: "%100 Kişiye Özel Seyahat"
+      discover_title: Karadeniz’i Keşfedin
+      discover_desc: Yemyeşil vadiler, sisli yaylalar ve köklü bir tarihle çevrili
+        eşsiz bir coğrafya.
+      uzungol: Uzungöl
+      uzungol_desc: Sarp dağlar ve çam ormanlarıyla çevrili simgesel dağ gölü.
+      ayder: Ayder Yaylası
+      trabzon: Trabzon
+      sumela: Sümela Manastırı
+      sumela_desc: Altındere Vadisi sarp kayalıklarına inşa edilmiş görkemli tarihi
+        manastır.
+      featured_subtitle: Öne Çıkan Rotalar
+      featured_title: Sizin İçin Seçtiklerimiz
+      see_all_tours: Tüm Özel Turları İnceleyin
+      private_experience: Özel
+      starting_from: Başlayan fiyatlarla
+      services_title: Seyahat Hizmetlerimiz
+      services_desc: Doğu Karadeniz'de konforlu ve güvenilir bir seyahat için kapsamlı
+        yerel hizmetler.
+      private_tours_title: Özel Turlar
+      private_tours_desc: Yalnızca ailenize veya grubunuza tahsis edilmiş, kendi temponuzda
+        ilerleyen günübirlik turlar.
+      private_transport_title: Özel Ulaşım
+      private_transport_desc: Bölge yollarına hakim tecrübeli şoförlerimiz ve konforlu
+        araçlarımızla güvenli yolculuk.
+      trip_services_title: Seyahat Destek Hizmetleri
+      trip_services_desc: Özenle seçilmiş konaklama seçenekleri ve seyahatinize özel
+        rota planlaması.
+      approach_title: 61 EDİZ Hizmet Anlayışı
+      approach_1_title: Yerel Uzmanlık
+      approach_1_desc: Trabzon merkezli acentemizle bölgeyi çok iyi tanıyor, sizi
+        kalabalık rotaların ötesindeki güzelliklerle buluşturuyoruz.
+      approach_2_title: Kişiye Özel Seyahat
+      approach_2_desc: Her program sadece sizin grubunuza özeldir. Ortak turların
+        kısıtlamaları olmadan, özgürce seyahat edersiniz.
+      approach_3_title: Özenli Planlama
+      approach_3_desc: İlk talebinizden seyahatinizin son gününe kadar tüm detaylarla
+        birebir ilgileniyor, güvenilir destek sunuyoruz.
+      before_you_go_title: Yola Çıkmadan Önce
+      before_you_go_desc: Trabzon seyahat ekibimizden Doğu Karadeniz'e dair pratik
+        bilgiler ve öneriler.
+      view_all_guides: Tüm Rehberleri Görüntüle
+      guide: Rehber
+      read_more: Yazıyı Oku
+      final_cta_title: Karadeniz seyahatiniz burada başlıyor.
+      plan_your_trip: Seyahatinizi Planlayın
+      whatsapp_us: WhatsApp ile İletişim

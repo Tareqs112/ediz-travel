@@ -54,7 +54,7 @@
           <div>
             <%= f.label :preferred_language, t("booking_requests.preferred_language"), class: "block text-xs font-semibold text-brand-charcoal-900 uppercase tracking-widest mb-2" %>
             <div class="relative">
-  <%= f.select :preferred_language, [["English", "English"], ["Turkish", "Turkish"], ["Arabic", "Arabic"]], { include_blank: t("booking_requests.select_language") }, class: "w-full border-b border-brand-gray-200 py-3 bg-transparent text-brand-charcoal-900 focus:outline-none focus:border-brand-gold-500 transition-colors appearance-none cursor-pointer pe-8 rtl:pe-0 rtl:ps-8" %>
+  <%= f.select :preferred_language, [[t("common.languages.en"), "English"], [t("common.languages.tr"), "Turkish"], [t("common.languages.ar"), "Arabic"]], { include_blank: t("booking_requests.select_language") }, class: "w-full border-b border-brand-gray-200 py-3 bg-transparent text-brand-charcoal-900 focus:outline-none focus:border-brand-gold-500 transition-colors appearance-none cursor-pointer pe-8 rtl:pe-0 rtl:ps-8" %>
   <div class="pointer-events-none absolute inset-y-0 end-0 rtl:start-0 rtl:end-auto flex items-center px-2 text-brand-charcoal-500">
     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
   </div>

@@ -32,7 +32,7 @@
           
           <%# Destination %>
           <div class="w-full md:w-48">
-            <%= f.select :destination_id, options_from_collection_for_select(Destination.where(active: [true, nil]).order(:name), "id", "name", params[:destination_id]), { prompt: t("tours.all_destinations", default: "All Destinations") }, class: "w-full bg-[#faf9f6] border border-brand-gray-200 py-2.5 px-3 text-sm focus:outline-none focus:border-brand-gold-500 transition-colors text-brand-charcoal-700 rounded-none", onchange: "this.form.submit();" %>
+            <%= f.select :destination_id, Destination.where(active: [true, nil]).map { |d| [localized_destination_name(d), d.id] }.sort_by(&:first), { prompt: t("tours.all_destinations", default: "All Destinations"), selected: params[:destination_id] }, class: "w-full bg-[#faf9f6] border border-brand-gray-200 py-2.5 px-3 text-sm focus:outline-none focus:border-brand-gold-500 transition-colors text-brand-charcoal-700 rounded-none", onchange: "this.form.submit();" %>
           </div>
         </div>
         

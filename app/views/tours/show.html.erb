@@ -73,7 +73,7 @@
         <div class="max-w-4xl">
           <% if @tour.destination.present? %>
             <span class="text-xs lg:text-sm font-semibold text-brand-gold-500 uppercase tracking-[0.2em] block mb-3 lg:mb-4 drop-shadow-md">
-              <%= @tour.destination.name %>
+              <%= localized_destination_name(@tour.destination) %>
             </span>
           <% end %>
           <h1 class="text-3xl sm:text-4xl lg:text-6xl font-sans font-medium text-white tracking-tight leading-[1.1] mb-4 drop-shadow-lg">
@@ -103,14 +103,14 @@
             <% if @tour.duration.present? %>
               <div>
                 <span class="text-[10px] lg:text-xs text-brand-charcoal-500 uppercase tracking-widest mb-1.5 font-medium block"><%= t("tours.show.duration", default: "Duration") %></span>
-                <span class="text-base lg:text-lg font-light text-brand-charcoal-900"><%= @tour.duration %></span>
+                <span class="text-base lg:text-lg font-light text-brand-charcoal-900"><%= localized_duration(@tour.duration) %></span>
               </div>
             <% end %>
 
             <% if @tour.tour_type.present? %>
               <div>
                 <span class="text-[10px] lg:text-xs text-brand-charcoal-500 uppercase tracking-widest mb-1.5 font-medium block"><%= t("tours.show.tour_type", default: "Tour Type") %></span>
-                <span class="text-base lg:text-lg font-light text-brand-charcoal-900"><%= @tour.tour_type %></span>
+                <span class="text-base lg:text-lg font-light text-brand-charcoal-900"><%= localized_tour_type(@tour.tour_type) %></span>
               </div>
             <% end %>
 

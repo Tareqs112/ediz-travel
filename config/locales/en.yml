@@ -28,6 +28,11 @@ en:
     default_title: 61 EDİZ TRAVEL - Premium Travel Agency in Trabzon
     default_meta_description: 61 EDİZ TRAVEL is a premium travel agency providing
       authentic, highly-curated experiences across Trabzon and the Eastern Black Sea.
+    home_meta_description: Licensed local travel agency in Trabzon. Private tours
+      to Uzungöl, Ayder, Sümela, airport transfers, and chauffeured vehicles across
+      the Eastern Black Sea.
+    tours_meta_description: Explore our collection of private tours in Trabzon, Uzungöl,
+      Ayder, and the Eastern Black Sea. Flexible daily itineraries with local expertise.
   nav:
     home: Home
     tours: Tours
@@ -39,8 +44,8 @@ en:
     search: Search
     plan_your_trip: Plan Your Trip
   footer:
-    tagline: Premium travel agency offering unforgettable experiences in Trabzon and
-      the Eastern Black Sea region.
+    tagline: Licensed local travel agency in Trabzon providing private tours, airport
+      transfers, and chauffeured vehicles across the Eastern Black Sea.
     explore: Explore
     services: Services
     company: Company
@@ -53,8 +58,8 @@ en:
     region_badge: Trabzon • Eastern Black Sea
     hero_title_line1: Discover Trabzon.
     hero_title_line2: Experience the Black Sea.
-    hero_subtitle: Private tours, unforgettable landscapes, and carefully planned
-      journeys across Trabzon and the Eastern Black Sea.
+    hero_subtitle: Private journeys, thoughtful itineraries, and authentic local guidance
+      in Trabzon and the Black Sea.
     explore_tours: Explore Tours
     plan_your_trip: Plan Your Trip
     curated_journeys: Curated Journeys
@@ -498,6 +503,7 @@ en:
     success_notice: Thank you for your message. We will get back to you shortly.
     error_alert: There was an error sending your message. Please make sure all fields
       are filled.
+    direct_contact: Direct Contact
   faq:
     page_title: FAQ - 61 EDİZ TRAVEL
     eyebrow: Help Center
@@ -542,3 +548,78 @@ en:
   date:
     formats:
       travel_guide: "%B %d, %Y"
+  tursab_no_html: No. <strong>15956</strong>
+  cta_common:
+    have_question: Have Questions?
+    have_question_desc: Contact our team directly for custom dates, room arrangements,
+      and pricing details.
+  destinations:
+    sumela-monastery: Sümela Monastery
+    sumela: Sümela Monastery
+    ayder-plateau: Ayder Plateau
+    ayder: Ayder Plateau
+    trabzon: Trabzon
+    uzungol: Uzungöl
+    hidirnebi-plateau: Hıdırnebi Plateau
+    rize: Rize
+    elevit-plateau: Elevit Plateau
+    hamsikoy: Hamsiköy
+    cal-cave: Çal Cave
+    zigana: Zigana
+    ordu: Ordu
+    black-sea: Black Sea
+  pages:
+    home:
+      welcome_prefix: TÜRSAB Licensed Local Agency · Trabzon
+      hero_title: Private Travel in Trabzon & The Black Sea
+      hero_subtitle: Thoughtfully paced private tours, chauffeured vehicles, and honest
+        local guidance across Trabzon, Rize, and the Eastern Black Sea plateaus.
+      view_tours: Explore Private Tours
+      plan_trip: Plan Your Trip
+      trabzon_based: Trabzon-Based Local Agency
+      private_focus: 100% Private Travel
+      discover_title: Discover the Black Sea
+      discover_desc: Mountains, alpine plateaus, and verdant valleys shaped by heritage
+        and nature.
+      uzungol: Uzungöl
+      uzungol_desc: The iconic alpine lake surrounded by steep green mountains.
+      ayder: Ayder Plateau
+      trabzon: Trabzon
+      sumela: Sümela Monastery
+      sumela_desc: Ancient cliff-face sanctuary carved into the Altındere cliffs.
+      featured_subtitle: Signature Experiences
+      featured_title: Curated for You
+      see_all_tours: See All Private Tours
+      private_experience: Private
+      starting_from: From
+      services_title: Travel Services
+      services_desc: Comprehensive local expertise for a smooth, comfortable Black
+        Sea journey.
+      private_tours_title: Private Tours
+      private_tours_desc: Tailored daily excursions reserved exclusively for your
+        party, ensuring privacy and flexibility.
+      private_transport_title: Private Transport
+      private_transport_desc: Late-model vehicles with experienced local drivers for
+        comfortable and secure regional travel.
+      trip_services_title: Trip Services
+      trip_services_desc: Selected boutique accommodations and bespoke itinerary planning
+        for your Black Sea holiday.
+      approach_title: The 61 EDİZ Approach
+      approach_1_title: Local Knowledge
+      approach_1_desc: Based in Trabzon, our deep regional roots ensure authentic
+        experiences beyond crowded tourist routes.
+      approach_2_title: Private Travel
+      approach_2_desc: Every tour is exclusive to your group. No crowded buses, no
+        rushed schedules—just your journey, at your pace.
+      approach_3_title: Thoughtful Planning
+      approach_3_desc: From your initial inquiry to departure, our local team coordinates
+        every detail with attentive care.
+      before_you_go_title: Before You Go
+      before_you_go_desc: Essential reading and practical insights from our Trabzon
+        travel experts.
+      view_all_guides: View All Guides
+      guide: Guide
+      read_more: Read Article
+      final_cta_title: Your Black Sea journey starts here.
+      plan_your_trip: Plan Your Trip
+      whatsapp_us: WhatsApp Us

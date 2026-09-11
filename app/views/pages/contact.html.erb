@@ -35,7 +35,7 @@
 
             <% if current_business_setting&.whatsapp_number.present? || current_business_setting&.contact_email.present? %>
             <div>
-              <span class="text-xs uppercase tracking-widest font-semibold text-brand-gold-500 block mb-1">Direct Contact</span>
+              <span class="text-xs uppercase tracking-widest font-semibold text-brand-gold-500 block mb-1"><%= t("contact.direct_contact", default: "Direct Contact") %></span>
               <% if current_business_setting&.whatsapp_number.present? %>
                 <p class="text-brand-charcoal-900 font-medium"><span dir="ltr"><%= current_business_setting.whatsapp_number %></span></p>
               <% end %>

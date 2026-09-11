@@ -12,7 +12,7 @@
       <% end %>
     </div>
     <div class="flex-grow flex flex-col">
-      <span class="text-xs uppercase tracking-widest font-semibold text-brand-gold-500 mb-2"><%= package.duration %></span>
+      <span class="text-xs uppercase tracking-widest font-semibold text-brand-gold-500 mb-2"><%= localized_duration(package.duration) %></span>
       <h3 class="text-lg md:text-2xl font-medium text-brand-charcoal-900 mb-2 md:mb-3"><%= package.title %></h3>
       <p class="text-brand-charcoal-600 font-light leading-relaxed text-sm mb-6 line-clamp-3">
         <%= package.short_description.presence || package.description.to_s.truncate(100) %>
