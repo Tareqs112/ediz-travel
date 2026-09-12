@@ -27,7 +27,7 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
 
     get root_url
     assert_response :success
-    assert_select "video[autoplay][muted][loop][playsinline][preload='metadata']"
+    assert_select "video[autoplay][muted][loop][playsinline][preload='auto']"
     assert_select "video[poster]", count: 0
     assert_select "video source[type='video/mp4']"
 
