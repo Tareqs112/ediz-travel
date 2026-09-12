@@ -27,4 +27,31 @@ class ServicesControllerTest < ActionDispatch::IntegrationTest
     assert_select "h3", text: "Hidden Car", count: 0
     assert_select "h3", text: "Internal Van", count: 0
   end
+
+  test "should get airport transfer with localized content and direct WhatsApp CTA" do
+    get airport_transfer_url
+    assert_response :success
+    assert_select "h1", text: "A Calm Arrival in Trabzon."
+    assert_select "a[href*='wa.me/905540171890']", minimum: 2
+    assert_select "a[href*='text=Hello']", minimum: 1
+    # Ensure the airport transfer page body does NOT open internal plan_your_trip form for the main CTA
+    assert_select "main a[href*='plan-your-trip']", count: 0
+  end
+
+  test "should get airport transfer in Arabic with localized WhatsApp message" do
+    get airport_transfer_url(locale: :ar)
+    assert_response :success
+    assert_select "h1", text: "وصول هادئ ومريح إلى طرابزون."
+    assert_select "a[href*='wa.me/905540171890']", minimum: 2
+    # Verify proper URL encoded Arabic text
+    assert_select "a[href*='%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B']", minimum: 1
+  end
+
+  test "should get airport transfer in Turkish with localized WhatsApp message" do
+    get airport_transfer_url(locale: :tr)
+    assert_response :success
+    assert_select "h1", text: "Trabzon'a Huzurlu Bir Varış."
+    assert_select "a[href*='wa.me/905540171890']", minimum: 2
+    assert_select "a[href*='text=Merhaba']", minimum: 1
+  end
 end

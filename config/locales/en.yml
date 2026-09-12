@@ -290,28 +290,88 @@ en:
     description: Transportation, car rental, and travel services across Trabzon and
       the Black Sea region.
   airport_transfer_page:
-    page_title: Airport Transfer - 61 EDİZ TRAVEL
-    eyebrow: Trabzon Airport
-    hero_title: A Smooth Start to Your Journey.
-    hero_subtitle: Begin and end your time in the Eastern Black Sea with ease. We
-      arrange convenient, private transfers directly between Trabzon Airport and your
-      accommodation.
+    page_title: Private Airport Transfer in Trabzon - 61 EDİZ TRAVEL
+    meta_description: Private airport transfers in Trabzon. Pre-arranged pickup upon arrival, local driver assistance, and direct transportation to your hotel or accommodation.
+    eyebrow: Trabzon Airport (TZX) • Private Transfer
+    hero_title: A Calm Arrival in Trabzon.
+    hero_subtitle: After your flight touches down, step into a relaxed, pre-arranged private journey. Meet your driver outside Trabzon Airport and travel directly to your hotel, villa, or agreed destination.
     plan_transfer: Plan Your Transfer
-    feature_1_title: Private Transfer
-    feature_1_desc: Dedicated vehicles reserved exclusively for you and your travel
-      companions.
-    feature_2_title: Hotel Pickup
-    feature_2_desc: Seamless connection directly to or from your chosen accommodation.
-    feature_3_title: Door-to-Door
-    feature_3_desc: Picked up from the airport and dropped off directly at your accommodation.
-    feature_4_title: Arranged for You
-    feature_4_desc: We coordinate your transfer so you don't have to navigate transportation
-      on arrival.
-    step_1: Airport
-    step_2: Pickup
-    step_3: Journey
-    step_4: Destination
-    cta_title: Arrive Relaxed.
+    whatsapp_message: "Hello 61 EDİZ TRAVEL, I would like to arrange a private airport transfer in Trabzon. My arrival details are:"
+    
+    # Experience Journey
+    experience_eyebrow: The Arrival Experience
+    experience_title: From Landing to Your Doorstep
+    experience_subtitle: A simple, step-by-step look at how transfers can be arranged.
+    step_1_num: "01"
+    step_1_title: Before You Arrive
+    step_1_desc: Share your arrival date, flight details, and destination in advance so pickup arrangements are coordinated beforehand.
+    step_2_num: "02"
+    step_2_title: At Trabzon Airport
+    step_2_desc: After collecting your luggage, proceed outside the terminal where your meeting arrangements have been established.
+    step_3_num: "03"
+    step_3_title: Private Vehicle
+    step_3_desc: Travel in a private vehicle arranged exclusively for your party, with space planned for your luggage.
+    step_4_num: "04"
+    step_4_title: To Your Destination
+    step_4_desc: Proceed directly to your hotel, apartment, or agreed destination across Trabzon and the surrounding area.
+
+    # Why Private Transfer
+    why_eyebrow: Thoughtful Travel
+    why_title: Why Arrange Your Transfer in Advance?
+    why_subtitle: Useful advantages of planning your airport transportation before landing.
+    benefit_1_title: Pre-Arranged Details
+    benefit_1_desc: Avoid searching for transport or negotiating fares after a flight. Timing, destination, and details are organized ahead of time.
+    benefit_2_title: Suited for Families & Luggage
+    benefit_2_desc: Convenient for travelers with children, multiple bags, or strollers who prefer stepping directly into a private vehicle.
+    benefit_3_title: Privacy for Your Party
+    benefit_3_desc: The vehicle is reserved solely for you and your companions, allowing you to travel comfortably at your own pace.
+    benefit_4_title: Local Orientation
+    benefit_4_desc: Travel with local drivers who are familiar with Trabzon's coastal roads and regional destinations.
+
+    # Who It Is For
+    who_eyebrow: Common Use Cases
+    who_title: Who Commonly Arranges Private Transfers
+    who_1_title: Families with Luggage
+    who_1_desc: Parents traveling with children who want straightforward, direct transportation to their accommodation.
+    who_2_title: Couples & Solo Travelers
+    who_2_desc: Travelers seeking a quiet, uncomplicated start to their visit after a flight.
+    who_3_title: Groups Arriving Together
+    who_3_desc: Parties who prefer traveling together in a single arranged vehicle rather than separate taxis.
+    who_4_title: Regional Travelers
+    who_4_desc: Guests traveling directly onward from the airport to places like Uzungöl, Akçaabat, or nearby valleys.
+
+    # Destinations / Use Cases
+    destinations_eyebrow: Flexible Routes
+    destinations_title: Typical Transfer Destinations
+    destinations_subtitle: Destinations are coordinated individually based on your itinerary and accommodation.
+    dest_1_title: Trabzon Airport to City Center Hotels
+    dest_1_desc: Direct transfer to central hotels, seaside residences, and accommodations in Trabzon.
+    dest_2_title: Trabzon Airport to Uzungöl
+    dest_2_desc: Journey from the airport up to hotels and stays around Uzungöl Lake.
+    dest_3_title: Trabzon Airport to Akçaabat & Coastline
+    dest_3_desc: Transfers along the coastal road to accommodations in Akçaabat and neighboring areas.
+    dest_4_title: Customized Drop-off Locations
+    dest_4_desc: Staying at a private rental, village home, or neighboring district? Share your destination when inquiring.
+
+    # What We Need
+    details_eyebrow: Easy Coordination
+    details_title: What We Need to Arrange Your Transfer
+    details_subtitle: "When contacting us on WhatsApp, simply provide your core travel details:"
+    req_1_title: Arrival Date & Time
+    req_1_desc: "Scheduled landing date and approximate time at Trabzon Airport (TZX)."
+    req_2_title: Flight Number
+    req_2_desc: Helps track arrival timing and coordinate pickup accordingly.
+    req_3_title: Passenger & Luggage Count
+    req_3_desc: Helps ensure the arranged vehicle appropriately fits your party and luggage.
+    req_4_title: Destination / Hotel Name
+    req_4_desc: The name or address of where you need to be taken.
+
+    # Final CTA
+    final_eyebrow: Start Your Journey Right
+    final_title: "Arrive in Trabzon. Leave the road to us."
+    final_subtitle: Send us your flight details and destination. We will confirm arrangements on WhatsApp.
+    whatsapp_cta: Chat on WhatsApp
+    available_note: "Direct inquiry via WhatsApp • 61 EDİZ TRAVEL"
   car_rental_page:
     page_title: Car Rental - 61 EDİZ TRAVEL
     eyebrow: Transportation

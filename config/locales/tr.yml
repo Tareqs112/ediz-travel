@@ -292,28 +292,88 @@ tr:
     description: Trabzon ve Karadeniz bölgesindeki ulaşım, araç kiralama ve diğer
       seyahat hizmetlerimiz.
   airport_transfer_page:
-    page_title: Havalimanı Transferi - 61 EDİZ TRAVEL
-    eyebrow: Trabzon Havalimanı
-    hero_title: Yolculuğunuza Huzurlu Bir Başlangıç.
-    hero_subtitle: Doğu Karadeniz seyahatinize konforla başlayın ve tamamlayın. Trabzon
-      Havalimanı ile konaklama yeriniz arasında doğrudan özel transferler organize
-      ediyoruz.
+    page_title: Trabzon Özel Havalimanı Transferi - 61 EDİZ TRAVEL
+    meta_description: Trabzon Havalimanı için özel transfer hizmeti. Uçuşunuz sonrası önceden belirlenen karşılama, yerel şoför ve doğrudan otelinize ya da konaklama adresinize ulaşım.
+    eyebrow: Trabzon Havalimanı (TZX) • Özel Transfer
+    hero_title: Trabzon'a Huzurlu Bir Varış.
+    hero_subtitle: Uçağınız indikten sonra beklemeden ve yorulmadan önceden planlanmış özel yolculuğunuza adım atın. Şoförünüzle havalimanında buluşun, otelinize veya kalacağınız adrese doğrudan ulaşın.
     plan_transfer: Transferinizi Planlayın
-    feature_1_title: Özel Transfer
-    feature_1_desc: Yalnızca size ve seyahat arkadaşlarınıza tahsis edilmiş özel araçlar.
-    feature_2_title: Otel Karşılama
-    feature_2_desc: Konaklama adresinizden veya adresinize doğrudan ve kesintisiz
-      ulaşım.
-    feature_3_title: Kapıdan Kapıya
-    feature_3_desc: Havalimanından alınıp doğrudan kalacağınız tesise konforla ulaştırılma.
-    feature_4_title: Sizin İçin Planlandı
-    feature_4_desc: Varışta ulaşım arama zahmetine girmemeniz için her ayrıntıyı önceden
-      koordine ediyoruz.
-    step_1: Havalimanı
-    step_2: Karşılama
-    step_3: Yolculuk
-    step_4: Varış
-    cta_title: Huzurla Varın.
+    whatsapp_message: "Merhaba 61 EDİZ TRAVEL, Trabzon'da özel havalimanı transferi ayarlamak istiyorum. Varış bilgilerim:"
+    
+    # Experience Journey
+    experience_eyebrow: Varış Süreci
+    experience_title: Havalimanından Kapınıza Kadar
+    experience_subtitle: Transfer sürecinin nasıl planlandığına dair adım adım genel bakış.
+    step_1_num: "01"
+    step_1_title: Siz Gelmeden Önce
+    step_1_desc: Uçuş bilgileriniz, varış gününüz ve gideceğiniz adres önceden iletilir; karşılama buna göre koordine edilir.
+    step_2_num: "02"
+    step_2_title: Trabzon Havalimanı'nda
+    step_2_desc: Bagajınızı teslim aldıktan sonra terminal çıkışında önceden kararlaştırılan şekilde şoförünüzle buluşun.
+    step_3_num: "03"
+    step_3_title: Özel Araç
+    step_3_desc: Yalnızca grubunuza ayrılmış, bagaj durumunuza uygun olarak planlanan özel araçla seyahat edin.
+    step_4_num: "04"
+    step_4_title: Adresinize Ulaşım
+    step_4_desc: Trabzon ve çevresinde kalacağınız otele, daireye veya konuta doğrudan geçiş yapın.
+
+    # Why Private Transfer
+    why_eyebrow: Rahat Seyahat
+    why_title: Neden Transferinizi Önceden Ayarlamalısınız?
+    why_subtitle: Havalimanı ulaşımınızı inişten önce planlamanın sunduğu pratik avantajlar.
+    benefit_1_title: Önceden Belirlenen Detaylar
+    benefit_1_desc: İniş sonrasında araç arama ya da ücret görüşmesiyle vakit kaybetmeyin. Varış yeri ve detaylar önceden kararlaştırılır.
+    benefit_2_title: Aileler ve Bagajlar İçin Uygun
+    benefit_2_desc: Çocuklar, bebek arabaları veya çok sayıda bavulla seyahat edenler için doğrudan araca geçiş kolaylığı.
+    benefit_3_title: Grubunuza Özel Alan
+    benefit_3_desc: Araç yalnızca size tahsis edilir; kendi temponuzda ve sakin bir şekilde yolculuk edebilirsiniz.
+    benefit_4_title: Yerel Yol Bilgisi
+    benefit_4_desc: Trabzon'un sahil şeridini ve bölgesel güzergahlarını tanıyan yerel şoförlerle seyahat.
+
+    # Who It Is For
+    who_eyebrow: Kullanım Alanları
+    who_title: Kimler Özel Transfer Tercih Ediyor?
+    who_1_title: Bagajlı Aileler
+    who_1_desc: İniş sonrası aktarma yapmadan doğrudan konaklama yerine varmak isteyen aileler.
+    who_2_title: Çiftler ve Bireysel Gezginler
+    who_2_desc: Uçuşun ardından vakit kaybetmeden sakin ve konforlu bir başlangıç arayanlar.
+    who_3_title: Birlikte Seyahat Eden Gruplar
+    who_3_desc: Ayrı taksilere bölünmek yerine aynı araçta bir arada ulaşım sağlamayı tercih eden gruplar.
+    who_4_title: Bölgesel Seyahat Edenler
+    who_4_desc: Havalimanından doğrudan Uzungöl, Akçaabat veya çevre vadilere geçiş yapacak misafirler.
+
+    # Destinations / Use Cases
+    destinations_eyebrow: Esnek Rotalar
+    destinations_title: Yaygın Transfer Güzergahları
+    destinations_subtitle: Transfer noktaları konaklama adresinize ve seyahat planınıza göre karşılıklı belirlenir.
+    dest_1_title: Trabzon Havalimanı - Şehir Merkezi Otelleri
+    dest_1_desc: Merkez otellere, sahil tesislerine ve şehir içindeki konaklama adreslerine ulaşım.
+    dest_2_title: Trabzon Havalimanı - Uzungöl
+    dest_2_desc: Havalimanından Uzungöl ve çevresindeki otel ve dağ evlerine doğrudan yolculuk.
+    dest_3_title: Trabzon Havalimanı - Akçaabat ve Sahil Şeridi
+    dest_3_desc: Sahil yolu üzerinden Akçaabat ve çevre bölgelerdeki konaklama yerlerine transfer.
+    dest_4_title: Belirleyeceğiniz Özel Adresler
+    dest_4_desc: Müstakil bir kiralık ev, köy yerleşimi veya komşu ilçe; varış noktanızı mesajınızda belirtmeniz yeterlidir.
+
+    # What We Need
+    details_eyebrow: Kolay İletişim
+    details_title: Transferinizi Düzenlemek İçin Gerekli Bilgiler
+    details_subtitle: "WhatsApp üzerinden bize ulaştığınızda temel seyahat detaylarınızı paylaşmanız yeterlidir:"
+    req_1_title: Varış Tarihi ve Saati
+    req_1_desc: "Uçağınızın Trabzon Havalimanı'na (TZX) iniş yapacağı planlanan zaman."
+    req_2_title: Uçuş Numarası
+    req_2_desc: Uçuş durumunu takip edebilmemiz için havayolu ve uçuş kodunuz.
+    req_3_title: Yolcu ve Bagaj Sayısı
+    req_3_desc: Grubunuza ve bavul durumunuza uygun araç hazırlayabilmemiz için kişi sayısı.
+    req_4_title: Otel veya Varış Adresi
+    req_4_desc: Ulaşmak istediğiniz otelin adı ya da konaklama konumu.
+
+    # Final CTA
+    final_eyebrow: Seyahatinize İyi Başlayın
+    final_title: "Trabzon'a Varın. Yolu Bize Bırakın."
+    final_subtitle: Varış detaylarınızı WhatsApp üzerinden iletin, transfer planınızı birlikte netleştirelim.
+    whatsapp_cta: WhatsApp ile İletişime Geçin
+    available_note: "WhatsApp üzerinden doğrudan iletişim • 61 EDİZ TRAVEL"
   car_rental_page:
     page_title: Araç Kiralama - 61 EDİZ TRAVEL
     eyebrow: Ulaşım
