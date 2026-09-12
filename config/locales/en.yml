@@ -501,17 +501,139 @@ en:
     whatsapp_cta: "Chat on WhatsApp"
     available_note: "Direct inquiry via WhatsApp • 61 EDİZ TRAVEL"
   chauffeured_car_page:
-    page_title: Chauffeured Car - 61 EDİZ TRAVEL
-    eyebrow: Transportation
-    title: Chauffeured Car
-    description: Enjoy total flexibility and comfort with a dedicated vehicle and
-      driver at your disposal.
-    how_it_works: A Seamless Travel Experience
-    how_it_works_desc: Navigate the Black Sea region without the stress of driving
-      or parking. Our chauffeured car service arranges a driver for your itinerary,
-      allowing you to focus entirely on the journey and the scenery.
-    request_driver: Request a Driver
-    inquire_now: Inquire Now
+    page_title: "Private Chauffeured Car in Trabzon • Local Driver - 61 EDİZ TRAVEL"
+    meta_description: "Travel Trabzon and the Black Sea in comfort with a dedicated private vehicle and local driver. Scenic valley journeys, transfers, and direct WhatsApp booking."
+    eyebrow: "Private Driver • Trabzon & Black Sea"
+    hero_title: "You Travel. Your Driver Handles the Road."
+    hero_subtitle: "Sit back, take in panoramic valley views, and let a dedicated local driver navigate winding mountain roads, highway traffic, and parking. Experience Trabzon and the Black Sea with complete peace of mind."
+    plan_journey: "Plan Your Chauffeured Journey"
+    whatsapp_cta: "Chat on WhatsApp"
+    available_note: "Direct coordination via WhatsApp • 61 EDİZ TRAVEL"
+    whatsapp_general_message: "Hello 61 EDİZ TRAVEL, I would like to arrange a private chauffeured car service in Trabzon. My journey details are:"
+
+    # What is chauffeured service
+    about_eyebrow: "The Service"
+    about_title: "What is a Chauffeured Car Service?"
+    about_subtitle: "A dedicated vehicle and private driver arranged exclusively for your party, shaped around your schedule."
+    about_desc: "A chauffeured car service pairs you with a private, comfortable vehicle and a local driver dedicated to your itinerary. Unlike crowded group tours, you travel exclusively with your companions at your own preferred pace. Unlike a standard taxi, your vehicle is reserved in advance, prepared specifically for your group, and remains at your disposal according to your agreed route."
+
+    # When it makes sense
+    when_eyebrow: "Why Choose a Driver"
+    when_title: "When It Makes Sense in Trabzon"
+    when_subtitle: "Navigating mountain terrain, highland switchbacks, and coastal roads is vastly more relaxing with a dedicated local driver."
+    when_1_title: "Families & Multi-Generational Groups"
+    when_1_desc: "Keep children, parents, and luggage together in one comfortable vehicle, allowing everyone to rest and enjoy the views together."
+    when_2_title: "Mountain & Highland Roads"
+    when_2_desc: "Steep valley ascents, coastal highway curves, and highland weather are best left to a driver practiced on regional roads."
+    when_3_title: "Full-Day Sightseeing Without Parking"
+    when_3_desc: "Get dropped off directly at viewpoints, waterfalls, and historical sites without circling crowded plateau parking lots."
+    when_4_title: "Travelers Who Prefer Not to Drive"
+    when_4_desc: "Spend your holiday engaged in conversation, photography, and scenery without the mental fatigue of navigating unfamiliar routes."
+
+    # The Experience Flow
+    flow_eyebrow: "Simple Coordination"
+    flow_title: "How the Chauffeured Experience Works"
+    flow_subtitle: "Personalized trip coordination from initial message to arrival at your destination."
+    flow_1_num: "01"
+    flow_1_title: "Tell Us Where You're Going"
+    flow_1_desc: "Share your travel dates, destinations, passenger count, and timing directly with our team on WhatsApp."
+    flow_2_num: "02"
+    flow_2_title: "We Coordinate the Journey"
+    flow_2_desc: "We confirm vehicle availability, agree upon the routing and schedule, and establish clear, transparent pricing."
+    flow_3_num: "03"
+    flow_3_title: "Travel Without Driving"
+    flow_3_desc: "Your driver meets you at your hotel or arrival point, assists with bags, and manages all driving and parking."
+    flow_4_num: "04"
+    flow_4_title: "Enjoy Agreed Flexibility"
+    flow_4_desc: "Pause for scenic viewpoints, roadside tea, and regional lunches within your agreed daily journey itinerary."
+
+    # Vehicles section
+    vehicles_eyebrow: "Available Vehicles"
+    vehicles_title: "Comfortable Vehicles for Every Journey"
+    vehicles_subtitle: "Spacious, well-maintained vehicles suitable for scenic routes and highland exploration."
+    inquire_vehicle_btn: "Inquire on WhatsApp"
+    no_vehicles: "Chauffeured vehicle options are currently being updated. Please message us on WhatsApp for live fleet availability."
+
+    # What's Included
+    included_eyebrow: "Service Inclusions"
+    included_title: "What is Included With Your Service"
+    included_subtitle: "Clear standards designed to ensure seamless, comfortable regional travel."
+    inc_1_title: "Dedicated Private Vehicle"
+    inc_1_desc: "An air-conditioned, clean vehicle reserved exclusively for your party with no shared passengers."
+    inc_2_title: "Local Driver Service"
+    inc_2_desc: "A courteous driver familiar with regional routes, scenic passes, and local mountain conditions."
+    inc_3_title: "Agreed Route & Schedule"
+    inc_3_desc: "Your transportation is coordinated around your planned itinerary, stops, and agreed pickup times."
+    inc_4_title: "Direct Team Coordination"
+    inc_4_desc: "Our office team remains accessible via WhatsApp for ongoing trip coordination and practical travel support."
+    included_disclaimer: "Note: Inclusions such as fuel, highway tolls (HGS), daily driving hours, and distance allowances depend on the specific itinerary and arrangement. All details are confirmed transparently with our team before your journey."
+
+    # Chauffeured vs Self-Drive
+    vs_eyebrow: "Compare Your Options"
+    vs_title: "Chauffeured Service or Self-Drive?"
+    vs_subtitle: "Choose the travel style that best matches your comfort, preferences, and holiday plans."
+    vs_chauff_badge: "Chauffeured Service"
+    vs_chauff_title: "Dedicated Local Driver"
+    vs_chauff_point_1: "Sit back and relax without navigating unfamiliar mountain roads"
+    vs_chauff_point_2: "No concerns regarding parking, traffic, or directions"
+    vs_chauff_point_3: "Ideal for families, groups, and travelers seeking complete rest"
+    vs_self_badge: "Self-Drive Rental"
+    vs_self_title: "Independent Driving"
+    vs_self_point_1: "Complete personal autonomy over every turn and departure"
+    vs_self_point_2: "Best for confident drivers who enjoy driving abroad"
+    vs_self_point_3: "Flexible exploration of remote villages at your own pace"
+    vs_self_link: "Explore Self-Drive Car Rental"
+
+    # Common Use Cases
+    cases_eyebrow: "Travel Arrangements"
+    cases_title: "Common Chauffeured Arrangements"
+    cases_subtitle: "Private chauffeured transportation can be customized for diverse regional travel needs. Discuss your planned route with our team:"
+    case_1_title: "Full-Day Regional Sightseeing"
+    case_1_desc: "Dedicated transportation for day trips to Uzungöl, Ayder Plateau, Sumela Monastery, or Hıdırnebi with waiting time included at attractions."
+    case_2_title: "Intercity & Valley Transfers"
+    case_2_desc: "Comfortable private point-to-point journeys connecting Trabzon, Rize, coastal towns, and highland mountain chalets."
+    case_3_title: "Airport & Accommodation Connections"
+    case_3_desc: "Coordinated airport arrival with direct transport to highland retreats or rural lodgings where public transit is limited."
+    case_4_title: "Family & Group Day Travel"
+    case_4_desc: "Generous luggage and seating space for multi-generational families visiting scenic restaurants, tea gardens, and viewpoints."
+
+    # What We Need From You
+    details_eyebrow: "Simple Booking"
+    details_title: "What to Send Us on WhatsApp"
+    details_subtitle: "To provide an accurate quote and confirm vehicle availability, simply message us with:"
+    req_1_title: "Dates & Schedule"
+    req_1_desc: "Your preferred travel date, pickup time, and estimated duration of service."
+    req_2_title: "Party Size & Luggage"
+    req_2_desc: "The number of passengers traveling and approximate number of luggage bags."
+    req_3_title: "Pickup & Destinations"
+    req_3_desc: "Your starting location and the places or general route you wish to visit."
+    req_4_title: "Special Requests"
+    req_4_desc: "Child seat requirements or specific timing preferences for your day."
+
+    # Practical FAQ
+    faq_eyebrow: "Common Questions"
+    faq_title: "Frequently Asked Questions"
+    faq_1_q: "What does the chauffeured car service include?"
+    faq_1_a: "The service includes a dedicated private vehicle and driver assigned exclusively to your party for the agreed route and timing. Specific inclusions regarding fuel, daily hours, and tolls (HGS) depend on your chosen route and are confirmed with our team prior to booking."
+    faq_2_q: "Can I arrange a driver for a full day of sightseeing?"
+    faq_2_a: "Yes. Full-day private chauffeured journeys are the most popular way to explore destinations like Uzungöl, Ayder Plateau, and Sumela Monastery at a relaxed, unhurried pace."
+    faq_3_q: "Can we travel outside Trabzon to other provinces?"
+    faq_3_a: "Yes. Journeys connecting Trabzon with Rize, Artvin, Giresun, and remote highland valleys across the Eastern Black Sea can be arranged by prior coordination with our team."
+    faq_4_q: "Does the driver wait for us during sightseeing and lunch?"
+    faq_4_a: "Yes. For full-day and agreed sightseeing arrangements, your driver waits while you visit attractions, take photographs, or dine, and remains ready when you wish to proceed."
+    faq_5_q: "How is the price calculated?"
+    faq_5_a: "Pricing is calculated based on the requested route, estimated distance, and duration of service. All prices are quoted transparently in advance with no unexpected charges."
+    faq_6_q: "How far in advance should I contact you?"
+    faq_6_a: "We recommend contacting us as soon as your travel dates and flights are confirmed, particularly during the high summer season when private vehicle demand across the Black Sea is high."
+    faq_7_q: "Can airport pickup be combined with our chauffeured journey?"
+    faq_7_a: "Yes. Your driver can meet you upon arrival at Trabzon Airport and begin your chauffeured itinerary directly, whether proceeding into the city or straight to highland accommodations."
+    faq_8_q: "Can one of us drive the vehicle instead?"
+    faq_8_a: "No. Chauffeured vehicles are operated exclusively by the assigned authorized driver. If you prefer to drive independently, please explore our Self-Drive Car Rental service."
+
+    # Final CTA
+    final_eyebrow: "Relaxed Travel"
+    final_title: "Leave the driving to us."
+    final_subtitle: "Send us your travel dates, planned destinations, and party size. We will confirm vehicle availability and coordinate your chauffeured journey directly on WhatsApp."
   private_tours_page:
     page_title: Private Tours - 61 EDİZ TRAVEL
     eyebrow: Private Tours

@@ -503,17 +503,139 @@ tr:
     whatsapp_cta: "WhatsApp ile İletişime Geçin"
     available_note: "WhatsApp üzerinden doğrudan iletişim • 61 EDİZ TRAVEL"
   chauffeured_car_page:
-    page_title: Şoförlü Araç Kiralama - 61 EDİZ TRAVEL
-    eyebrow: Ulaşım
-    title: Şoförlü Araç
-    description: Hizmetinize tahsis edilmiş özel araç ve şoför ile tam konfor ve esnekliğin
-      keyfini çıkarın.
-    how_it_works: Kusursuz Bir Seyahat Deneyimi
-    how_it_works_desc: Karadeniz rotalarını araç kullanma veya park stresi yaşamadan
-      gezin. Şoförlü araç hizmetimiz rotanız boyunca sürüşü üstlenir, siz sadece manzaranın
-      tadını çıkarırsınız.
-    request_driver: Şoför Talep Edin
-    inquire_now: Bilgi Alın
+    page_title: "Trabzon Şoförlü Araç Kiralama • Özel Sürücülü Seyahat - 61 EDİZ TRAVEL"
+    meta_description: "Trabzon ve Doğu Karadeniz'i özel araç ve yerel şoför konforuyla keşfedin. Dağ yollarında huzurlu yolculuk, yayla transferleri ve doğrudan WhatsApp rezervasyonu."
+    eyebrow: "Özel Şoför • Trabzon & Karadeniz"
+    hero_title: "Siz Seyahatin Tadını Çıkarın, Yolu Şoförünüz Yönetsin."
+    hero_subtitle: "Arkanıza yaslanın, yemyeşil vadi manzaralarını seyredin; virajlı dağ yollarını, trafiği ve park yerlerini yerel şoförünüze bırakın. Trabzon ve Doğu Karadeniz'i tam bir huzur ve konforla deneyimleyin."
+    plan_journey: "Şoförlü Yolculuğunuzu Planlayın"
+    whatsapp_cta: "WhatsApp ile İletişime Geçin"
+    available_note: "WhatsApp üzerinden doğrudan koordinasyon • 61 EDİZ TRAVEL"
+    whatsapp_general_message: "Merhaba 61 EDİZ TRAVEL, Trabzon'da özel şoförlü araç hizmeti ayarlamak istiyorum. Yolculuk bilgilerim:"
+
+    # About
+    about_eyebrow: "Hizmet Hakkında"
+    about_title: "Şoförlü Araç Hizmeti Nedir?"
+    about_subtitle: "Yalnızca size ve sevdiklerinize tahsis edilen konforlu bir araç ve yerel bir şoför eşliğinde kişisel seyahat."
+    about_desc: "Şoförlü araç hizmeti; tatiliniz boyunca yol ve sürüş stresinden uzak kalarak belirlediğiniz rotada özel bir araç ve sürücüyle seyahat etmenizi sağlar. Kalabalık tur gruplarından bağımsız, ailenizle veya arkadaşlarınızla kendi temponuzda hareket edersiniz. Klasik taksi kullanımının aksine, aracınız önceden rezerve edilir ve kararlaştırılan süre boyunca size hizmet verir."
+
+    # When it makes sense
+    when_eyebrow: "Neden Özel Şoför?"
+    when_title: "Trabzon'da Neden Şoförlü Araç Tercih Edilmeli?"
+    when_subtitle: "Bölgenin dik vadi yollarında, sisli yayla geçitlerinde ve sahil trafiğinde yolculuk etmek özel bir şoförle çok daha dinlendiricidir."
+    when_1_title: "Aileler ve Geniş Gruplar"
+    when_1_desc: "Çocukları, aile büyüklerini ve bagajları tek bir konforlu araçta toplayarak herkesin manzarayı birlikte izlemesini sağlayın."
+    when_2_title: "Dağ ve Yayla Yolları"
+    when_2_desc: "Dik yokuşlar, keskin virajlar ve değişken Karadeniz hava şartlarında direksiyonu bölge yollarına hakim bir sürücüye bırakın."
+    when_3_title: "Park Sorunu Olmadan Gezi"
+    when_3_desc: "Uzungöl veya Sümela Manastırı gibi yoğun turistik noktalarda park yeri aramakla vakit kaybetmeden doğrudan kapıda inin."
+    when_4_title: "Araba Kullanmak İstemeyenler"
+    when_4_desc: "Yol tariflerine ve navigasyona odaklanmak yerine tatiliniz boyunca dinlenin, sohbet edin ve fotoğraf çekin."
+
+    # Flow
+    flow_eyebrow: "Kolay Süreç"
+    flow_title: "Şoförlü Seyahat Süreci Nasıl İşler?"
+    flow_subtitle: "İlk mesajınızdan varış noktanıza kadar kişisel ve kolay bir koordinasyon."
+    flow_1_num: "01"
+    flow_1_title: "Rotanızı Paylaşın"
+    flow_1_desc: "Seyahat tarihlerinizi, gitmek istediğiniz yerleri, kişi sayısını ve saat tercihlerinizi WhatsApp'tan bize iletin."
+    flow_2_num: "02"
+    flow_2_title: "Yolculuğu Planlayalım"
+    flow_2_desc: "Araç müsaitliğini teyit edelim, güzergahı ve zamanlamayı belirleyip net fiyatlandırmayı önceden paylaşalım."
+    flow_3_num: "03"
+    flow_3_title: "Sürüş Stresi Olmadan Seyahat Edin"
+    flow_3_desc: "Şoförünüz sizi otelinizde veya belirlenen noktada karşılasın, bagajlarınıza yardımcı olsun ve yola çıkın."
+    flow_4_num: "04"
+    flow_4_title: "Esnekliğin Keyfini Yaşayın"
+    flow_4_desc: "Kararlaştırılan günlük program çerçevesinde fotoğraf molaları verin, yöresel lezzetleri tadın ve gününüzü dilediğiniz gibi geçirin."
+
+    # Vehicles
+    vehicles_eyebrow: "Mevcut Araçlar"
+    vehicles_title: "Yolculuğunuza Uygun Konforlu Araçlar"
+    vehicles_subtitle: "Manzaralı yayla rotaları ve şehirler arası transferler için ferah ve bakımlı araç modelleri."
+    inquire_vehicle_btn: "WhatsApp ile Bilgi Alın"
+    no_vehicles: "Şoförlü araç seçeneklerimiz güncellenmektedir. Anlık araç durumu için lütfen WhatsApp üzerinden iletişime geçin."
+
+    # What's Included
+    included_eyebrow: "Hizmet Kapsamı"
+    included_title: "Hizmetinize Neler Dahil?"
+    included_subtitle: "Yolculuğunuzu baştan sona sorunsuz ve şeffaf kılmak için tasarlanmış standartlar."
+    inc_1_title: "Özel Tahsis Edilmiş Araç"
+    inc_1_desc: "Yabancı yolcularla paylaşılmayan, yalnızca grubunuza özel klimalı ve temiz araç."
+    inc_2_title: "Yerel Şoför Hizmeti"
+    inc_2_desc: "Bölge coğrafyasına, yayla geçitlerine ve alternatif güzergahlara hakim saygılı bir sürücü."
+    inc_3_title: "Belirlenen Rota ve Zamanlama"
+    inc_3_desc: "Önceden kararlaştırılan seyahat planına ve duraklara uygun olarak yürütülen ulaşım."
+    inc_4_title: "Doğrudan Ekip Desteği"
+    inc_4_desc: "Yolculuk boyunca soru ve koordinasyon ihtiyaçlarınız için WhatsApp üzerinden ulaşılabilir ofis ekibi."
+    included_disclaimer: "Not: Yakıt, HGS otoyol geçişleri, günlük çalışma saatleri ve kilometre sınırları seçilen rotaya ve programa göre belirlenir. Tüm ayrıntılar yolculuk öncesinde ekibimiz tarafından açıkça paylaşılır."
+
+    # Chauffeured vs Self-Drive
+    vs_eyebrow: "Seçenekleri Karşılaştırın"
+    vs_title: "Şoförlü Hizmet mi, Kendi Aracınız mı?"
+    vs_subtitle: "Tatil beklentinize ve seyahat tarzınıza en uygun tercihi yapın."
+    vs_chauff_badge: "Şoförlü Hizmet"
+    vs_chauff_title: "Özel Yerel Şoför"
+    vs_chauff_point_1: "Virajlı dağ yollarında direksiyon başına geçmeden manzaranın tadını çıkarın"
+    vs_chauff_point_2: "Otopark, yol tarifi veya trafik stresi yaşamadan rahatça gezin"
+    vs_chauff_point_3: "Aileler, kalabalık gruplar ve tam anlamıyla dinlenmek isteyenler için ideal"
+    vs_self_badge: "Bireysel Kiralama"
+    vs_self_title: "Kendi Aracınızı Kullanın"
+    vs_self_point_1: "Her durak ve hareket saati üzerinde tam kişisel bağımsızlık"
+    vs_self_point_2: "Yurtdışında araba sürmekten keyif alan deneyimli sürücüler için uygun"
+    vs_self_point_3: "Uzak köyleri ve doğayı kendi temponuzda bireysel keşfetme imkanı"
+    vs_self_link: "Bireysel Araç Kiralama Hizmetini İnceleyin"
+
+    # Use Cases
+    cases_eyebrow: "Seyahat Seçenekleri"
+    cases_title: "Sıkça Tercih Edilen Şoförlü Rotalar"
+    cases_subtitle: "Özel şoförlü ulaşım hizmeti farklı seyahat ihtiyaçlarına göre şekillendirilebilir. Düşündüğünüz rotayı ekibimizle görüşebilirsiniz:"
+    case_1_title: "Günübirlik Bölgesel Geziler"
+    case_1_desc: "Uzungöl, Ayder Yaylası, Sümela Manastırı veya Hıdırnebi gibi popüler noktalara bekleme süresi dahil günübirlik özel ulaşım."
+    case_2_title: "Şehirler Arası ve Vadi Transferleri"
+    case_2_desc: "Trabzon, Rize, sahil kasabaları ve yayla tesisleri arasında konforlu noktadan noktaya transferler."
+    case_3_title: "Havalimanı ve Konaklama Bağlantıları"
+    case_3_desc: "Trabzon Havalimanı karşılaması sonrası toplu taşımanın sınırlı olduğu dağ evlerine veya otellere doğrudan ulaşım."
+    case_4_title: "Aile ve Grup Gezileri"
+    case_4_desc: "Geniş bagaj ve oturma alanıyla seyir terasları, çay bahçeleri ve yöresel restoranlar arasında rahat seyahat."
+
+    # What We Need
+    details_eyebrow: "Kolay Rezervasyon"
+    details_title: "WhatsApp'tan Bize Neler İletmelisiniz?"
+    details_subtitle: "Size en uygun aracı ve net fiyatı sunabilmemiz için aşağıdaki bilgileri paylaşmanız yeterlidir:"
+    req_1_title: "Tarihler ve Saatler"
+    req_1_desc: "Seyahat tarihiniz, aracı talep ettiğiniz saat ve tahmini hizmet süresi."
+    req_2_title: "Yolcu Sayısı ve Bagaj"
+    req_2_desc: "Kaç kişi seyahat edeceğiniz ve yaklaşık valiz sayınız."
+    req_3_title: "Alınış Yeri ve Güzergah"
+    req_3_desc: "Nereden alınmak istediğiniz ve ziyaret etmeyi planladığınız yerler."
+    req_4_title: "Özel Talepler"
+    req_4_desc: "Bebek koltuğu ihtiyacı veya rotadaki özel durak istekleriniz."
+
+    # FAQ
+    faq_eyebrow: "Merak Edilenler"
+    faq_title: "Sıkça Sorulan Sorular"
+    faq_1_q: "Şoförlü araç hizmetine neler dahildir?"
+    faq_1_a: "Hizmet, kararlaştırılan süre ve rota boyunca yalnızca grubunuza tahsis edilen özel araç ve sürücüyü kapsar. Yakıt, günlük süre ve HGS otoyol geçişleri gibi ayrıntılar seçilen programa göre belirlenir ve rezervasyon öncesinde ekibimizle teyit edilir."
+    faq_2_q: "Tam gün geziler için şoförlü araç ayarlayabilir miyim?"
+    faq_2_a: "Evet. Uzungöl, Ayder Yaylası ve Sümela Manastırı gibi bölgeleri kendi temponuzda gezmek için tam günlük özel şoförlü turlar en çok tercih edilen seyahat şeklidir."
+    faq_3_q: "Trabzon dışındaki şehirlere (Rize, Artvin vb.) gidebilir miyiz?"
+    faq_3_a: "Evet. Trabzon'dan Rize, Artvin, Giresun ve Doğu Karadeniz'in diğer vadi ve yaylalarına önceden planlanarak şehirler arası seyahat ayarlanabilir."
+    faq_4_q: "Şoför gezi ve yemek sırasında bizi bekliyor mu?"
+    faq_4_a: "Evet. Anlaşılan günlük gezi programı boyunca şoförünüz siz ören yerlerini gezerken veya yemek yerken araç başında sizi bekler ve devam etmeye hazır bulunur."
+    faq_5_q: "Fiyatlandırma nasıl belirlenir?"
+    faq_5_a: "Fiyatlar talep edilen rota, toplam mesafe ve hizmet süresine göre hesaplanır. Tüm detaylar seyahatinizden önce net bir şekilde belirlenir; sürpriz ek ücretlerle karşılaşmazsınız."
+    faq_6_q: "Ne kadar süre önceden rezervasyon yapmalıyım?"
+    faq_6_a: "Özellikle araç talebinin yoğun olduğu yaz sezonunda ve bayram dönemlerinde seyahat tarihleriniz belli olur olmaz iletişime geçmenizi öneririz."
+    faq_7_q: "Havalimanı karşılaması şoförlü geziye dahil edilebilir mi?"
+    faq_7_a: "Evet. Şoförünüz sizi Trabzon Havalimanı'nda karşılayabilir ve doğrudan gezi rotanıza veya konaklama yerinize doğru yola çıkabilirsiniz."
+    faq_8_q: "Aracı bizden biri de kullanabilir mi?"
+    faq_8_a: "Hayır. Şoförlü kiralama kapsamındaki araçlar yalnızca yetkili şoför tarafından kullanılır. Kendi aracınızı sürmek istiyorsanız Bireysel Araç Kiralama hizmetimizi inceleyebilirsiniz."
+
+    # Final CTA
+    final_eyebrow: "Huzurlu Seyahat"
+    final_title: "Yolu bize bırakın."
+    final_subtitle: "Seyahat tarihlerinizi, gitmek istediğiniz yerleri ve kişi sayınızı bize iletin; aracınızı ve yolculuk planınızı doğrudan WhatsApp üzerinden birlikte netleştirelim."
   private_tours_page:
     page_title: Özel Turlar - 61 EDİZ TRAVEL
     eyebrow: Özel Turlar

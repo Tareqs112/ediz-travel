@@ -13,10 +13,35 @@ class ServicesControllerTest < ActionDispatch::IntegrationTest
   test "should get chauffeured car and show only active chauffeured vehicles" do
     get chauffeured_car_url
     assert_response :success
+    assert_select "h1", text: "You Travel. Your Driver Handles the Road."
     assert_select "h3", text: "Mercedes Vito"
     assert_select "h3", text: "Renault Taliant", count: 0
     assert_select "h3", text: "Hidden Car", count: 0
     assert_select "h3", text: "Internal Van", count: 0
+    # Hero anchor CTA to vehicles and arrangements
+    assert_select "a[href='#vehicles-and-arrangements']", minimum: 1
+    # WhatsApp direct coordination CTA
+    assert_select "a[href*='wa.me/905540171890']", minimum: 2
+    assert_select "a[href*='text=Hello']", minimum: 1
+    # Link to Car Rental service comparison
+    assert_select "a[href*='car-rental']", minimum: 1
+  end
+
+  test "should get chauffeured car in Arabic with localized WhatsApp message" do
+    get chauffeured_car_url(locale: :ar)
+    assert_response :success
+    assert_select "h1", text: "استمتع برحلتك.. ودع السائق يتولى الطريق."
+    assert_select "a[href*='wa.me/905540171890']", minimum: 2
+    # Verify proper URL encoded Arabic text
+    assert_select "a[href*='%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B']", minimum: 1
+  end
+
+  test "should get chauffeured car in Turkish with localized WhatsApp message" do
+    get chauffeured_car_url(locale: :tr)
+    assert_response :success
+    assert_select "h1", text: "Siz Seyahatin Tadını Çıkarın, Yolu Şoförünüz Yönetsin."
+    assert_select "a[href*='wa.me/905540171890']", minimum: 2
+    assert_select "a[href*='text=Merhaba']", minimum: 1
   end
 
   test "should get car rental and show only active self drive vehicles" do
