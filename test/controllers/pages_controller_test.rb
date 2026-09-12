@@ -12,7 +12,7 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
     blob = ActiveStorage::Blob.find_or_initialize_by(key: "test-hero.mp4")
     blob.filename = "hero.mp4"
     blob.content_type = "video/mp4"
-    blob.byte_size = 4_917_824
+    blob.byte_size = 4_686_396
     blob.checksum = "test-checksum"
     blob.service_name = Rails.configuration.active_storage.service.to_s
     blob.save!
@@ -27,7 +27,8 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
 
     get root_url
     assert_response :success
-    assert_select "video[autoplay][muted][loop][playsinline][preload='metadata'][poster]"
+    assert_select "video[autoplay][muted][loop][playsinline][preload='metadata']"
+    assert_select "video[poster]", count: 0
     assert_select "video source[type='video/mp4']"
 
     attachment.destroy

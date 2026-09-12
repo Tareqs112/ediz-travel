@@ -6,7 +6,6 @@
 <section class="relative w-full h-[90vh] min-h-[560px] max-h-[900px] flex items-end overflow-hidden bg-black">
   <% if video_url.present? %>
     <video autoplay muted loop playsinline preload="metadata"
-           poster="<%= asset_path('uzungol.webp') %>"
            class="absolute inset-0 w-full h-full object-cover bg-black">
       <source src="<%= video_url %>" type="video/mp4">
     </video>
