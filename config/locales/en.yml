@@ -695,33 +695,201 @@ en:
         or arrange a private booking for this package.
       inquire_now: Inquire Now
   accommodations:
-    page_title: Accommodation - 61 EDİZ TRAVEL
-    eyebrow: Accommodation
-    heading_default: Accommodations in the Region
-    subtitle: We arrange hotels, wooden bungalows, chalets, and apartments tailored
-      to your travel plans across Trabzon and the Eastern Black Sea.
-    all_stays: All Stays
-    hotels: Hotels
-    bungalows: Bungalows
-    apartments: Apartments
-    chalets: Chalets
-    featured: Featured
-    view_details: View Details
-    empty_title: Looking for accommodations?
-    empty_desc: Looking for accommodation in Trabzon? Tell us what you need and we'll
-      help you explore suitable options.
-    request_accommodation: Request Accommodation
+    page_title: "Accommodation in Trabzon & Eastern Black Sea - 61 EDİZ TRAVEL"
+    meta_description: "Arrange boutique hotels, wooden bungalows, mountain chalets, and family apartments across Trabzon, Uzungöl, and Ayder with 61 EDİZ TRAVEL."
+    eyebrow: "Accommodation"
+    heading_default: "Where You Stay Shapes How You Experience the Black Sea."
+    subtitle: "From city-center hotels and lakeside bungalows to secluded mountain chalets, we coordinate comfortable regional stays aligned with your itinerary."
+    explore_stays_btn: "Explore Stays"
+    whatsapp_cta: "WhatsApp Us"
+    available_note: "Direct consultation · Local coordination · +90 554 017 18 90"
+    all_stays: "All Stays"
+    hotels: "Hotels"
+    bungalows: "Bungalows"
+    apartments: "Apartments"
+    chalets: "Chalets"
+    featured: "Featured"
+    view_details: "View Details"
+    empty_title: "Curating Stays for Your Dates"
+    empty_desc: "We coordinate accommodations across Trabzon and the Black Sea based on live availability and your personal itinerary. Message us on WhatsApp to discuss curated properties."
+    request_accommodation: "Request Accommodation on WhatsApp"
+
+    # WhatsApp message
+    whatsapp_message: "Hello 61 EDİZ TRAVEL, I would like help arranging accommodation in Trabzon / the Eastern Black Sea. My stay details are:"
+
+    # Why It Matters Section
+    matters_eyebrow: "Trip Design"
+    matters_title: "Why Accommodation Choice Matters"
+    matters_subtitle: "The geography of the Eastern Black Sea means your accommodation base fundamentally defines your daily travel rhythm."
+    matter_1_title: "City Convenience vs Highland Serenity"
+    matter_1_desc: "A city hotel puts seaside dining, historical landmarks, and airport proximity at your doorstep, while a mountain bungalow offers mist-shrouded mornings and immediate immersion in nature."
+    matter_2_title: "Minimizing Mountain Road Fatigue"
+    matter_2_desc: "Distances across highland valleys can require substantial drive times. Choosing accommodation closer to your day's exploration preserves your energy for the scenery rather than the commute."
+    matter_3_title: "Matching Space to Your Group"
+    matter_3_desc: "Couples often value private balconies, tranquil valley vistas, and boutique warmth, while families benefit from multi-room apartments with living spaces and practical luggage access."
+
+    # Types of Stays Section
+    types_eyebrow: "Stay Categories"
+    types_title: "Distinct Ways to Stay in the Region"
+    types_subtitle: "Four primary styles of accommodation exist across the Eastern Black Sea, each suited to different preferences and travel itineraries."
+    type_hotels_badge: "Convenience & Service"
+    type_hotels_title: "Hotels & Boutique Stays"
+    type_hotels_desc: "Practical and reliable choices primarily situated in Trabzon city center, coastal towns, and central hubs. Ideal for travelers seeking traditional reception services, direct access to urban restaurants, and an effortless base for regional day tours."
+    type_hotels_suit: "Best for: First-time visitors, short stays, and travelers desiring seamless urban amenities."
+    type_bungalows_badge: "Nature Immersion"
+    type_bungalows_title: "Wooden Bungalows"
+    type_bungalows_desc: "Constructed with regional timber architecture and nestled along forested valley slopes, rushing streams, and tea terraces. Bungalows provide an authentic, atmospheric connection to the landscape with private veranda spaces."
+    type_bungalows_suit: "Best for: Couples and nature lovers seeking rustic charm and quiet mornings."
+    type_chalets_badge: "Mountain Escapes"
+    type_chalets_title: "Mountain Chalets"
+    type_chalets_desc: "Spacious wooden and stone chalets perched in highland plateaus and forested heights around Uzungöl and Ayder. Chalets combine alpine coziness, scenic mountain panoramas, and generous room for unhurried retreats."
+    type_chalets_suit: "Best for: Families, small groups, and extended nature retreats above the clouds."
+    type_apartments_badge: "Family Living"
+    type_apartments_title: "Furnished Apartments"
+    type_apartments_desc: "Well-appointed residential apartments featuring multiple bedrooms, separate living rooms, and kitchen facilities. Located across residential districts of Trabzon and coastal centers, offering domestic comfort and generous space."
+    type_apartments_suit: "Best for: Larger families, longer stays, and travelers requiring privacy and extra room."
+
+    # Where to Stay Section
+    where_eyebrow: "Regional Geography"
+    where_title: "Where to Base Your Stay"
+    where_subtitle: "Each area offers distinct landscape character and strategic travel advantages. We help arrange stays suited to your itinerary:"
+    loc_1_name: "Trabzon City Center & Coast"
+    loc_1_tag: "Urban Base & Coastal Hub"
+    loc_1_desc: "Ideal for travelers who value proximity to Trabzon Airport, seaside promenades, historical monuments like the Hagia Sophia Mosque and Atatürk Mansion, and a wide array of local dining. Serves as a versatile central launchpad for daily excursions in all directions."
+    loc_2_name: "Uzungöl & Surrounding Valleys"
+    loc_2_tag: "Iconic Alpine Lake"
+    loc_2_desc: "Positioned deep within the Soğanlı Mountains, staying near Uzungöl allows you to experience the lake in the peaceful early morning and tranquil evening hours after day-trip excursion crowds depart. Surrounded by pine-clad slopes and wooden architecture."
+    loc_3_name: "Ayder Plateau & Fırtına Valley"
+    loc_3_tag: "Highland Greens & Waterfalls"
+    loc_3_desc: "Famed for its cascading waterfalls, rolling alpine meadows, and historic stone arch bridges over the Fırtına River. Perfect for travelers exploring the Kaçkar Mountains, ancient castles like Zilkale, and scenic high plateaus such as Elevit and Huser."
+    loc_4_name: "Highland Ridges & Rural Retreats"
+    loc_4_tag: "Tranquility Above the Mist"
+    loc_4_desc: "Scattered throughout the high ridges of Hıdırnebi, Maçka, and Zigana. These secluded lodgings provide pure mountain air, traditional Karadeniz hospitality, and serene seclusion away from commercial tourism centers."
+
+    # Comparison: City vs Nature
+    vs_eyebrow: "Compare Environments"
+    vs_title: "City Stay vs. Nature Stay"
+    vs_subtitle: "Consider what kind of surroundings match your travel rhythm before finalizing your accommodations."
+    vs_city_badge: "City Stay"
+    vs_city_title: "Trabzon City & Coast"
+    vs_city_point_1: "Quick access to Trabzon Airport and main coastal highways"
+    vs_city_point_2: "Walkable dining, markets, cafes, and historical monuments"
+    vs_city_point_3: "Full urban infrastructure, reliable connectivity, and medical facilities"
+    vs_city_point_4: "Convenient central hub when taking day trips in opposite directions"
+    vs_nature_badge: "Nature / Highland Stay"
+    vs_nature_title: "Valleys, Lakes & Plateaus"
+    vs_nature_point_1: "Quiet mountain atmosphere with crisp highland air and pine views"
+    vs_nature_point_2: "Direct morning immersion in alpine scenery without highway driving"
+    vs_nature_point_3: "Peaceful evenings after daytime excursion visitors have departed"
+    vs_nature_point_4: "Authentic local architecture with wooden verandas and river sounds"
+
+    # How We Help Choose
+    help_eyebrow: "Personalized Selection"
+    help_title: "How We Help You Choose"
+    help_subtitle: "Rather than leaving you to navigate endless listings, our local team coordinates accommodation based on your complete travel profile."
+    help_1_title: "Your Daily Itinerary"
+    help_1_desc: "We align your stay locations with your planned sightseeing so you avoid unnecessary backtracking across mountain roads."
+    help_2_title: "Party Composition & Space"
+    help_2_desc: "We ensure bedrooms, bedding configurations, and living areas genuinely fit your family or group without cramped quarters."
+    help_3_title: "Vehicle Accessibility"
+    help_3_desc: "Certain remote highland chalets require specific road access. We verify road suitability based on whether you have a rental car or private driver."
+    help_4_title: "Practical Host Communication"
+    help_4_desc: "We prioritize established regional properties and communicate directly with local hosts to clarify property details and expectations before you arrive."
+
+    # Considerations Before Choosing
+    consider_eyebrow: "Practical Planning"
+    consider_title: "What to Consider Before Deciding"
+    consider_subtitle: "Keep these regional realities in mind when selecting accommodation in the Eastern Black Sea."
+    con_1_title: "Mountain Road Access"
+    con_1_desc: "Some nature bungalows and high chalets sit on steep or winding gravel paths. Consider whether you are comfortable driving or prefer a private chauffeur."
+    con_2_title: "Seasonal Mountain Weather"
+    con_2_desc: "Highland temperatures are noticeably cooler than the coast. Even during summer, evening mist and rain are common; we advise confirming heating arrangements with the property."
+    con_3_title: "Proximity to Dining"
+    con_3_desc: "While city hotels are steps from restaurants, remote chalets may require driving to dinner or arranging properties with on-site dining or kitchenette facilities."
+    con_4_title: "Luggage & Layout"
+    con_4_desc: "Multi-story wooden bungalows and split-level chalets often have wooden stairs. Families with strollers or mobility concerns should confirm layout suitability."
+
+    # For Families, Couples, Groups
+    groups_eyebrow: "Travel Styles"
+    groups_title: "Tailored to How You Travel"
+    groups_subtitle: "Accommodation priorities differ fundamentally depending on who is traveling."
+    grp_fam_title: "For Families"
+    grp_fam_desc: "Families prioritize connected rooms, practical kitchen amenities, secure balconies, and convenient parking. Multi-room apartments and family chalets allow parents and children to relax comfortably together."
+    grp_cpl_title: "For Couples"
+    grp_cpl_desc: "Couples looking for a romantic escape often prefer tranquil wooden bungalows perched over valley streams or boutique chalets with panoramic mist views, private fireplaces, and secluded terraces."
+    grp_grp_title: "For Small Groups"
+    grp_grp_desc: "Groups traveling together benefit from private multi-bedroom villas or adjacent chalet units with communal verandas for shared meals, tea, and evening gatherings."
+
+    # Journey Flow (01 to 05)
+    flow_eyebrow: "Simple Coordination"
+    flow_title: "How Accommodation Arrangement Works"
+    flow_subtitle: "A smooth, human process to coordinate the right property without booking confusion."
+    flow_1_num: "01"
+    flow_1_title: "Tell Us About Your Trip"
+    flow_1_desc: "Share your travel dates, party size, children's ages, and flight arrival times on WhatsApp."
+    flow_2_num: "02"
+    flow_2_title: "Describe Your Preferred Stay"
+    flow_2_desc: "Let us know whether you favor city hotels, riverside bungalows, mountain chalets, or family apartments."
+    flow_3_num: "03"
+    flow_3_title: "Receive Curated Options"
+    flow_3_desc: "We review live availability, evaluate itinerary logic, and send you suitable property suggestions."
+    flow_4_num: "04"
+    flow_4_title: "Confirm Your Selection"
+    flow_4_desc: "Once you choose the property that feels right, we finalize your reservation details and confirmation."
+    flow_5_num: "05"
+    flow_5_title: "Coordinate With Your Journey"
+    flow_5_desc: "Your stay is seamlessly integrated with your airport transfer, rental car, or private chauffeured driver."
+
+    # Travel Ecosystem Integration
+    eco_eyebrow: "Connected Travel"
+    eco_title: "Accommodation as Part of Your Whole Journey"
+    eco_subtitle: "A successful holiday isn't just a place to sleep—it's how smoothly your stay connects with your transportation and excursions."
+    eco_transfer_title: "Airport Transfer"
+    eco_transfer_desc: "Direct pickup from Trabzon Airport straight to your hotel, bungalow, or highland chalet door without luggage confusion."
+    eco_transfer_link: "Explore Airport Transfers"
+    eco_rental_title: "Self-Drive Car Rental"
+    eco_rental_desc: "Have a clean, inspected rental vehicle ready to explore remote valleys and highland chalets at your personal pace."
+    eco_rental_link: "Explore Car Rental"
+    eco_chauff_title: "Chauffeured Car Service"
+    eco_chauff_desc: "Leave mountain switchbacks and valley parking to an experienced local driver while you relax between destinations."
+    eco_chauff_link: "Explore Chauffeured Cars"
+    eco_tours_title: "Private Day Tours"
+    eco_tours_desc: "Coordinated morning pickups directly from your accommodation for exclusive day trips to Sümela, Uzungöl, and Ayder."
+    eco_tours_link: "Explore Private Tours"
+
+    # Practical FAQ
+    faq_eyebrow: "Common Inquiries"
+    faq_title: "Frequently Asked Questions"
+    faq_1_q: "What types of accommodation can you arrange?"
+    faq_1_a: "We arrange city hotels, boutique hotels, riverside wooden bungalows, mountain chalets, and fully-furnished family apartments across Trabzon and the Eastern Black Sea."
+    faq_2_q: "Where in the region can you arrange stays?"
+    faq_2_a: "We help coordinate accommodation in Trabzon city center, Akçaabat, Uzungöl, Çaykara, Rize, Fırtına Valley, Ayder Plateau, and surrounding highland areas depending on your itinerary."
+    faq_3_q: "Should I stay in Trabzon city or out in nature?"
+    faq_3_a: "Many travelers choose a combined itinerary: 2 to 3 nights in a Trabzon city hotel for historical sightseeing and shopping, followed by 2 to 3 nights in a valley bungalow or mountain chalet in Uzungöl or Ayder for tranquility."
+    faq_4_q: "Can accommodation be arranged together with our transportation?"
+    faq_4_a: "Yes. Coordinating accommodation alongside your airport transfer, private chauffeured driver, or self-drive rental ensures your driver knows the exact mountain roads and check-in timing."
+    faq_5_q: "Are apartments and chalets suitable for large families?"
+    faq_5_a: "Yes. Multiple-bedroom apartments in Trabzon and multi-room chalets in the valleys are particularly popular with families who desire living rooms, kitchenettes, and privacy."
+    faq_6_q: "Can you help select accommodation based on our itinerary?"
+    faq_6_a: "Absolutely. Send us the list of places you wish to visit, and our team will recommend the most logical accommodation bases to minimize drive times."
+    faq_7_q: "How far in advance should we contact you?"
+    faq_7_a: "During the high summer season (June through September), boutique bungalows and scenic chalets book out months in advance. We recommend reaching out as early as your dates are known."
+    faq_8_q: "Can you arrange accommodation for multiple nights and split stays?"
+    faq_8_a: "Yes. We regularly coordinate multi-night itineraries spanning different valleys—for example, nights in Trabzon, followed by nights in Uzungöl and Ayder."
+
+    # Final CTA
+    final_eyebrow: "Personalized Stays"
+    final_title: "Let your stay become part of the journey."
+    final_subtitle: "Tell us your travel dates, party size, and preferred style of stay. We will check live availability and help you select the ideal accommodation on WhatsApp."
+
     show:
       back_to_stays: Back to Stays
       about_stay: About this %{type}
-      default_desc: More details about %{name} will be available soon. Please contact
-        us for detailed information and availability.
+      default_desc: More details about %{name} will be available soon. Please contact us for detailed information and availability.
       request_availability: Request Availability
-      interested_in: Interested in staying at %{name}? Contact our travel specialists
-        to verify availability and secure your booking.
+      interested_in: Interested in staying at %{name}? Contact our travel specialists to verify availability and secure your booking.
       have_questions: Have questions?
-      have_questions_desc: Submit an inquiry and our team will get in touch with you
-        shortly.
+      have_questions_desc: Submit an inquiry and our team will get in touch with you shortly.
       notes_template: 'I am interested in booking: %{name}'
   travel_guides:
     page_title: Travel Guide - 61 EDİZ TRAVEL

@@ -698,33 +698,201 @@ tr:
         bu paket için rezervasyon talebinde bulunmak üzere bize ulaşın.
       inquire_now: Bilgi Alın & Rezervasyon
   accommodations:
-    page_title: Konaklama - 61 EDİZ TRAVEL
-    eyebrow: Konaklama
-    heading_default: Bölgedeki Konaklama Seçenekleri
-    subtitle: Trabzon ve Doğu Karadeniz seyahatiniz için oteller, ahşap bungalovlar,
-      dağ evleri ve apartlar ayarlıyoruz.
-    all_stays: Tüm Tesisler
-    hotels: Oteller
-    bungalows: Bungalovlar
-    apartments: Apartlar
-    chalets: Dağ Evleri
-    featured: Öne Çıkan
-    view_details: Detayları Gör
-    empty_title: Konaklama mı arıyorsunuz?
-    empty_desc: Trabzon'da konaklama yeri mi arıyorsunuz? İhtiyaçlarınızı bize iletin,
-      size uygun seçenekleri birlikte belirleyelim.
-    request_accommodation: Konaklama Talebi Gönder
+    page_title: "Trabzon ve Doğu Karadeniz Konaklama - 61 EDİZ TRAVEL"
+    meta_description: "Trabzon, Uzungöl ve Ayder'de butik oteller, ahşap bungalovlar, dağ evleri ve aile apartlarını 61 EDİZ TRAVEL güvencesiyle ayarlayın."
+    eyebrow: "Konaklama"
+    heading_default: "Nerede Kaldığınız, Karadeniz Deneyiminizi Belirler."
+    subtitle: "Şehir merkezi otellerinden göl kıyısı bungalovlara ve dağ evlerine kadar, rotanıza en uygun konaklama seçeneklerini koordine ediyoruz."
+    explore_stays_btn: "Tesisleri İnceleyin"
+    whatsapp_cta: "WhatsApp'tan Yazın"
+    available_note: "Doğrudan danışmanlık · Yerel koordinasyon · +90 554 017 18 90"
+    all_stays: "Tüm Tesisler"
+    hotels: "Oteller"
+    bungalows: "Bungalovlar"
+    apartments: "Apartlar"
+    chalets: "Dağ Evleri"
+    featured: "Öne Çıkan"
+    view_details: "Detayları Gör"
+    empty_title: "Tarihleriniz İçin Tesisler Belirleniyor"
+    empty_desc: "Trabzon ve Doğu Karadeniz genelinde konaklama yerlerini anlık müsaitlik ve gezi planınıza göre koordine ediyoruz. WhatsApp üzerinden bize ulaşarak özenle seçilmiş tesisleri öğrenebilirsiniz."
+    request_accommodation: "WhatsApp'tan Konaklama Danışın"
+
+    # WhatsApp message
+    whatsapp_message: "Merhaba 61 EDİZ TRAVEL, Trabzon / Doğu Karadeniz bölgesinde konaklama ayarlamak istiyorum. Konaklama bilgilerim:"
+
+    # Why It Matters Section
+    matters_eyebrow: "Seyahat Tasarımı"
+    matters_title: "Konaklama Seçimi Neden Önemlidir?"
+    matters_subtitle: "Doğu Karadeniz coğrafyasında konaklayacağınız nokta, günlük seyahat temponuzu ve yol konforunuzu doğrudan şekillendirir."
+    matter_1_title: "Şehir Kolaylığı ve Yayla Dinginliği"
+    matter_1_desc: "Şehir oteli sahil restoranlarını, tarihi noktaları ve havalimanı yakınlığını ayağınıza getirirken; dağ bungalovu sisli sabahlar ve doğayla baş başa bir uyanış sunar."
+    matter_2_title: "Dağ Yolu Yorgunluğunu Azaltmak"
+    matter_2_desc: "Yayla vadileri arasındaki mesafeler virajlı yollardan oluşur. Gezi noktalarınıza yakın bir konaklama üssü seçmek, enerjinizi yola değil manzaraya ayırmanızı sağlar."
+    matter_3_title: "Grubunuza Uygun Yaşam Alanı"
+    matter_3_desc: "Çiftler vadinin sessizliğini ve özel balkon manzarasını önemserken; çocuklu aileler çok odalı, ferah salonlu ve pratik apart dairelerde çok daha rahat eder."
+
+    # Types of Stays Section
+    types_eyebrow: "Konaklama Tarzları"
+    types_title: "Bölgede Dört Farklı Konaklama Deneyimi"
+    types_subtitle: "Doğu Karadeniz'de her seyahat tarzına ve tatil beklentisine hitap eden başlıca dört konaklama kategorisi bulunmaktadır."
+    type_hotels_badge: "Hizmet & Kolaylık"
+    type_hotels_title: "Oteller ve Butik Tesisler"
+    type_hotels_desc: "Trabzon şehir merkezinde, sahil şeridinde ve ana kavşaklarda yer alan konforlu tesisler. Resepsiyon hizmetleri, şehir restoranlarına yürüyüş mesafesi ve günlük turlar için merkezi bir hareket noktası arayanlar için idealdir."
+    type_hotels_suit: "Kimler için uygun: İlk kez gelenler, kısa süreli kalanlar ve kesintisiz şehir imkanları isteyenler."
+    type_bungalows_badge: "Doğayla İç İçe"
+    type_bungalows_title: "Ahşap Bungalovlar"
+    type_bungalows_desc: "Geleneksel ahşap mimariyle inşa edilmiş, orman yamaçlarına, çay bahçelerine ve coşkulu derelerin kıyısına konumlanmış özgün yapılar. Özel veranda alanlarıyla Karadeniz doğasını doğrudan hissettirir."
+    type_bungalows_suit: "Kimler için uygun: Çiftler, huzur arayanlar ve kuş sesleriyle uyanmak isteyen doğaseverler."
+    type_chalets_badge: "Yayla Kaçamağı"
+    type_chalets_title: "Dağ Evleri (Şaleler)"
+    type_chalets_desc: "Uzungöl ve Ayder çevresindeki yüksek platolarda yer alan geniş ahşap ve taş mimarili yayla evleri. Ferah yaşam alanları, dağ panoramaları ve bulutların üzerinde dingin bir tatil sunar."
+    type_chalets_suit: "Kimler için uygun: Aileler, arkadaş grupları ve doğanın kalbinde uzun süreli dinlenmek isteyenler."
+    type_apartments_badge: "Aile Konforu"
+    type_apartments_title: "Eşyalı Apart Daireler"
+    type_apartments_desc: "Birden fazla yatak odası, geniş oturma salonu ve mutfak donanımına sahip daireler. Trabzon'un nezih semtlerinde ev konforunda, bağımsız ve ekonomik bir alan sağlar."
+    type_apartments_suit: "Kimler için uygun: Kalabalık aileler, uzun süreli konaklamalar ve geniş alan arayanlar."
+
+    # Where to Stay Section
+    where_eyebrow: "Bölge Coğrafyası"
+    where_title: "Hangi Bölgede Konaklamalısınız?"
+    where_subtitle: "Her lokasyon farklı bir doğa karakterine ve gezi avantajına sahiptir. Seyahat planınıza uygun konaklamayı belirleyelim:"
+    loc_1_name: "Trabzon Şehir Merkezi ve Sahil"
+    loc_1_tag: "Merkezi Çıkış Noktası"
+    loc_1_desc: "Havalimanına hızlı ulaşım, sahil yürüyüş yolları, Ayasofya ve Atatürk Köşkü gibi tarihi ziyaretler ve zengin Karadeniz mutfağı için en pratik seçimdir. Tüm yönlere yapılacak günlük geziler için ideal bir üs görevi görür."
+    loc_2_name: "Uzungöl ve Çevre Vadiler"
+    loc_2_tag: "İkonik Dağ Gölü"
+    loc_2_desc: "Soğanlı Dağları'nın eteklerinde, çam ormanlarıyla çevrili Uzungöl'de konaklamak; gündüz turlarının kalabalığı çekildikten sonra gölün en sakin sabah ve akşam saatlerini yaşamanızı sağlar."
+    loc_3_name: "Ayder Yaylası ve Fırtına Vadisi"
+    loc_3_tag: "Şelaleler ve Yayla Yeşili"
+    loc_3_desc: "Gürül gürül akan Fırtına Deresi, tarihi kemer köprüler ve Kaçkar eteklerindeki yaylalar. Zilkale, Palovit Şelalesi ve Elevit gibi eşsiz noktalara yakın olmak isteyenler için mükemmel bir tercihtir."
+    loc_4_name: "Yüksek Yayla Sırtları ve Köy Evleri"
+    loc_4_tag: "Bulutların Üzerinde Sükunet"
+    loc_4_desc: "Hıdırnebi, Maçka ve Zigana sırtlarında yer alan sakin yapılar. Tertemiz yayla havası, geleneksel Karadeniz misafirperverliği ve ticari kalabalıktan tamamen uzak bir dinginlik sunar."
+
+    # Comparison: City vs Nature
+    vs_eyebrow: "Ortamları Karşılaştırın"
+    vs_title: "Şehir Konaklaması mı, Doğa Konaklaması mı?"
+    vs_subtitle: "Konaklamanızı kesinleştirmeden önce tatil temponuzla hangi çevrenin daha iyi örtüştüğünü değerlendirin."
+    vs_city_badge: "Şehir Konaklaması"
+    vs_city_title: "Trabzon Şehir Merkezi & Sahil"
+    vs_city_point_1: "Trabzon Havalimanı ve ana sahil yoluna dakikalar içinde erişim"
+    vs_city_point_2: "Restoranlar, çarşılar, kafeler ve tarihi noktalara yürüme mesafesi"
+    vs_city_point_3: "Kesintisiz şehir altyapısı, hızlı bağlantı ve sağlık hizmetlerine yakınlık"
+    vs_city_point_4: "Farklı yönlere yapılacak turlarda dengeli bir merkez konumu"
+    vs_nature_badge: "Doğa / Yayla Konaklaması"
+    vs_nature_title: "Vadiler, Göller & Yaylalar"
+    vs_nature_point_1: "Çam kokusu ve serin yayla havasıyla tam bir huzur ortamı"
+    vs_nature_point_2: "Güne doğrudan dağ manzarası eşliğinde başlama ayrıcalığı"
+    vs_nature_point_3: "Gündüz ziyaretçileri ayrıldıktan sonra vadinin sakinliğini yaşama imkanı"
+    vs_nature_point_4: "Ahşap verandalar ve dere şırıltısıyla özgün Karadeniz atmosferi"
+
+    # How We Help Choose
+    help_eyebrow: "Kişiye Özel Seçim"
+    help_title: "Doğru Tesisi Nasıl Birlikte Seçiyoruz?"
+    help_subtitle: "Yüzlerce ilan arasında kaybolmak yerine, deneyimli ekibimiz seyahat profilinize en uygun tesisi belirlemenize yardımcı olur."
+    help_1_title: "Günlük Gezi Programınız"
+    help_1_desc: "Konaklama noktanızı planladığınız rotayla uyumlu seçerek dağ yollarında gereksiz gidiş-dönüşleri önlüyoruz."
+    help_2_title: "Kişi Sayısı ve Yatak Düzeni"
+    help_2_desc: "Ailenizin veya grubunuzun sıkışmadan, gerçek anlamda rahat edeceği oda ve yatak kapasitesini teyit ediyoruz."
+    help_3_title: "Yol ve Araç Uygunluğu"
+    help_3_desc: "Kimi yayla evlerinin yolu dik veya stabilizedir. Kiralık aracınızın veya tercih ettiğiniz ulaşım türünün yola uygunluğunu kontrol ediyoruz."
+    help_4_title: "Yerel İşletmelerle İletişim"
+    help_4_desc: "Bölgede bilinen işletmeleri önceliklendiriyor; tesis imkanları ve beklentiler konusunda yerel ev sahipleriyle önceden iletişim kuruyoruz."
+
+    # Considerations Before Choosing
+    consider_eyebrow: "Pratik Tavsiyeler"
+    consider_title: "Karar Vermeden Önce Nelere Dikkat Edilmeli?"
+    consider_subtitle: "Doğu Karadeniz'de konaklama seçerken bölgenin coğrafi gerçeklerini göz önünde bulundurun."
+    con_1_title: "Yayla Yolu Koşulları"
+    con_1_desc: "Kimi orman içi bungalovlar dik ve virajlı yollarda bulunabilir. Kendi aracınızı sürme konusunda emin değilseniz şoförlü araç seçeneğini değerlendirebilirsiniz."
+    con_2_title: "Mevsimlik Yayla Havası"
+    con_2_desc: "Yayla sıcaklıkları sahile kıyasla oldukça serindir. Yaz aylarında dahi akşamları sis ve yağmur görülebilir; tesisin ısıtma imkanlarını önceden teyit etmenizi öneririz."
+    con_3_title: "Yeme-İçme İmkânları"
+    con_3_desc: "Şehir otellerinde restoranlara adım mesafesindeyken, izole yayla evlerinde akşam yemeği için tesisin mutfağı veya küçük bir sürüş gerekebilir."
+    con_4_title: "Merdiven ve Bagaj Durumu"
+    con_4_desc: "İki katlı ahşap bungalovlar genellikle ahşap merdivenlere sahiptir. Bebek arabası veya hareket kısıtlılığı olan misafirlerimizin oda tipini önceden teyit etmesi faydalıdır."
+
+    # For Families, Couples, Groups
+    groups_eyebrow: "Seyahat Grupları"
+    groups_title: "Seyahat Edenlere Özel Çözümler"
+    groups_subtitle: "Birlikte seyahat ettiğiniz kişilere göre konaklama öncelikleri tamamen değişir."
+    grp_fam_title: "Aileler İçin"
+    grp_fam_desc: "Aileler geniş odaları, mutfak kolaylığını, güvenli bahçe veya balkonları ve rahat otoparkı ön planda tutar. Çok odalı apartlar ve yayla evleri ebeveynlere ve çocuklara ferah bir alan sağlar."
+    grp_cpl_title: "Çiftler İçin"
+    grp_cpl_desc: "Romantik bir kaçamak planlayan çiftler genellikle vadi manzaralı ahşap bungalovları, şömineli butik dağ evlerini ve doğanın sessizliğini tercih eder."
+    grp_grp_title: "Gruplar İçin"
+    grp_grp_desc: "Birlikte tatile çıkan geniş aileler ve arkadaş grupları için ortak verandası ve geniş salonu bulunan müstakil villalar ve yan yana yayla evleri en konforlu çözümdür."
+
+    # Journey Flow (01 to 05)
+    flow_eyebrow: "Kolay Süreç"
+    flow_title: "Konaklama Koordinasyonu Nasıl İşler?"
+    flow_subtitle: "Belirsizlik yaşamadan, doğrudan ve şeffaf bir adımla doğru yerde konaklayın."
+    flow_1_num: "01"
+    flow_1_title: "Seyahatinizi Paylaşın"
+    flow_1_desc: "Tarihlerinizi, kişi sayınızı, varsa çocuk yaşlarını ve varış saatinizi WhatsApp üzerinden bize iletin."
+    flow_2_num: "02"
+    flow_2_title: "Tercihinizi Belirtin"
+    flow_2_desc: "Şehir oteli, göl kenarı bungalov, yayla evi veya aile apartı tercihinizi paylaşın."
+    flow_3_num: "03"
+    flow_3_title: "Özel Seçenekleri Alın"
+    flow_3_desc: "Müsaitlik durumunu ve rota mantığını inceleyerek size en uygun tesis önerilerini sunalım."
+    flow_4_num: "04"
+    flow_4_title: "Seçiminizi Onaylayın"
+    flow_4_desc: "İçinize sinen tesis belirlendiğinde rezervasyon ve detaylar eksiksiz olarak netleştirilir."
+    flow_5_num: "05"
+    flow_5_title: "Yolculuğunuzla Birleştirin"
+    flow_5_desc: "Konaklamanız; havalimanı transferiniz, kiralık aracınız veya özel şoförlü turunuzla senkronize edilir."
+
+    # Travel Ecosystem Integration
+    eco_eyebrow: "Bütünsel Seyahat"
+    eco_title: "Konaklamayı Seyahatinizin Bütünüyle Birleştirin"
+    eco_subtitle: "İyi bir tatil sadece uyunan bir oda değil, tüm günün ulaşım ve keşif akışıyla kusursuz bir uyum içinde olmasıdır."
+    eco_transfer_title: "Havalimanı Transferi"
+    eco_transfer_desc: "Trabzon Havalimanı'ndan tesisinizin kapısına kadar valiz ve rota zahmeti yaşamadan doğrudan ulaşım."
+    eco_transfer_link: "Havalimanı Transferini İnceleyin"
+    eco_rental_title: "Kiralık Araç"
+    eco_rental_desc: "Vadileri ve yaylaları kendi temponuzda özgürce keşfetmek için temiz ve bakımlı bir kiralık araç."
+    eco_rental_link: "Araç Kiralamayı İnceleyin"
+    eco_chauff_title: "Özel Şoförlü Araç"
+    eco_chauff_desc: "Virajlı dağ yollarını ve park yeri arayışını deneyimli yerel şoförümüze bırakarak yolun tadını çıkarın."
+    eco_chauff_link: "Şoförlü Araç Hizmetini İnceleyin"
+    eco_tours_title: "Özel Günübirlik Turlar"
+    eco_tours_desc: "Kaldığınız tesisin kapısından başlayan, Sümela, Uzungöl ve Ayder'e yönelik ailenize özel turlar."
+    eco_tours_link: "Özel Turlarımızı İnceleyin"
+
+    # Practical FAQ
+    faq_eyebrow: "Sık Sorulan Sorular"
+    faq_title: "Konaklama Hakkında Merak Edilenler"
+    faq_1_q: "Hangi tür konaklama seçeneklerini ayarlayabiliyorsunuz?"
+    faq_1_a: "Trabzon ve Doğu Karadeniz genelinde şehir otelleri, butik oteller, dere kenarı ahşap bungalovlar, yayla dağ evleri ve eşyalı aile apartları ayarlıyoruz."
+    faq_2_q: "Bölgenin hangi noktalarında konaklama ayarlayabilirsiniz?"
+    faq_2_a: "Gezi planınıza bağlı olarak Trabzon şehir merkezi, Akçaabat, Uzungöl, Çaykara, Rize, Fırtına Vadisi, Ayder Yaylası ve çevre yaylalarda koordinasyon sağlıyoruz."
+    faq_3_q: "Trabzon merkezde mi yoksa yaylalarda mı kalmalıyım?"
+    faq_3_a: "Pek çok misafirimiz dengeli bir program tercih eder: 2-3 gece şehir içi tarihi yerler ve alışveriş için Trabzon merkezde, ardından 2-3 gece doğa ve sessizlik için Uzungöl veya Ayder'de konaklamak yaygın bir tercihtir."
+    faq_4_q: "Konaklama rezervasyonunu ulaşım hizmetleriyle birlikte alabilir miyim?"
+    faq_4_a: "Evet. Konaklamanızı havalimanı transferi, kiralık araç veya şoförlü aracımızla birlikte planlamak tüm tatil akışınızı sorunsuz ve senkronize hale getirir."
+    faq_5_q: "Apartlar ve dağ evleri kalabalık aileler için uygun mudur?"
+    faq_5_a: "Evet. Trabzon'daki çok odalı daireler ve vadilerdeki şaleler, geniş oturma alanı, mutfak ve mahremiyet arayan aileler için oldukça elverişlidir."
+    faq_6_q: "Gezi rotama göre konaklama yeri tavsiye ediyor musunuz?"
+    faq_6_a: "Kesinlikle. Görmek istediğiniz yerleri bize ilettiğinizde, dağ yollarında vakit kaybetmemeniz için en mantıklı konaklama üslerini sizin için planlıyoruz."
+    faq_7_q: "Ne kadar önceden iletişime geçmeliyiz?"
+    faq_7_a: "Özellikle Haziran-Eylül arası yoğun yaz sezonunda nitelikli ahşap bungalovlar ve dağ evleri aylar öncesinden dolabilmektedir. Uçak biletleriniz netleşir netleşmez iletişime geçmenizi öneririz."
+    faq_8_q: "Farklı vadilerde bölünmüş konaklama ayarlayabilir misiniz?"
+    faq_8_a: "Evet. Seyahatinizin ilk günlerini Trabzon merkezde, sonraki günlerini ise Uzungöl veya Fırtına Vadisi'nde geçireceğiniz çok duraklı konaklamaları sıklıkla koordine ediyoruz."
+
+    # Final CTA
+    final_eyebrow: "Kişiye Özel Konaklama"
+    final_title: "Konaklamanız Yolculuğunuzun Bir Parçası Olsun."
+    final_subtitle: "Tarihlerinizi, kişi sayınızı ve hayalinizdeki konaklama tarzını bize iletin. Müsaitlik durumunu kontrol edip en doğru tesisleri WhatsApp üzerinden birlikte belirleyelim."
+
     show:
       back_to_stays: Konaklama yerlerine dön
       about_stay: Bu Tesis Hakkında (%{type})
-      default_desc: "%{name} hakkında detaylı bilgiler yakında eklenecektir. Bilgi
-        ve müsaitlik için lütfen bizimle iletişime geçin."
+      default_desc: "%{name} hakkında detaylı bilgiler yakında eklenecektir. Bilgi ve müsaitlik için lütfen bizimle iletişime geçin."
       request_availability: Müsaitlik Sor
-      interested_in: "%{name} tesisinde konaklamak ister misiniz? Müsaitliği kontrol
-        etmek ve rezervasyonunuzu güvenceye almak için uzmanlarımızla iletişime geçin."
+      interested_in: "%{name} tesisinde konaklamak ister misiniz? Müsaitliği kontrol etmek ve rezervasyonunuzu güvenceye almak için uzmanlarımızla iletişime geçin."
       have_questions: Sorularınız mı var?
-      have_questions_desc: Bir talep formu gönderin, ekibimiz en kısa sürede sizinle
-        iletişime geçsin.
+      have_questions_desc: Bir talep formu gönderin, ekibimiz en kısa sürede sizinle iletişime geçsin.
       notes_template: 'Rezervasyon yapmak istediğim tesis: %{name}'
   travel_guides:
     page_title: Gezi Rehberi - 61 EDİZ TRAVEL
