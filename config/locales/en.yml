@@ -373,17 +373,133 @@ en:
     whatsapp_cta: Chat on WhatsApp
     available_note: "Direct inquiry via WhatsApp • 61 EDİZ TRAVEL"
   car_rental_page:
-    page_title: Car Rental - 61 EDİZ TRAVEL
-    eyebrow: Transportation
-    title: Car Rental
-    description: Explore Trabzon and the Black Sea region at your own pace with a
-      rental vehicle arranged to meet your needs.
-    how_it_works: How It Works
-    how_it_works_desc: We help you secure a reliable rental vehicle for your journey.
-      Tell us your travel dates, preferred vehicle type, and any specific requirements,
-      and our team will provide you with available options.
-    request_vehicle: Request a Vehicle
-    inquire_now: Inquire Now
+    page_title: "Car Rental in Trabzon • Self-Drive Experiences - 61 EDİZ TRAVEL"
+    meta_description: "Explore Trabzon and the Black Sea at your own pace. Reliable self-drive car rental with comprehensive vehicle insurance included. Direct WhatsApp reservation."
+    eyebrow: "Self-Drive • Trabzon & Black Sea"
+    hero_title: "Your Own Car for the Black Sea."
+    hero_subtitle: "Set your own schedule, pause by mountain streams, and discover coastal towns and highland valleys at your personal pace. Enjoy the freedom of independent travel across Trabzon and the Eastern Black Sea."
+    find_car: "Find Your Car"
+    whatsapp_general_message: "Hello 61 EDİZ TRAVEL, I would like to rent a car in Trabzon. My rental details are:"
+
+    # Experience section
+    experience_eyebrow: "The Self-Drive Experience"
+    experience_title: "Why Choose Self-Drive in Trabzon?"
+    experience_subtitle: "For travelers who value autonomy, having your own vehicle transforms how you experience the Black Sea."
+    exp_1_title: "Freedom of Pace & Timing"
+    exp_1_desc: "Depart whenever you wish, stay longer at scenic viewpoints, and shape your day spontaneously without fixed tour schedules."
+    exp_2_title: "Multi-Destination Journeys"
+    exp_2_desc: "Ideal for road trips connecting Trabzon, Rize, coastal fishing villages, and regional mountain accommodations."
+    exp_3_title: "Practical for Families & Groups"
+    exp_3_desc: "Keep all your bags, child gear, and regional purchases with you in one comfortable vehicle throughout your trip."
+    exp_4_title: "Convenient for Rural Stays"
+    exp_4_desc: "Essential if you are staying in highland chalets, private villas, or village retreats outside Trabzon city center."
+
+    # Vehicles section
+    vehicles_eyebrow: "Available Vehicles"
+    vehicles_title: "Choose the Right Car for Your Trip"
+    vehicles_subtitle: "Select from dependable, well-maintained vehicles suitable for both coastal highways and highland roads."
+    no_vehicles: "Vehicles are currently being prepared. Please message us on WhatsApp for live vehicle availability and models."
+    inquire_vehicle_btn: "Inquire on WhatsApp"
+
+    # What's Included
+    included_eyebrow: "Peace of Mind"
+    included_title: "What is Included With Your Rental"
+    included_subtitle: "Clear inclusions designed to keep your journey straightforward and worry-free."
+    inc_1_title: "Comprehensive Vehicle Insurance"
+    inc_1_desc: "Comprehensive vehicle insurance is included with your rental, giving you assurance on every route."
+    inc_2_title: "Clear Pricing & Agreed Terms"
+    inc_2_desc: "Daily rates and rental terms are confirmed transparently in advance before you collect the vehicle."
+    inc_3_title: "Local Coordination & Support"
+    inc_3_desc: "Our local team is reachable via WhatsApp for handover coordination, location directions, and general travel guidance during your rental."
+    inc_4_title: "Clean & Prepared Vehicle"
+    inc_4_desc: "Your vehicle is cleaned, checked, and prepared before handover so you can begin your journey with confidence."
+
+    # Requirements / Before You Rent
+    req_eyebrow: "Before You Rent"
+    req_title: "General Rental Standards in Türkiye"
+    req_subtitle: "Car rental providers across Türkiye generally follow standard documentation and eligibility practices. The points below reflect common market standards (provided for general guidance, not legal advice):"
+    req_1_title: "Valid Driving Licence"
+    req_1_desc: "A national driving licence held for a qualifying period (commonly 1 to 3 years depending on vehicle category). Licences in non-Latin scripts typically require an International Driving Permit or certified translation under standard Turkish rental practice."
+    req_2_title: "Driver Age Standards"
+    req_2_desc: "In the Turkish rental market, minimum driver age generally ranges from 21 for economy vehicles to 25–28 for higher categories and SUVs, depending on the vehicle class."
+    req_3_title: "Passport & Entry Verification"
+    req_3_desc: "Original passport and proof of regular tourist entry into Türkiye (valid tourist entry stamp) are routinely requested by car rental providers in Türkiye."
+    req_4_title: "Payment & Security Deposit"
+    req_4_desc: "In standard Turkish rental practice, a credit card in the primary driver's name is typically requested for a temporary deposit pre-authorization covering road tolls (HGS), fuel variances, or incidental fees. Exact arrangements are confirmed with our team."
+    req_disclaimer: "General Guidance Notice: Information regarding regulations and market standards in Türkiye is provided for traveler guidance and does not constitute legal advice. Exact requirements and rental conditions are confirmed with our team based on the vehicle and rental arrangement."
+
+    # International Visitors Guide
+    intl_eyebrow: "International Visitors"
+    intl_title: "Information for Foreign Travelers"
+    intl_subtitle: "Practical information based on general Turkish traffic regulations and rental market practice for foreign visitors (general guidance, not legal advice)."
+    intl_1_title: "National Driving Licence Validity"
+    intl_1_desc: "Under general Turkish traffic regulations, foreign tourists may drive on a valid national driving licence for up to 6 months from their entry date, provided the licence is in Latin script. Long-term visitors or residents should consult official regulations."
+    intl_2_title: "When an IDP is Needed"
+    intl_2_desc: "If your national licence is issued in non-Latin characters (such as Arabic, Cyrillic, or Chinese), an International Driving Permit (IDP) or certified Turkish translation is standard practice among rental operators in Türkiye."
+    intl_3_title: "Entry Stamp Requirements"
+    intl_3_desc: "Rental providers in Türkiye typically inspect the entry stamp in your passport to verify regular tourist status. Please keep your passport and travel documentation accessible."
+    intl_4_title: "Tolls & Road Systems"
+    intl_4_desc: "Highways and bridges across Türkiye utilize an electronic toll transponder system (HGS). Toll charges incurred during your trip are recorded electronically and settled upon vehicle return."
+
+    # How It Works
+    flow_eyebrow: "Simple Coordination"
+    flow_title: "How the Rental Process Works"
+    flow_subtitle: "A direct, personal coordination process without rigid checkouts."
+    flow_1_num: "01"
+    flow_1_title: "Select Your Vehicle"
+    flow_1_desc: "Choose your preferred car model or category based on your party size and travel plans."
+    flow_2_num: "02"
+    flow_2_title: "Share Your Dates"
+    flow_2_desc: "Message us your arrival date, rental duration, and driver details directly on WhatsApp."
+    flow_3_num: "03"
+    flow_3_title: "Confirm Rental Terms"
+    flow_3_desc: "We confirm availability, total price, deposit criteria, and required documents with you."
+    flow_4_num: "04"
+    flow_4_title: "Collect & Explore"
+    flow_4_desc: "Meet for your coordinated vehicle handover at Trabzon Airport or your agreed location, and start your journey."
+
+    # Self-Drive vs Chauffeured
+    vs_eyebrow: "Compare Your Options"
+    vs_title: "Self-Drive or Chauffeured Car?"
+    vs_subtitle: "Both services offer distinct advantages depending on how you prefer to travel."
+    vs_self_badge: "Self-Drive Rental"
+    vs_self_title: "Independent Driving"
+    vs_self_point_1: "Complete autonomy over stops, routes, and timing"
+    vs_self_point_2: "Best for travelers who enjoy driving abroad"
+    vs_self_point_3: "Flexible exploration of remote villages and valleys"
+    vs_chauff_badge: "Chauffeured Service"
+    vs_chauff_title: "Dedicated Local Driver"
+    vs_chauff_point_1: "Sit back and relax without navigating mountain roads"
+    vs_chauff_point_2: "No concerns about parking, directions, or local traffic"
+    vs_chauff_point_3: "A local driver with practiced regional road experience"
+    vs_chauff_link: "Explore Chauffeured Car Service"
+
+    # FAQ Section
+    faq_eyebrow: "Common Questions"
+    faq_title: "Frequently Asked Questions"
+    faq_1_q: "What is the minimum age to rent a car?"
+    faq_1_a: "In the Turkish rental market, minimum driver age commonly starts at 21 years old for economy vehicles, with higher thresholds (often 25 to 28) for mid-size cars and SUVs. Exact requirements and rental conditions are confirmed with our team based on the vehicle and rental arrangement."
+    faq_2_q: "How long must I have held my driving licence?"
+    faq_2_a: "Across Türkiye, rental providers generally ask for 1 to 2 years of driving licence tenure for standard vehicles, and 3 or more years for higher categories. Exact requirements and rental conditions are confirmed with our team based on the vehicle and rental arrangement."
+    faq_3_q: "Do international visitors need an International Driving Permit (IDP)?"
+    faq_3_a: "Under general Turkish regulations, Latin-script national licences are commonly accepted for tourist stays up to 6 months. If your licence is in Arabic, Cyrillic, or another non-Latin script, an International Driving Permit (IDP) or certified translation is standard in Türkiye. This is general guidance and not legal advice; please confirm with our team before your arrival."
+    faq_4_q: "Is insurance included in the rental price?"
+    faq_4_a: "Yes. Comprehensive vehicle insurance is included with vehicle rentals arranged through 61 EDİZ TRAVEL. Exact coverage terms and standard conditions are confirmed with our team prior to booking."
+    faq_5_q: "Is a security deposit or credit card required?"
+    faq_5_a: "In standard Turkish rental practice, a credit card in the primary driver's name is typically used for a temporary pre-authorization deposit to cover electronic tolls (HGS), fuel variances, or incidental items. Exact requirements and rental conditions are confirmed with our team based on the vehicle and rental arrangement."
+    faq_6_q: "Can another person also drive the vehicle?"
+    faq_6_a: "Additional drivers can usually be registered on the rental agreement if they meet the required age and licence criteria and present their documents. Please notify our team in advance."
+    faq_7_q: "Can I collect or return the car at Trabzon Airport?"
+    faq_7_a: "Yes. Vehicle collection and return at Trabzon Airport can be arranged by prior coordination to match your flight schedule. Alternative meeting locations can also be agreed with our team in advance."
+    faq_8_q: "How do I request a vehicle?"
+    faq_8_a: "Simply click 'Find Your Car' or message us on WhatsApp. Share your preferred dates, party size, and vehicle choice, and our team will confirm available options and exact rental conditions."
+
+    # Final CTA
+    final_eyebrow: "Start Exploring"
+    final_title: "Choose your car. Plan your own route."
+    final_subtitle: "Tell us your travel dates and vehicle preference. We will verify availability and confirm your rental arrangements directly on WhatsApp."
+    whatsapp_cta: "Chat on WhatsApp"
+    available_note: "Direct inquiry via WhatsApp • 61 EDİZ TRAVEL"
   chauffeured_car_page:
     page_title: Chauffeured Car - 61 EDİZ TRAVEL
     eyebrow: Transportation

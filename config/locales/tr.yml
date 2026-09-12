@@ -375,17 +375,133 @@ tr:
     whatsapp_cta: WhatsApp ile İletişime Geçin
     available_note: "WhatsApp üzerinden doğrudan iletişim • 61 EDİZ TRAVEL"
   car_rental_page:
-    page_title: Araç Kiralama - 61 EDİZ TRAVEL
-    eyebrow: Ulaşım
-    title: Araç Kiralama
-    description: Trabzon ve Karadeniz bölgesini ihtiyaçlarınıza uygun güvenilir kiralık
-      araçlarla kendi temponuzda keşfedin.
-    how_it_works: Nasıl Çalışır?
-    how_it_works_desc: Seyahatiniz için güvenilir bir kiralık araç temin etmenize
-      yardımcı oluyoruz. Seyahat tarihlerinizi, tercih ettiğiniz araç tipini ve özel
-      taleplerinizi iletin, ekibimiz size uygun seçenekleri sunsun.
-    request_vehicle: Araç Talep Edin
-    inquire_now: Bilgi Alın
+    page_title: "Trabzon Araç Kiralama • Kendi Aracınızla Keşfedin - 61 EDİZ TRAVEL"
+    meta_description: "Trabzon ve Karadeniz'i kendi temponuzda keşfedin. Geniş kasko güvenceli araç kiralama seçenekleri, pratik teslimat ve doğrudan WhatsApp rezervasyonu."
+    eyebrow: "Kendi Aracınızla • Trabzon & Karadeniz"
+    hero_title: "Karadeniz İçin Kendi Aracınız."
+    hero_subtitle: "Kendi seyahat planınızı kendiniz belirleyin, dağ derelerinde mola verin, sahil kasabalarını ve yayla vadilerini özgürce keşfedin. Trabzon ve Doğu Karadeniz'de bağımsız seyahatin keyfini çıkarın."
+    find_car: "Aracınızı Seçin"
+    whatsapp_general_message: "Merhaba 61 EDİZ TRAVEL, Trabzon'da araç kiralamak istiyorum. Kiralama bilgilerim:"
+
+    # Experience section
+    experience_eyebrow: "Bireysel Seyahat Deneyimi"
+    experience_title: "Neden Trabzon'da Araç Kiralamalısınız?"
+    experience_subtitle: "Kendi rotasını kendisi çizmek isteyen gezginler için araç kiralama Karadeniz deneyimini tamamen dönüştürür."
+    exp_1_title: "Zaman ve Rota Özgürlüğü"
+    exp_1_desc: "Dilediğiniz saatte yola çıkın, manzaralı noktalarda istediğiniz kadar kalın, sabit tur programlarına bağlı olmadan anı yaşayın."
+    exp_2_title: "Çoklu Rotalar İçin İdeal"
+    exp_2_desc: "Trabzon, Rize, sahil balıkçı köyleri ve yayla vadilerini birbirine bağlayan yolculuklar için en konforlu alternatif."
+    exp_3_title: "Aileler ve Gruplar İçin Pratik"
+    exp_3_desc: "Tüm bagajlarınız, çocuk eşyalarınız ve bölgeden yapacağınız alışverişler yol boyunca tek bir konforlu araçta sizinle kalır."
+    exp_4_title: "Şehir Dışı Konaklamalar İçin Kolaylık"
+    exp_4_desc: "Yayla evlerinde, müstakil villalarda veya merkez dışındaki tatil köylerinde konaklıyorsanız ulaşımınızı rahatça sağlayın."
+
+    # Vehicles section
+    vehicles_eyebrow: "Mevcut Araçlar"
+    vehicles_title: "Seyahatinize Uygun Aracı Seçin"
+    vehicles_subtitle: "Hem sahil otoyollarına hem de yayla yollarına uygun, bakımlı ve güvenilir araç modelleri."
+    no_vehicles: "Araç filomuz güncellenmektedir. Anlık müsaitlik ve model seçenekleri için lütfen WhatsApp üzerinden iletişime geçin."
+    inquire_vehicle_btn: "WhatsApp ile Bilgi Alın"
+
+    # What's Included
+    included_eyebrow: "Güvence"
+    included_title: "Kiralama Hizmetinize Neler Dahil?"
+    included_subtitle: "Yolculuğunuzu baştan sona huzurlu ve şeffaf kılmak için tasarlanmış standart hizmetler."
+    inc_1_title: "Geniş Kapsamlı Araç Kaskosu"
+    inc_1_desc: "Her rotada güvende olmanız için kiralama hizmetine kapsamlı araç sigortası dahildir."
+    inc_2_title: "Şeffaf Fiyatlandırma ve Koşullar"
+    inc_2_desc: "Günlük kiralama bedelleri ve teslimat şartları aracı teslim almadan önce açıkça teyit edilir."
+    inc_3_title: "Yerel Koordinasyon ve Destek"
+    inc_3_desc: "Teslimat koordinasyonu, adres yönlendirmesi ve yolculuğunuz sırasındaki genel seyahat danışmanlığı için ekibimize WhatsApp üzerinden ulaşabilirsiniz."
+    inc_4_title: "Temiz ve Hazırlanmış Araç"
+    inc_4_desc: "Aracınız teslimat öncesinde temizlenir, kontrol edilir ve yolculuğunuza hazır şekilde size teslim edilir."
+
+    # Requirements / Before You Rent
+    req_eyebrow: "Kiralama Öncesi"
+    req_title: "Türkiye'de Genel Araç Kiralama Koşulları"
+    req_subtitle: "Türkiye genelindeki araç kiralama sağlayıcıları standart evrak ve uygunluk kuralları uygular. Ziyaretçiler için genel pazar standartları şunlardır (hukuki tavsiye değildir):"
+    req_1_title: "Geçerli Sürücü Belgesi"
+    req_1_desc: "Araç grubuna göre belirlenen asgari ehliyet süresi (genellikle 1 ila 3 yıl). Latin alfabesi dışındaki ehliyetler için Uluslararası Sürücü Belgesi veya onaylı Türkçe tercüme talep edilmesi genel bir uygulamadır."
+    req_2_title: "Sürücü Yaş Sınırları"
+    req_2_desc: "Türkiye kiralama pazarında asgari sürücü yaşı ekonomik sınıfta genellikle 21'den başlar; orta sınıf ve SUV segmentinde 25-28 yaş şartı aranabilmektedir."
+    req_3_title: "Pasaport ve Giriş Kontrolü"
+    req_3_desc: "Yabancı ziyaretçilerin orijinal pasaportlarını ve Türkiye'ye yasal turistik giriş mührünü ibraz etmeleri araç kiralama firmaları tarafından rutin olarak istenir."
+    req_4_title: "Kredi Kartı ve Provizyon"
+    req_4_desc: "Trafik cezaları, HGS geçişleri veya yakıt farkları için ana sürücü adına düzenlenmiş kredi kartından geçici provizyon alınması Türkiye genelinde standart bir uygulamadır. Kesin şartlar ekibimizle teyit edilir."
+    req_disclaimer: "Genel Bilgilendirme Notu: Yukarıdaki bilgiler Türkiye'deki genel sektör standartlarını yansıtmakta olup hukuki tavsiye niteliği taşımaz. Kesin gereksinimler ve kiralama koşulları araç modeline ve kiralama planına göre ekibimiz tarafından teyit edilir."
+
+    # International Visitors Guide
+    intl_eyebrow: "Yurtdışı Gezginleri"
+    intl_title: "Yabancı Ziyaretçiler İçin Önemli Bilgiler"
+    intl_subtitle: "Yabancı ziyaretçiler için Türkiye'deki genel trafik mevzuatı ve kiralama standartlarına dayalı pratik bilgiler (genel bilgilendirme amaçlıdır, hukuki tavsiye değildir)."
+    intl_1_title: "Ulusal Ehliyetin Geçerliliği"
+    intl_1_desc: "Türkiye genel trafik mevzuatına göre Latin harfli ulusal sürücü belgeleri, Türkiye'ye giriş tarihinden itibaren 6 aya kadar turist statüsünde kullanılabilir. Uzun süreli konaklayanların resmi mevzuatı incelemesi gerekir."
+    intl_2_title: "Uluslararası Ehliyet Ne Zaman Gerekir?"
+    intl_2_desc: "Sürücü belgeniz Arapça, Kiril vb. Latin dışı alfabelerle düzenlenmişse Uluslararası Sürücü Belgesi (IDP) veya onaylı tercüme talep edilmesi Türkiye'deki yaygın bir uygulamadır."
+    intl_3_title: "Giriş Damgası Kontrolü"
+    intl_3_desc: "Araç tesliminde pasaportunuzdaki yasal Türkiye giriş damgası kontrol edilebilir; seyahat evraklarınızı yanınızda bulundurmanız önemlidir."
+    intl_4_title: "HGS ve Otoyol Geçişleri"
+    intl_4_desc: "Türkiye'de köprü ve otoyollarda elektronik HGS sistemi kullanılır. Kiralama süresince yapılan geçişler elektronik olarak kaydedilir ve araç iadesinde hesaplanır."
+
+    # How It Works
+    flow_eyebrow: "Kolay Süreç"
+    flow_title: "Kiralama Süreci Nasıl İşler?"
+    flow_subtitle: "Karmaşık sözleşme formları olmadan, doğrudan iletişimle yürüyen kolay adımlar."
+    flow_1_num: "01"
+    flow_1_title: "Aracınızı Belirleyin"
+    flow_1_desc: "Seyahat edecek kişi sayısı ve yol planınıza en uygun araç kategorisini seçin."
+    flow_2_num: "02"
+    flow_2_title: "Tarihleri İletin"
+    flow_2_desc: "Varış tarihinizi, kiralama sürenizi ve sürücü bilgilerinizi WhatsApp üzerinden paylaşın."
+    flow_3_num: "03"
+    flow_3_title: "Koşulları Netleştirin"
+    flow_3_desc: "Müsaitlik, toplam kiralama bedeli, depozito ve gerekli belgeleri birlikte netleştirelim."
+    flow_4_num: "04"
+    flow_4_title: "Teslim Alın ve Keşfedin"
+    flow_4_desc: "Aracınızı Trabzon Havalimanı'nda veya belirlenen adreste önceden koordine edilen teslimatla alarak yolculuğunuza başlayın."
+
+    # Self-Drive vs Chauffeured
+    vs_eyebrow: "Seçenekleri Karşılaştırın"
+    vs_title: "Kendi Aracınız mı, Şoförlü Araç mı?"
+    vs_subtitle: "Her iki hizmet de seyahat tarzınıza göre farklı avantajlar sunar."
+    vs_self_badge: "Bireysel Kiralama"
+    vs_self_title: "Kendi Aracınızı Kullanın"
+    vs_self_point_1: "Durakları, güzergahı ve zamanı tamamen kendiniz yönetin"
+    vs_self_point_2: "Yurtdışında araba sürmekten keyif alan gezginler için ideal"
+    vs_self_point_3: "Uzak yayla köylerini kendi temponuzda keşfedin"
+    vs_chauff_badge: "Şoförlü Hizmet"
+    vs_chauff_title: "Özel Yerel Şoför"
+    vs_chauff_point_1: "Dağ yollarında direksiyon başına geçmeden manzaranın tadını çıkarın"
+    vs_chauff_point_2: "Otopark, yol tarifi veya trafik arayışıyla vakit kaybetmeyin"
+    vs_chauff_point_3: "Bölge yollarına hakim tecrübeli bir sürücü eşliğinde seyahat edin"
+    vs_chauff_link: "Şoförlü Araç Hizmetini İnceleyin"
+
+    # FAQ Section
+    faq_eyebrow: "Merak Edilenler"
+    faq_title: "Sıkça Sorulan Sorular"
+    faq_1_q: "Araç kiralamak için asgari yaş sınırı nedir?"
+    faq_1_a: "Türkiye kiralama pazarında asgari yaş ekonomik araçlar için genellikle 21, orta sınıf ve SUV modellerde 25 ile 28 arasına çıkabilmektedir. Kesin gereksinimler ve kiralama koşulları araç modeline ve kiralama planına göre ekibimiz tarafından teyit edilir."
+    faq_2_q: "Ehliyetimin kaç yıllık olması gerekir?"
+    faq_2_a: "Türkiye genelindeki kiralama uygulamalarında standart araçlar için en az 1-2 yıllık, SUV ve üst sınıf araçlar için 3 veya daha fazla yıllık ehliyet aranır. Kesin gereksinimler ve kiralama koşulları araç modeline ve kiralama planına göre ekibimiz tarafından teyit edilir."
+    faq_3_q: "Yabancı ziyaretçilerin Uluslararası Ehliyet (IDP) alması şart mı?"
+    faq_3_a: "Latin harfli ulusal ehliyetler 6 aya kadar turist olarak kullanılabilir. Ancak ehliyetiniz Arapça veya Kiril gibi Latin dışı alfabelerle yazılmışsa Uluslararası Sürücü Belgesi veya onaylı tercüme talep edilir. Bu bilgiler hukuki tavsiye değildir; lütfen seyahatiniz öncesinde ekibimizle teyit edin."
+    faq_4_q: "Kiralama ücretine kasko dahil mi?"
+    faq_4_a: "Evet. 61 EDİZ TRAVEL aracılığıyla düzenlenen kiralamalarda kapsamlı araç kaskosu fiyata dahildir. Kesin teminat koşulları rezervasyon öncesinde ekibimizle paylaşılır."
+    faq_5_q: "Kredi kartı ve depozito gerekiyor mu?"
+    faq_5_a: "Türkiye genelindeki kiralama uygulamalarında, HGS otoyol geçişleri ve yakıt farkları için ana sürücü adına kredi kartından geçici provizyon alınması standarttır. Kesin gereksinimler ve kiralama koşulları araç modeline ve kiralama planına göre ekibimiz tarafından teyit edilir."
+    faq_6_q: "Aracı başka biri de kullanabilir mi?"
+    faq_6_a: "Evet, ek sürücü kimlik ve ehliyet bilgilerini ibraz edip yaş ve ehliyet kriterlerini karşıladığı takdirde sözleşmeye dahil edilebilir. Lütfen önceden bilgi veriniz."
+    faq_7_q: "Aracı Trabzon Havalimanı'nda teslim alabilir miyim?"
+    faq_7_a: "Evet. Uçuş saatinize uygun olarak Trabzon Havalimanı'nda teslimat ve iade önceden koordine edilebilmektedir. Şehir içi veya konaklama noktalarında teslimat seçenekleri de önceden kararlaştırılabilir."
+    faq_8_q: "Nasıl araç talep edebilirim?"
+    faq_8_a: "Sayfadaki 'Aracınızı Seçin' butonuna veya WhatsApp simgesine tıklayarak seyahat tarihlerinizi ve tercih ettiğiniz araç tipini iletebilirsiniz; ekibimiz uygun seçenekleri ve kesin koşulları sizinle netleştirir."
+
+    # Final CTA
+    final_eyebrow: "Yola Çıkın"
+    final_title: "Aracınızı seçin. Kendi rotanızı çizin."
+    final_subtitle: "Seyahat tarihlerinizi ve araç tercihinizi bize iletin; uygunluk durumunu ve şartları doğrudan WhatsApp üzerinden netleştirelim."
+    whatsapp_cta: "WhatsApp ile İletişime Geçin"
+    available_note: "WhatsApp üzerinden doğrudan iletişim • 61 EDİZ TRAVEL"
   chauffeured_car_page:
     page_title: Şoförlü Araç Kiralama - 61 EDİZ TRAVEL
     eyebrow: Ulaşım

@@ -1,83 +1,578 @@
-<% content_for :title, t("car_rental_page.page_title") %>
+<%
+  content_for :title, t("car_rental_page.page_title")
+  content_for :meta_description, t("car_rental_page.meta_description")
 
-<div class="bg-brand-gray-50 min-h-screen">
-  <div class="pt-8 lg:pt-24 pb-8 lg:pb-32">
-    <div class="container-main max-w-6xl">
-      <%= render "shared/components/section_heading",
-                 eyebrow: t("car_rental_page.eyebrow"),
-                 title: t("car_rental_page.title"),
-                 description: t("car_rental_page.description"),
-                 as_h1: true %>
+  # WhatsApp URL resolution (Direct CTA)
+  # Uses business setting number or approved default +905540171890
+  raw_whatsapp = current_business_setting&.whatsapp_number.presence || "+905540171890"
+  clean_whatsapp = raw_whatsapp.to_s.gsub(/[^0-9]/, "")
+  encoded_wa_general = ERB::Util.url_encode(t("car_rental_page.whatsapp_general_message"))
+  whatsapp_general_url = "https://wa.me/#{clean_whatsapp}?text=#{encoded_wa_general}"
+%>
 
-      <% if @vehicles.any? %>
-        <div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<div class="bg-white min-h-screen">
+
+  <!-- 1. Hero Section -->
+  <section class="relative bg-gradient-to-b from-[#fbfaf8] via-white to-white border-b border-brand-gray-200/50 pt-16 md:pt-24 lg:pt-32 pb-14 md:pb-20">
+    <div class="container-main max-w-4xl mx-auto text-center">
+      <div class="mb-5 inline-flex items-center justify-center gap-3">
+        <span class="w-8 h-[1px] bg-brand-gold-500 opacity-70"></span>
+        <span class="text-brand-gold-600 font-semibold tracking-[0.2em] text-xs uppercase"><%= t("car_rental_page.eyebrow") %></span>
+        <span class="w-8 h-[1px] bg-brand-gold-500 opacity-70"></span>
+      </div>
+
+      <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-sans font-medium text-brand-charcoal-900 tracking-tight leading-[1.18] mb-6">
+        <%= t("car_rental_page.hero_title") %>
+      </h1>
+
+      <p class="text-base sm:text-lg md:text-xl text-brand-charcoal-600 font-light leading-relaxed max-w-2xl mx-auto mb-10">
+        <%= t("car_rental_page.hero_subtitle") %>
+      </p>
+
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="#available-vehicles"
+           class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 sm:px-10 py-4 bg-brand-charcoal-900 hover:bg-brand-green-800 text-white font-medium text-xs sm:text-sm tracking-widest uppercase transition-all duration-300 shadow-sm hover:shadow">
+          <span><%= t("car_rental_page.find_car") %></span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+          </svg>
+        </a>
+
+        <a href="<%= whatsapp_general_url %>"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 sm:px-10 py-4 border border-brand-gray-300 hover:border-brand-charcoal-900 text-brand-charcoal-900 font-medium text-xs sm:text-sm tracking-widest uppercase transition-all duration-300 bg-white">
+          <svg class="w-4 h-4 text-[#25D366]" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+          </svg>
+          <span><%= t("car_rental_page.whatsapp_cta") %></span>
+        </a>
+      </div>
+
+      <div class="mt-4 text-center">
+        <span class="text-xs text-brand-charcoal-400 font-light"><%= t("car_rental_page.available_note") %></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. The Self-Drive Experience -->
+  <section class="py-14 md:py-20 lg:py-24 bg-[#faf9f6] border-b border-brand-gray-200/60">
+    <div class="container-main max-w-5xl mx-auto">
+      <div class="text-center max-w-2xl mx-auto mb-12 md:mb-16">
+        <span class="text-xs font-semibold text-brand-gold-600 uppercase tracking-[0.2em] block mb-2"><%= t("car_rental_page.experience_eyebrow") %></span>
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-medium text-brand-charcoal-900 tracking-tight mb-3"><%= t("car_rental_page.experience_title") %></h2>
+        <p class="text-sm md:text-base text-brand-charcoal-600 font-light"><%= t("car_rental_page.experience_subtitle") %></p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="bg-white p-6 sm:p-7 border border-brand-gray-200/80 flex flex-col">
+          <div class="w-10 h-10 rounded-full bg-brand-green-50 text-brand-green-800 flex items-center justify-center mb-5 shrink-0">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h3 class="text-base sm:text-lg font-medium text-brand-charcoal-900 mb-2"><%= t("car_rental_page.exp_1_title") %></h3>
+          <p class="text-sm text-brand-charcoal-600 font-light leading-relaxed flex-grow"><%= t("car_rental_page.exp_1_desc") %></p>
+        </div>
+
+        <div class="bg-white p-6 sm:p-7 border border-brand-gray-200/80 flex flex-col">
+          <div class="w-10 h-10 rounded-full bg-brand-green-50 text-brand-green-800 flex items-center justify-center mb-5 shrink-0">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 6.75V15m6-6v8.25m.53 3.22a11.956 11.956 0 004.97-2.61c.42-.37.69-.9.69-1.47V6.75a1.5 1.5 0 00-.91-1.38L15 3.32a3 3 0 00-2.06 0L8.22 5.09A1.5 1.5 0 007.31 6.47v11.39c0 .57.27 1.1.69 1.47a11.956 11.956 0 004.97 2.61.75.75 0 00.56 0z" />
+            </svg>
+          </div>
+          <h3 class="text-base sm:text-lg font-medium text-brand-charcoal-900 mb-2"><%= t("car_rental_page.exp_2_title") %></h3>
+          <p class="text-sm text-brand-charcoal-600 font-light leading-relaxed flex-grow"><%= t("car_rental_page.exp_2_desc") %></p>
+        </div>
+
+        <div class="bg-white p-6 sm:p-7 border border-brand-gray-200/80 flex flex-col">
+          <div class="w-10 h-10 rounded-full bg-brand-green-50 text-brand-green-800 flex items-center justify-center mb-5 shrink-0">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.199l-.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
+            </svg>
+          </div>
+          <h3 class="text-base sm:text-lg font-medium text-brand-charcoal-900 mb-2"><%= t("car_rental_page.exp_3_title") %></h3>
+          <p class="text-sm text-brand-charcoal-600 font-light leading-relaxed flex-grow"><%= t("car_rental_page.exp_3_desc") %></p>
+        </div>
+
+        <div class="bg-white p-6 sm:p-7 border border-brand-gray-200/80 flex flex-col">
+          <div class="w-10 h-10 rounded-full bg-brand-green-50 text-brand-green-800 flex items-center justify-center mb-5 shrink-0">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+            </svg>
+          </div>
+          <h3 class="text-base sm:text-lg font-medium text-brand-charcoal-900 mb-2"><%= t("car_rental_page.exp_4_title") %></h3>
+          <p class="text-sm text-brand-charcoal-600 font-light leading-relaxed flex-grow"><%= t("car_rental_page.exp_4_desc") %></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Available Vehicles Section -->
+  <section id="available-vehicles" class="py-14 md:py-20 lg:py-28 bg-white border-b border-brand-gray-200/60 scroll-mt-12">
+    <div class="container-main max-w-6xl mx-auto">
+      <div class="text-center max-w-2xl mx-auto mb-12 md:mb-16">
+        <span class="text-xs font-semibold text-brand-gold-600 uppercase tracking-[0.2em] block mb-2"><%= t("car_rental_page.vehicles_eyebrow") %></span>
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-medium text-brand-charcoal-900 tracking-tight mb-3"><%= t("car_rental_page.vehicles_title") %></h2>
+        <p class="text-sm md:text-base text-brand-charcoal-600 font-light"><%= t("car_rental_page.vehicles_subtitle") %></p>
+      </div>
+
+      <% if @vehicles.present? && @vehicles.any? %>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <% @vehicles.each do |vehicle| %>
-            <div class="bg-white border border-brand-gray-200 overflow-hidden group flex flex-col">
+            <%
+              vehicle_msg = ERB::Util.url_encode("#{t('car_rental_page.whatsapp_general_message')} #{vehicle.name}")
+              vehicle_wa_url = "https://wa.me/#{clean_whatsapp}?text=#{vehicle_msg}"
+            %>
+            <div class="bg-[#faf9f6] border border-brand-gray-200 overflow-hidden flex flex-col group transition-all duration-300 hover:shadow-md">
               <% if vehicle.image.attached? %>
-                <div class="aspect-w-16 aspect-h-10 bg-brand-gray-100 overflow-hidden">
-                  <%= image_tag vehicle.image, class: "object-cover w-full h-full group-hover:scale-105 transition-transform duration-500" %>
+                <div class="aspect-w-16 aspect-h-10 bg-brand-gray-100 overflow-hidden relative">
+                  <%= image_tag vehicle.image, alt: vehicle.name, class: "object-cover w-full h-full group-hover:scale-105 transition-transform duration-500" %>
+                  <% if vehicle.category.present? %>
+                    <span class="absolute top-3 left-3 bg-brand-charcoal-900/85 text-white text-[10px] font-semibold uppercase tracking-wider px-2.5 py-1">
+                      <%= vehicle.category.humanize %>
+                    </span>
+                  <% end %>
                 </div>
               <% else %>
-                <div class="aspect-w-16 aspect-h-10 bg-brand-gray-100 flex items-center justify-center overflow-hidden">
-                  <svg class="w-12 h-12 text-brand-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 16a2 2 0 002-2h4a2 2 0 002 2m-8 0a2 2 0 01-2-2m10 0a2 2 0 012-2V9a2 2 0 00-2-2H6a2 2 0 00-2 2v5a2 2 0 012 2m10 0v1m-10 0v1"></path></svg>
+                <div class="aspect-w-16 aspect-h-10 bg-brand-gray-100 flex items-center justify-center relative overflow-hidden">
+                  <svg class="w-12 h-12 text-brand-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 16a2 2 0 002-2h4a2 2 0 002 2m-8 0a2 2 0 01-2-2m10 0a2 2 0 012-2V9a2 2 0 00-2-2H6a2 2 0 00-2 2v5a2 2 0 012 2m10 0v1m-10 0v1"></path>
+                  </svg>
+                  <% if vehicle.category.present? %>
+                    <span class="absolute top-3 left-3 bg-brand-charcoal-900/85 text-white text-[10px] font-semibold uppercase tracking-wider px-2.5 py-1">
+                      <%= vehicle.category.humanize %>
+                    </span>
+                  <% end %>
                 </div>
               <% end %>
-              <div class="p-6 flex-grow flex flex-col">
+
+              <div class="p-6 flex-grow flex flex-col bg-white">
                 <h3 class="text-xl font-medium text-brand-charcoal-900 mb-2"><%= vehicle.name %></h3>
+
                 <% if vehicle.description.present? %>
-                  <p class="text-sm text-brand-charcoal-600 font-light mb-4 line-clamp-2"><%= vehicle.description %></p>
+                  <p class="text-sm text-brand-charcoal-600 font-light mb-4 line-clamp-2 leading-relaxed"><%= vehicle.description %></p>
                 <% end %>
-                <div class="flex flex-wrap gap-3 mb-6">
+
+                <div class="flex flex-wrap gap-2.5 mb-6">
                   <% if vehicle.passenger_capacity.present? %>
-                    <span class="inline-flex items-center text-xs text-brand-charcoal-600 bg-brand-gray-50 px-2 py-1 border border-brand-gray-100">
-                      <svg class="w-3.5 h-3.5 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    <span class="inline-flex items-center text-xs text-brand-charcoal-700 bg-brand-gray-50 px-2.5 py-1 border border-brand-gray-200">
+                      <svg class="w-3.5 h-3.5 mr-1.5 text-brand-charcoal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                       <%= vehicle.passenger_capacity %> <%= t("services.seats", default: "Seats") %>
                     </span>
                   <% end %>
+
                   <% if vehicle.luggage_capacity.present? %>
-                    <span class="inline-flex items-center text-xs text-brand-charcoal-600 bg-brand-gray-50 px-2 py-1 border border-brand-gray-100">
-                      <svg class="w-3.5 h-3.5 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+                    <span class="inline-flex items-center text-xs text-brand-charcoal-700 bg-brand-gray-50 px-2.5 py-1 border border-brand-gray-200">
+                      <svg class="w-3.5 h-3.5 mr-1.5 text-brand-charcoal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
                       <%= vehicle.luggage_capacity %> <%= t("services.bags", default: "Bags") %>
                     </span>
                   <% end %>
                 </div>
-                <div class="mt-auto border-t border-brand-gray-100 pt-4 flex items-center justify-between">
+
+                <div class="mt-auto border-t border-brand-gray-100 pt-5 flex items-center justify-between gap-3">
                   <div>
                     <% if vehicle.price_from.present? %>
-                      <span class="text-xs text-brand-charcoal-500 uppercase tracking-wider block"><%= t("services.starting_from", default: "Starting from") %></span>
-                      <span class="text-lg font-medium text-brand-charcoal-900"><%= number_to_currency(vehicle.price_from, unit: vehicle.currency.present? ? vehicle.currency + " " : "$", precision: 0) %> <span class="text-xs font-normal text-brand-charcoal-500"><%= t("services.per_day", default: "/ day") %></span></span>
+                      <span class="text-[11px] text-brand-charcoal-500 uppercase tracking-wider block"><%= t("services.starting_from", default: "Starting from") %></span>
+                      <span class="text-xl font-medium text-brand-charcoal-900">
+                        <%= number_to_currency(vehicle.price_from, unit: vehicle.currency.present? ? vehicle.currency + " " : "$", precision: 0) %>
+                        <span class="text-xs font-normal text-brand-charcoal-500"><%= t("services.per_day", default: "/ day") %></span>
+                      </span>
                     <% else %>
                       <span class="text-sm text-brand-charcoal-500"><%= t("services.contact_for_pricing", default: "Contact for pricing") %></span>
                     <% end %>
                   </div>
-                  <div class="flex items-center gap-3">
-                    <% if current_business_setting&.whatsapp_number.present? %>
-                      <%
-                        clean_number = current_business_setting.whatsapp_number.to_s.gsub(/[^0-9]/, "")
-                        encoded_message = ERB::Util.url_encode("Hello, I'm interested in renting a #{vehicle.name}.")
-                      %>
-                      <a href="https://wa.me/<%= clean_number %>?text=<%= encoded_message %>" target="_blank" rel="noopener noreferrer" class="text-[#25D366] hover:text-[#20bd5a] transition-colors" title="WhatsApp">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" /></svg>
-                      </a>
-                    <% end %>
-                    <%= link_to t("services.inquire", default: "Inquire"), plan_your_trip_path(inquiry_type: 'car_rental', vehicle: vehicle.name), class: "text-sm font-semibold text-brand-charcoal-900 hover:text-brand-green-700 uppercase tracking-wider" %>
-                  </div>
+
+                  <a href="<%= vehicle_wa_url %>"
+                     target="_blank"
+                     rel="noopener noreferrer"
+                     class="inline-flex items-center gap-1.5 px-4 py-2.5 bg-brand-charcoal-900 hover:bg-brand-green-800 text-white text-xs font-medium tracking-wider uppercase transition-colors shrink-0">
+                    <svg class="w-3.5 h-3.5 text-[#25D366]" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                    </svg>
+                    <span><%= t("car_rental_page.inquire_vehicle_btn") %></span>
+                  </a>
+                </div>
               </div>
             </div>
           <% end %>
         </div>
       <% else %>
-        <div class="bg-white border border-brand-gray-200 p-6 lg:p-12 mt-6 lg:mt-12 text-center max-w-4xl mx-auto">
-          <h2 class="text-2xl font-medium text-brand-charcoal-900 mb-6"><%= t("car_rental_page.how_it_works") %></h2>
-          <p class="text-brand-charcoal-600 font-light leading-relaxed mb-8">
-            <%= t("car_rental_page.how_it_works_desc") %>
+        <div class="bg-[#faf9f6] border border-brand-gray-200 p-8 lg:p-12 text-center max-w-2xl mx-auto">
+          <p class="text-brand-charcoal-600 font-light leading-relaxed mb-6">
+            <%= t("car_rental_page.no_vehicles") %>
           </p>
-          <div class="border-t border-brand-gray-100 pt-8 text-center">
-            <h3 class="text-lg font-medium text-brand-charcoal-900 mb-4"><%= t("car_rental_page.request_vehicle") %></h3>
-            <%= link_to t("car_rental_page.inquire_now"), plan_your_trip_path(inquiry_type: 'car_rental'), class: "btn-primary inline-block" %>
-          </div>
+          <a href="<%= whatsapp_general_url %>"
+             target="_blank"
+             rel="noopener noreferrer"
+             class="inline-flex items-center gap-2 px-8 py-3.5 bg-[#25D366] hover:bg-[#20bd5a] text-white font-medium text-xs tracking-widest uppercase transition-colors shadow-sm">
+            <span><%= t("car_rental_page.whatsapp_cta") %></span>
+          </a>
         </div>
       <% end %>
     </div>
-  </div>
+  </section>
+
+  <!-- 4. What's Included -->
+  <section class="py-14 md:py-20 lg:py-24 bg-[#faf9f6] border-b border-brand-gray-200/60">
+    <div class="container-main max-w-5xl mx-auto">
+      <div class="text-center max-w-2xl mx-auto mb-12 md:mb-16">
+        <span class="text-xs font-semibold text-brand-gold-600 uppercase tracking-[0.2em] block mb-2"><%= t("car_rental_page.included_eyebrow") %></span>
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-medium text-brand-charcoal-900 tracking-tight mb-3"><%= t("car_rental_page.included_title") %></h2>
+        <p class="text-sm md:text-base text-brand-charcoal-600 font-light"><%= t("car_rental_page.included_subtitle") %></p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
+        <div class="flex items-start gap-4 bg-white p-6 border border-brand-gray-200/80">
+          <div class="w-10 h-10 rounded-full bg-brand-green-50 text-brand-green-800 flex items-center justify-center shrink-0 mt-0.5">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-base sm:text-lg font-medium text-brand-charcoal-900 mb-1.5"><%= t("car_rental_page.inc_1_title") %></h3>
+            <p class="text-sm text-brand-charcoal-600 font-light leading-relaxed"><%= t("car_rental_page.inc_1_desc") %></p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-4 bg-white p-6 border border-brand-gray-200/80">
+          <div class="w-10 h-10 rounded-full bg-brand-green-50 text-brand-green-800 flex items-center justify-center shrink-0 mt-0.5">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-base sm:text-lg font-medium text-brand-charcoal-900 mb-1.5"><%= t("car_rental_page.inc_2_title") %></h3>
+            <p class="text-sm text-brand-charcoal-600 font-light leading-relaxed"><%= t("car_rental_page.inc_2_desc") %></p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-4 bg-white p-6 border border-brand-gray-200/80">
+          <div class="w-10 h-10 rounded-full bg-brand-green-50 text-brand-green-800 flex items-center justify-center shrink-0 mt-0.5">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-base sm:text-lg font-medium text-brand-charcoal-900 mb-1.5"><%= t("car_rental_page.inc_3_title") %></h3>
+            <p class="text-sm text-brand-charcoal-600 font-light leading-relaxed"><%= t("car_rental_page.inc_3_desc") %></p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-4 bg-white p-6 border border-brand-gray-200/80">
+          <div class="w-10 h-10 rounded-full bg-brand-green-50 text-brand-green-800 flex items-center justify-center shrink-0 mt-0.5">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-base sm:text-lg font-medium text-brand-charcoal-900 mb-1.5"><%= t("car_rental_page.inc_4_title") %></h3>
+            <p class="text-sm text-brand-charcoal-600 font-light leading-relaxed"><%= t("car_rental_page.inc_4_desc") %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Typical Requirements in Türkiye -->
+  <section class="py-14 md:py-20 lg:py-24 bg-white border-b border-brand-gray-200/60">
+    <div class="container-main max-w-5xl mx-auto">
+      <div class="text-center max-w-2xl mx-auto mb-12 md:mb-16">
+        <span class="text-xs font-semibold text-brand-gold-600 uppercase tracking-[0.2em] block mb-2"><%= t("car_rental_page.req_eyebrow") %></span>
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-medium text-brand-charcoal-900 tracking-tight mb-3"><%= t("car_rental_page.req_title") %></h2>
+        <p class="text-sm md:text-base text-brand-charcoal-600 font-light"><%= t("car_rental_page.req_subtitle") %></p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div class="p-6 border border-brand-gray-200 bg-[#fdfcfb] flex flex-col justify-between">
+          <div>
+            <div class="text-xs font-bold text-brand-gold-600 uppercase tracking-wider mb-2">01</div>
+            <h3 class="text-base sm:text-lg font-medium text-brand-charcoal-900 mb-2"><%= t("car_rental_page.req_1_title") %></h3>
+            <p class="text-sm text-brand-charcoal-600 font-light leading-relaxed"><%= t("car_rental_page.req_1_desc") %></p>
+          </div>
+        </div>
+
+        <div class="p-6 border border-brand-gray-200 bg-[#fdfcfb] flex flex-col justify-between">
+          <div>
+            <div class="text-xs font-bold text-brand-gold-600 uppercase tracking-wider mb-2">02</div>
+            <h3 class="text-base sm:text-lg font-medium text-brand-charcoal-900 mb-2"><%= t("car_rental_page.req_2_title") %></h3>
+            <p class="text-sm text-brand-charcoal-600 font-light leading-relaxed"><%= t("car_rental_page.req_2_desc") %></p>
+          </div>
+        </div>
+
+        <div class="p-6 border border-brand-gray-200 bg-[#fdfcfb] flex flex-col justify-between">
+          <div>
+            <div class="text-xs font-bold text-brand-gold-600 uppercase tracking-wider mb-2">03</div>
+            <h3 class="text-base sm:text-lg font-medium text-brand-charcoal-900 mb-2"><%= t("car_rental_page.req_3_title") %></h3>
+            <p class="text-sm text-brand-charcoal-600 font-light leading-relaxed"><%= t("car_rental_page.req_3_desc") %></p>
+          </div>
+        </div>
+
+        <div class="p-6 border border-brand-gray-200 bg-[#fdfcfb] flex flex-col justify-between">
+          <div>
+            <div class="text-xs font-bold text-brand-gold-600 uppercase tracking-wider mb-2">04</div>
+            <h3 class="text-base sm:text-lg font-medium text-brand-charcoal-900 mb-2"><%= t("car_rental_page.req_4_title") %></h3>
+            <p class="text-sm text-brand-charcoal-600 font-light leading-relaxed"><%= t("car_rental_page.req_4_desc") %></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-5 border border-brand-gold-500/30 bg-brand-gold-500/5 text-center sm:text-left rtl:sm:text-right flex flex-col sm:flex-row items-center sm:items-start gap-4">
+        <div class="w-8 h-8 rounded-full bg-brand-gold-500/20 text-brand-gold-700 flex items-center justify-center shrink-0 mt-0.5">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+          </svg>
+        </div>
+        <p class="text-xs sm:text-sm text-brand-charcoal-700 font-light leading-relaxed">
+          <%= t("car_rental_page.req_disclaimer") %>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. International Visitors Guide -->
+  <section class="py-14 md:py-20 lg:py-24 bg-[#faf9f6] border-b border-brand-gray-200/60">
+    <div class="container-main max-w-5xl mx-auto">
+      <div class="text-center max-w-2xl mx-auto mb-12 md:mb-16">
+        <span class="text-xs font-semibold text-brand-gold-600 uppercase tracking-[0.2em] block mb-2"><%= t("car_rental_page.intl_eyebrow") %></span>
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-medium text-brand-charcoal-900 tracking-tight mb-3"><%= t("car_rental_page.intl_title") %></h2>
+        <p class="text-sm md:text-base text-brand-charcoal-600 font-light"><%= t("car_rental_page.intl_subtitle") %></p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div class="bg-white p-6 border border-brand-gray-200 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="w-2 h-2 rounded-full bg-brand-green-700"></span>
+              <h3 class="text-base sm:text-lg font-medium text-brand-charcoal-900"><%= t("car_rental_page.intl_1_title") %></h3>
+            </div>
+            <p class="text-sm text-brand-charcoal-600 font-light leading-relaxed"><%= t("car_rental_page.intl_1_desc") %></p>
+          </div>
+        </div>
+
+        <div class="bg-white p-6 border border-brand-gray-200 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="w-2 h-2 rounded-full bg-brand-green-700"></span>
+              <h3 class="text-base sm:text-lg font-medium text-brand-charcoal-900"><%= t("car_rental_page.intl_2_title") %></h3>
+            </div>
+            <p class="text-sm text-brand-charcoal-600 font-light leading-relaxed"><%= t("car_rental_page.intl_2_desc") %></p>
+          </div>
+        </div>
+
+        <div class="bg-white p-6 border border-brand-gray-200 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="w-2 h-2 rounded-full bg-brand-green-700"></span>
+              <h3 class="text-base sm:text-lg font-medium text-brand-charcoal-900"><%= t("car_rental_page.intl_3_title") %></h3>
+            </div>
+            <p class="text-sm text-brand-charcoal-600 font-light leading-relaxed"><%= t("car_rental_page.intl_3_desc") %></p>
+          </div>
+        </div>
+
+        <div class="bg-white p-6 border border-brand-gray-200 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="w-2 h-2 rounded-full bg-brand-green-700"></span>
+              <h3 class="text-base sm:text-lg font-medium text-brand-charcoal-900"><%= t("car_rental_page.intl_4_title") %></h3>
+            </div>
+            <p class="text-sm text-brand-charcoal-600 font-light leading-relaxed"><%= t("car_rental_page.intl_4_desc") %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. How the Rental Works -->
+  <section class="py-14 md:py-20 lg:py-28 bg-white border-b border-brand-gray-200/60">
+    <div class="container-main max-w-5xl mx-auto">
+      <div class="text-center max-w-2xl mx-auto mb-12 md:mb-16">
+        <span class="text-xs font-semibold text-brand-gold-600 uppercase tracking-[0.2em] block mb-2"><%= t("car_rental_page.flow_eyebrow") %></span>
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-medium text-brand-charcoal-900 tracking-tight mb-3"><%= t("car_rental_page.flow_title") %></h2>
+        <p class="text-sm md:text-base text-brand-charcoal-600 font-light"><%= t("car_rental_page.flow_subtitle") %></p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+        <div class="bg-[#faf9f6] p-6 sm:p-7 border border-brand-gray-200/80 flex flex-col">
+          <div class="text-brand-gold-500 font-sans font-medium text-2xl mb-4 tracking-widest"><%= t("car_rental_page.flow_1_num") %></div>
+          <h3 class="text-lg font-medium text-brand-charcoal-900 mb-2"><%= t("car_rental_page.flow_1_title") %></h3>
+          <p class="text-sm text-brand-charcoal-600 font-light leading-relaxed flex-grow"><%= t("car_rental_page.flow_1_desc") %></p>
+        </div>
+
+        <div class="bg-[#faf9f6] p-6 sm:p-7 border border-brand-gray-200/80 flex flex-col">
+          <div class="text-brand-gold-500 font-sans font-medium text-2xl mb-4 tracking-widest"><%= t("car_rental_page.flow_2_num") %></div>
+          <h3 class="text-lg font-medium text-brand-charcoal-900 mb-2"><%= t("car_rental_page.flow_2_title") %></h3>
+          <p class="text-sm text-brand-charcoal-600 font-light leading-relaxed flex-grow"><%= t("car_rental_page.flow_2_desc") %></p>
+        </div>
+
+        <div class="bg-[#faf9f6] p-6 sm:p-7 border border-brand-gray-200/80 flex flex-col">
+          <div class="text-brand-gold-500 font-sans font-medium text-2xl mb-4 tracking-widest"><%= t("car_rental_page.flow_3_num") %></div>
+          <h3 class="text-lg font-medium text-brand-charcoal-900 mb-2"><%= t("car_rental_page.flow_3_title") %></h3>
+          <p class="text-sm text-brand-charcoal-600 font-light leading-relaxed flex-grow"><%= t("car_rental_page.flow_3_desc") %></p>
+        </div>
+
+        <div class="bg-[#faf9f6] p-6 sm:p-7 border border-brand-gray-200/80 flex flex-col">
+          <div class="text-brand-gold-500 font-sans font-medium text-2xl mb-4 tracking-widest"><%= t("car_rental_page.flow_4_num") %></div>
+          <h3 class="text-lg font-medium text-brand-charcoal-900 mb-2"><%= t("car_rental_page.flow_4_title") %></h3>
+          <p class="text-sm text-brand-charcoal-600 font-light leading-relaxed flex-grow"><%= t("car_rental_page.flow_4_desc") %></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. Self-Drive vs Chauffeured -->
+  <section class="py-14 md:py-20 lg:py-24 bg-[#faf9f6] border-b border-brand-gray-200/60">
+    <div class="container-main max-w-5xl mx-auto">
+      <div class="text-center max-w-2xl mx-auto mb-12 md:mb-16">
+        <span class="text-xs font-semibold text-brand-gold-600 uppercase tracking-[0.2em] block mb-2"><%= t("car_rental_page.vs_eyebrow") %></span>
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-medium text-brand-charcoal-900 tracking-tight mb-3"><%= t("car_rental_page.vs_title") %></h2>
+        <p class="text-sm md:text-base text-brand-charcoal-600 font-light"><%= t("car_rental_page.vs_subtitle") %></p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Self-Drive Option -->
+        <div class="bg-white p-8 border-2 border-brand-charcoal-900 flex flex-col">
+          <div class="mb-4">
+            <span class="bg-brand-charcoal-900 text-white text-xs font-semibold uppercase tracking-wider px-3 py-1 inline-block">
+              <%= t("car_rental_page.vs_self_badge") %>
+            </span>
+          </div>
+          <h3 class="text-xl font-medium text-brand-charcoal-900 mb-5"><%= t("car_rental_page.vs_self_title") %></h3>
+          <ul class="space-y-3.5 mb-8 flex-grow">
+            <li class="flex items-start gap-3 text-sm text-brand-charcoal-700 font-light">
+              <svg class="w-5 h-5 text-brand-green-700 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+              </svg>
+              <span><%= t("car_rental_page.vs_self_point_1") %></span>
+            </li>
+            <li class="flex items-start gap-3 text-sm text-brand-charcoal-700 font-light">
+              <svg class="w-5 h-5 text-brand-green-700 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+              </svg>
+              <span><%= t("car_rental_page.vs_self_point_2") %></span>
+            </li>
+            <li class="flex items-start gap-3 text-sm text-brand-charcoal-700 font-light">
+              <svg class="w-5 h-5 text-brand-green-700 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+              </svg>
+              <span><%= t("car_rental_page.vs_self_point_3") %></span>
+            </li>
+          </ul>
+          <a href="#available-vehicles" class="w-full text-center py-3 border border-brand-charcoal-900 hover:bg-brand-charcoal-900 hover:text-white text-brand-charcoal-900 text-xs font-semibold uppercase tracking-wider transition-colors">
+            <%= t("car_rental_page.find_car") %>
+          </a>
+        </div>
+
+        <!-- Chauffeured Option -->
+        <div class="bg-white p-8 border border-brand-gray-200 flex flex-col">
+          <div class="mb-4">
+            <span class="bg-brand-gray-100 text-brand-charcoal-700 text-xs font-semibold uppercase tracking-wider px-3 py-1 inline-block">
+              <%= t("car_rental_page.vs_chauff_badge") %>
+            </span>
+          </div>
+          <h3 class="text-xl font-medium text-brand-charcoal-900 mb-5"><%= t("car_rental_page.vs_chauff_title") %></h3>
+          <ul class="space-y-3.5 mb-8 flex-grow">
+            <li class="flex items-start gap-3 text-sm text-brand-charcoal-700 font-light">
+              <svg class="w-5 h-5 text-brand-green-700 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+              </svg>
+              <span><%= t("car_rental_page.vs_chauff_point_1") %></span>
+            </li>
+            <li class="flex items-start gap-3 text-sm text-brand-charcoal-700 font-light">
+              <svg class="w-5 h-5 text-brand-green-700 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+              </svg>
+              <span><%= t("car_rental_page.vs_chauff_point_2") %></span>
+            </li>
+            <li class="flex items-start gap-3 text-sm text-brand-charcoal-700 font-light">
+              <svg class="w-5 h-5 text-brand-green-700 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+              </svg>
+              <span><%= t("car_rental_page.vs_chauff_point_3") %></span>
+            </li>
+          </ul>
+          <%= link_to t("car_rental_page.vs_chauff_link"), chauffeured_car_path, class: "w-full text-center py-3 bg-brand-charcoal-900 hover:bg-brand-green-800 text-white text-xs font-semibold uppercase tracking-wider transition-colors" %>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. Practical FAQ Section -->
+  <section class="py-14 md:py-20 lg:py-24 bg-white border-b border-brand-gray-200/60">
+    <div class="container-main max-w-4xl mx-auto">
+      <div class="text-center max-w-2xl mx-auto mb-12 md:mb-16">
+        <span class="text-xs font-semibold text-brand-gold-600 uppercase tracking-[0.2em] block mb-2"><%= t("car_rental_page.faq_eyebrow") %></span>
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-medium text-brand-charcoal-900 tracking-tight mb-3"><%= t("car_rental_page.faq_title") %></h2>
+      </div>
+
+      <div class="space-y-6">
+        <div class="p-6 border border-brand-gray-200 bg-[#faf9f6]">
+          <h3 class="text-base sm:text-lg font-medium text-brand-charcoal-900 mb-2"><%= t("car_rental_page.faq_1_q") %></h3>
+          <p class="text-sm text-brand-charcoal-600 font-light leading-relaxed"><%= t("car_rental_page.faq_1_a") %></p>
+        </div>
+
+        <div class="p-6 border border-brand-gray-200 bg-[#faf9f6]">
+          <h3 class="text-base sm:text-lg font-medium text-brand-charcoal-900 mb-2"><%= t("car_rental_page.faq_2_q") %></h3>
+          <p class="text-sm text-brand-charcoal-600 font-light leading-relaxed"><%= t("car_rental_page.faq_2_a") %></p>
+        </div>
+
+        <div class="p-6 border border-brand-gray-200 bg-[#faf9f6]">
+          <h3 class="text-base sm:text-lg font-medium text-brand-charcoal-900 mb-2"><%= t("car_rental_page.faq_3_q") %></h3>
+          <p class="text-sm text-brand-charcoal-600 font-light leading-relaxed"><%= t("car_rental_page.faq_3_a") %></p>
+        </div>
+
+        <div class="p-6 border border-brand-gray-200 bg-[#faf9f6]">
+          <h3 class="text-base sm:text-lg font-medium text-brand-charcoal-900 mb-2"><%= t("car_rental_page.faq_4_q") %></h3>
+          <p class="text-sm text-brand-charcoal-600 font-light leading-relaxed"><%= t("car_rental_page.faq_4_a") %></p>
+        </div>
+
+        <div class="p-6 border border-brand-gray-200 bg-[#faf9f6]">
+          <h3 class="text-base sm:text-lg font-medium text-brand-charcoal-900 mb-2"><%= t("car_rental_page.faq_5_q") %></h3>
+          <p class="text-sm text-brand-charcoal-600 font-light leading-relaxed"><%= t("car_rental_page.faq_5_a") %></p>
+        </div>
+
+        <div class="p-6 border border-brand-gray-200 bg-[#faf9f6]">
+          <h3 class="text-base sm:text-lg font-medium text-brand-charcoal-900 mb-2"><%= t("car_rental_page.faq_6_q") %></h3>
+          <p class="text-sm text-brand-charcoal-600 font-light leading-relaxed"><%= t("car_rental_page.faq_6_a") %></p>
+        </div>
+
+        <div class="p-6 border border-brand-gray-200 bg-[#faf9f6]">
+          <h3 class="text-base sm:text-lg font-medium text-brand-charcoal-900 mb-2"><%= t("car_rental_page.faq_7_q") %></h3>
+          <p class="text-sm text-brand-charcoal-600 font-light leading-relaxed"><%= t("car_rental_page.faq_7_a") %></p>
+        </div>
+
+        <div class="p-6 border border-brand-gray-200 bg-[#faf9f6]">
+          <h3 class="text-base sm:text-lg font-medium text-brand-charcoal-900 mb-2"><%= t("car_rental_page.faq_8_q") %></h3>
+          <p class="text-sm text-brand-charcoal-600 font-light leading-relaxed"><%= t("car_rental_page.faq_8_a") %></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. Final Editorial CTA Section -->
+  <section class="bg-brand-charcoal-900 py-16 md:py-24 text-center text-white relative overflow-hidden">
+    <div class="container-main max-w-2xl mx-auto px-4 relative z-10">
+      <span class="text-brand-gold-500 font-semibold tracking-[0.2em] text-xs uppercase block mb-3"><%= t("car_rental_page.final_eyebrow") %></span>
+      <h2 class="text-2xl sm:text-3xl md:text-5xl font-sans font-medium tracking-tight mb-5 leading-tight">
+        <%= t("car_rental_page.final_title") %>
+      </h2>
+      <p class="text-white/80 text-sm sm:text-base md:text-lg font-light leading-relaxed mb-8 max-w-xl mx-auto">
+        <%= t("car_rental_page.final_subtitle") %>
+      </p>
+
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="<%= whatsapp_general_url %>"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 sm:px-10 py-4 bg-[#25D366] hover:bg-[#20bd5a] text-white font-medium text-xs sm:text-sm tracking-widest uppercase transition-all duration-300 shadow-md">
+          <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+          </svg>
+          <span><%= t("car_rental_page.whatsapp_cta") %></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
 </div>
