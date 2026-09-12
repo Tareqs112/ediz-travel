@@ -57,7 +57,7 @@ class Admin::ToursController < Admin::BaseController
     permit_args += [
       :"title_#{l}", :"description_#{l}", :"cancellation_policy_#{l}",
       :"meeting_point_#{l}", :"included_#{l}", :"excluded_#{l}",
-      :"highlights_#{l}", { :"itinerary_#{l}" => [:day, :title, :desc] }
+      :"highlights_#{l}", { :"itinerary_#{l}" => [:order, :location, :title, :desc, :duration, :day] }
     ]
   end
   # languages remains untranslated

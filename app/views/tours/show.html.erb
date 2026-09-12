@@ -152,15 +152,30 @@
           <div class="mb-12 lg:mb-16">
             <h2 class="text-xl lg:text-2xl font-medium text-brand-charcoal-900 mb-6 lg:mb-8 pb-4 border-b border-brand-gray-200/60"><%= t("tours.show.itinerary", default: "Itinerary") %></h2>
             <div class="space-y-10 lg:space-y-12">
-              <% @tour.itinerary.each_with_index do |day, index| %>
+              <% @tour.itinerary.each_with_index do |item, index| %>
                 <div class="flex flex-col sm:flex-row gap-4 sm:gap-6 lg:gap-10">
                   <div class="sm:w-32 flex-shrink-0">
-                    <span class="text-xs font-semibold text-brand-gold-500 uppercase tracking-[0.15em] block sm:mt-1"><%= t("tours.show.day", default: "Day") %> <%= day['day'] || day[:day] || (index + 1) %></span>
+                    <% order_val = item['order'] || item[:order] || item['day'] || item[:day] || (index + 1) %>
+                    <span class="text-xs font-semibold text-brand-gold-500 uppercase tracking-[0.15em] block sm:mt-1">
+                      <% if order_val.to_s.match?(/day/i) %>
+                        <%= order_val %>
+                      <% elsif @tour.duration.to_s.match?(/day[s]?\z/i) && !@tour.duration.to_s.match?(/half|full/i) %>
+                        <%= t("tours.show.day", default: "Day") %> <%= order_val %>
+                      <% else %>
+                        <%= t("tours.show.stop", default: "Stop") %> <%= order_val %>
+                      <% end %>
+                    </span>
+                    <% if item['duration'].present? %>
+                      <span class="text-xs text-brand-charcoal-500 font-medium block mt-1.5"><%= item['duration'] %></span>
+                    <% end %>
                   </div>
                   <div class="flex-grow">
-                    <h3 class="text-lg lg:text-xl font-medium text-brand-charcoal-900 mb-3 leading-snug"><%= day['title'] || day[:title] %></h3>
+                    <h3 class="text-lg lg:text-xl font-medium text-brand-charcoal-900 mb-1.5 leading-snug"><%= item['title'] || item[:title] %></h3>
+                    <% if item['location'].present? %>
+                      <span class="text-sm font-medium text-brand-green-700 block mb-3"><%= item['location'] %></span>
+                    <% end %>
                     <p class="text-brand-charcoal-600 font-light leading-relaxed text-base">
-                      <%= day['desc'] || day[:desc] %>
+                      <%= item['desc'] || item[:desc] %>
                     </p>
                   </div>
                 </div>
