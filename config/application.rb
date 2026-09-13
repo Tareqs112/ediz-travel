@@ -17,7 +17,7 @@ module EdizTravel
     config.autoload_lib(ignore: %w[assets tasks])
 
     # I18n Multilingual Configuration
-    config.i18n.default_locale = :en
+    config.i18n.default_locale = :tr
     config.i18n.available_locales = %i[en ar tr]
     config.i18n.fallbacks = [:en]
   end

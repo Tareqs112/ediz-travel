@@ -31,12 +31,12 @@ class Admin::CrudTest < ActionDispatch::IntegrationTest
     assert_difference("Tour.count") do
       post admin_tours_url, params: { tour: { title_en: "New Tour", slug: "new-tour", description_en: "Desc", active: true } }
     end
-    assert_redirected_to admin_tour_url(Tour.last)
+    assert_redirected_to admin_tour_url(Tour.last, locale: nil)
   end
 
   test "should update tour" do
     patch admin_tour_url(@tour), params: { tour: { title_en: "Updated Title" } }
-    assert_redirected_to admin_tour_url(@tour)
+    assert_redirected_to admin_tour_url(@tour, locale: nil)
     @tour.reload
     assert_equal "Updated Title", @tour.title
   end
@@ -45,7 +45,7 @@ class Admin::CrudTest < ActionDispatch::IntegrationTest
     assert_difference("Tour.count", -1) do
       delete admin_tour_url(@tour)
     end
-    assert_redirected_to admin_tours_url
+    assert_redirected_to admin_tours_url(locale: nil)
   end
 
   # Destinations
@@ -68,12 +68,12 @@ class Admin::CrudTest < ActionDispatch::IntegrationTest
     assert_difference("Destination.count") do
       post admin_destinations_url, params: { destination: { name: "New Dest", slug: "new-dest", description_en: "Desc", active: true } }
     end
-    assert_redirected_to admin_destination_url(Destination.last)
+    assert_redirected_to admin_destination_url(Destination.last, locale: nil)
   end
 
   test "should update destination" do
     patch admin_destination_url(@destination), params: { destination: { name: "Updated Dest" } }
-    assert_redirected_to admin_destination_url(@destination)
+    assert_redirected_to admin_destination_url(@destination, locale: nil)
     @destination.reload
     assert_equal "Updated Dest", @destination.name
   end
@@ -82,7 +82,7 @@ class Admin::CrudTest < ActionDispatch::IntegrationTest
     assert_difference("Destination.count", -1) do
       delete admin_destination_url(@destination)
     end
-    assert_redirected_to admin_destinations_url
+    assert_redirected_to admin_destinations_url(locale: nil)
   end
 
   # Accommodations
@@ -105,12 +105,12 @@ class Admin::CrudTest < ActionDispatch::IntegrationTest
     assert_difference("Accommodation.count") do
       post admin_accommodations_url, params: { accommodation: { name: "New Acc", slug: "new-acc", description_en: "Desc", active: true, accommodation_type: "hotel" } }
     end
-    assert_redirected_to admin_accommodation_url(Accommodation.last)
+    assert_redirected_to admin_accommodation_url(Accommodation.last, locale: nil)
   end
 
   test "should update accommodation" do
     patch admin_accommodation_url(@accommodation), params: { accommodation: { name: "Updated Acc" } }
-    assert_redirected_to admin_accommodation_url(@accommodation)
+    assert_redirected_to admin_accommodation_url(@accommodation, locale: nil)
     @accommodation.reload
     assert_equal "Updated Acc", @accommodation.name
   end
@@ -119,7 +119,7 @@ class Admin::CrudTest < ActionDispatch::IntegrationTest
     assert_difference("Accommodation.count", -1) do
       delete admin_accommodation_url(@accommodation)
     end
-    assert_redirected_to admin_accommodations_url
+    assert_redirected_to admin_accommodations_url(locale: nil)
   end
 test "should update tour itinerary" do
   patch admin_tour_url(@tour), params: { 
@@ -130,7 +130,7 @@ test "should update tour itinerary" do
       ]
     }
   }
-  assert_redirected_to admin_tour_url(@tour)
+  assert_redirected_to admin_tour_url(@tour, locale: nil)
   @tour.reload
   assert_equal 1, @tour.itinerary.length
   assert_equal "Day 1", @tour.itinerary.first["title"]

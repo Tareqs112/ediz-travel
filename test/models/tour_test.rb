@@ -9,8 +9,8 @@ class TourTest < ActiveSupport::TestCase
   test "can belong to a destination" do
     dest = Destination.create!(name: "Trabzon", slug: "trabzon-123")
     tour = Tour.new(
-      title: "City Tour",
-      description: "A tour",
+      title_en: "City Tour",
+      description_en: "A tour",
       slug: "city-tour-123",
       duration: "1 day",
       tour_type: "Private",
@@ -41,7 +41,7 @@ class TourTest < ActiveSupport::TestCase
     assert_equal 0, BookingRequest.where(id: request.id).count
     
     # Recreate
-    tour = Tour.create!(title: "Test Tour", description: "Desc", slug: "test-tour")
+    tour = Tour.create!(title_en: "Test Tour", description_en: "Desc", slug: "test-tour")
     request = BookingRequest.create!(tour: tour, customer_name: "Test", email: "test@example.com", travel_date: Date.today, travelers_count: 2, status: "new")
     customer = Customer.create!(name: "Test Customer")
     Booking.create!(booking_request: request, customer: customer, source: "website", status: "confirmed")

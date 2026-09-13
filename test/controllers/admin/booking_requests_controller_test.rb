@@ -70,7 +70,7 @@ test "should get index" do
     patch admin_booking_request_url(@booking_request), params: {
       booking_request: { status: "contacted" }
     }
-    assert_redirected_to admin_booking_request_url(@booking_request)
+    assert_redirected_to admin_booking_request_url(@booking_request, locale: nil)
     @booking_request.reload
     assert_equal "contacted", @booking_request.status
   end

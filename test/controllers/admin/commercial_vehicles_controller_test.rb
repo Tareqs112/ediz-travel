@@ -35,7 +35,7 @@ class Admin::CommercialVehiclesControllerTest < ActionDispatch::IntegrationTest
         }
       }
     end
-    assert_redirected_to admin_commercial_vehicle_url(CommercialVehicle.last)
+    assert_redirected_to admin_commercial_vehicle_url(CommercialVehicle.last, locale: nil)
   end
 
   test "should get edit" do
@@ -49,7 +49,7 @@ class Admin::CommercialVehiclesControllerTest < ActionDispatch::IntegrationTest
     patch admin_commercial_vehicle_url(@vehicle), params: {
       commercial_vehicle: { active: false }
     }
-    assert_redirected_to admin_commercial_vehicle_url(@vehicle)
+    assert_redirected_to admin_commercial_vehicle_url(@vehicle, locale: nil)
     @vehicle.reload
     assert_not @vehicle.active?
   end
@@ -59,6 +59,6 @@ class Admin::CommercialVehiclesControllerTest < ActionDispatch::IntegrationTest
     assert_difference("CommercialVehicle.count", -1) do
       delete admin_commercial_vehicle_url(@vehicle)
     end
-    assert_redirected_to admin_commercial_vehicles_url
+    assert_redirected_to admin_commercial_vehicles_url(locale: nil)
   end
 end

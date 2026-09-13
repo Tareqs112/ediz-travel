@@ -8,7 +8,7 @@ class CommercialVehicleTest < ActiveSupport::TestCase
   end
 
   test "requires valid category" do
-    vehicle = CommercialVehicle.new(name: "Test Vehicle", category: "invalid")
+    vehicle = CommercialVehicle.new(name_en: "Test Vehicle", category: "invalid")
     assert_not vehicle.valid?
 
     vehicle.category = "chauffeured"
@@ -19,7 +19,7 @@ class CommercialVehicleTest < ActiveSupport::TestCase
   end
 
   test "validates price is positive" do
-    vehicle = CommercialVehicle.new(name: "Test", category: "chauffeured", price_from: -10)
+    vehicle = CommercialVehicle.new(name_en: "Test", category: "chauffeured", price_from: -10)
     assert_not vehicle.valid?
 
     vehicle.price_from = 0
@@ -27,11 +27,11 @@ class CommercialVehicleTest < ActiveSupport::TestCase
   end
 
   test "active scope returns only active vehicles" do
-    CommercialVehicle.create!(name: "Active 1", category: "chauffeured", active: true)
-    CommercialVehicle.create!(name: "Inactive 1", category: "chauffeured", active: false)
+    CommercialVehicle.create!(name_en: "Active 1", category: "chauffeured", active: true)
+    CommercialVehicle.create!(name_en: "Inactive 1", category: "chauffeured", active: false)
 
     active_vehicles = CommercialVehicle.active
-    assert_equal 1, active_vehicles.count
-    assert_equal "Active 1", active_vehicles.first.name
+    assert_includes active_vehicles.map(&:name), "Active 1"
+    assert_not_includes active_vehicles.map(&:name), "Inactive 1"
   end
 end

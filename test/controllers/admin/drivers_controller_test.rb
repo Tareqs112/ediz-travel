@@ -37,7 +37,7 @@ class Admin::DriversControllerTest < ActionDispatch::IntegrationTest
     assert_difference("Driver.count") do
       post admin_drivers_url, params: { driver: { name: "New Driver", phone: "12345", active: true } }
     end
-    assert_redirected_to admin_drivers_url
+    assert_redirected_to admin_drivers_url(locale: nil)
   end
 
   test "should get show" do
@@ -52,7 +52,7 @@ class Admin::DriversControllerTest < ActionDispatch::IntegrationTest
 
   test "should update driver" do
     patch admin_driver_url(@driver), params: { driver: { name: "Updated Driver" } }
-    assert_redirected_to admin_drivers_url
+    assert_redirected_to admin_drivers_url(locale: nil)
     @driver.reload
     assert_equal "Updated Driver", @driver.name
   end
@@ -61,7 +61,7 @@ class Admin::DriversControllerTest < ActionDispatch::IntegrationTest
     assert_difference("Driver.count", -1) do
       delete admin_driver_url(@driver)
     end
-    assert_redirected_to admin_drivers_url
+    assert_redirected_to admin_drivers_url(locale: nil)
   end
 
   test "should redirect unauthenticated user" do

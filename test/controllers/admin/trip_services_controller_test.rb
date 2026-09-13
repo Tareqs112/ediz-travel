@@ -37,7 +37,7 @@ class Admin::TripServicesControllerTest < ActionDispatch::IntegrationTest
         }
       }
     end
-    assert_redirected_to admin_booking_url(@booking)
+    assert_redirected_to admin_booking_url(@booking, locale: nil)
     follow_redirect!
     assert_match "Service was successfully added", response.body
   end
@@ -51,7 +51,7 @@ class Admin::TripServicesControllerTest < ActionDispatch::IntegrationTest
     patch admin_booking_trip_service_url(@booking, @trip_service), params: {
       trip_service: { pickup_location: "New Hotel", status: "completed" }
     }
-    assert_redirected_to admin_booking_url(@booking)
+    assert_redirected_to admin_booking_url(@booking, locale: nil)
     @trip_service.reload
     assert_equal "New Hotel", @trip_service.pickup_location
     assert_equal "completed", @trip_service.status
@@ -61,7 +61,7 @@ class Admin::TripServicesControllerTest < ActionDispatch::IntegrationTest
     assert_difference("TripService.count", -1) do
       delete admin_booking_trip_service_url(@booking, @trip_service)
     end
-    assert_redirected_to admin_booking_url(@booking)
+    assert_redirected_to admin_booking_url(@booking, locale: nil)
   end
 
   # ---- Driver/Vehicle Assignment ----

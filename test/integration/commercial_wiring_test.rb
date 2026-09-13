@@ -108,7 +108,7 @@ class TourCommercialTest < ActionDispatch::IntegrationTest
       }
     }
     
-    assert_redirected_to admin_tour_path(@tour)
+    assert_redirected_to admin_tour_path(@tour, locale: nil)
     @tour.reload
     assert_equal 250.00, @tour.price_from
     assert_equal "EUR", @tour.currency

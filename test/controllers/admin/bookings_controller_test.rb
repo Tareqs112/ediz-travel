@@ -49,7 +49,7 @@ class Admin::BookingsControllerTest < ActionDispatch::IntegrationTest
     assert_difference("Booking.count") do
       post admin_bookings_url, params: { booking: { customer_id: @customer.id, source: "phone", status: "confirmed" } }
     end
-    assert_redirected_to admin_booking_url(Booking.last)
+    assert_redirected_to admin_booking_url(Booking.last, locale: nil)
   end
 
   test "should get show" do
@@ -64,7 +64,7 @@ class Admin::BookingsControllerTest < ActionDispatch::IntegrationTest
 
   test "should update booking" do
     patch admin_booking_url(@booking), params: { booking: { status: "active" } }
-    assert_redirected_to admin_booking_url(@booking)
+    assert_redirected_to admin_booking_url(@booking, locale: nil)
     @booking.reload
     assert_equal "active", @booking.status
   end
@@ -73,7 +73,7 @@ class Admin::BookingsControllerTest < ActionDispatch::IntegrationTest
     assert_difference("Booking.count", -1) do
       delete admin_booking_url(@booking)
     end
-    assert_redirected_to admin_bookings_url
+    assert_redirected_to admin_bookings_url(locale: nil)
   end
 
   test "should not destroy booking with trip services" do
@@ -83,7 +83,7 @@ class Admin::BookingsControllerTest < ActionDispatch::IntegrationTest
       delete admin_booking_url(@booking)
     end
     
-    assert_redirected_to admin_booking_url(@booking)
+    assert_redirected_to admin_booking_url(@booking, locale: nil)
     follow_redirect!
     assert_match /Cannot delete record because dependent trip services exist/, response.body
   end

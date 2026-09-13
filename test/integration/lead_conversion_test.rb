@@ -25,7 +25,7 @@ class LeadConversionTest < ActionDispatch::IntegrationTest
     end
 
     booking = Booking.last
-    assert_redirected_to admin_booking_url(booking)
+    assert_redirected_to admin_booking_url(booking, locale: nil)
 
     assert_equal "Test Customer", booking.customer.name
     assert_equal "test@example.com", booking.customer.email
@@ -46,7 +46,7 @@ class LeadConversionTest < ActionDispatch::IntegrationTest
       post convert_to_booking_admin_booking_request_url(@booking_request)
     end
 
-    assert_redirected_to admin_booking_url(booking)
+    assert_redirected_to admin_booking_url(booking, locale: nil)
   end
 
   test "matches existing customer by email" do

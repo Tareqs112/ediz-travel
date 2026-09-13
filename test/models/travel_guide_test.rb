@@ -9,19 +9,19 @@ class TravelGuideTest < ActiveSupport::TestCase
 
   test "requires unique slug" do
     existing = travel_guides(:one)
-    guide = TravelGuide.new(title: "Another", slug: existing.slug)
+    guide = TravelGuide.new(title_en: "Another", slug: existing.slug)
     assert_not guide.valid?
     assert_includes guide.errors[:slug], "has already been taken"
   end
 
   test "auto-generates slug from title if missing" do
-    guide = TravelGuide.new(title: "My Awesome Guide")
+    guide = TravelGuide.new(title_en: "My Awesome Guide")
     guide.valid?
     assert_equal "my-awesome-guide", guide.slug
   end
 
   test "keeps provided slug" do
-    guide = TravelGuide.new(title: "My Awesome Guide", slug: "custom-slug")
+    guide = TravelGuide.new(title_en: "My Awesome Guide", slug: "custom-slug")
     guide.valid?
     assert_equal "custom-slug", guide.slug
   end
@@ -84,13 +84,13 @@ class TravelGuideTest < ActiveSupport::TestCase
   end
 
   test "meta_description_or_fallback falls back to excerpt and title" do
-    guide = TravelGuide.new(title: "Guide Title", excerpt: "Short summary", meta_description: "")
+    guide = TravelGuide.new(title_en: "Guide Title", excerpt: "Short summary", meta_description: "")
     assert_equal "Short summary", guide.meta_description_or_fallback
 
-    guide2 = TravelGuide.new(title: "Guide Title", excerpt: "", meta_description: "")
+    guide2 = TravelGuide.new(title_en: "Guide Title", excerpt: "", meta_description: "")
     assert_equal "Guide Title", guide2.meta_description_or_fallback
 
-    guide3 = TravelGuide.new(title: "Guide Title", excerpt: "Short summary", meta_description: "Explicit SEO snippet")
+    guide3 = TravelGuide.new(title_en: "Guide Title", excerpt: "Short summary", meta_description: "Explicit SEO snippet")
     assert_equal "Explicit SEO snippet", guide3.meta_description_or_fallback
   end
 end

@@ -70,7 +70,7 @@ test "should get index" do
     patch admin_trip_inquiry_url(@inquiry), params: {
       trip_inquiry: { status: "contacted" }
     }
-    assert_redirected_to admin_trip_inquiry_url(@inquiry)
+    assert_redirected_to admin_trip_inquiry_url(@inquiry, locale: nil)
     @inquiry.reload
     assert_equal "contacted", @inquiry.status
   end

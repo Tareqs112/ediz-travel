@@ -2,16 +2,16 @@ require "test_helper"
 
 class ServicesControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @chauffeured = CommercialVehicle.create!(name: "Mercedes Vito", category: "chauffeured", price_from: 80, currency: "USD", active: true)
-    @self_drive = CommercialVehicle.create!(name: "Renault Taliant", category: "self_drive", price_from: 40, currency: "USD", active: true)
-    @inactive = CommercialVehicle.create!(name: "Hidden Car", category: "self_drive", active: false)
+    @chauffeured = CommercialVehicle.create!(name_en: "Mercedes Vito", category: "chauffeured", price_from: 80, currency: "USD", active: true)
+    @self_drive = CommercialVehicle.create!(name_en: "Renault Taliant", category: "self_drive", price_from: 40, currency: "USD", active: true)
+    @inactive = CommercialVehicle.create!(name_en: "Hidden Car", category: "self_drive", active: false)
 
     # Create an operational vehicle to ensure it doesn't bleed over
     @operational = Vehicle.create!(name: "Internal Van", plate_number: "34ABC123", active: true)
   end
 
   test "should get chauffeured car and show only active chauffeured vehicles" do
-    get chauffeured_car_url
+    get chauffeured_car_url(locale: :en)
     assert_response :success
     assert_select "h1", text: "You Travel. Your Driver Handles the Road."
     assert_select "h3", text: "Mercedes Vito"
@@ -45,7 +45,7 @@ class ServicesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get car rental and show only active self drive vehicles" do
-    get car_rental_url
+    get car_rental_url(locale: :en)
     assert_response :success
     assert_select "h1", text: "Your Own Car for the Black Sea."
     assert_select "h3", text: "Renault Taliant"
@@ -79,7 +79,7 @@ class ServicesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get airport transfer with localized content and direct WhatsApp CTA" do
-    get airport_transfer_url
+    get airport_transfer_url(locale: :en)
     assert_response :success
     assert_select "h1", text: "A Calm Arrival in Trabzon."
     assert_select "a[href*='wa.me/905540171890']", minimum: 2

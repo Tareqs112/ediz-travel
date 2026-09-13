@@ -21,7 +21,7 @@ class Admin::PackagesControllerTest < ActionDispatch::IntegrationTest
     assert_difference("Package.count") do
       post admin_packages_url, params: { package: { title: "New Package", slug: "new-pkg", duration: "7 days", active: true } }
     end
-    assert_redirected_to admin_package_url(Package.last)
+    assert_redirected_to admin_package_url(Package.last, locale: nil)
   end
 
   test "should show package" do
@@ -36,13 +36,13 @@ class Admin::PackagesControllerTest < ActionDispatch::IntegrationTest
 
   test "should update package" do
     patch admin_package_url(@package), params: { package: { title: "Updated" } }
-    assert_redirected_to admin_package_url(@package)
+    assert_redirected_to admin_package_url(@package, locale: nil)
   end
 
   test "should destroy package" do
     assert_difference("Package.count", -1) do
       delete admin_package_url(@package)
     end
-    assert_redirected_to admin_packages_url
+    assert_redirected_to admin_packages_url(locale: nil)
   end
 end

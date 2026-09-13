@@ -7,14 +7,14 @@ class Admin::BusinessSettingsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should redirect unauthenticated user" do
-    get edit_admin_business_setting_url
+    get edit_admin_business_setting_url(locale: nil)
     assert_redirected_to new_session_url
   end
 
   test "should get edit for authenticated admin" do
     post session_url, params: { email_address: @admin.email_address, password: "password" }
 
-    get edit_admin_business_setting_url
+    get edit_admin_business_setting_url(locale: nil)
     assert_response :success
   end
 
@@ -28,7 +28,7 @@ class Admin::BusinessSettingsControllerTest < ActionDispatch::IntegrationTest
       }
     }
 
-    assert_redirected_to edit_admin_business_setting_url
+    assert_redirected_to edit_admin_business_setting_url(locale: nil)
     @setting.reload
     assert_equal "Updated Name", @setting.company_name
     assert_equal "+123456789", @setting.whatsapp_number

@@ -7,7 +7,7 @@ class AccommodationsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get index" do
-    get accommodations_url
+    get accommodations_url(locale: :en)
     assert_response :success
     assert_match @hotel.name, response.body
     assert_match @chalet.name, response.body

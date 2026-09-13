@@ -40,7 +40,7 @@ class Admin::TravelGuidesControllerTest < ActionDispatch::IntegrationTest
         }
       }
     end
-    assert_redirected_to admin_travel_guides_url
+    assert_redirected_to admin_travel_guides_url(locale: nil)
     guide = TravelGuide.find_by(slug: "new-draft-guide")
     assert_not guide.published?
     assert guide.draft?
@@ -59,7 +59,7 @@ class Admin::TravelGuidesControllerTest < ActionDispatch::IntegrationTest
         }
       }
     end
-    assert_redirected_to admin_travel_guides_url
+    assert_redirected_to admin_travel_guides_url(locale: nil)
     guide = TravelGuide.find_by(slug: "new-published-guide")
     assert guide.published?
   end
@@ -70,7 +70,7 @@ class Admin::TravelGuidesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get edit" do
-    get edit_admin_travel_guide_url(@guide)
+    get edit_admin_travel_guide_url(@guide, locale: nil)
     assert_response :success
   end
 
@@ -79,7 +79,7 @@ class Admin::TravelGuidesControllerTest < ActionDispatch::IntegrationTest
       publication_action: "publish",
       travel_guide: { title_en: "Updated Title", tag_list: "UpdatedTag" }
     }
-    assert_redirected_to admin_travel_guides_url
+    assert_redirected_to admin_travel_guides_url(locale: nil)
     @guide.reload
     assert_equal "Updated Title", @guide.title
     assert_equal ["UpdatedTag"], @guide.tags
@@ -97,7 +97,7 @@ class Admin::TravelGuidesControllerTest < ActionDispatch::IntegrationTest
     assert draft.draft?
 
     patch publish_admin_travel_guide_url(draft)
-    assert_redirected_to admin_travel_guides_url
+    assert_redirected_to admin_travel_guides_url(locale: nil)
     draft.reload
     assert draft.published?
   end
@@ -106,7 +106,7 @@ class Admin::TravelGuidesControllerTest < ActionDispatch::IntegrationTest
     assert @guide.published?
 
     patch unpublish_admin_travel_guide_url(@guide)
-    assert_redirected_to admin_travel_guides_url
+    assert_redirected_to admin_travel_guides_url(locale: nil)
     @guide.reload
     assert @guide.draft?
   end
@@ -137,14 +137,14 @@ class Admin::TravelGuidesControllerTest < ActionDispatch::IntegrationTest
     assert_difference("@guide.body_images.count", -1) do
       delete remove_body_image_admin_travel_guide_url(@guide, image_id: attachment.id)
     end
-    assert_redirected_to edit_admin_travel_guide_url(@guide)
+    assert_redirected_to edit_admin_travel_guide_url(@guide, locale: nil)
   end
 
   test "should destroy travel guide" do
     assert_difference("TravelGuide.count", -1) do
       delete admin_travel_guide_url(@guide)
     end
-    assert_redirected_to admin_travel_guides_url
+    assert_redirected_to admin_travel_guides_url(locale: nil)
   end
 
   test "requires authentication for admin actions" do

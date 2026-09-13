@@ -25,14 +25,14 @@ class TourCardTest < ActionDispatch::IntegrationTest
 
   test "tour card shows duration when present" do
     build_tour(duration: "Full Day")
-    get tours_path
+    get tours_path(locale: :en)
     assert_response :success
     assert_match "Full Day", response.body
   end
 
   test "tour card does not render duration chip when duration is blank" do
     build_tour(duration: nil, tour_type: nil)
-    get tours_path
+    get tours_path(locale: :en)
     assert_response :success
     # chip wrapper is only rendered when duration OR tour_type is present
     assert_no_match(/flex flex-wrap gap-2 mb-3/, response.body)
@@ -42,14 +42,14 @@ class TourCardTest < ActionDispatch::IntegrationTest
 
   test "tour card shows tour_type when present" do
     build_tour(tour_type: "Private")
-    get tours_path
+    get tours_path(locale: :en)
     assert_response :success
     assert_match "Private", response.body
   end
 
   test "tour card does not show tour_type chip when tour_type is blank" do
     build_tour(duration: nil, tour_type: nil)
-    get tours_path
+    get tours_path(locale: :en)
     assert_response :success
     assert_no_match(/flex flex-wrap gap-2 mb-3/, response.body)
   end
@@ -58,7 +58,7 @@ class TourCardTest < ActionDispatch::IntegrationTest
 
   test "tour card shows both duration and tour_type chips when both present" do
     build_tour(duration: "8 Hours", tour_type: "Group")
-    get tours_path
+    get tours_path(locale: :en)
     assert_response :success
     assert_match "8 Hours", response.body
     assert_match "Group", response.body
@@ -66,7 +66,7 @@ class TourCardTest < ActionDispatch::IntegrationTest
 
   test "tour card with no metadata renders no chip container" do
     build_tour(duration: nil, tour_type: nil)
-    get tours_path
+    get tours_path(locale: :en)
     assert_response :success
     assert_no_match(/flex flex-wrap gap-2 mb-3/, response.body)
   end
@@ -75,14 +75,14 @@ class TourCardTest < ActionDispatch::IntegrationTest
 
   test "tour card shows Featured badge for featured tours" do
     build_tour(featured: true)
-    get tours_path
+    get tours_path(locale: :en)
     assert_response :success
     assert_match I18n.t("tours.card.featured"), response.body
   end
 
   test "tour card does NOT show Featured badge for non-featured tours" do
     build_tour(featured: false)
-    get tours_path
+    get tours_path(locale: :en)
     assert_response :success
     assert_no_match I18n.t("tours.card.featured"), response.body
   end
@@ -91,7 +91,7 @@ class TourCardTest < ActionDispatch::IntegrationTest
 
   test "tour card shows localized From label when price_from present" do
     build_tour(price_from: 99, currency: "USD")
-    get tours_path
+    get tours_path(locale: :en)
     assert_response :success
     assert_match I18n.t("tours.card.from"), response.body
     assert_match "USD 99", response.body
@@ -99,7 +99,7 @@ class TourCardTest < ActionDispatch::IntegrationTest
 
   test "tour card shows no price row when price_from is nil" do
     build_tour(price_from: nil)
-    get tours_path
+    get tours_path(locale: :en)
     assert_response :success
     assert_no_match I18n.t("tours.card.from"), response.body
   end

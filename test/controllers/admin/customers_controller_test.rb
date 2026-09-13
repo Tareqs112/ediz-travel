@@ -22,7 +22,7 @@ class Admin::CustomersControllerTest < ActionDispatch::IntegrationTest
     assert_difference("Customer.count") do
       post admin_customers_url, params: { customer: { name: "New Customer", preferred_language: "ar" } }
     end
-    assert_redirected_to admin_customer_url(Customer.last)
+    assert_redirected_to admin_customer_url(Customer.last, locale: nil)
   end
 
   test "should get show" do
@@ -37,7 +37,7 @@ class Admin::CustomersControllerTest < ActionDispatch::IntegrationTest
 
   test "should update customer" do
     patch admin_customer_url(@customer), params: { customer: { name: "Updated Name" } }
-    assert_redirected_to admin_customer_url(@customer)
+    assert_redirected_to admin_customer_url(@customer, locale: nil)
     @customer.reload
     assert_equal "Updated Name", @customer.name
   end
@@ -46,7 +46,7 @@ class Admin::CustomersControllerTest < ActionDispatch::IntegrationTest
     assert_difference("Customer.count", -1) do
       delete admin_customer_url(@customer)
     end
-    assert_redirected_to admin_customers_url
+    assert_redirected_to admin_customers_url(locale: nil)
   end
 
   test "should not destroy customer with bookings" do
@@ -56,7 +56,7 @@ class Admin::CustomersControllerTest < ActionDispatch::IntegrationTest
       delete admin_customer_url(@customer)
     end
     
-    assert_redirected_to admin_customer_url(@customer)
+    assert_redirected_to admin_customer_url(@customer, locale: nil)
     follow_redirect!
     assert_match /Cannot delete record because dependent bookings exist/, response.body
   end
