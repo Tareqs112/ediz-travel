@@ -140,10 +140,105 @@ end
   end
 
 test "should get availability lookup page" do
-  get admin_operations_availability_url(date: @today, time: "10:00")
+  get admin_operations_availability_url(date: @today, start_time: "10:00")
   assert_response :success
-  assert_select "h1", text: /Availability Lookup/
+  assert_select "h1", text: /Who's Free/
   assert_select "div", text: /#{@driver1.name}/
   assert_select "div", text: /#{@vehicle1.name}/
+end
+
+# ─── WINDOW AVAILABILITY TESTS ───────────────────────────────────────────────
+
+test "availability: driver is BUSY when requested window overlaps existing service + buffer" do
+  # Existing service: 10:00–12:00. Buffer expands to 09:15–12:45.
+  # Requested window: 12:30–14:00 → start (12:30) < buffer_end (12:45) AND end (14:00) > buffer_start (09:15) → BUSY
+  TripService.new(booking: @booking, service_type: "tour", date: @today,
+                  status: "assigned", driver: @driver1,
+                  start_time: "10:00", end_time: "12:00").tap { |s| s.save(validate: false) }
+
+  get admin_operations_availability_url(date: @today, start_time: "12:30", end_time: "14:00")
+  assert_response :success
+  assert_select "div", text: /Busy/
+  assert_select "div", text: /#{@driver1.name}/
+end
+
+test "availability: driver is AVAILABLE when requested window is just past buffer" do
+  # Existing service: 10:00–12:00. Buffer end = 12:45.
+  # Requested window: 12:45–14:00 → start (765) NOT < buffer_end (765) → AVAILABLE (strict <)
+  TripService.new(booking: @booking, service_type: "tour", date: @today,
+                  status: "assigned", driver: @driver1,
+                  start_time: "10:00", end_time: "12:00").tap { |s| s.save(validate: false) }
+
+  get admin_operations_availability_url(date: @today, start_time: "12:45", end_time: "14:00")
+  assert_response :success
+  assert_select "div", text: /Available/
+  assert_no_match(/Busy/, response.body)
+end
+
+test "availability: cancelled services do NOT mark driver as busy" do
+  TripService.new(booking: @booking, service_type: "tour", date: @today,
+                  status: "cancelled", driver: @driver1,
+                  start_time: "10:00", end_time: "12:00").tap { |s| s.save(validate: false) }
+
+  get admin_operations_availability_url(date: @today, start_time: "10:30", end_time: "11:30")
+  assert_response :success
+  # driver1 should appear in the available section, not busy
+  assert_no_match(/Busy/, response.body)
+end
+
+test "availability: vehicle is BUSY when requested window conflicts" do
+  TripService.new(booking: @booking, service_type: "airport_transfer", date: @today,
+                  status: "assigned", vehicle: @vehicle1,
+                  start_time: "08:00", end_time: "10:00").tap { |s| s.save(validate: false) }
+
+  get admin_operations_availability_url(date: @today, start_time: "10:30", end_time: "12:00")
+  assert_response :success
+  assert_select "div", text: /#{@vehicle1.name}/
+  assert_select "div", text: /Busy/
+end
+
+test "availability: vehicle is AVAILABLE when requested window is past buffer" do
+  TripService.new(booking: @booking, service_type: "airport_transfer", date: @today,
+                  status: "assigned", vehicle: @vehicle1,
+                  start_time: "08:00", end_time: "10:00").tap { |s| s.save(validate: false) }
+
+  # Buffer end = 10:45. Request starts at 10:45 → NOT busy (strict inequality)
+  get admin_operations_availability_url(date: @today, start_time: "10:45", end_time: "12:00")
+  assert_response :success
+  assert_no_match(/Busy/, response.body)
+end
+
+test "availability: multiple blocking services are all shown for a busy driver" do
+  # Two non-overlapping services on the same driver, both in the requested window
+  TripService.new(booking: @booking, service_type: "tour", date: @today,
+                  status: "assigned", driver: @driver1,
+                  start_time: "08:00", end_time: "09:00").tap { |s| s.save(validate: false) }
+  TripService.new(booking: @booking, service_type: "airport_transfer", date: @today,
+                  status: "assigned", driver: @driver1,
+                  start_time: "13:00", end_time: "15:00").tap { |s| s.save(validate: false) }
+
+  # Both should block a window that spans both buffers
+  get admin_operations_availability_url(date: @today, start_time: "09:30", end_time: "13:30")
+  assert_response :success
+  assert_select "div", text: /Tour/
+  assert_select "div", text: /Airport Transfer/
+end
+
+test "availability: busy result contains link to the blocking booking" do
+  TripService.new(booking: @booking, service_type: "tour", date: @today,
+                  status: "assigned", driver: @driver1,
+                  start_time: "10:00", end_time: "12:00").tap { |s| s.save(validate: false) }
+
+  get admin_operations_availability_url(date: @today, start_time: "10:30", end_time: "11:30")
+  assert_response :success
+  assert_select "a[href='#{admin_booking_path(@booking, locale: nil)}']"
+end
+
+test "availability: external driver badge is shown" do
+  @driver1.update!(is_external: true)
+
+  get admin_operations_availability_url(date: @today, start_time: "10:00")
+  assert_response :success
+  assert_select "span", text: /External/
 end
 end

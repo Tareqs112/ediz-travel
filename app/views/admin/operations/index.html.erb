@@ -12,7 +12,7 @@
     <button type="submit" class="px-3 py-2 bg-gray-900 text-white rounded-md text-sm font-medium hover:bg-gray-800">Go</button>
   </form>
 
-  <%= link_to "Who's Free? →", admin_operations_availability_path(date: @date.to_s), class: "px-3 py-2 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50" %>
+  <%= link_to "Who's Free? →", admin_operations_availability_path(date: @date.to_s, start_time: Time.current.strftime("%H:%M")), class: "px-3 py-2 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50" %>
 </div>
 
 <%# Summary Stats — 3 columns on mobile, 6 on desktop %>

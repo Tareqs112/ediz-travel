@@ -1,30 +1,28 @@
 class Admin::OperationsController < Admin::BaseController
   def availability
-    @date = params[:date].present? ? Date.parse(params[:date]) : Date.today
-    @time = params[:time].present? ? params[:time] : "10:00"
-    
-    begin
-      parsed_time = Time.parse(@time)
-      @query_mins = parsed_time.hour * 60 + parsed_time.min
-    rescue ArgumentError
-      @query_mins = 10 * 60
-    end
-    
-    # We load all active drivers and vehicles
-    @drivers = Driver.where(active: true).order(:name)
+    @date      = params[:date].present? ? Date.parse(params[:date]) : Date.today
+    @start_time = params[:start_time].presence || "10:00"
+    @end_time   = params[:end_time].presence
+
+    @query_start_mins = parse_time_to_mins(@start_time)
+    @query_end_mins   = @end_time.present? ? parse_time_to_mins(@end_time) : nil
+
+    # All active drivers and vehicles
+    @drivers  = Driver.where(active: true).order(:name)
     @vehicles = Vehicle.where(active: true).order(:name)
-    
-    # Load all services for this date that are not cancelled and have times
+
+    # All non-cancelled, timed services on the date (eager-load booking→customer for links)
     services_on_date = TripService.where(date: @date)
-                                  .where.not(status: 'cancelled')
+                                  .where.not(status: "cancelled")
                                   .where.not(start_time: nil)
                                   .where.not(end_time: nil)
-                                  .includes(:booking)
-                                  
-    # Group by driver and vehicle
-    @driver_services = services_on_date.where.not(driver_id: nil).group_by(&:driver_id)
-    @vehicle_services = services_on_date.where.not(vehicle_id: nil).group_by(&:vehicle_id)
-    
+                                  .includes(booking: :customer)
+
+    # Group all blocking services per resource id
+    # Uses blocks_window? when end_time is supplied, blocks_time? otherwise (backward-compat)
+    @driver_blocking  = build_blocking_map(services_on_date.where.not(driver_id: nil),  :driver_id)
+    @vehicle_blocking = build_blocking_map(services_on_date.where.not(vehicle_id: nil), :vehicle_id)
+
     render :availability
   end
 
@@ -80,5 +78,34 @@ class Admin::OperationsController < Admin::BaseController
     end
 
     conflicts
+  end
+
+  # Converts a "HH:MM" string to integer minutes-from-midnight.
+  # Falls back to 10:00 (600 mins) on unparseable input.
+  def parse_time_to_mins(time_str)
+    parsed = Time.parse(time_str.to_s)
+    parsed.hour * 60 + parsed.min
+  rescue ArgumentError
+    10 * 60
+  end
+
+  # Builds a Hash { resource_id => [array of blocking TripService records] }
+  # using blocks_window? when an end time is supplied, otherwise blocks_time? for
+  # backward compatibility with the single-point query.
+  def build_blocking_map(relation, id_field)
+    result = {}
+    relation.each do |service|
+      blocking = if @query_end_mins.present?
+                   service.blocks_window?(@query_start_mins, @query_end_mins)
+                 else
+                   service.blocks_time?(@query_start_mins)
+                 end
+      if blocking
+        rid = service.send(id_field)
+        result[rid] ||= []
+        result[rid] << service
+      end
+    end
+    result
   end
 end

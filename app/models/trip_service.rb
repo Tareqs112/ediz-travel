@@ -121,7 +121,18 @@ end
 def blocks_time?(query_mins)
   interval = blocked_interval
   return false unless interval
-  
+
   query_mins > interval[0] && query_mins < interval[1]
+end
+
+# Checks if a queried operational window [query_start_mins, query_end_mins] overlaps
+# with this service's buffer-expanded interval. Uses the same semantics as
+# overlaps_with_buffer? but against explicit minute values rather than another
+# TripService object. Strict inequality (< / >) so back-to-back is allowed.
+def blocks_window?(query_start_mins, query_end_mins)
+  interval = blocked_interval
+  return false unless interval
+
+  query_start_mins < interval[1] && query_end_mins > interval[0]
 end
 end

@@ -5,6 +5,8 @@ class Driver < ApplicationRecord
   has_many :trip_services, dependent: :restrict_with_error
   has_many :todays_trip_services, -> { where(date: Date.today) }, class_name: "TripService"
 
+  # is_external column exists in schema; declare accessor for clean boolean access
+  attribute :is_external, :boolean, default: false
 
   # Set default values
   after_initialize :set_defaults, if: :new_record?
