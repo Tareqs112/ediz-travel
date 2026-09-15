@@ -1,61 +1,61 @@
 <% content_for :title, "Daily Operations — #{@date.strftime("%A, %d %b %Y")}" %>
 
-<div class="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-  <div class="flex items-center gap-2">
-    <%= link_to "← Prev", admin_operations_path(date: @date.yesterday), class: "px-3 py-1.5 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50" %>
-    <%= link_to "Today", admin_operations_path, class: "px-4 py-1.5 #{@date == Date.today ? 'bg-gray-900 text-white' : 'bg-white text-gray-900 border border-gray-300 hover:bg-gray-50'} rounded-md text-sm font-medium" %>
-    <%= link_to "Next →", admin_operations_path(date: @date.tomorrow), class: "px-3 py-1.5 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50" %>
-  </div>
+<%# Date navigation bar — flex-wrap handles every width %>
+<div class="mb-5 flex flex-wrap items-center gap-2">
+  <%= link_to "← Prev", admin_operations_path(date: @date.yesterday), class: "px-3 py-2 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50" %>
+  <%= link_to "Today", admin_operations_path, class: "px-3 py-2 #{@date == Date.today ? 'bg-gray-900 text-white' : 'bg-white text-gray-900 border border-gray-300 hover:bg-gray-50'} rounded-md text-sm font-medium" %>
+  <%= link_to "Next →", admin_operations_path(date: @date.tomorrow), class: "px-3 py-2 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50" %>
 
-  <div class="flex items-center gap-2">
-    <form action="<%= admin_operations_path %>" method="get" class="flex gap-2">
-      <input type="date" name="date" value="<%= @date %>" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm">
-      <button type="submit" class="px-4 py-2 bg-gray-900 text-white rounded-md text-sm font-medium hover:bg-gray-800">Go</button>
-    </form>
-  </div>
+  <form action="<%= admin_operations_path %>" method="get" class="flex gap-2 ms-auto">
+    <input type="date" name="date" value="<%= @date %>"
+           class="block rounded-md border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 text-sm py-2 px-3">
+    <button type="submit" class="px-3 py-2 bg-gray-900 text-white rounded-md text-sm font-medium hover:bg-gray-800">Go</button>
+  </form>
+
+  <%= link_to "Who's Free? →", admin_operations_availability_path(date: @date.to_s), class: "px-3 py-2 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50" %>
 </div>
 
-<%# Summary Stats %>
-<div class="mb-8 grid grid-cols-2 md:grid-cols-6 gap-4">
-  <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
-    <div class="text-xs font-medium text-gray-500 uppercase">Total Services</div>
-    <div class="mt-1 text-2xl font-semibold text-gray-900"><%= @total %></div>
+<%# Summary Stats — 3 columns on mobile, 6 on desktop %>
+<div class="mb-6 grid grid-cols-3 md:grid-cols-6 gap-2 md:gap-4">
+  <div class="bg-white p-2 md:p-4 rounded-lg shadow-sm border border-gray-200 text-center md:text-start">
+    <div class="text-[10px] md:text-xs font-medium text-gray-500 uppercase leading-tight">Total</div>
+    <div class="mt-0.5 md:mt-1 text-xl md:text-2xl font-semibold text-gray-900"><%= @total %></div>
   </div>
-  <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
-    <div class="text-xs font-medium text-gray-500 uppercase">Assigned</div>
-    <div class="mt-1 text-2xl font-semibold text-green-600"><%= @assigned %></div>
+  <div class="bg-white p-2 md:p-4 rounded-lg shadow-sm border border-gray-200 text-center md:text-start">
+    <div class="text-[10px] md:text-xs font-medium text-gray-500 uppercase leading-tight">Assigned</div>
+    <div class="mt-0.5 md:mt-1 text-xl md:text-2xl font-semibold text-green-600"><%= @assigned %></div>
   </div>
-  <div class="bg-white p-4 rounded-lg shadow-sm border <%= @needs_driver > 0 ? 'border-amber-300 bg-amber-50' : 'border-gray-200' %>">
-    <div class="text-xs font-medium text-gray-500 uppercase">Needs Driver</div>
-    <div class="mt-1 text-2xl font-semibold <%= @needs_driver > 0 ? 'text-amber-700' : 'text-gray-900' %>"><%= @needs_driver %></div>
+  <div class="bg-white p-2 md:p-4 rounded-lg shadow-sm border text-center md:text-start <%= @needs_driver > 0 ? 'border-amber-300 bg-amber-50' : 'border-gray-200' %>">
+    <div class="text-[10px] md:text-xs font-medium text-gray-500 uppercase leading-tight">No Driver</div>
+    <div class="mt-0.5 md:mt-1 text-xl md:text-2xl font-semibold <%= @needs_driver > 0 ? 'text-amber-700' : 'text-gray-900' %>"><%= @needs_driver %></div>
   </div>
-  <div class="bg-white p-4 rounded-lg shadow-sm border <%= @needs_vehicle > 0 ? 'border-amber-300 bg-amber-50' : 'border-gray-200' %>">
-    <div class="text-xs font-medium text-gray-500 uppercase">Needs Vehicle</div>
-    <div class="mt-1 text-2xl font-semibold <%= @needs_vehicle > 0 ? 'text-amber-700' : 'text-gray-900' %>"><%= @needs_vehicle %></div>
+  <div class="bg-white p-2 md:p-4 rounded-lg shadow-sm border text-center md:text-start <%= @needs_vehicle > 0 ? 'border-amber-300 bg-amber-50' : 'border-gray-200' %>">
+    <div class="text-[10px] md:text-xs font-medium text-gray-500 uppercase leading-tight">No Vehicle</div>
+    <div class="mt-0.5 md:mt-1 text-xl md:text-2xl font-semibold <%= @needs_vehicle > 0 ? 'text-amber-700' : 'text-gray-900' %>"><%= @needs_vehicle %></div>
   </div>
-  <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
-    <div class="text-xs font-medium text-gray-500 uppercase">In Progress</div>
-    <div class="mt-1 text-2xl font-semibold text-blue-600"><%= @in_progress %></div>
+  <div class="bg-white p-2 md:p-4 rounded-lg shadow-sm border border-gray-200 text-center md:text-start">
+    <div class="text-[10px] md:text-xs font-medium text-gray-500 uppercase leading-tight">Active</div>
+    <div class="mt-0.5 md:mt-1 text-xl md:text-2xl font-semibold text-blue-600"><%= @in_progress %></div>
   </div>
-  <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
-    <div class="text-xs font-medium text-gray-500 uppercase">Completed</div>
-    <div class="mt-1 text-2xl font-semibold text-gray-900"><%= @completed %></div>
+  <div class="bg-white p-2 md:p-4 rounded-lg shadow-sm border border-gray-200 text-center md:text-start">
+    <div class="text-[10px] md:text-xs font-medium text-gray-500 uppercase leading-tight">Done</div>
+    <div class="mt-0.5 md:mt-1 text-xl md:text-2xl font-semibold text-gray-900"><%= @completed %></div>
   </div>
 </div>
 
 <%# Conflicts %>
 <% if @driver_conflicts.any? || @vehicle_conflicts.any? %>
-  <div class="mb-8 space-y-4">
+  <div class="mb-6 space-y-3">
     <% @driver_conflicts.each do |driver_id, conflict| %>
-      <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-r-md">
-        <div class="flex items-start">
-          <div class="flex-shrink-0 text-red-500">⚠</div>
-          <div class="ml-3">
+      <div class="bg-red-50 border-l-4 border-red-500 p-3 md:p-4 rounded-r-md">
+        <div class="flex items-start gap-2">
+          <span class="text-red-500 flex-shrink-0">⚠</span>
+          <div>
             <h3 class="text-sm font-bold text-red-800">Driver Conflict: <%= conflict[:name] %></h3>
-            <div class="mt-1 text-sm text-red-700">
-              Assigned to overlapping services: 
+            <div class="mt-1 text-sm text-red-700 flex flex-wrap gap-1">
+              Assigned to overlapping services:
               <% conflict[:service_ids].each do |id| %>
-                <a href="#service-<%= id %>" class="underline hover:text-red-900">#<%= id %></a>
+                <a href="#service-<%= id %>" class="underline hover:text-red-900 font-medium">#<%= id %></a>
               <% end %>
             </div>
           </div>
@@ -64,15 +64,15 @@
     <% end %>
 
     <% @vehicle_conflicts.each do |vehicle_id, conflict| %>
-      <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-r-md">
-        <div class="flex items-start">
-          <div class="flex-shrink-0 text-red-500">⚠</div>
-          <div class="ml-3">
+      <div class="bg-red-50 border-l-4 border-red-500 p-3 md:p-4 rounded-r-md">
+        <div class="flex items-start gap-2">
+          <span class="text-red-500 flex-shrink-0">⚠</span>
+          <div>
             <h3 class="text-sm font-bold text-red-800">Vehicle Conflict: <%= conflict[:name] %></h3>
-            <div class="mt-1 text-sm text-red-700">
+            <div class="mt-1 text-sm text-red-700 flex flex-wrap gap-1">
               Assigned to overlapping services:
               <% conflict[:service_ids].each do |id| %>
-                <a href="#service-<%= id %>" class="underline hover:text-red-900">#<%= id %></a>
+                <a href="#service-<%= id %>" class="underline hover:text-red-900 font-medium">#<%= id %></a>
               <% end %>
             </div>
           </div>
@@ -84,99 +84,122 @@
 
 <%# Services List %>
 <% if @services.any? %>
-  <div class="space-y-4">
+  <div class="space-y-3">
     <% @services.each do |service| %>
       <% is_cancelled = service.status == 'cancelled' %>
       <% driver_has_conflict = @driver_conflicts[service.driver_id]&.dig(:service_ids)&.include?(service.id) %>
       <% vehicle_has_conflict = @vehicle_conflicts[service.vehicle_id]&.dig(:service_ids)&.include?(service.id) %>
       <% has_conflict = driver_has_conflict || vehicle_has_conflict %>
-      
-      <div id="service-<%= service.id %>" class="bg-white rounded-lg shadow-sm border <%= has_conflict ? 'border-red-300' : 'border-gray-200' %> overflow-hidden <%= 'opacity-50' if is_cancelled %>">
-        <div class="p-5 flex flex-col md:flex-row md:items-start gap-4">
-          
-          <%# Time %>
-          <div class="w-32 flex-shrink-0">
-            <div class="text-lg font-bold text-gray-900">
-              <%= service.start_time ? service.start_time.strftime("%H:%M") : "TBD" %>
-            </div>
-            <% if service.end_time %>
-              <div class="text-sm text-gray-500">to <%= service.end_time.strftime("%H:%M") %></div>
-            <% end %>
-          </div>
 
-          <%# Core Details %>
-          <div class="flex-1 min-w-0 grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <div class="text-sm font-bold text-gray-900 mb-1">
-                <%= service.service_type.titleize %>
+      <div id="service-<%= service.id %>"
+           class="bg-white rounded-lg shadow-sm border <%= has_conflict ? 'border-red-300' : 'border-gray-200' %> overflow-hidden <%= 'opacity-50' if is_cancelled %>">
+        <div class="p-3 md:p-5">
+
+          <%# Mobile: time + type + status on one line %>
+          <div class="flex items-start justify-between gap-3">
+            <%# LEFT: time block %>
+            <div class="flex-shrink-0 w-16 md:w-28">
+              <div class="text-base md:text-lg font-bold text-gray-900 leading-tight">
+                <%= service.start_time ? service.start_time.strftime("%H:%M") : "TBD" %>
+              </div>
+              <% if service.end_time %>
+                <div class="text-xs text-gray-400">– <%= service.end_time.strftime("%H:%M") %></div>
+              <% end %>
+            </div>
+
+            <%# MIDDLE: main info %>
+            <div class="flex-1 min-w-0">
+              <%# Service type + status badge %>
+              <div class="flex flex-wrap items-center gap-1.5 mb-1">
+                <span class="text-sm font-bold text-gray-900"><%= service.service_type.titleize %></span>
                 <% if is_cancelled %>
-                  <span class="ml-2 px-2 py-0.5 text-xs bg-red-100 text-red-800 rounded-full font-semibold">Cancelled</span>
+                  <span class="px-1.5 py-0.5 text-[10px] bg-red-100 text-red-800 rounded-full font-semibold uppercase">Cancelled</span>
                 <% elsif service.status == 'in_progress' %>
-                  <span class="ml-2 px-2 py-0.5 text-xs bg-blue-100 text-blue-800 rounded-full font-semibold">In Progress</span>
+                  <span class="px-1.5 py-0.5 text-[10px] bg-blue-100 text-blue-800 rounded-full font-semibold uppercase">Active</span>
                 <% elsif service.status == 'completed' %>
-                  <span class="ml-2 px-2 py-0.5 text-xs bg-green-100 text-green-800 rounded-full font-semibold">Completed</span>
+                  <span class="px-1.5 py-0.5 text-[10px] bg-green-100 text-green-800 rounded-full font-semibold uppercase">Done</span>
+                <% elsif service.status == 'pending' %>
+                  <span class="px-1.5 py-0.5 text-[10px] bg-amber-100 text-amber-800 rounded-full font-semibold uppercase">Pending</span>
+                <% end %>
+                <% if has_conflict %>
+                  <span class="px-1.5 py-0.5 text-[10px] bg-red-100 text-red-800 rounded-full font-semibold uppercase">⚠ Conflict</span>
                 <% end %>
               </div>
-              
-              <div class="text-sm text-gray-700 mb-2">
-                <%= link_to service.booking.customer.name, admin_customer_path(service.booking.customer), class: "font-medium hover:underline text-brand-green-700" %>
+
+              <%# Customer %>
+              <div class="text-sm text-gray-700 truncate">
+                <%= link_to service.booking.customer.name, admin_customer_path(service.booking.customer),
+                    class: "font-medium hover:underline text-brand-green-700" %>
                 <% travelers = service.booking.booking_request&.travelers_count || service.booking.trip_inquiry&.travelers_count %>
                 <% if travelers %>
-                  <span class="text-gray-500">· <%= travelers %> travelers</span>
+                  <span class="text-gray-400 text-xs">· <%= travelers %> pax</span>
                 <% end %>
-                · <%= link_to "Booking ##{service.booking.id}", admin_booking_path(service.booking), class: "text-gray-500 hover:underline" %>
+                <span class="text-gray-400 text-xs">·</span>
+                <%= link_to "##{service.booking.id}", admin_booking_path(service.booking),
+                    class: "text-gray-400 hover:underline text-xs" %>
               </div>
 
+              <%# Route — collapsed on mobile if blank %>
               <% if service.pickup_location.present? || service.dropoff_location.present? %>
-                <div class="text-sm text-gray-600 flex items-start gap-1.5 mt-1">
-                  <svg class="w-4 h-4 text-gray-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                  <span><%= service.pickup_location.presence || "—" %> &rarr; <%= service.dropoff_location.presence || "—" %></span>
+                <div class="text-xs text-gray-500 mt-1 truncate">
+                  <%= service.pickup_location.presence || "—" %> → <%= service.dropoff_location.presence || "—" %>
                 </div>
               <% end %>
-              
+
+              <%# Assignment block — inline on desktop, stacked on mobile %>
+              <div class="mt-2 flex flex-wrap gap-x-4 gap-y-0.5 text-sm">
+                <span class="flex items-center gap-1">
+                  <span class="text-gray-400 text-xs">Driver:</span>
+                  <% if service.driver %>
+                    <%= link_to operations_admin_driver_path(service.driver, date: @date.to_s),
+                        class: "font-medium #{driver_has_conflict ? 'text-red-600' : 'text-brand-green-700'} hover:underline" do %>
+                      <%= service.driver.name %><% if driver_has_conflict %> ⚠<% end %>
+                    <% end %>
+                  <% else %>
+                    <span class="text-amber-600 font-semibold text-xs">⚠ Unassigned</span>
+                  <% end %>
+                </span>
+                <span class="flex items-center gap-1">
+                  <span class="text-gray-400 text-xs">Vehicle:</span>
+                  <% if service.vehicle %>
+                    <%= link_to operations_admin_vehicle_path(service.vehicle, date: @date.to_s),
+                        class: "font-medium #{vehicle_has_conflict ? 'text-red-600' : 'text-brand-green-700'} hover:underline" do %>
+                      <%= service.vehicle.name %>
+                      <span class="text-gray-400 text-xs">(<%= service.vehicle.plate_number %>)</span>
+                      <% if vehicle_has_conflict %> ⚠<% end %>
+                    <% end %>
+                  <% else %>
+                    <span class="text-amber-600 font-semibold text-xs">⚠ Unassigned</span>
+                  <% end %>
+                </span>
+              </div>
+
               <% if service.notes.present? %>
-                <div class="text-xs text-gray-500 italic mt-2"><%= service.notes %></div>
+                <div class="text-xs text-gray-400 italic mt-1 truncate"><%= service.notes %></div>
               <% end %>
             </div>
 
-            <%# Assignments %>
-            <div class="bg-gray-50 rounded p-3 text-sm flex flex-col justify-center <%= has_conflict ? 'border border-red-200' : '' %>">
-              <div class="mb-2">
-                <span class="text-gray-500 w-16 inline-block">Driver:</span>
-                <% if service.driver %>
-                  <%= link_to operations_admin_driver_path(service.driver, date: @date.to_s), class: "font-medium hover:underline #{driver_has_conflict ? 'text-red-600' : 'text-brand-green-700'}" do %>
-                    <%= service.driver.name %>
-                    <% if driver_has_conflict %>⚠<% end %>
-                  <% end %>
-                <% else %>
-                  <span class="text-amber-600 font-bold">⚠ Unassigned</span>
-                <% end %>
-              </div>
-              
-              <div>
-                <span class="text-gray-500 w-16 inline-block">Vehicle:</span>
-                <% if service.vehicle %>
-                  <%= link_to operations_admin_vehicle_path(service.vehicle, date: @date.to_s), class: "font-medium hover:underline #{vehicle_has_conflict ? 'text-red-600' : 'text-brand-green-700'}" do %>
-                    <%= service.vehicle.name %> <span class="text-gray-400 text-xs">(<%= service.vehicle.plate_number %>)</span>
-                    <% if vehicle_has_conflict %>⚠<% end %>
-                  <% end %>
-                <% else %>
-                  <span class="text-amber-600 font-bold">⚠ Unassigned</span>
-                <% end %>
-              </div>
+            <%# RIGHT: action — icon on mobile, text on desktop %>
+            <div class="flex-shrink-0">
+              <%= link_to edit_admin_booking_trip_service_path(service.booking, service),
+                  class: "flex items-center justify-center w-9 h-9 md:w-auto md:h-auto md:px-4 md:py-2 border border-gray-300 rounded-md bg-white hover:bg-gray-50 text-gray-700",
+                  title: "Edit / Assign" do %>
+                <%# Pencil icon — shown on mobile %>
+                <svg class="w-4 h-4 md:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                </svg>
+                <span class="hidden md:inline text-sm font-medium">Edit / Assign</span>
+              <% end %>
             </div>
           </div>
 
-          <%# Actions %>
-          <div class="md:text-right flex-shrink-0 pt-2 md:pt-0">
-            <%= link_to "Edit / Assign", edit_admin_booking_trip_service_path(service.booking, service), class: "inline-block px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50" %>
-          </div>
         </div>
       </div>
     <% end %>
   </div>
 <% else %>
-  <div class="bg-white p-12 text-center rounded-lg shadow-sm border border-gray-200">
+  <div class="bg-white p-10 text-center rounded-lg shadow-sm border border-gray-200">
     <h3 class="text-lg font-medium text-gray-900">No Services Scheduled</h3>
     <p class="mt-2 text-sm text-gray-500">There are no trip services scheduled for <%= @date.strftime("%A, %d %b %Y") %>.</p>
   </div>

@@ -5,7 +5,58 @@
   <%= link_to "New Driver", new_admin_driver_path, class: "px-4 py-2 bg-gray-900 hover:bg-gray-800 text-white rounded-md text-sm font-medium" %>
 </div>
 
-<div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
+<%# ── MOBILE: card list (hidden md+) ─────────────────────────────── %>
+<div class="md:hidden space-y-3">
+  <% if @drivers.empty? %>
+    <div class="bg-white p-8 text-center text-gray-500 rounded-lg border border-gray-200">No records found.</div>
+  <% end %>
+  <% @drivers.each do |driver| %>
+    <div class="bg-white rounded-lg border border-gray-200 shadow-sm p-4">
+      <div class="flex items-start justify-between gap-3">
+        <div class="min-w-0 flex-1">
+          <%# Name + badges %>
+          <div class="flex flex-wrap items-center gap-1.5 mb-1">
+            <span class="font-semibold text-gray-900"><%= driver.name %></span>
+            <% if driver.is_external %>
+              <span class="px-1.5 py-0.5 bg-gray-100 text-gray-600 border border-gray-200 rounded text-[10px] uppercase tracking-wider font-bold">External</span>
+            <% end %>
+            <% if driver.active %>
+              <span class="px-1.5 py-0.5 bg-green-100 text-green-800 rounded-full text-[10px] font-semibold uppercase">Active</span>
+            <% else %>
+              <span class="px-1.5 py-0.5 bg-gray-100 text-gray-600 rounded-full text-[10px] font-semibold uppercase">Inactive</span>
+            <% end %>
+          </div>
+
+          <%# Phone — tap-to-call %>
+          <% if driver.phone.present? %>
+            <a href="tel:<%= driver.phone %>" class="text-sm text-brand-green-700 hover:underline"><%= driver.phone %></a>
+          <% end %>
+
+          <%# Today's services %>
+          <% todays_count = driver.todays_trip_services.size %>
+          <% if todays_count > 0 %>
+            <div class="mt-1 text-sm text-gray-700 font-medium">
+              <%= todays_count %> service<%= todays_count == 1 ? '' : 's' %> today
+              <%= link_to "→ View", operations_admin_driver_path(driver), class: "text-brand-green-600 hover:underline ms-1" %>
+            </div>
+          <% else %>
+            <div class="mt-1 text-xs text-gray-400">No services today</div>
+          <% end %>
+        </div>
+
+        <%# Actions — large touch targets %>
+        <div class="flex flex-col gap-1 flex-shrink-0 text-sm text-end">
+          <%= link_to "View", admin_driver_path(driver), class: "block py-1 text-brand-green-600 hover:underline font-medium" %>
+          <%= link_to "Edit", edit_admin_driver_path(driver), class: "block py-1 text-blue-600 hover:underline font-medium" %>
+          <%= link_to "Delete", admin_driver_path(driver), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "block py-1 text-red-600 hover:underline font-medium" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<%# ── DESKTOP: original table (hidden on mobile) ─────────────────── %>
+<div class="hidden md:block bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
   <div class="overflow-x-auto">
     <table class="min-w-full divide-y divide-gray-200">
       <thead class="bg-gray-50">
@@ -21,11 +72,11 @@
         <% @drivers.each do |driver| %>
           <tr class="hover:bg-gray-50">
             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-  <%= driver.name %>
-  <% if driver.is_external %>
-    <span class="ml-2 px-1.5 py-0.5 bg-gray-100 text-gray-600 border border-gray-200 rounded text-[10px] uppercase tracking-wider font-bold">External</span>
-  <% end %>
-</td>
+              <%= driver.name %>
+              <% if driver.is_external %>
+                <span class="ml-2 px-1.5 py-0.5 bg-gray-100 text-gray-600 border border-gray-200 rounded text-[10px] uppercase tracking-wider font-bold">External</span>
+              <% end %>
+            </td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= driver.phone %></td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
               <% if driver.active %>

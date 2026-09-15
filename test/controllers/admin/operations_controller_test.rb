@@ -44,12 +44,12 @@ class Admin::OperationsControllerTest < ActionDispatch::IntegrationTest
     
     # Total includes cancelled, but logic in view uses @total which is 5
     # Wait, my logic: active = reject cancelled. Total = all.
-    assert_select "div.text-2xl", text: "5" # total
-    assert_select "div.text-2xl", text: "1" # assigned
-    assert_select "div.text-2xl", text: "2" # needs driver (the one with only vehicle + the completely unassigned)
-    assert_select "div.text-2xl", text: "2" # needs vehicle (the one with only driver + the completely unassigned)
-    assert_select "div.text-2xl", text: "1" # in progress
-    assert_select "div.text-2xl", text: "0" # completed
+    assert_select "div.text-xl", text: "5" # total
+    assert_select "div.text-xl", text: "1" # assigned
+    assert_select "div.text-xl", text: "2" # needs driver (the one with only vehicle + the completely unassigned)
+    assert_select "div.text-xl", text: "2" # needs vehicle (the one with only driver + the completely unassigned)
+    assert_select "div.text-xl", text: "1" # in progress
+    assert_select "div.text-xl", text: "0" # completed
   end
 
   test "should detect driver conflicts on overlapping times" do
@@ -118,7 +118,7 @@ end
 
     get admin_operations_url(date: @today.tomorrow.to_s)
     assert_response :success
-    assert_select "div.text-2xl", text: "1" # Total should be 1, not 2
+    assert_select "div.text-xl", text: "1" # Total should be 1, not 2
   end
 
   test "should handle invalid date gracefully" do
