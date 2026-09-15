@@ -1,4 +1,5 @@
-<%= form_with(model: [:admin, @booking, @trip_service], class: "bg-white shadow rounded-lg p-6") do |f| %>
+<% url_val = @trip_service.persisted? ? edit_admin_booking_trip_service_path(@booking, @trip_service) : new_admin_booking_trip_service_path(@booking) %>
+<%= form_with(model: [:admin, @booking, @trip_service], class: "bg-white shadow rounded-lg p-6", data: { controller: "conflict-checker", conflict_checker_url_value: url_val }) do |f| %>
   <% if @trip_service.errors.any? %>
     <div class="bg-red-50 text-red-800 p-4 rounded-md mb-6">
       <h4 class="font-semibold text-sm">Please fix the following errors:</h4>
@@ -10,47 +11,7 @@
     </div>
   <% end %>
 
-  <% if @trip_service.persisted? %>
-    <% driver_conflicts = @trip_service.conflicting_driver_services %>
-    <% if driver_conflicts.any? %>
-      <div class="bg-red-50 text-red-800 p-4 rounded-md mb-6 border-l-4 border-red-500">
-        <h4 class="font-bold text-sm">⚠ Driver Conflict</h4>
-        <p class="text-sm mt-1">This driver is assigned to overlapping services:</p>
-        <ul class="list-disc ps-5 text-sm mt-1">
-  <% driver_conflicts.each do |conflict| %>
-    <li>
-      <%= link_to "#{conflict.start_time.strftime('%H:%M')}–#{conflict.end_time.strftime('%H:%M')} #{conflict.service_type.titleize}", admin_booking_path(conflict.booking), class: "underline hover:text-red-900", target: "_blank" %> (Booking #<%= conflict.booking_id %>)
-      <% if @trip_service.literal_overlap?(conflict) %>
-        <span class="text-[10px] font-semibold uppercase bg-red-200 text-red-900 px-1.5 py-0.5 rounded ml-1">Time Overlap</span>
-      <% else %>
-        <span class="text-[10px] font-semibold uppercase bg-orange-200 text-orange-900 px-1.5 py-0.5 rounded ml-1">Insufficient Buffer (Needs <%= TripService::BUFFER_MINUTES %>m)</span>
-      <% end %>
-    </li>
-  <% end %>
-</ul>
-      </div>
-    <% end %>
-
-    <% vehicle_conflicts = @trip_service.conflicting_vehicle_services %>
-    <% if vehicle_conflicts.any? %>
-      <div class="bg-red-50 text-red-800 p-4 rounded-md mb-6 border-l-4 border-red-500">
-        <h4 class="font-bold text-sm">⚠ Vehicle Conflict</h4>
-        <p class="text-sm mt-1">This vehicle is assigned to overlapping services:</p>
-        <ul class="list-disc ps-5 text-sm mt-1">
-  <% vehicle_conflicts.each do |conflict| %>
-    <li>
-      <%= link_to "#{conflict.start_time.strftime('%H:%M')}–#{conflict.end_time.strftime('%H:%M')} #{conflict.service_type.titleize}", admin_booking_path(conflict.booking), class: "underline hover:text-red-900", target: "_blank" %> (Booking #<%= conflict.booking_id %>)
-      <% if @trip_service.literal_overlap?(conflict) %>
-        <span class="text-[10px] font-semibold uppercase bg-red-200 text-red-900 px-1.5 py-0.5 rounded ml-1">Time Overlap</span>
-      <% else %>
-        <span class="text-[10px] font-semibold uppercase bg-orange-200 text-orange-900 px-1.5 py-0.5 rounded ml-1">Insufficient Buffer (Needs <%= TripService::BUFFER_MINUTES %>m)</span>
-      <% end %>
-    </li>
-  <% end %>
-</ul>
-      </div>
-    <% end %>
-  <% end %>
+  <div data-conflict-checker-target="warningContainer" class="hidden"></div>
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
     <div class="mb-4">
@@ -65,17 +26,17 @@
 
     <div class="mb-4">
       <%= f.label :date, "Service Date", class: "block text-sm font-medium text-gray-700" %>
-      <%= f.date_field :date, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm" %>
+      <%= f.date_field :date, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm", data: { conflict_checker_target: "date", action: "change->conflict-checker#check" } %>
     </div>
 
     <div class="mb-4 grid grid-cols-2 gap-2">
       <div>
         <%= f.label :start_time, "Start Time", class: "block text-sm font-medium text-gray-700" %>
-        <%= f.time_field :start_time, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm" %>
+        <%= f.time_field :start_time, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm", data: { conflict_checker_target: "startTime", action: "change->conflict-checker#check" } %>
       </div>
       <div>
         <%= f.label :end_time, "End Time", class: "block text-sm font-medium text-gray-700" %>
-        <%= f.time_field :end_time, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm" %>
+        <%= f.time_field :end_time, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm", data: { conflict_checker_target: "endTime", action: "change->conflict-checker#check" } %>
       </div>
     </div>
 
@@ -95,12 +56,12 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div>
         <%= f.label :driver_id, "Driver", class: "block text-sm font-medium text-gray-700" %>
-        <%= f.collection_select :driver_id, Driver.where(active: true).order(:name), :id, :name, { prompt: "— Unassigned —", include_blank: false }, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm" %>
+        <%= f.collection_select :driver_id, Driver.where(active: true).order(:name), :id, :name, { prompt: "— Unassigned —", include_blank: false }, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm", data: { conflict_checker_target: "driver", action: "change->conflict-checker#check" } %>
       </div>
 
       <div>
         <%= f.label :vehicle_id, "Vehicle", class: "block text-sm font-medium text-gray-700" %>
-        <%= f.select :vehicle_id, Vehicle.where(active: true).order(:name).map { |v| ["#{v.name} (#{v.plate_number})", v.id] }, { prompt: "— Unassigned —" }, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm" %>
+        <%= f.select :vehicle_id, Vehicle.where(active: true).order(:name).map { |v| ["#{v.name} (#{v.plate_number})", v.id] }, { prompt: "— Unassigned —" }, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm", data: { conflict_checker_target: "vehicle", action: "change->conflict-checker#check" } %>
       </div>
     </div>
   </div>
@@ -112,6 +73,6 @@
 
   <div class="mt-6 flex justify-end gap-3">
     <%= link_to "Cancel", admin_booking_path(@booking), class: "px-4 py-2 border border-gray-300 text-gray-700 rounded-md text-sm font-medium hover:bg-gray-50" %>
-    <%= f.submit class: "px-4 py-2 bg-gray-900 text-white rounded-md text-sm font-medium hover:bg-gray-800 cursor-pointer" %>
+    <%= f.submit class: "px-4 py-2 bg-gray-900 text-white rounded-md text-sm font-medium hover:bg-gray-800 cursor-pointer", data: { conflict_checker_target: "submitButton" } %>
   </div>
 <% end %>

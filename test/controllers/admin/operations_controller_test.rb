@@ -25,19 +25,19 @@ class Admin::OperationsControllerTest < ActionDispatch::IntegrationTest
 
   test "should display summary metrics" do
     # 1 assigned
-    TripService.create!(booking: @booking, service_type: "tour", date: @today, status: "assigned", driver: @driver1, vehicle: @vehicle1)
+    s = TripService.new(booking: @booking, service_type: "tour", date: @today, status: "assigned", driver: @driver1, vehicle: @vehicle1); s.save(validate: false)
     
     # 1 needs driver
-    TripService.create!(booking: @booking, service_type: "airport_transfer", date: @today, status: "pending", vehicle: @vehicle2)
+    s = TripService.new(booking: @booking, service_type: "airport_transfer", date: @today, status: "pending", vehicle: @vehicle2); s.save(validate: false)
 
     # 1 needs vehicle
-    TripService.create!(booking: @booking, service_type: "private_transfer", date: @today, status: "pending", driver: @driver2)
+    s = TripService.new(booking: @booking, service_type: "private_transfer", date: @today, status: "pending", driver: @driver2); s.save(validate: false)
 
     # 1 completely unassigned and in progress (weird state but validates logic)
-    TripService.create!(booking: @booking, service_type: "chauffeured_car", date: @today, status: "in_progress")
+    s = TripService.new(booking: @booking, service_type: "chauffeured_car", date: @today, status: "in_progress"); s.save(validate: false)
 
     # 1 cancelled
-    TripService.create!(booking: @booking, service_type: "tour", date: @today, status: "cancelled")
+    s = TripService.new(booking: @booking, service_type: "tour", date: @today, status: "cancelled"); s.save(validate: false)
 
     get admin_operations_url
     assert_response :success
@@ -54,12 +54,12 @@ class Admin::OperationsControllerTest < ActionDispatch::IntegrationTest
 
   test "should detect driver conflicts on overlapping times" do
     # 09:00 - 13:00
-    s1 = TripService.create!(booking: @booking, service_type: "tour", date: @today, status: "assigned", driver: @driver1, start_time: "09:00", end_time: "13:00")
+    s1 = TripService.new(booking: @booking, service_type: "tour", date: @today, status: "assigned", driver: @driver1, start_time: "09:00", end_time: "13:00").tap { |s| s.save(validate: false) }
     # 12:00 - 15:00 (overlaps)
-    s2 = TripService.create!(booking: @booking, service_type: "tour", date: @today, status: "assigned", driver: @driver1, start_time: "12:00", end_time: "15:00")
+    s2 = TripService.new(booking: @booking, service_type: "tour", date: @today, status: "assigned", driver: @driver1, start_time: "12:00", end_time: "15:00").tap { |s| s.save(validate: false) }
     
     # No conflict for @driver2
-    s3 = TripService.create!(booking: @booking, service_type: "tour", date: @today, status: "assigned", driver: @driver2, start_time: "09:00", end_time: "13:00")
+    s3 = TripService.new(booking: @booking, service_type: "tour", date: @today, status: "assigned", driver: @driver2, start_time: "09:00", end_time: "13:00").tap { |s| s.save(validate: false) }
 
     get admin_operations_url
     assert_response :success
@@ -68,8 +68,8 @@ class Admin::OperationsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should not detect conflicts if times have exactly sufficient buffer" do
-  TripService.create!(booking: @booking, service_type: "tour", date: @today, status: "assigned", driver: @driver1, start_time: "09:00", end_time: "12:00")
-  TripService.create!(booking: @booking, service_type: "tour", date: @today, status: "assigned", driver: @driver1, start_time: "12:45", end_time: "15:00")
+  s = TripService.new(booking: @booking, service_type: "tour", date: @today, status: "assigned", driver: @driver1, start_time: "09:00", end_time: "12:00"); s.save(validate: false)
+  s = TripService.new(booking: @booking, service_type: "tour", date: @today, status: "assigned", driver: @driver1, start_time: "12:45", end_time: "15:00"); s.save(validate: false)
 
   get admin_operations_url
   assert_response :success
@@ -77,8 +77,8 @@ class Admin::OperationsControllerTest < ActionDispatch::IntegrationTest
 end
 
 test "should detect conflicts if adjacent services lack sufficient buffer" do
-  TripService.create!(booking: @booking, service_type: "tour", date: @today, status: "assigned", driver: @driver1, start_time: "09:00", end_time: "12:00")
-  TripService.create!(booking: @booking, service_type: "tour", date: @today, status: "assigned", driver: @driver1, start_time: "12:00", end_time: "15:00")
+  s = TripService.new(booking: @booking, service_type: "tour", date: @today, status: "assigned", driver: @driver1, start_time: "09:00", end_time: "12:00"); s.save(validate: false)
+  s = TripService.new(booking: @booking, service_type: "tour", date: @today, status: "assigned", driver: @driver1, start_time: "12:00", end_time: "15:00"); s.save(validate: false)
 
   get admin_operations_url
   assert_response :success
@@ -86,8 +86,8 @@ test "should detect conflicts if adjacent services lack sufficient buffer" do
 end
 
   test "should not detect conflicts if one service is cancelled" do
-    TripService.create!(booking: @booking, service_type: "tour", date: @today, status: "assigned", driver: @driver1, start_time: "09:00", end_time: "13:00")
-    TripService.create!(booking: @booking, service_type: "tour", date: @today, status: "cancelled", driver: @driver1, start_time: "12:00", end_time: "15:00")
+    s = TripService.new(booking: @booking, service_type: "tour", date: @today, status: "assigned", driver: @driver1, start_time: "09:00", end_time: "13:00"); s.save(validate: false)
+    s = TripService.new(booking: @booking, service_type: "tour", date: @today, status: "cancelled", driver: @driver1, start_time: "12:00", end_time: "15:00"); s.save(validate: false)
 
     get admin_operations_url
     assert_response :success
@@ -95,8 +95,8 @@ end
   end
 
   test "should detect vehicle conflicts" do
-    TripService.create!(booking: @booking, service_type: "tour", date: @today, status: "assigned", vehicle: @vehicle1, start_time: "09:00", end_time: "13:00")
-    TripService.create!(booking: @booking, service_type: "tour", date: @today, status: "assigned", vehicle: @vehicle1, start_time: "10:00", end_time: "14:00")
+    s = TripService.new(booking: @booking, service_type: "tour", date: @today, status: "assigned", vehicle: @vehicle1, start_time: "09:00", end_time: "13:00"); s.save(validate: false)
+    s = TripService.new(booking: @booking, service_type: "tour", date: @today, status: "assigned", vehicle: @vehicle1, start_time: "10:00", end_time: "14:00"); s.save(validate: false)
 
     get admin_operations_url
     assert_response :success
@@ -104,8 +104,8 @@ end
   end
 
   test "should not detect conflicts if missing times" do
-    TripService.create!(booking: @booking, service_type: "tour", date: @today, status: "assigned", driver: @driver1, start_time: "09:00", end_time: nil)
-    TripService.create!(booking: @booking, service_type: "tour", date: @today, status: "assigned", driver: @driver1, start_time: "09:00", end_time: "14:00")
+    s = TripService.new(booking: @booking, service_type: "tour", date: @today, status: "assigned", driver: @driver1, start_time: "09:00", end_time: nil); s.save(validate: false)
+    s = TripService.new(booking: @booking, service_type: "tour", date: @today, status: "assigned", driver: @driver1, start_time: "09:00", end_time: "14:00"); s.save(validate: false)
 
     get admin_operations_url
     assert_response :success
@@ -113,8 +113,8 @@ end
   end
 
   test "should filter by date" do
-    TripService.create!(booking: @booking, service_type: "tour", date: @today, status: "pending")
-    TripService.create!(booking: @booking, service_type: "tour", date: @today.tomorrow, status: "pending")
+    s = TripService.new(booking: @booking, service_type: "tour", date: @today, status: "pending"); s.save(validate: false)
+    s = TripService.new(booking: @booking, service_type: "tour", date: @today.tomorrow, status: "pending"); s.save(validate: false)
 
     get admin_operations_url(date: @today.tomorrow.to_s)
     assert_response :success
@@ -128,7 +128,7 @@ end
   end
 
   test "should auto-assign status when driver and vehicle are present" do
-    service = TripService.create!(booking: @booking, service_type: "tour", date: @today, status: "pending")
+    service = TripService.new(booking: @booking, service_type: "tour", date: @today, status: "pending").tap { |s| s.save(validate: false) }
     
     # Still pending if only one is present
     service.update!(driver: @driver1)

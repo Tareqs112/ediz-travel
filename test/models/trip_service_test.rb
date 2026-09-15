@@ -134,7 +134,7 @@ test "consistency: overlaps_with_buffer? and blocks_time? share exact semantics 
   
   # EXACTLY 45 MINUTES (ALLOWED/AVAILABLE)
   # Service starting at 12:45
-  s_45 = TripService.create!(booking: @booking, service_type: 'tour', status: 'pending', date: Date.today, driver: driver, start_time: "12:45", end_time: "14:00")
+  s_45 = TripService.new(booking: @booking, service_type: 'tour', status: 'pending', date: Date.today, driver: driver, start_time: "12:45", end_time: "14:00")
   # Time query at 12:45
   q_45 = 12 * 60 + 45
   
@@ -143,7 +143,7 @@ test "consistency: overlaps_with_buffer? and blocks_time? share exact semantics 
 
   # 44 MINUTES (INSUFFICIENT BUFFER - BUSY/CONFLICT)
   # Service starting at 12:44
-  s_44 = TripService.create!(booking: @booking, service_type: 'tour', status: 'pending', date: Date.today, driver: driver, start_time: "12:44", end_time: "14:00")
+  s_44 = TripService.new(booking: @booking, service_type: 'tour', status: 'pending', date: Date.today, driver: driver, start_time: "12:44", end_time: "14:00")
   # Time query at 12:44
   q_44 = 12 * 60 + 44
   
@@ -152,7 +152,7 @@ test "consistency: overlaps_with_buffer? and blocks_time? share exact semantics 
 
   # 46 MINUTES (ALLOWED/AVAILABLE)
   # Service starting at 12:46
-  s_46 = TripService.create!(booking: @booking, service_type: 'tour', status: 'pending', date: Date.today, driver: driver, start_time: "12:46", end_time: "14:00")
+  s_46 = TripService.new(booking: @booking, service_type: 'tour', status: 'pending', date: Date.today, driver: driver, start_time: "12:46", end_time: "14:00")
   # Time query at 12:46
   q_46 = 12 * 60 + 46
   
@@ -161,7 +161,7 @@ test "consistency: overlaps_with_buffer? and blocks_time? share exact semantics 
 
   # LITERAL OVERLAP (BUSY/CONFLICT)
   # Service starting at 11:30
-  s_overlap = TripService.create!(booking: @booking, service_type: 'tour', status: 'pending', date: Date.today, driver: driver, start_time: "11:30", end_time: "13:00")
+  s_overlap = TripService.new(booking: @booking, service_type: 'tour', status: 'pending', date: Date.today, driver: driver, start_time: "11:30", end_time: "13:00")
   # Time query at 11:30
   q_overlap = 11 * 60 + 30
   

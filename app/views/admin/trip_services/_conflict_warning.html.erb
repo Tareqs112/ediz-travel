@@ -1,0 +1,29 @@
+<% if driver_conflict %>
+  <div class="bg-red-50 text-red-800 p-4 rounded-md mb-4 border-l-4 border-red-500">
+    <h4 class="font-bold text-sm">⚠ Driver Time Conflict</h4>
+    <p class="text-sm mt-1">This driver is already assigned to a service at this time:</p>
+    <ul class="list-disc ps-5 text-sm mt-1">
+      <li>
+        <%= driver_conflict.start_time.strftime('%H:%M') %>–<%= driver_conflict.end_time.strftime('%H:%M') %>
+        (<%= driver_conflict.service_type.titleize %>)
+        <br>
+        Booking #<%= driver_conflict.booking_id %> - <%= driver_conflict.booking.customer.name %>
+      </li>
+    </ul>
+  </div>
+<% end %>
+
+<% if vehicle_conflict %>
+  <div class="bg-red-50 text-red-800 p-4 rounded-md mb-4 border-l-4 border-red-500">
+    <h4 class="font-bold text-sm">⚠ Vehicle Time Conflict</h4>
+    <p class="text-sm mt-1">This vehicle is already assigned to a service at this time:</p>
+    <ul class="list-disc ps-5 text-sm mt-1">
+      <li>
+        <%= vehicle_conflict.start_time.strftime('%H:%M') %>–<%= vehicle_conflict.end_time.strftime('%H:%M') %>
+        (<%= vehicle_conflict.service_type.titleize %>)
+        <br>
+        Booking #<%= vehicle_conflict.booking_id %> - <%= vehicle_conflict.booking.customer.name %>
+      </li>
+    </ul>
+  </div>
+<% end %>

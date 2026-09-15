@@ -15,6 +15,39 @@ class TripService < ApplicationRecord
 
   before_validation :sync_assignment_status
 
+validate :no_literal_overlap
+
+def no_literal_overlap
+  return if start_time.nil? || end_time.nil? || date.nil?
+  
+  if driver_id.present?
+    overlapping_driver = TripService.where(driver_id: driver_id, date: date)
+                                    .where.not(id: id)
+                                    .where.not(status: 'cancelled')
+                                    .where.not(start_time: nil)
+                                    .where.not(end_time: nil)
+                                    .select { |s| literal_overlap?(s) }
+    if overlapping_driver.any?
+      conflict = overlapping_driver.first
+      errors.add(:driver_id, "has a conflicting service from #{conflict.start_time.strftime('%H:%M')} to #{conflict.end_time.strftime('%H:%M')}")
+    end
+  end
+
+  if vehicle_id.present?
+    overlapping_vehicle = TripService.where(vehicle_id: vehicle_id, date: date)
+                                     .where.not(id: id)
+                                     .where.not(status: 'cancelled')
+                                     .where.not(start_time: nil)
+                                     .where.not(end_time: nil)
+                                     .select { |s| literal_overlap?(s) }
+    if overlapping_vehicle.any?
+      conflict = overlapping_vehicle.first
+      errors.add(:vehicle_id, "has a conflicting service from #{conflict.start_time.strftime('%H:%M')} to #{conflict.end_time.strftime('%H:%M')}")
+    end
+  end
+end
+
+
   def end_time_after_start_time
     if start_time.present? && end_time.present? && end_time <= start_time
       errors.add(:end_time, "must be after start time")
