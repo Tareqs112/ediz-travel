@@ -1,0 +1,104 @@
+<%= content_for :title, "Availability Lookup - 61 EDİZ TRAVEL" %>
+
+<div class="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+  <div>
+    <h1 class="text-2xl font-bold text-gray-900">Availability Lookup</h1>
+    <p class="text-sm text-gray-500 mt-1">Check who is free at a specific time (respects <%= TripService::BUFFER_MINUTES %>m operational buffer).</p>
+  </div>
+  <div class="flex items-center gap-3">
+    <%= link_to "Back to Operations", admin_operations_path(date: @date.to_s), class: "text-sm text-brand-green-700 font-medium hover:underline" %>
+  </div>
+</div>
+
+<div class="bg-white p-4 md:p-6 rounded-lg shadow-sm border border-gray-200 mb-8">
+  <%= form_with url: admin_operations_availability_path, method: :get, class: "flex flex-col sm:flex-row items-end gap-4" do |f| %>
+    <div>
+      <%= f.label :date, "Date", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.date_field :date, value: @date, class: "mt-1 block w-full sm:w-auto rounded-md border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm" %>
+    </div>
+    <div>
+      <%= f.label :time, "Time", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.time_field :time, value: @time, class: "mt-1 block w-full sm:w-auto rounded-md border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm" %>
+    </div>
+    <div>
+      <%= f.submit "Check Availability", class: "px-4 py-2 bg-gray-900 text-white rounded-md text-sm font-medium hover:bg-gray-800 cursor-pointer w-full sm:w-auto" %>
+    </div>
+  <% end %>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+  <%# Drivers Column %>
+  <div>
+    <h2 class="text-lg font-bold text-gray-900 mb-4 border-b border-gray-200 pb-2">Drivers</h2>
+    <div class="space-y-3">
+      <% @drivers.each do |driver| %>
+        <% services = @driver_services[driver.id] || [] %>
+        <% conflict_service = services.find { |s| s.blocks_time?(@query_mins) } %>
+        
+        <div class="p-3 rounded border <%= conflict_service ? 'bg-red-50 border-red-200' : 'bg-green-50 border-green-200' %> flex flex-col">
+          <div class="flex items-center justify-between">
+            <div class="font-medium text-sm text-gray-900">
+              <%= driver.name %>
+              <% if driver.try(:is_external) %>
+                <span class="ml-1 text-[10px] uppercase font-bold text-gray-500 bg-gray-200 px-1.5 py-0.5 rounded">External</span>
+              <% end %>
+            </div>
+            <% if conflict_service %>
+              <span class="text-xs font-bold text-red-700 uppercase">Busy</span>
+            <% else %>
+              <span class="text-xs font-bold text-green-700 uppercase">Available</span>
+            <% end %>
+          </div>
+          
+          <% if conflict_service %>
+            <div class="text-xs text-red-600 mt-1">
+              <%
+                 c_s = conflict_service.start_time.strftime("%H:%M")
+                 c_e = conflict_service.end_time.strftime("%H:%M")
+              %>
+              Assigned: <%= c_s %>–<%= c_e %> (<%= conflict_service.service_type.titleize %>)
+              <br>
+              <span class="text-gray-500">Buffer block: <%= (conflict_service.start_time - TripService::BUFFER_MINUTES.minutes).strftime("%H:%M") %>–<%= (conflict_service.end_time + TripService::BUFFER_MINUTES.minutes).strftime("%H:%M") %></span>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <%# Vehicles Column %>
+  <div>
+    <h2 class="text-lg font-bold text-gray-900 mb-4 border-b border-gray-200 pb-2">Vehicles</h2>
+    <div class="space-y-3">
+      <% @vehicles.each do |vehicle| %>
+        <% services = @vehicle_services[vehicle.id] || [] %>
+        <% conflict_service = services.find { |s| s.blocks_time?(@query_mins) } %>
+        
+        <div class="p-3 rounded border <%= conflict_service ? 'bg-red-50 border-red-200' : 'bg-green-50 border-green-200' %> flex flex-col">
+          <div class="flex items-center justify-between">
+            <div class="font-medium text-sm text-gray-900">
+              <%= vehicle.name %> <span class="text-xs text-gray-500">(<%= vehicle.plate_number %>)</span>
+            </div>
+            <% if conflict_service %>
+              <span class="text-xs font-bold text-red-700 uppercase">Busy</span>
+            <% else %>
+              <span class="text-xs font-bold text-green-700 uppercase">Available</span>
+            <% end %>
+          </div>
+          
+          <% if conflict_service %>
+            <div class="text-xs text-red-600 mt-1">
+              <%
+                 c_s = conflict_service.start_time.strftime("%H:%M")
+                 c_e = conflict_service.end_time.strftime("%H:%M")
+              %>
+              Assigned: <%= c_s %>–<%= c_e %> (<%= conflict_service.service_type.titleize %>)
+              <br>
+              <span class="text-gray-500">Buffer block: <%= (conflict_service.start_time - TripService::BUFFER_MINUTES.minutes).strftime("%H:%M") %>–<%= (conflict_service.end_time + TripService::BUFFER_MINUTES.minutes).strftime("%H:%M") %></span>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

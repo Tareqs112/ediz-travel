@@ -126,4 +126,46 @@ class TripServiceTest < ActiveSupport::TestCase
     assert_not @trip_service.valid?
     assert_includes @trip_service.errors[:end_time], "must be after start time"
   end
+
+test "consistency: overlaps_with_buffer? and blocks_time? share exact semantics at boundaries" do
+  driver = Driver.create!(name: "Test Driver", phone: "123")
+  
+  base_service = TripService.create!(booking: @booking, service_type: 'tour', status: 'pending', date: Date.today, driver: driver, start_time: "10:00", end_time: "12:00")
+  
+  # EXACTLY 45 MINUTES (ALLOWED/AVAILABLE)
+  # Service starting at 12:45
+  s_45 = TripService.create!(booking: @booking, service_type: 'tour', status: 'pending', date: Date.today, driver: driver, start_time: "12:45", end_time: "14:00")
+  # Time query at 12:45
+  q_45 = 12 * 60 + 45
+  
+  assert_not base_service.overlaps_with_buffer?(s_45)
+  assert_not base_service.blocks_time?(q_45)
+
+  # 44 MINUTES (INSUFFICIENT BUFFER - BUSY/CONFLICT)
+  # Service starting at 12:44
+  s_44 = TripService.create!(booking: @booking, service_type: 'tour', status: 'pending', date: Date.today, driver: driver, start_time: "12:44", end_time: "14:00")
+  # Time query at 12:44
+  q_44 = 12 * 60 + 44
+  
+  assert base_service.overlaps_with_buffer?(s_44)
+  assert base_service.blocks_time?(q_44)
+
+  # 46 MINUTES (ALLOWED/AVAILABLE)
+  # Service starting at 12:46
+  s_46 = TripService.create!(booking: @booking, service_type: 'tour', status: 'pending', date: Date.today, driver: driver, start_time: "12:46", end_time: "14:00")
+  # Time query at 12:46
+  q_46 = 12 * 60 + 46
+  
+  assert_not base_service.overlaps_with_buffer?(s_46)
+  assert_not base_service.blocks_time?(q_46)
+
+  # LITERAL OVERLAP (BUSY/CONFLICT)
+  # Service starting at 11:30
+  s_overlap = TripService.create!(booking: @booking, service_type: 'tour', status: 'pending', date: Date.today, driver: driver, start_time: "11:30", end_time: "13:00")
+  # Time query at 11:30
+  q_overlap = 11 * 60 + 30
+  
+  assert base_service.overlaps_with_buffer?(s_overlap)
+  assert base_service.blocks_time?(q_overlap)
+end
 end

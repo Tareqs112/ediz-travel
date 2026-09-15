@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   namespace :admin do
     root to: "dashboard#index"
     get "operations", to: "operations#index", as: :operations
+    get "operations/availability", to: "operations#availability", as: :operations_availability
     resources :tours, param: :slug
     resources :destinations, param: :slug
     resources :accommodations, param: :slug

@@ -1,4 +1,33 @@
 class Admin::OperationsController < Admin::BaseController
+  def availability
+    @date = params[:date].present? ? Date.parse(params[:date]) : Date.today
+    @time = params[:time].present? ? params[:time] : "10:00"
+    
+    begin
+      parsed_time = Time.parse(@time)
+      @query_mins = parsed_time.hour * 60 + parsed_time.min
+    rescue ArgumentError
+      @query_mins = 10 * 60
+    end
+    
+    # We load all active drivers and vehicles
+    @drivers = Driver.where(active: true).order(:name)
+    @vehicles = Vehicle.where(active: true).order(:name)
+    
+    # Load all services for this date that are not cancelled and have times
+    services_on_date = TripService.where(date: @date)
+                                  .where.not(status: 'cancelled')
+                                  .where.not(start_time: nil)
+                                  .where.not(end_time: nil)
+                                  .includes(:booking)
+                                  
+    # Group by driver and vehicle
+    @driver_services = services_on_date.where.not(driver_id: nil).group_by(&:driver_id)
+    @vehicle_services = services_on_date.where.not(vehicle_id: nil).group_by(&:vehicle_id)
+    
+    render :availability
+  end
+
   def index
     begin
       @date = params[:date].present? ? Date.parse(params[:date]) : Date.today
@@ -43,7 +72,7 @@ class Admin::OperationsController < Admin::BaseController
 
       # Check each pair for overlap
       services.combination(2).each do |a, b|
-        if times_overlap?(a.start_time, a.end_time, b.start_time, b.end_time)
+        if a.overlaps_with_buffer?(b)
           conflicts[resource_id] ||= { name: a.send(assoc_name)&.name || "Unknown", service_ids: Set.new }
           conflicts[resource_id][:service_ids] << a.id << b.id
         end
@@ -51,9 +80,5 @@ class Admin::OperationsController < Admin::BaseController
     end
 
     conflicts
-  end
-
-  def times_overlap?(start_a, end_a, start_b, end_b)
-    start_a < end_b && start_b < end_a
   end
 end

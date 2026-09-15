@@ -67,14 +67,23 @@ class Admin::OperationsControllerTest < ActionDispatch::IntegrationTest
     assert_select "h3", text: /Driver Conflict: Mehmet/, count: 0
   end
 
-  test "should not detect conflicts if times do not overlap" do
-    TripService.create!(booking: @booking, service_type: "tour", date: @today, status: "assigned", driver: @driver1, start_time: "09:00", end_time: "12:00")
-    TripService.create!(booking: @booking, service_type: "tour", date: @today, status: "assigned", driver: @driver1, start_time: "12:00", end_time: "15:00")
+  test "should not detect conflicts if times have exactly sufficient buffer" do
+  TripService.create!(booking: @booking, service_type: "tour", date: @today, status: "assigned", driver: @driver1, start_time: "09:00", end_time: "12:00")
+  TripService.create!(booking: @booking, service_type: "tour", date: @today, status: "assigned", driver: @driver1, start_time: "12:45", end_time: "15:00")
 
-    get admin_operations_url
-    assert_response :success
-    assert_select "h3", text: /Driver Conflict/, count: 0
-  end
+  get admin_operations_url
+  assert_response :success
+  assert_select "h3", text: /Driver Conflict/, count: 0
+end
+
+test "should detect conflicts if adjacent services lack sufficient buffer" do
+  TripService.create!(booking: @booking, service_type: "tour", date: @today, status: "assigned", driver: @driver1, start_time: "09:00", end_time: "12:00")
+  TripService.create!(booking: @booking, service_type: "tour", date: @today, status: "assigned", driver: @driver1, start_time: "12:00", end_time: "15:00")
+
+  get admin_operations_url
+  assert_response :success
+  assert_select "h3", text: /Driver Conflict/
+end
 
   test "should not detect conflicts if one service is cancelled" do
     TripService.create!(booking: @booking, service_type: "tour", date: @today, status: "assigned", driver: @driver1, start_time: "09:00", end_time: "13:00")
@@ -129,4 +138,12 @@ class Admin::OperationsControllerTest < ActionDispatch::IntegrationTest
     service.update!(vehicle: @vehicle1)
     assert_equal "assigned", service.status
   end
+
+test "should get availability lookup page" do
+  get admin_operations_availability_url(date: @today, time: "10:00")
+  assert_response :success
+  assert_select "h1", text: /Availability Lookup/
+  assert_select "div", text: /#{@driver1.name}/
+  assert_select "div", text: /#{@vehicle1.name}/
+end
 end

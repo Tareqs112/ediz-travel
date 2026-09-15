@@ -17,10 +17,17 @@
         <h4 class="font-bold text-sm">⚠ Driver Conflict</h4>
         <p class="text-sm mt-1">This driver is assigned to overlapping services:</p>
         <ul class="list-disc ps-5 text-sm mt-1">
-          <% driver_conflicts.each do |conflict| %>
-            <li><%= link_to "#{conflict.start_time.strftime('%H:%M')}–#{conflict.end_time.strftime('%H:%M')} #{conflict.service_type.titleize}", admin_booking_path(conflict.booking), class: "underline hover:text-red-900", target: "_blank" %> (Booking #<%= conflict.booking_id %>)</li>
-          <% end %>
-        </ul>
+  <% driver_conflicts.each do |conflict| %>
+    <li>
+      <%= link_to "#{conflict.start_time.strftime('%H:%M')}–#{conflict.end_time.strftime('%H:%M')} #{conflict.service_type.titleize}", admin_booking_path(conflict.booking), class: "underline hover:text-red-900", target: "_blank" %> (Booking #<%= conflict.booking_id %>)
+      <% if @trip_service.literal_overlap?(conflict) %>
+        <span class="text-[10px] font-semibold uppercase bg-red-200 text-red-900 px-1.5 py-0.5 rounded ml-1">Time Overlap</span>
+      <% else %>
+        <span class="text-[10px] font-semibold uppercase bg-orange-200 text-orange-900 px-1.5 py-0.5 rounded ml-1">Insufficient Buffer (Needs <%= TripService::BUFFER_MINUTES %>m)</span>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
       </div>
     <% end %>
 
@@ -30,10 +37,17 @@
         <h4 class="font-bold text-sm">⚠ Vehicle Conflict</h4>
         <p class="text-sm mt-1">This vehicle is assigned to overlapping services:</p>
         <ul class="list-disc ps-5 text-sm mt-1">
-          <% vehicle_conflicts.each do |conflict| %>
-            <li><%= link_to "#{conflict.start_time.strftime('%H:%M')}–#{conflict.end_time.strftime('%H:%M')} #{conflict.service_type.titleize}", admin_booking_path(conflict.booking), class: "underline hover:text-red-900", target: "_blank" %> (Booking #<%= conflict.booking_id %>)</li>
-          <% end %>
-        </ul>
+  <% vehicle_conflicts.each do |conflict| %>
+    <li>
+      <%= link_to "#{conflict.start_time.strftime('%H:%M')}–#{conflict.end_time.strftime('%H:%M')} #{conflict.service_type.titleize}", admin_booking_path(conflict.booking), class: "underline hover:text-red-900", target: "_blank" %> (Booking #<%= conflict.booking_id %>)
+      <% if @trip_service.literal_overlap?(conflict) %>
+        <span class="text-[10px] font-semibold uppercase bg-red-200 text-red-900 px-1.5 py-0.5 rounded ml-1">Time Overlap</span>
+      <% else %>
+        <span class="text-[10px] font-semibold uppercase bg-orange-200 text-orange-900 px-1.5 py-0.5 rounded ml-1">Insufficient Buffer (Needs <%= TripService::BUFFER_MINUTES %>m)</span>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
       </div>
     <% end %>
   <% end %>

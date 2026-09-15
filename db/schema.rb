@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_12_074501) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_15_143926) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -168,6 +168,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_12_074501) do
   create_table "drivers", force: :cascade do |t|
     t.boolean "active", default: true, null: false
     t.datetime "created_at", null: false
+    t.boolean "is_external", default: false
     t.string "name", null: false
     t.text "notes"
     t.string "phone", null: false

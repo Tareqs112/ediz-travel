@@ -48,6 +48,6 @@ class Admin::DriversController < Admin::BaseController
   end
 
   def driver_params
-    params.require(:driver).permit(:name, :phone, :active, :notes)
+    params.require(:driver).permit(:name, :phone, :active, :notes, :is_external)
   end
 end

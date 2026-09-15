@@ -20,7 +20,12 @@
       <tbody class="bg-white divide-y divide-gray-200">
         <% @drivers.each do |driver| %>
           <tr class="hover:bg-gray-50">
-            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"><%= driver.name %></td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+  <%= driver.name %>
+  <% if driver.is_external %>
+    <span class="ml-2 px-1.5 py-0.5 bg-gray-100 text-gray-600 border border-gray-200 rounded text-[10px] uppercase tracking-wider font-bold">External</span>
+  <% end %>
+</td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= driver.phone %></td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
               <% if driver.active %>
