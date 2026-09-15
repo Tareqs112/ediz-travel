@@ -39,6 +39,7 @@ Rails.application.routes.draw do
     end
     resources :commercial_vehicles
     resources :customers
+    resources :quick_bookings, only: [:new, :create]
     resources :bookings do
       resources :trip_services, except: [:index, :show]
     end
