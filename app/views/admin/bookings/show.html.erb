@@ -36,11 +36,40 @@
                               end %>
             <span class="px-3 py-1 <%= status_color %> rounded-full text-sm font-semibold capitalize inline-block w-fit"><%= @booking.status %></span>
 
-            <% if @booking.total_price.present? %>
-              <div class="text-xl font-bold text-gray-900 mt-1">
-                <%= number_to_currency(@booking.total_price, unit: @booking.currency || "USD", format: "%u %n") %>
-              </div>
-            <% end %>
+            <div class="mt-2 flex flex-col sm:items-end gap-1 text-sm">
+              <% if @booking.total_price.present? %>
+                <div class="flex items-center gap-2">
+                  <span class="text-gray-500 font-medium">Customer Price:</span>
+                  <span class="font-bold text-gray-900"><%= number_to_currency(@booking.total_price, unit: @booking.currency || "USD", format: "%u %n") %></span>
+                </div>
+              <% end %>
+
+              <% total_est = @booking.total_estimated_cost %>
+              <% if total_est.present? %>
+                <div class="flex items-center gap-2">
+                  <span class="text-gray-500 font-medium">Estimated Cost:</span>
+                  <span class="font-bold text-red-600">
+                    <%= number_to_currency(total_est, unit: @booking.currency || "USD", format: "%u %n") %>
+                    <% if @booking.has_incomplete_costs? %>
+                      <span class="text-gray-400 font-normal ml-1" title="Some active services do not have a recorded cost">*</span>
+                    <% end %>
+                  </span>
+                </div>
+              <% end %>
+
+              <% margin = @booking.approximate_margin %>
+              <% if margin.present? %>
+                <div class="flex items-center gap-2 mt-1 pt-1 border-t border-gray-200">
+                  <span class="text-gray-700 font-bold">Approx. Margin:</span>
+                  <span class="font-bold text-brand-green-700">
+                    <%= number_to_currency(margin, unit: @booking.currency || "USD", format: "%u %n") %>
+                    <% if @booking.has_incomplete_costs? %>
+                      <span class="text-gray-400 font-normal ml-1" title="Margin is incomplete because some services lack costs">*</span>
+                    <% end %>
+                  </span>
+                </div>
+              <% end %>
+            </div>
           </div>
         </div>
 
@@ -193,6 +222,13 @@
                           <% end %>
                         </span>
                       </div>
+
+                      <% if service.estimated_cost.present? %>
+                        <div class="mt-2 text-sm text-gray-700 bg-red-50 p-2 rounded border border-red-100 w-fit flex items-center gap-1.5 font-medium">
+                          <svg class="w-4 h-4 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                          Est. Cost: <span class="font-bold text-red-700"><%= number_to_currency(service.estimated_cost, unit: @booking.currency || "USD", format: "%u %n") %></span>
+                        </div>
+                      <% end %>
 
                       <% if service.notes.present? %>
                         <p class="text-sm text-gray-500 mt-2 italic bg-yellow-50 p-2 rounded border border-yellow-100"><%= service.notes %></p>

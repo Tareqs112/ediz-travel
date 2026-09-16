@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_15_170741) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_15_182413) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -456,6 +456,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_15_170741) do
     t.bigint "driver_id"
     t.string "dropoff_location"
     t.time "end_time"
+    t.decimal "estimated_cost", precision: 10, scale: 2
     t.text "notes"
     t.string "pickup_location"
     t.string "service_type", null: false

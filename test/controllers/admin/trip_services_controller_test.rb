@@ -49,12 +49,13 @@ class Admin::TripServicesControllerTest < ActionDispatch::IntegrationTest
 
   test "should update trip service" do
     patch admin_booking_trip_service_url(@booking, @trip_service), params: {
-      trip_service: { pickup_location: "New Hotel", status: "completed" }
+      trip_service: { pickup_location: "New Hotel", status: "completed", estimated_cost: "150.00" }
     }
     assert_redirected_to admin_booking_url(@booking, locale: nil)
     @trip_service.reload
     assert_equal "New Hotel", @trip_service.pickup_location
     assert_equal "completed", @trip_service.status
+    assert_equal 150.0, @trip_service.estimated_cost
   end
 
   test "should destroy trip service" do

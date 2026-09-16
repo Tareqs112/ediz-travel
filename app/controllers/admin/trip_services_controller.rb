@@ -102,7 +102,7 @@ end
     params.require(:trip_service).permit(
       :service_type, :date, :start_time, :end_time,
       :pickup_location, :dropoff_location,
-      :driver_id, :vehicle_id, :status, :notes
+      :driver_id, :vehicle_id, :status, :notes, :estimated_cost
     )
   end
 end

@@ -14,4 +14,26 @@ class Booking < ApplicationRecord
   # Prevent a single lead from creating multiple bookings
   validates :booking_request_id, uniqueness: true, allow_nil: true
   validates :trip_inquiry_id, uniqueness: true, allow_nil: true
+
+  def active_trip_services
+    trip_services.reject { |s| s.status == 'cancelled' }
+  end
+
+  def total_estimated_cost
+    active = active_trip_services
+    return nil if active.empty?
+    return nil if active.all? { |s| s.estimated_cost.nil? }
+
+    active.sum { |s| s.estimated_cost || 0 }
+  end
+
+  def approximate_margin
+    return nil if total_price.nil? || total_estimated_cost.nil?
+    total_price - total_estimated_cost
+  end
+
+  def has_incomplete_costs?
+    active = active_trip_services
+    active.any? { |s| s.estimated_cost.nil? } && active.any? { |s| s.estimated_cost.present? }
+  end
 end

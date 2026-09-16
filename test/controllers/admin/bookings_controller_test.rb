@@ -57,6 +57,23 @@ class Admin::BookingsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should display margin and estimated cost on show page" do
+    @booking.update!(total_price: 1000.0)
+    TripService.create!(booking: @booking, service_type: "tour", date: Date.today, status: "pending", estimated_cost: 300.0)
+
+    get admin_booking_url(@booking)
+    assert_response :success
+
+    assert_select "span", text: /Customer Price:/
+    assert_select "span", text: /1,000/
+
+    assert_select "span", text: /Estimated Cost:/
+    assert_select "span", text: /300/
+
+    assert_select "span", text: /Approx. Margin:/
+    assert_select "span", text: /700/
+  end
+
   test "should get edit" do
     get edit_admin_booking_url(@booking)
     assert_response :success
@@ -78,11 +95,11 @@ class Admin::BookingsControllerTest < ActionDispatch::IntegrationTest
 
   test "should not destroy booking with trip services" do
     TripService.create!(booking: @booking, service_type: "tour", date: Date.today, status: "pending")
-    
+
     assert_no_difference("Booking.count") do
       delete admin_booking_url(@booking)
     end
-    
+
     assert_redirected_to admin_booking_url(@booking, locale: nil)
     follow_redirect!
     assert_match /Cannot delete record because dependent trip services exist/, response.body
