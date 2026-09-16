@@ -42,6 +42,7 @@
           <% else %>
             <div class="mt-1 text-xs text-gray-400">No services today</div>
           <% end %>
+          <div class="mt-0.5 text-xs text-gray-500"><%= @monthly_counts[driver.id] || 0 %> services this month</div>
         </div>
 
         <%# Actions — large touch targets %>
@@ -65,6 +66,7 @@
           <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase tracking-wider">Phone</th>
           <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
           <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase tracking-wider">Today's Services</th>
+          <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase tracking-wider">This Month</th>
           <th scope="col" class="relative px-6 py-3"><span class="sr-only">Actions</span></th>
         </tr>
       </thead>
@@ -93,6 +95,10 @@
               <% else %>
                 <span class="text-gray-400">None today</span>
               <% end %>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm">
+              <span class="text-gray-900 font-medium"><%= @monthly_counts[driver.id] || 0 %></span>
+              <span class="text-gray-500 text-xs">services</span>
             </td>
             <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
               <%= link_to "View", admin_driver_path(driver), class: "text-brand-green-600 hover:text-brand-green-900 me-3" %>

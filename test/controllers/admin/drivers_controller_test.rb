@@ -4,7 +4,7 @@ class Admin::DriversControllerTest < ActionDispatch::IntegrationTest
   setup do
     @admin = users(:one)
     post session_url, params: { email_address: @admin.email_address, password: "password" }
-    
+
     @driver = Driver.create!(name: "Test Driver", phone: "+905550000000", active: true)
   end
 
@@ -17,15 +17,50 @@ class Admin::DriversControllerTest < ActionDispatch::IntegrationTest
     driver = Driver.create!(name: "Test Driver", phone: "123")
     customer = Customer.create!(name: "Jane Smith")
     booking = Booking.create!(customer: customer, source: "walk_in", status: "draft")
-    
+
     get admin_drivers_url
     assert_select "td", text: /None today/
-    
+
     TripService.create!(booking: booking, service_type: "tour", date: Date.today, status: "pending", driver: driver)
-    
+
     get admin_drivers_url
     assert_select "td", text: /1 service/
     assert_select "a", text: /View operations/
+  end
+
+  test "should calculate monthly service counts accurately" do
+    driver = Driver.create!(name: "Unique Monthly Driver", phone: "123")
+    other_driver = Driver.create!(name: "Other Zero Driver", phone: "123")
+    customer = Customer.create!(name: "Jane Smith")
+    booking = Booking.create!(customer: customer, source: "walk_in", status: "draft")
+
+    # Current month active
+    TripService.create!(booking: booking, service_type: "tour", date: Date.today, status: "completed", driver: driver)
+    TripService.create!(booking: booking, service_type: "tour", date: Date.today, status: "assigned", driver: driver)
+
+    # Current month cancelled (should be excluded)
+    TripService.create!(booking: booking, service_type: "tour", date: Date.today, status: "cancelled", driver: driver)
+
+    # Previous month (should be excluded)
+    TripService.create!(booking: booking, service_type: "tour", date: 1.month.ago.to_date, status: "completed", driver: driver)
+
+    # No driver (should be excluded)
+    TripService.create!(booking: booking, service_type: "tour", date: Date.today, status: "completed")
+
+    get admin_drivers_url
+    assert_response :success
+
+    assert_select "tr" do |elements|
+      row = elements.find { |e| e.text.include?("Unique Monthly Driver") }
+      assert row, "Could not find row for Unique Monthly Driver"
+      assert_match(/2\s+services/, row.css("td:nth-child(5)").text)
+    end
+
+    assert_select "tr" do |elements|
+      row = elements.find { |e| e.text.include?("Other Zero Driver") }
+      assert row, "Could not find row for Other Zero Driver"
+      assert_match(/0\s+services/, row.css("td:nth-child(5)").text)
+    end
   end
 
   test "should get new" do

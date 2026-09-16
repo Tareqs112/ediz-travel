@@ -3,6 +3,13 @@ class Admin::DriversController < Admin::BaseController
 
   def index
     @drivers = Driver.includes(:todays_trip_services).order(:name)
+
+    current_month = Date.current.beginning_of_month..Date.current.end_of_month
+    @monthly_counts = TripService.where(date: current_month)
+                                 .where.not(status: 'cancelled')
+                                 .where.not(driver_id: nil)
+                                 .group(:driver_id)
+                                 .count
   end
 
   def show
