@@ -56,4 +56,19 @@ class Admin::QuickBookingsControllerTest < ActionDispatch::IntegrationTest
     assert_select "form"
     assert_select ".bg-red-50", text: /Customer name can't be blank/
   end
+
+  test "should display external driver badge in dropdown" do
+    Driver.create!(name: "Internal Bob", phone: "111", active: true, is_external: false)
+    Driver.create!(name: "External Alice", phone: "222", active: true, is_external: true)
+
+    get new_admin_quick_booking_url
+    assert_response :success
+
+    # Unassigned option
+    assert_select "select#quick_booking_form_driver_id option", text: "Unassigned"
+    # Internal driver is plain name
+    assert_select "select#quick_booking_form_driver_id option", text: "Internal Bob"
+    # External driver has badge
+    assert_select "select#quick_booking_form_driver_id option", text: "External Alice (External)"
+  end
 end
