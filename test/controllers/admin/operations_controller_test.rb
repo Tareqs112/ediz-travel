@@ -257,4 +257,47 @@ test "availability: external driver badge is shown" do
   assert_response :success
   assert_select "span", text: /External/
 end
+
+# ─── MULTI-SERVICE-TODAY BADGE TESTS ─────────────────────────────────────────
+
+test "should show services-today badge when booking has 2 services on selected date" do
+  booking2 = Booking.create!(customer: @customer, source: "whatsapp", status: "confirmed")
+  TripService.new(booking: booking2, service_type: "tour", date: @today, status: "pending").tap { |s| s.save(validate: false) }
+  TripService.new(booking: booking2, service_type: "airport_transfer", date: @today, status: "pending").tap { |s| s.save(validate: false) }
+
+  get admin_operations_url(date: @today.to_s)
+  assert_response :success
+  assert_select "span", text: /2 services today/
+end
+
+test "should not show services-today badge for a single-service booking" do
+  booking2 = Booking.create!(customer: @customer, source: "whatsapp", status: "confirmed")
+  TripService.new(booking: booking2, service_type: "tour", date: @today, status: "pending").tap { |s| s.save(validate: false) }
+
+  get admin_operations_url(date: @today.to_s)
+  assert_response :success
+  assert_select "span", text: /services today/, count: 0
+end
+
+test "should show correct badge count for booking with 3 services on selected date" do
+  booking2 = Booking.create!(customer: @customer, source: "phone", status: "confirmed")
+  3.times do |i|
+    TripService.new(booking: booking2, service_type: "tour", date: @today, status: "pending").tap { |s| s.save(validate: false) }
+  end
+
+  get admin_operations_url(date: @today.to_s)
+  assert_response :success
+  assert_select "span", text: /3 services today/
+end
+
+test "services on a different date must not affect the services-today badge count" do
+  booking2 = Booking.create!(customer: @customer, source: "whatsapp", status: "confirmed")
+  # One service today, one service tomorrow — badge must NOT appear
+  TripService.new(booking: booking2, service_type: "tour", date: @today, status: "pending").tap { |s| s.save(validate: false) }
+  TripService.new(booking: booking2, service_type: "airport_transfer", date: @today + 1, status: "pending").tap { |s| s.save(validate: false) }
+
+  get admin_operations_url(date: @today.to_s)
+  assert_response :success
+  assert_select "span", text: /services today/, count: 0
+end
 end

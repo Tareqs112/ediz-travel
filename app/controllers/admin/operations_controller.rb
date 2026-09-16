@@ -38,6 +38,10 @@ class Admin::OperationsController < Admin::BaseController
       .includes(booking: [:customer, :booking_request, :trip_inquiry], driver: [], vehicle: [])
       .order(:start_time, :created_at)
 
+    # Count how many services each booking has on this date — computed from the already-loaded
+    # collection, so this is a pure Ruby pass with zero additional SQL queries.
+    @services_per_booking = @services.group_by(&:booking_id).transform_values(&:count)
+
     # Summary stats (computed from already-loaded collection)
     active_services = @services.reject { |s| s.status == "cancelled" }
     @total        = @services.size
