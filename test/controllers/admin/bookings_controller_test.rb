@@ -14,6 +14,13 @@ class Admin::BookingsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should display Quick Booking shortcut on index" do
+    get admin_bookings_url
+    assert_response :success
+    assert_select "a", text: /⚡ Quick Booking/
+    assert_select "a[href*='quick_bookings']"
+  end
+
   test "should render trip services summary on index" do
     # 0 services
     get admin_bookings_url
