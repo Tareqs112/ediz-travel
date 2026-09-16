@@ -135,4 +135,94 @@ class Admin::BookingsControllerTest < ActionDispatch::IntegrationTest
     get admin_bookings_url
     assert_redirected_to new_session_url
   end
+
+  # ── MARGIN COLOR TESTS ────────────────────────────────────────────────────
+
+  test "negative margin renders with red styling" do
+    @booking.update!(total_price: 200.0)
+    TripService.create!(booking: @booking, service_type: "tour", date: Date.today, status: "pending", estimated_cost: 500.0)
+
+    get admin_booking_url(@booking)
+    assert_response :success
+    # number_to_currency with format "%u %n" renders negative as "-USD 300.00"
+    # We assert that the specific exact class string contains the negative value
+    assert_match /class="font-bold text-red-600">\s*-USD 300\.00/, response.body
+    # Confirm the green class is NOT used for the margin when it is negative
+    assert_no_match /class="font-bold text-brand-green-700">\s*-USD 300\.00/, response.body
+  end
+
+  test "positive margin retains green styling" do
+    @booking.update!(total_price: 1000.0)
+    TripService.create!(booking: @booking, service_type: "tour", date: Date.today, status: "pending", estimated_cost: 300.0)
+
+    get admin_booking_url(@booking)
+    assert_response :success
+    # Confirm green class is present and red is absent for the margin element
+    assert_select "span.font-bold.text-brand-green-700", text: /700/
+    assert_select "span.font-bold.text-red-600", text: /700/, count: 0
+  end
+
+  test "zero margin retains green styling" do
+    @booking.update!(total_price: 300.0)
+    TripService.create!(booking: @booking, service_type: "tour", date: Date.today, status: "pending", estimated_cost: 300.0)
+
+    get admin_booking_url(@booking)
+    assert_response :success
+    assert_select "span.font-bold.text-brand-green-700"
+    assert_select "span.font-bold.text-red-600", text: /Approx/, count: 0
+  end
+
+  # ── ASSIGNMENT SUMMARY TESTS ──────────────────────────────────────────────
+
+  test "cancelled service without driver does NOT increase missing-driver count" do
+    # Active service — fully assigned
+    driver = Driver.create!(name: "Test Driver", phone: "123")
+    vehicle = Vehicle.create!(name: "Test Van", plate_number: "61X01")
+    TripService.create!(booking: @booking, service_type: "tour", date: Date.today, status: "assigned", driver: driver, vehicle: vehicle)
+    # Cancelled service with no driver — must be excluded from the count
+    TripService.create!(booking: @booking, service_type: "tour", date: Date.today, status: "cancelled")
+
+    get admin_booking_url(@booking)
+    assert_response :success
+    # "Active services" should be 1 (only the assigned one)
+    assert_select "span.font-bold", text: "0", count: 2 # missing driver=0, missing vehicle=0
+    assert_select "span.font-bold", text: "1" # active services = 1
+  end
+
+  test "cancelled service without vehicle does NOT increase missing-vehicle count" do
+    driver = Driver.create!(name: "Test Driver", phone: "123")
+    vehicle = Vehicle.create!(name: "Test Van", plate_number: "61X02")
+    TripService.create!(booking: @booking, service_type: "tour", date: Date.today, status: "assigned", driver: driver, vehicle: vehicle)
+    TripService.create!(booking: @booking, service_type: "tour", date: Date.today, status: "cancelled")
+
+    get admin_booking_url(@booking)
+    assert_response :success
+    # missing vehicle must be 0 — the cancelled unassigned service is excluded
+    assert_select "div.flex.justify-between", text: /Missing vehicle.*0/
+  end
+
+  test "active service without driver still counts in missing-driver" do
+    vehicle = Vehicle.create!(name: "Test Van", plate_number: "61X03")
+    TripService.create!(booking: @booking, service_type: "tour", date: Date.today, status: "pending", vehicle: vehicle)
+
+    get admin_booking_url(@booking)
+    assert_response :success
+    assert_select "div.flex.justify-between", text: /Missing driver.*1/
+  end
+
+  test "active service without vehicle still counts in missing-vehicle" do
+    driver = Driver.create!(name: "Test Driver", phone: "123")
+    TripService.create!(booking: @booking, service_type: "tour", date: Date.today, status: "pending", driver: driver)
+
+    get admin_booking_url(@booking)
+    assert_response :success
+    assert_select "div.flex.justify-between", text: /Missing vehicle.*1/
+  end
+
+  test "booking show displays Services label not Legs" do
+    get admin_booking_url(@booking)
+    assert_response :success
+    assert_select "div", text: /Services/
+    assert_no_match(/\bLegs\b/, response.body)
+  end
 end

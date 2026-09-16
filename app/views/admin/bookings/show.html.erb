@@ -45,12 +45,13 @@
               <% end %>
 
               <% total_est = @booking.total_estimated_cost %>
+              <% incomplete_costs = @booking.has_incomplete_costs? %>
               <% if total_est.present? %>
                 <div class="flex items-center gap-2">
                   <span class="text-gray-500 font-medium">Estimated Cost:</span>
                   <span class="font-bold text-red-600">
                     <%= number_to_currency(total_est, unit: @booking.currency || "USD", format: "%u %n") %>
-                    <% if @booking.has_incomplete_costs? %>
+                    <% if incomplete_costs %>
                       <span class="text-gray-400 font-normal ml-1" title="Some active services do not have a recorded cost">*</span>
                     <% end %>
                   </span>
@@ -61,9 +62,9 @@
               <% if margin.present? %>
                 <div class="flex items-center gap-2 mt-1 pt-1 border-t border-gray-200">
                   <span class="text-gray-700 font-bold">Approx. Margin:</span>
-                  <span class="font-bold text-brand-green-700">
+                  <span class="font-bold <%= margin < 0 ? 'text-red-600' : 'text-brand-green-700' %>">
                     <%= number_to_currency(margin, unit: @booking.currency || "USD", format: "%u %n") %>
-                    <% if @booking.has_incomplete_costs? %>
+                    <% if incomplete_costs %>
                       <span class="text-gray-400 font-normal ml-1" title="Margin is incomplete because some services lack costs">*</span>
                     <% end %>
                   </span>
@@ -85,7 +86,7 @@
             </div>
           </div>
           <div>
-            <div class="text-xs font-semibold text-gray-500 uppercase tracking-wider">Legs</div>
+            <div class="text-xs font-semibold text-gray-500 uppercase tracking-wider">Services</div>
             <div class="mt-1 text-sm font-medium text-gray-900">
               <%= @booking.trip_services.size %> service<%= @booking.trip_services.size == 1 ? '' : 's' %>
             </div>
@@ -319,12 +320,14 @@
           <h3 class="text-lg font-medium text-gray-900">Assignment Summary</h3>
         </div>
         <div class="px-6 py-5 space-y-3">
-          <% total = @booking.trip_services.size %>
-          <% unassigned_driver = @booking.trip_services.where(driver_id: nil).count %>
-          <% unassigned_vehicle = @booking.trip_services.where(vehicle_id: nil).count %>
+          <%# Use in-memory filtering over preloaded trip_services — no extra SQL queries %>
+          <% active_services = @booking.trip_services.reject { |s| s.status == "cancelled" } %>
+          <% total = active_services.size %>
+          <% unassigned_driver = active_services.count { |s| s.driver_id.nil? } %>
+          <% unassigned_vehicle = active_services.count { |s| s.vehicle_id.nil? } %>
 
           <div class="flex justify-between text-sm">
-            <span class="text-gray-600">Total services</span>
+            <span class="text-gray-600">Active services</span>
             <span class="font-bold text-gray-900"><%= total %></span>
           </div>
           <div class="flex justify-between text-sm">
