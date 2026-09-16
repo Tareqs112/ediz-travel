@@ -20,7 +20,23 @@ class Admin::OperationsControllerTest < ActionDispatch::IntegrationTest
   test "should get operations index for today" do
     get admin_operations_url
     assert_response :success
-    assert_select "h1", text: /Daily Operations/ # wait, the H1 is populated via yield in layout. Let's check title
+    assert_select "h1", text: /Daily Operations/
+  end
+
+  test "should display external badge for external drivers" do
+    @driver1.update!(is_external: true)
+    TripService.create!(booking: @booking, service_type: "tour", date: @today, status: "assigned", driver: @driver1)
+    get admin_operations_url(date: @today.to_s)
+    assert_response :success
+    assert_select "span", text: /Ext/
+  end
+
+  test "should not display external badge for internal drivers" do
+    @driver1.update!(is_external: false)
+    TripService.create!(booking: @booking, service_type: "tour", date: @today, status: "assigned", driver: @driver1)
+    get admin_operations_url(date: @today.to_s)
+    assert_response :success
+    assert_select "span", text: /Ext/, count: 0
   end
 
   test "should display summary metrics" do

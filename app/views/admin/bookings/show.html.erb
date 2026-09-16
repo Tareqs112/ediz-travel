@@ -202,6 +202,7 @@
                           <% if service.driver %>
                             <%= link_to operations_admin_driver_path(service.driver, date: service.date.to_s), class: "font-semibold hover:underline #{driver_has_conflict ? 'text-red-600' : 'text-gray-900'}" do %>
                               <%= service.driver.name %>
+                              <% if service.driver.is_external %><span class="text-[10px] uppercase font-bold text-gray-500 bg-gray-200 px-1.5 py-0.5 rounded ms-1">Ext</span><% end %>
                               <% if driver_has_conflict %><span title="Conflict">⚠</span><% end %>
                             <% end %>
                           <% else %>

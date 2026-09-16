@@ -22,8 +22,10 @@ class Admin::TripServicesControllerTest < ActionDispatch::IntegrationTest
   # ---- CRUD ----
 
   test "should get new" do
+    @driver.update!(is_external: true)
     get new_admin_booking_trip_service_url(@booking)
     assert_response :success
+    assert_select "option", text: /#{@driver.name} \(External\)/
   end
 
   test "should create trip service" do

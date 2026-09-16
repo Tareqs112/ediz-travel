@@ -57,6 +57,24 @@ class Admin::BookingsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should display external badge for external drivers on show page" do
+    driver = Driver.create!(name: "External Driver", phone: "123", is_external: true)
+    TripService.create!(booking: @booking, service_type: "tour", date: Date.today, status: "assigned", driver: driver)
+
+    get admin_booking_url(@booking)
+    assert_response :success
+    assert_select "span", text: /Ext/
+  end
+
+  test "should not display external badge for internal drivers on show page" do
+    driver = Driver.create!(name: "Internal Driver", phone: "123", is_external: false)
+    TripService.create!(booking: @booking, service_type: "tour", date: Date.today, status: "assigned", driver: driver)
+
+    get admin_booking_url(@booking)
+    assert_response :success
+    assert_select "span", text: /Ext/, count: 0
+  end
+
   test "should display margin and estimated cost on show page" do
     @booking.update!(total_price: 1000.0)
     TripService.create!(booking: @booking, service_type: "tour", date: Date.today, status: "pending", estimated_cost: 300.0)
