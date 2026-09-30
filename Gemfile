@@ -68,4 +68,4 @@ group :test do
 end
 gem 'mobility', '~> 1.3.2'
 
-gem "aws-sdk-s3", "~> 1.231"
+gem "aws-sdk-s3", "~> 1.232"
